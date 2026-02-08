@@ -34,8 +34,8 @@
 
 ---
 
-### 2. ⚠️ PyPI - REQUIRES YOUR API TOKEN
-**Status:** Package built successfully, waiting for valid API token
+### 2. ✅ PyPI - PUBLISHED AND LIVE
+**Status:** Successfully uploaded to PyPI
 
 **What was done:**
 - ✅ Installed build tools (`build`, `twine`)
@@ -43,49 +43,29 @@
 - ✅ Built package successfully:
   - `dist/neurogebra-0.2.0.tar.gz` (source distribution)
   - `dist/neurogebra-0.2.0-py3-none-any.whl` (wheel)
-- ⚠️ Upload attempted but failed due to invalid API token
+- ✅ Uploaded to PyPI successfully
+- ✅ Verified installation: `pip install --upgrade neurogebra`
+- ✅ Tested dataset functionality
 
-**What you need to do:**
+**Live on PyPI:**
 
-#### Step 1: Get Your PyPI API Token
-1. Go to: https://pypi.org/account/register/ (if you don't have an account)
-2. Or login: https://pypi.org/account/login/
-3. Go to: https://pypi.org/manage/account/token/
-4. Click **"Add API token"**
-5. Name: "Neurogebra Publishing"
-6. Scope: "Entire account" (or create project-specific token after first upload)
-7. Click **"Add token"**
-8. **Copy the token** (starts with `pypi-...`) - you won't see it again!
+**Package URL:** https://pypi.org/project/neurogebra/0.2.0/
 
-#### Step 2: Upload to PyPI
-Run this command in your terminal:
-```powershell
-C:/Users/WIN/OneDrive/Desktop/Neurogebra/.venv/Scripts/python.exe -m twine upload dist/*
-```
-
-When prompted:
-- **Username:** `__token__`
-- **Password:** Paste your API token (the entire `pypi-...` string)
-
-#### Alternative: Save Token for Future Use
-Create a file `~/.pypirc` (Linux/Mac) or `%USERPROFILE%\.pypirc` (Windows):
-```ini
-[pypi]
-username = __token__
-password = pypi-YOUR_TOKEN_HERE
-```
-
-Then simply run:
-```powershell
-C:/Users/WIN/OneDrive/Desktop/Neurogebra/.venv/Scripts/python.exe -m twine upload dist/*
-```
-
-**After upload, verify at:** https://pypi.org/project/neurogebra/
-
-**Test installation:**
-```powershell
+**Install command:**
+```bash
 pip install --upgrade neurogebra
-python -c "from neurogebra.datasets import Datasets; print('Success! Version:', Datasets.__class__.__module__)"
+```
+
+**Install with dataset support:**
+```bash
+pip install neurogebra[datasets]  # includes scikit-learn
+```
+
+**Verified working:**
+```python
+from neurogebra.datasets import Datasets, ExpandedDatasets
+(X_train, y_train), (X_test, y_test) = Datasets.load_iris()
+# ✅ Loaded Iris dataset: 120 training samples
 ```
 
 ---
@@ -140,14 +120,7 @@ Your documentation will be live at:
 
 ---
 
-## 🎯 QUICK ACTION STEPS
-
-### For PyPI (5 minutes):
-1. Get API token from https://pypi.org/manage/account/token/
-2. Run: `C:/Users/WIN/OneDrive/Desktop/Neurogebra/.venv/Scripts/python.exe -m twine upload dist/*`
-3. Enter username: `__token__`
-4. Paste your token
-5. Verify at: https://pypi.org/project/neurogebra/
+## 🎯 REMAINING ACTION STEPS
 
 ### For ReadTheDocs (2 minutes):
 1. Visit https://readthedocs.org/
@@ -157,7 +130,7 @@ Your documentation will be live at:
 5. Wait for build to complete
 6. Visit: https://neurogebra.readthedocs.io/
 
-### For GitHub Release (3 minutes):
+### For GitHu✅ Published | None - live at https://pypi.org/project/neurogebra/0.2.0/
 1. Go to https://github.com/fahiiim/NeuroGebra/releases/new
 2. Select tag: v0.2.0
 3. Copy content from `RELEASE_NOTES.md`
