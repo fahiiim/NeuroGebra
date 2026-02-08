@@ -5,7 +5,7 @@ A unified library bridging symbolic mathematics, numerical computation,
 and deep learning with educational features built-in.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Fahim Sarker"
 __email__ = "fahimsarker0805@gmail.com"
 

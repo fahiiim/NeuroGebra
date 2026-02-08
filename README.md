@@ -1,129 +1,131 @@
-# Neurogebra
+<p align="center">
+  <strong>Neurogebra</strong>
+</p>
 
-**The executable mathematical formula companion for AI & Data Science**
+<p align="center">
+  <em>The executable mathematical formula companion for AI and Data Science</em>
+</p>
 
-[![Tests](https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml/badge.svg)](https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml)
-[![PyPI version](https://badge.fury.io/py/neurogebra.svg)](https://badge.fury.io/py/neurogebra)
-[![codecov](https://codecov.io/github/fahiiim/NeuroGebra/graph/badge.svg?token=E819QI1LO0)](https://codecov.io/github/fahiiim/NeuroGebra)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+<p align="center">
+  <a href="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml"><img src="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/v/neurogebra.svg" alt="PyPI version"></a>
+  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/pyversions/neurogebra.svg" alt="Python versions"></a>
+  <a href="https://codecov.io/github/fahiiim/NeuroGebra"><img src="https://codecov.io/github/fahiiim/NeuroGebra/graph/badge.svg?token=E819QI1LO0" alt="codecov"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/dm/neurogebra.svg" alt="Downloads"></a>
+  <a href="https://neurogebra.readthedocs.io"><img src="https://img.shields.io/readthedocs/neurogebra.svg" alt="Docs"></a>
+  <a href="https://github.com/fahiiim/NeuroGebra"><img src="https://img.shields.io/github/stars/fahiiim/NeuroGebra?style=social" alt="GitHub stars"></a>
+</p>
 
-Neurogebra is a unified Python library that bridges symbolic mathematics, numerical computation, and deep learning. **285 pre-built, tested, and documented mathematical expressions** — from activations and losses to statistics, optimization, and linear algebra — all symbolic, numerical, trainable, and educational.
+---
 
-## 🚀 Quick Start
+Neurogebra is a unified Python library that bridges symbolic mathematics, numerical computation, and machine learning. It provides **285 pre-built, tested, and documented mathematical expressions** spanning activations, losses, statistics, optimization, linear algebra, and more — each one symbolic, numerically evaluable, trainable, and accompanied by educational metadata.
 
-```bash
-pip install neurogebra
-```
+Unlike traditional ML frameworks, Neurogebra is designed as a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, with built-in explanations, gradient computation, and composition tools.
 
-```python
-from neurogebra import MathForge
+---
 
-forge = MathForge()
+## Table of Contents
 
-# Get a pre-built activation function
-relu = forge.get("relu")
-result = relu.eval(x=5)  # 5
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Building and Training Models](#building-and-training-models)
+- [Symbolic Gradients and Composition](#symbolic-gradients-and-composition)
+- [Autograd Engine](#autograd-engine)
+- [Search and Discovery](#search-and-discovery)
+- [Expression Library](#expression-library)
+- [Architecture](#architecture)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Positioning: What Neurogebra Is and Is Not](#positioning-what-neurogebra-is-and-is-not)
 
-# It's also callable
-result = relu(x=-3)  # 0
+---
 
-# See the formula
-print(relu.formula)  # LaTeX representation
-
-# Get an explanation
-print(relu.explain())
-```
-
-## ✨ Features
-
-- **285 Pre-built Expressions**: Activations, losses, regularizers, algebra, calculus, statistics, linear algebra, optimization, metrics, and transforms
-- **Symbolic + Numerical**: Every expression works both symbolically (SymPy) and numerically (NumPy)
-- **Trainable Parameters**: Mathematical expressions that learn from data
-- **Micro Autograd Engine**: Built-in automatic differentiation
-- **Educational Model Builder**: Beginner-friendly model construction with built-in explanations
-- **Educational Trainer**: Training with real-time tips, warnings, and debugging advice
-- **Framework Bridges**: Convert to/from PyTorch, TensorFlow, JAX
-- **Interactive Tutorials**: Step-by-step guided tutorials for learning ML/DL concepts
-- **Composable**: Build complex expressions by combining simple ones
-- **Searchable**: Find the right expression with built-in search
-- **Visualization**: Plot expressions and training curves
-- **Lightweight**: Core dependencies are just NumPy, SymPy, Matplotlib, SciPy
-
-## 📦 Installation
-
-### Basic
+## Installation
 
 ```bash
 pip install neurogebra
 ```
 
-### With optional extras
+Optional extras for extended functionality:
 
 ```bash
 pip install neurogebra[viz]        # Interactive visualization (Plotly)
-pip install neurogebra[fast]       # Performance optimizations (Numba)
-pip install neurogebra[frameworks] # PyTorch + TensorFlow bridges
-pip install neurogebra[dev]        # Development tools
+pip install neurogebra[frameworks] # PyTorch, TensorFlow bridges
+pip install neurogebra[docs]       # Documentation tools
+pip install neurogebra[dev]        # Development and testing tools
 pip install neurogebra[all]        # Everything
 ```
 
-## 🧪 Usage Examples
+**Requirements:** Python 3.9+ | NumPy | SymPy | Matplotlib | SciPy
 
-### Working with Activations
+---
 
-```python
-from neurogebra import MathForge
-
-forge = MathForge()
-
-# Get activation functions
-sigmoid = forge.get("sigmoid")
-tanh = forge.get("tanh")
-swish = forge.get("swish")
-gelu = forge.get("gelu")
-
-# Evaluate
-print(sigmoid.eval(x=0))   # 0.5
-print(tanh.eval(x=0))      # 0.0
-
-# Compute gradients symbolically
-sigmoid_grad = sigmoid.gradient("x")
-print(sigmoid_grad.formula)
-
-# List all available activations
-print(forge.list_all(category="activation"))
-```
-
-### Composing Expressions
+## Quick Start
 
 ```python
 from neurogebra import MathForge
 
 forge = MathForge()
 
-# Compose loss functions
-hybrid_loss = forge.compose("mse + 0.1*mae")
+# Retrieve a pre-built activation function
+relu = forge.get("relu")
+print(relu.eval(x=5))       # 5
+print(relu.eval(x=-3))      # 0
+print(relu.formula)          # LaTeX representation
+print(relu.explain())        # Plain-language explanation
 
-# Manual composition
-f = forge.get("sigmoid")
-g = forge.get("linear")
-composed = f.compose(g)
-
-# Arithmetic
-mse = forge.get("mse")
-mae = forge.get("mae")
-custom_loss = 0.7 * mse + 0.3 * mae
+# Retrieve any of the 285 expressions by name
+adam = forge.get("adam_step")
+gaussian = forge.get("gaussian")
+f1 = forge.get("f1_score_formula")
 ```
 
-### Training Expressions
+---
+
+## Building and Training Models
+
+Neurogebra includes a model builder and educational trainer designed for clarity and learning.
 
 ```python
+from neurogebra.builders.model_builder import ModelBuilder
+from neurogebra.training.educational_trainer import EducationalTrainer
+from neurogebra.datasets.loaders import Datasets
 import numpy as np
+
+# Load a dataset
+X, y = Datasets.load_moons(n_samples=500, noise=0.2)
+
+# Build a model using the builder API
+builder = ModelBuilder()
+model = builder.Sequential([
+    builder.Dense(64, activation="relu", input_shape=(2,)),
+    builder.Dropout(0.2),
+    builder.Dense(32, activation="relu"),
+    builder.Dense(1, activation="sigmoid")
+], name="moon_classifier")
+
+# Inspect the architecture
+model.summary()
+model.explain_architecture()
+
+# Compile with loss and optimizer
+model.compile(optimizer="adam", loss="binary_crossentropy", learning_rate=0.01)
+
+# Train with the educational trainer (provides real-time tips and debugging advice)
+trainer = EducationalTrainer(model, verbose=True, explain_steps=True)
+history = trainer.train(X, y, epochs=20, batch_size=32, validation_split=0.2)
+```
+
+You can also **train symbolic expressions directly** — formulas with learnable parameters:
+
+```python
 from neurogebra import Expression
 from neurogebra.core.trainer import Trainer
+import numpy as np
 
-# Create a trainable expression
+# Define a trainable expression: y = m*x + b
 expr = Expression(
     "fit_line",
     "m*x + b",
@@ -136,18 +138,49 @@ X = np.linspace(0, 10, 100)
 y = 2 * X + 1 + np.random.normal(0, 0.5, 100)
 
 # Train
-trainer = Trainer(expr, learning_rate=0.01)
+trainer = Trainer(expr, learning_rate=0.01, optimizer="adam")
 history = trainer.fit(X, y, epochs=200, verbose=True)
 
 print(f"Learned: m={expr.params['m']:.2f}, b={expr.params['b']:.2f}")
+# Output: Learned: m=2.00, b=1.01
 ```
 
-### Autograd Engine
+---
+
+## Symbolic Gradients and Composition
+
+Every expression supports symbolic differentiation for analytical gradient inspection.
+
+```python
+from neurogebra import MathForge
+
+forge = MathForge()
+
+sigmoid = forge.get("sigmoid")
+
+# Compute the symbolic derivative
+sigmoid_grad = sigmoid.gradient("x")
+print(sigmoid_grad.formula)   # Analytical derivative in LaTeX
+
+# Compose expressions
+mse = forge.get("mse")
+mae = forge.get("mae")
+custom_loss = 0.7 * mse + 0.3 * mae   # Weighted combination
+
+# Evaluate the composed expression
+print(custom_loss.eval(y=1.0, y_pred=0.8))
+```
+
+---
+
+## Autograd Engine
+
+Neurogebra includes a from-scratch automatic differentiation engine for understanding how backpropagation works internally.
 
 ```python
 from neurogebra.core.autograd import Value
 
-# Build computation graph
+# Build a computation graph
 x = Value(2.0)
 w = Value(-3.0)
 b = Value(1.0)
@@ -159,11 +192,13 @@ z = y.relu()
 # Backward pass
 z.backward()
 
-print(f"dy/dw = {w.grad}")  # x = 2.0
-print(f"dy/dx = {x.grad}")  # w = -3.0
+print(f"dz/dw = {w.grad}")   # 2.0
+print(f"dz/dx = {x.grad}")   # -3.0
 ```
 
-### Search and Discovery
+---
+
+## Search and Discovery
 
 ```python
 from neurogebra import MathForge
@@ -172,81 +207,142 @@ forge = MathForge()
 
 # Search by keyword
 results = forge.search("classification")
-print(results)
 
 # List by category
-print(forge.list_all(category="activation"))
-print(forge.list_all(category="loss"))
+forge.list_all(category="activation")
+forge.list_all(category="loss")
 
-# Compare expressions
-print(forge.compare(["relu", "sigmoid", "tanh"]))
+# Compare multiple expressions side by side
+forge.compare(["relu", "sigmoid", "tanh"])
 ```
 
-## 📚 Documentation
+---
 
-Full documentation is available at [https://neurogebra.readthedocs.io](https://neurogebra.readthedocs.io)
+## Expression Library
+
+Neurogebra ships with 285 verified mathematical expressions organized into 10 domain modules:
+
+| Module | Count | Scope |
+|--------|------:|-------|
+| Activations | 15 | ReLU, Sigmoid, Tanh, Swish, GELU, Mish, ELU, SELU, and more |
+| Losses | 8 | MSE, MAE, Cross-Entropy, Huber, Hinge, Log-Cosh, Quantile |
+| Regularizers | 20 | L1, L2, Elastic Net, Dropout, SCAD, MCP, Group Lasso, Tikhonov |
+| Algebra | 48 | Polynomials, kernels, probability distributions, special functions |
+| Calculus | 48 | Elementary, trigonometric, hyperbolic, Taylor series, integral transforms |
+| Statistics | 35 | PDFs, CDFs, information theory, Bayesian inference, regression |
+| Linear Algebra | 24 | Norms, distances, projections, matrix operations, attention mechanisms |
+| Optimization | 27 | SGD, Adam, AdamW, learning rate schedules, loss landscapes |
+| Metrics | 27 | Precision, Recall, F1, R-squared, AIC, BIC, NDCG, Matthews correlation |
+| Transforms | 33 | Normalization, encoding, weight initialization, signal processing |
+
+Every expression includes:
+- **Symbolic representation** (SymPy) with LaTeX rendering
+- **Fast numerical evaluation** (NumPy-backed via lambdify)
+- **Gradient computation** (analytical, symbolic)
+- **Educational metadata** (description, category, use cases, pros/cons)
+- **Composability** (arithmetic operations, function composition)
+- **Trainable parameters** (optional learnable coefficients)
+
+---
+
+## Architecture
+
+```
+neurogebra/
+  core/
+    expression.py     # Unified Expression class (symbolic + numerical + trainable)
+    forge.py          # MathForge: central expression hub and search
+    neurocraft.py     # NeuroCraft: educational interface with tutorials
+    autograd.py       # Micro autograd engine (Value, Tensor)
+    trainer.py        # Parameter optimization (SGD, Adam)
+  repository/         # 10 domain modules, 285 expressions
+  builders/           # ModelBuilder: architecture templates and guidance
+  training/           # EducationalTrainer: training with explanations
+  tutorials/          # Interactive step-by-step tutorial system
+  datasets/           # Built-in dataset loaders (MNIST, Iris, moons, etc.)
+  bridges/            # Framework converters (PyTorch, TensorFlow, JAX)
+  viz/                # Visualization tools (matplotlib, plotly)
+  utils/              # Helpers and explanation engine
+```
+
+---
+
+## Documentation
+
+Full documentation: [neurogebra.readthedocs.io](https://neurogebra.readthedocs.io)
 
 - [Getting Started](https://neurogebra.readthedocs.io/getting-started)
 - [Tutorials](https://neurogebra.readthedocs.io/tutorials)
 - [API Reference](https://neurogebra.readthedocs.io/api)
 
-## 🤝 Contributing
+---
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ```bash
-# Clone & setup
 git clone https://github.com/fahiiim/NeuroGebra.git
 cd NeuroGebra
 python -m venv venv
-venv\Scripts\activate  # or source venv/bin/activate on Unix
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS/Linux
 pip install -e ".[dev]"
-
-# Run tests
 pytest tests/ -v
-
-# Code quality
-black src/ tests/
-ruff check src/ tests/
 ```
-
-## 📊 Expression Library
-
-| Module | Count | Examples |
-|--------|-------|---------|
-| Activations | 15 | ReLU, Sigmoid, Tanh, Swish, GELU, Mish |
-| Losses | 8 | MSE, MAE, Cross-Entropy, Huber, Hinge |
-| Regularizers | 20 | L1, L2, Elastic Net, Dropout, SCAD, MCP |
-| Algebra | 48 | Polynomials, Kernels, Distributions, Special Functions |
-| Calculus | 48 | Derivatives, Integrals, Taylor Series, Transforms |
-| Statistics | 35 | PDFs, CDFs, Bayesian, Information Theory, Regression |
-| Linear Algebra | 24 | Norms, Distances, Matrix Ops, Attention |
-| Optimization | 27 | SGD, Adam, AdamW, LR Schedules, Loss Landscapes |
-| Metrics | 27 | F1, Precision, Recall, R², AIC, BIC, NDCG |
-| Transforms | 33 | Normalization, Encoding, Initialization, Signal |
-| **Total** | **285** | |
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE)
-
-## 🌟 Why Neurogebra?
-
-| Feature | Neurogebra | NumPy | SymPy | Mathematica |
-|---------|-----------|-------|-------|-------------|
-| Symbolic Math | ✅ | ❌ | ✅ | ✅ |
-| Numerical Eval | ✅ | ✅ | ⚠️ | ✅ |
-| Autograd | ✅ | ❌ | ❌ | ⚠️ |
-| Pre-built ML Expressions | ✅ (285) | ❌ | ❌ | ❌ |
-| Educational Metadata | ✅ | ❌ | ❌ | ❌ |
-| Trainable Formulas | ✅ | ❌ | ❌ | ❌ |
-| Free & Open Source | ✅ | ✅ | ✅ | ❌ |
-| Python Native | ✅ | ✅ | ✅ | ❌ |
-
-## 👤 Author
-
-**Fahim Sarker** — [@fahiiim](https://github.com/fahiiim)
 
 ---
 
-*Made with ❤️ for the AI & Mathematics community*
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## Positioning: What Neurogebra Is and Is Not
+
+### Neurogebra is not a competitor to TensorFlow or PyTorch.
+
+TensorFlow and PyTorch are production-grade deep learning frameworks built for training large-scale neural networks on GPUs and TPUs. They are industry standards for model development, deployment, and research at scale. Neurogebra does not attempt to replace, replicate, or compete with them in any capacity.
+
+### What Neurogebra actually is.
+
+Neurogebra occupies a fundamentally different space. It is a **mathematical formula library with executable, symbolic, and educational capabilities**. The closest analogues are tools like Wolfram Mathematica (proprietary, expensive, not Python-native) or manually assembling formulas from SymPy and Wikipedia (no curation, no ML focus, no educational layer).
+
+Neurogebra provides a unique combination that does not exist in any single tool today:
+
+| Capability | Neurogebra | SymPy | NumPy | Mathematica | PyTorch / TF |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Symbolic math (LaTeX, calculus) | Yes | Yes | No | Yes | No |
+| Fast numerical evaluation | Yes | Slow | Yes | Yes | Yes |
+| 285 curated ML/statistics formulas | **Yes** | No | No | No | No |
+| Educational metadata per formula | **Yes** | No | No | No | No |
+| Trainable symbolic parameters | **Yes** | No | No | No | N/A |
+| Searchable formula repository | **Yes** | No | No | No | No |
+| Free and open source | Yes | Yes | Yes | No | Yes |
+| Python native | Yes | Yes | Yes | No | Yes |
+
+### Why students should use this.
+
+**It is an executable reference library, not a framework to master.**
+Students do not need to "learn Neurogebra" the way they learn PyTorch. They use it to look up, verify, and experiment with mathematical formulas. The command `forge.get("adam_step")` immediately returns the Adam optimizer update rule as a symbolic expression with documentation attached — no textbook lookup required.
+
+**It bridges the gap between mathematical theory and code.**
+In most curricula, students learn formulas on a whiteboard and then separately implement them in code. Neurogebra collapses that gap: every formula is simultaneously a symbolic object (inspect the math), a numerical function (run it on data), and an educational resource (read what it does and when to use it).
+
+**It eliminates transcription errors.**
+Students routinely introduce bugs when translating formulas from papers or textbooks into code. Neurogebra's 285 expressions are verified with 377 automated tests. Using `forge.get("cross_entropy")` is faster and more reliable than re-deriving it from scratch.
+
+**It complements existing tools rather than replacing them.**
+Students prototype and verify formulas in Neurogebra, then implement production models in PyTorch or TensorFlow. The framework bridges (PyTorch, TF, JAX converters) explicitly support this workflow. Neurogebra is the scratchpad; PyTorch is the production line.
+
+**It teaches through transparency.**
+The autograd engine, the educational trainer with real-time debugging advice, the layer explanation system, and the interactive tutorials are designed to make invisible processes visible. Students do not just see numbers — they see why their loss is diverging, what each layer does, and how gradients flow through a computation graph.
+
+---
+
+<p align="center">
+  <strong>Author:</strong> <a href="https://github.com/fahiiim">Fahim Sarker</a>
+  <br>
+  <a href="https://github.com/fahiiim/NeuroGebra">GitHub</a> &middot; <a href="https://pypi.org/project/neurogebra/">PyPI</a> &middot; <a href="https://neurogebra.readthedocs.io">Documentation</a>
+</p>
