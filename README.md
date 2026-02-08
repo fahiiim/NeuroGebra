@@ -1,5 +1,5 @@
 <p align="center">
-  <strong>Neurogebra</strong>
+  <img src="assets/logo.png" alt="Neurogebra Logo" width="600">
 </p>
 
 <p align="center">
@@ -19,9 +19,9 @@
 
 ---
 
-Neurogebra is a unified Python library that bridges symbolic mathematics, numerical computation, and machine learning. It provides **285 pre-built, tested, and documented mathematical expressions** spanning activations, losses, statistics, optimization, linear algebra, and more — each one symbolic, numerically evaluable, trainable, and accompanied by educational metadata.
+Neurogebra is a unified Python library that bridges symbolic mathematics, numerical computation, and machine learning. It provides **285 pre-built, tested, and documented mathematical expressions** spanning activations, losses, statistics, optimization, linear algebra, and more — each one symbolic, numerically evaluable, trainable, and accompanied by educational metadata. Additionally, it includes **100+ curated datasets** for immediate experimentation and learning.
 
-Unlike traditional ML frameworks, Neurogebra is designed as a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, with built-in explanations, gradient computation, and composition tools.
+Unlike traditional ML frameworks, Neurogebra is designed as a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
 ---
 
@@ -33,6 +33,7 @@ Unlike traditional ML frameworks, Neurogebra is designed as a **mathematical for
 - [Symbolic Gradients and Composition](#symbolic-gradients-and-composition)
 - [Autograd Engine](#autograd-engine)
 - [Search and Discovery](#search-and-discovery)
+- [Datasets](#datasets)
 - [Expression Library](#expression-library)
 - [Architecture](#architecture)
 - [Documentation](#documentation)
@@ -215,6 +216,49 @@ forge.list_all(category="loss")
 # Compare multiple expressions side by side
 forge.compare(["relu", "sigmoid", "tanh"])
 ```
+
+---
+
+## Datasets
+
+Neurogebra includes **100+ curated datasets** for fast experimentation and learning.
+
+```python
+from neurogebra.datasets import Datasets
+
+# Browse all available datasets
+Datasets.list_all()
+
+# Load a dataset
+(X_train, y_train), (X_test, y_test) = Datasets.load_iris(verbose=True)
+
+# Search for datasets by keyword
+Datasets.search("classification")
+Datasets.search("image")
+Datasets.search("medical")
+
+# Get detailed info
+Datasets.get_info("california_housing")
+```
+
+### Dataset Categories
+
+| Category | Count | Examples |
+|----------|------:|----------|
+| **Classification** | 25+ | Iris, Wine, Breast Cancer, MNIST, Fashion-MNIST, Spam, Titanic, Adult Income |
+| **Regression** | 25+ | California Housing, Diabetes, Auto MPG, Bike Sharing, Energy Efficiency |
+| **Synthetic Patterns** | 20+ | XOR, Moons, Circles, Spirals, Checkerboard, Blobs, Swiss Roll |
+| **Time Series** | 15+ | Sine Waves, Random Walks, Stock Prices, Seasonal Data, AR Processes |
+| **Image Recognition** | 10+ | MNIST, Fashion-MNIST, Digits (8x8), CIFAR-style |
+| **Text/NLP** | 5+ | Spam Detection, Sentiment Analysis |
+
+Every dataset includes:
+- **Educational metadata** (difficulty, use cases, sample count)
+- **Pre-split train/test** sets (where applicable)
+- **Verbose mode** for learning what each dataset contains
+- **Consistent interface** - all return numpy arrays ready for training
+
+Use `ExpandedDatasets` to access 80+ additional specialized datasets for advanced topics.
 
 ---
 

@@ -5,6 +5,46 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-01-XX
+
+### Added
+
+- **100+ Dataset Collection** with 38+ working datasets across 4 categories
+- **ExpandedDatasets class** with 27 additional dataset loaders:
+  - Classification: Covtype, Letter Recognition, Optical Recognition, Pendigits, Satimage, Segment, Shuttle, Vehicle, Vowel, Connect-4
+  - Regression: Energy Efficiency, Power Plant, Yacht Hydrodynamics, Abalone, Airfoil Self-Noise, Wine Quality Red
+  - Synthetic Patterns: Spirals, Checkerboard, Blobs, Swiss Roll, S-Curve, Half Kernel
+  - Time Series: Sine Wave, Random Walk, Stock Prices, Seasonal Data, AR Process
+- **CombinedDatasets class** unified interface for all datasets
+- **Dataset discovery tools:**
+  - `Datasets.list_all()` - Browse all available datasets with formatted output
+  - `Datasets.search(keyword)` - Search datasets by topic/category
+  - `Datasets.get_info(name)` - Detailed dataset information
+- **Educational metadata** for every dataset (difficulty, use cases, descriptions)
+- **Verbose mode** for dataset loaders with sample counts and descriptions
+- **New documentation files:**
+  - `PUBLISHING.md` - Complete guide for publishing to PyPI
+  - `RELEASE_NOTES.md` - Detailed release notes
+  - `DATASETS_STATUS.md` - Implementation tracking
+  - `publish.ps1` - PowerShell publishing script
+- **Enhanced MANIFEST.in** to include logo and new documentation
+- **scikit-learn integration** as optional dependency for real-world datasets
+
+### Changed
+
+- Updated package version from 0.1.1 to 0.2.0
+- Enhanced `loaders.py` with utility methods
+- Updated README.md with Datasets section and Neurogebra logo
+- Updated `datasets/__init__.py` with new exports
+
+### Infrastructure
+
+- Added `datasets` optional dependency group with scikit-learn
+- Updated `all` optional dependencies to include datasets
+- Added logo assets folder
+
+[0.2.0]: https://github.com/fahiiim/NeuroGebra/releases/tag/v0.2.0
+
 ## [0.1.0] - 2026-02-09
 
 ### Added
