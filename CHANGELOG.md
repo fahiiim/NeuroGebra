@@ -5,6 +5,30 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-02-10
+
+### Added — Complete Documentation Overhaul
+
+- **30+ new documentation pages** — W3Schools-style progressive tutorial from absolute basics to advanced projects
+- **Getting Started section** (3 pages): Installation, First Program, How Neurogebra Works
+- **Python for ML Refresher** (3 pages): Python Basics, NumPy Essentials, Data Handling
+- **ML Fundamentals** (4 pages): What is ML, Types of ML, ML Workflow, Math Behind ML
+- **Neurogebra Tutorial** (12 pages): MathForge, Expressions, Activations, Losses, Gradients, Composition, Training, Autograd, Tensors, ModelBuilder, NeuroCraft, Datasets
+- **Advanced Topics** (6 pages): Custom Expressions, Framework Bridges, Visualization, Regularization, Optimization, Performance Tips
+- **3 Full Projects with PyTorch side-by-side comparison**:
+  - Project 1: Linear Regression — Neurogebra vs PyTorch
+  - Project 2: Image Classifier — Neurogebra vs PyTorch
+  - Project 3: Neural Network from Scratch — Neurogebra vs PyTorch
+- **Expanded API Reference** with all repository modules (calculus, statistics, linalg, metrics, transforms, optimization)
+
+### Changed
+
+- Completely rewritten `mkdocs.yml` with new 8-section navigation, Material theme with deep purple/amber colors, tabbed content support, MathJax for math equations
+- Rewritten landing page (`index.md`) with comparison table, quick example, and section overview
+- Updated version from 0.2.2 to 0.3.0
+
+[0.3.0]: https://github.com/fahiiim/NeuroGebra/releases/tag/v0.3.0
+
 ## [0.2.2] - 2026-02-09
 
 ### Fixed
