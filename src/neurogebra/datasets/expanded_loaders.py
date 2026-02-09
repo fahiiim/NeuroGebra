@@ -4,7 +4,7 @@ Expanded dataset loaders - 100+ classic and traditional datasets.
 This module contains comprehensive dataset loaders for educational purposes.
 """
 
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict, List, Any
 import numpy as np
 
 # Import from the main loaders file
