@@ -149,13 +149,13 @@ Pre-built expression collections organized by category.
 
 ### Metrics
 
-::: neurogebra.repository.metrics.get_metrics
+::: neurogebra.repository.metrics.get_metrics_expressions
     options:
       show_root_heading: true
 
-### Transforms
+###Transforms
 
-::: neurogebra.repository.transforms.get_transforms
+::: neurogebra.repository.transforms.get_transforms_expressions
     options:
       show_root_heading: true
 
