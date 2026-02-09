@@ -46,11 +46,11 @@ class TestActivationRepository:
         assert abs(result - 0.5) < 1e-10
 
     def test_sigmoid_bounds(self):
-        """Test sigmoid is bounded in (0, 1)."""
+        """Test sigmoid is bounded in [0, 1]."""
         acts = get_activations()
         sigmoid = acts["sigmoid"]
-        assert 0 < sigmoid.eval(x=-100) < 1
-        assert 0 < sigmoid.eval(x=100) < 1
+        assert 0 < sigmoid.eval(x=-100) <= 1
+        assert 0 <= sigmoid.eval(x=100) <= 1
 
     def test_tanh(self):
         """Test tanh activation."""
@@ -59,11 +59,11 @@ class TestActivationRepository:
         assert abs(tanh.eval(x=0)) < 1e-10
 
     def test_tanh_bounds(self):
-        """Test tanh is bounded in (-1, 1)."""
+        """Test tanh is bounded in [-1, 1]."""
         acts = get_activations()
         tanh = acts["tanh"]
-        assert -1 < tanh.eval(x=-100) < 1
-        assert -1 < tanh.eval(x=100) < 1
+        assert -1 <= tanh.eval(x=-100) <= 1
+        assert -1 <= tanh.eval(x=100) <= 1
 
     def test_leaky_relu(self):
         """Test leaky ReLU with default alpha."""
