@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "neurogebra"
-version = "0.3.0"
+version = "1.2.1"
 description = "Neural-powered mathematics library for AI developers"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -46,6 +46,8 @@ dependencies = [
     "sympy>=1.12",
     "matplotlib>=3.5.0",
     "scipy>=1.7.0",
+    "rich>=13.0.0",
+    "colorama>=0.4.6",
 ]
 
 [project.optional-dependencies]
@@ -75,6 +77,10 @@ fast = [
 frameworks = [
     "torch>=2.0.0",
     "tensorflow>=2.12.0",
+]
+logging = [
+    "tensorboard>=2.12.0",
+    "wandb>=0.15.0",
 ]
 datasets = [
     "scikit-learn>=1.0.0",

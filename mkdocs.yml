@@ -1,4 +1,4 @@
-site_name: Neurogebra — Learn ML from Scratch
+: Neurogebra — Learn ML from Scratch
 site_description: "The beginner-friendly ML framework: Learn Machine Learning & Deep Learning step-by-step with Neurogebra"
 site_url: https://neurogebra.readthedocs.io
 repo_url: https://github.com/fahiiim/NeuroGebra
@@ -111,6 +111,7 @@ nav:
       - ModelBuilder: tutorial/model-builder.md
       - NeuroCraft Interface: tutorial/neurocraft.md
       - Datasets: tutorial/datasets.md
+      - "🔭 Training Observatory": tutorial/training-observatory.md
 
   - Advanced Topics:
       - Custom Expressions: advanced/custom-expressions.md
@@ -119,6 +120,7 @@ nav:
       - Regularization: advanced/regularization.md
       - Optimization Algorithms: advanced/optimization.md
       - Performance Tips: advanced/performance.md
+      - Observatory Deep Dive: advanced/observatory-deep-dive.md
 
   - Projects (Neurogebra vs PyTorch):
       - "Project 1: Linear Regression": projects/project1-linear-regression.md

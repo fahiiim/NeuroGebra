@@ -5,6 +5,53 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-02-16
+
+### Added — Training Observatory 🔭
+
+The headline feature of v1.2.1 is the **Training Observatory**: an advanced training logging and visualization system that shows the complete mathematical picture of what happens inside your neural network during training — in real time, in colour, in your terminal.
+
+#### New Module: `neurogebra.logging`
+- **`TrainingLogger`** — Event-driven, multi-level logger with pluggable backends
+- **`LogConfig`** — Preset-based configuration (minimal, standard, verbose, research, production)
+- **`TerminalDisplay`** — Rich-based colour-coded terminal renderer with severity icons, sparkline charts, gradient heatmaps, and weight histograms
+- **`FormulaRenderer`** — Unicode and LaTeX rendering of forward/backward pass equations and loss function formulas
+- **`GradientMonitor`** — Real-time gradient norm tracking with vanishing/exploding detection
+- **`WeightMonitor`** — Weight distribution histograms, dead neuron detection, change tracking
+- **`ActivationMonitor`** — Dead ReLU detection, sigmoid/tanh saturation analysis
+- **`PerformanceMonitor`** — Per-layer and per-epoch timing, bottleneck detection
+- **`SmartHealthChecker`** — Automatic detection of 8+ training problems (NaN, overfitting, underfitting, stagnation, divergence, vanishing/exploding gradients, dead neurons, activation saturation) with actionable recommendations
+- **`ComputationGraph` (GraphTracker)** — Full DAG tracking of every operation with shapes, values, gradients, and formulas
+- **`ImageLogger`** — ASCII art rendering of input images, activation maps, filter weights, and saliency maps in terminal
+- **4 Export Backends** — JSONExporter, CSVExporter, HTMLExporter (with interactive Chart.js graphs), MarkdownExporter
+
+#### Enhanced Model Builder
+- **Real Forward/Backward Passes** — Layer class now performs actual matrix multiplications, activation functions, and gradient computation using NumPy
+- **He Weight Initialization** — Proper weight initialization for each layer type
+- **Adam & SGD Optimizers** — Built-in optimizer implementations at the layer level
+- **8 Activation Functions** — relu, sigmoid, tanh, softmax, leaky_relu, elu, swish, gelu — all with correct forward and backward implementations
+- **Observatory Integration** — `model.compile(log_level="expert")` enables full logging with one argument
+- **Real Loss Computation** — MSE, MAE, binary cross-entropy, categorical cross-entropy with analytical gradients
+- **Model Save** — Pickle-based model serialization including weights
+
+#### New Dependencies
+- `rich>=13.0.0` — Rich terminal display
+- `colorama>=0.4.6` — Cross-platform ANSI colour support
+- Optional: `tensorboard>=2.12.0`, `wandb>=0.15.0` (via `pip install neurogebra[logging]`)
+
+### Changed
+- Version bumped from 0.3.0 to 1.2.1
+- `Model.fit()` now performs real training when Observatory is active (falls back to EducationalTrainer otherwise)
+- `Model.predict()` uses real forward pass when layers are initialised
+- `Model.evaluate()` computes actual loss and accuracy metrics
+- Updated `__init__.py` to export `TrainingLogger`, `LogLevel`, `LogEvent`, `LogConfig`
+- Updated `pyproject.toml` with new dependencies and `[logging]` optional extra
+
+### Tests
+- Added `tests/test_logging/test_observatory.py` — 35 comprehensive tests covering logger, config, monitors, health checks, exporters, computation graph, and full model integration
+
+[1.2.1]: https://github.com/fahiiim/NeuroGebra/releases/tag/v1.2.1
+
 ## [0.3.0] - 2026-02-10
 
 ### Added — Complete Documentation Overhaul

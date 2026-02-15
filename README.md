@@ -23,12 +23,20 @@ Neurogebra is a unified Python library that bridges symbolic mathematics, numeri
 
 Unlike traditional ML frameworks, Neurogebra is designed as a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
+### What's New in v1.2.1 — Training Observatory 🔭
+
+> **See every neuron fire. Watch every gradient flow. Understand every weight update — in colour.**
+
+The Training Observatory is an advanced training logging and visualization system that brings unprecedented mathematical transparency to neural network training. It performs **real forward/backward computation** through every layer and displays the mathematics in colourful, depth-level detail right in your terminal.
+
 ---
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Quick Start](#quick-start)
+- [Training Observatory (v1.2.1)](#training-observatory-v121)
+- [Complete Feature List](#complete-feature-list)
 - [Building and Training Models](#building-and-training-models)
 - [Symbolic Gradients and Composition](#symbolic-gradients-and-composition)
 - [Autograd Engine](#autograd-engine)
@@ -54,12 +62,13 @@ Optional extras for extended functionality:
 ```bash
 pip install neurogebra[viz]        # Interactive visualization (Plotly)
 pip install neurogebra[frameworks] # PyTorch, TensorFlow bridges
+pip install neurogebra[logging]    # TensorBoard & W&B integration
 pip install neurogebra[docs]       # Documentation tools
 pip install neurogebra[dev]        # Development and testing tools
 pip install neurogebra[all]        # Everything
 ```
 
-**Requirements:** Python 3.9+ | NumPy | SymPy | Matplotlib | SciPy
+**Requirements:** Python 3.9+ | NumPy | SymPy | Matplotlib | SciPy | Rich | Colorama
 
 ---
 
@@ -82,6 +91,226 @@ adam = forge.get("adam_step")
 gaussian = forge.get("gaussian")
 f1 = forge.get("f1_score_formula")
 ```
+
+---
+
+## Training Observatory (v1.2.1)
+
+The **Training Observatory** is a first-of-its-kind training logging system that shows you the complete mathematical picture of what happens inside your neural network during training — **in real time, in colour, in your terminal**.
+
+### Instant Setup — One Argument
+
+```python
+from neurogebra.builders.model_builder import ModelBuilder
+
+builder = ModelBuilder()
+model = builder.Sequential([
+    builder.Dense(64, activation="relu"),
+    builder.Dense(32, activation="tanh"),
+    builder.Dense(1, activation="sigmoid"),
+], name="my_model")
+
+# Just add log_level to compile()
+model.compile(
+    loss="binary_crossentropy",
+    optimizer="adam",
+    learning_rate=0.01,
+    log_level="expert",          # ← this is all you need
+)
+
+model.fit(X_train, y_train, epochs=20, batch_size=32)
+```
+
+### What You'll See
+
+The Observatory produces colourful, structured output directly in your terminal:
+
+- 🟢 **Green** — Healthy metrics (loss decreasing, gradients stable)
+- 🟡 **Yellow** — Warnings (high gradient variance, saturation starting)
+- 🔴 **Red** — Danger (vanishing/exploding gradients, NaN detected)
+- 🟣 **Purple/Magenta** — Mathematical formulas (forward/backward equations)
+- 🔵 **Blue** — Informational messages (epoch/batch progress)
+
+### Log Levels
+
+| Level | What You See |
+|-------|-------------|
+| `"basic"` | Epoch-level loss and accuracy, start/end messages |
+| `"detailed"` | + Batch-level progress, timing information |
+| `"expert"` | + Layer-by-layer formulas, gradient norms, weight stats |
+| `"debug"` | + Every tensor shape, raw statistics, full computation trace |
+
+### Preset Configurations
+
+```python
+from neurogebra.logging.config import LogConfig
+
+# Choose a preset
+config = LogConfig.minimal()     # Just epoch progress
+config = LogConfig.standard()    # Layer info + timing + health checks
+config = LogConfig.verbose()     # Full math depth — every formula, every gradient
+config = LogConfig.research()    # Everything + export to files
+
+model.compile(
+    loss="mse",
+    optimizer="adam",
+    log_config=config,
+)
+```
+
+### Layer-by-Layer Mathematical Formulas
+
+At **expert** level, the Observatory shows the exact computation happening inside each layer:
+
+```
+Forward:  a₁ = relu(W₁·x + b₁)    │ shape: (32, 64) → (32, 32)
+Forward:  a₂ = tanh(W₂·a₁ + b₂)   │ shape: (32, 32) → (32, 16)
+Forward:  ŷ  = σ(W₃·a₂ + b₃)      │ shape: (32, 16) → (32, 1)
+
+Backward: ∂L/∂W₃ = ∂L/∂ŷ ⊙ σ'(z₃) · a₂ᵀ
+Backward: ∂L/∂W₂ = ∂L/∂a₂ ⊙ tanh'(z₂) · a₁ᵀ
+Backward: ∂L/∂W₁ = ∂L/∂a₁ ⊙ relu'(z₁) · xᵀ
+```
+
+### Smart Health Diagnostics
+
+The Observatory automatically detects problems and provides actionable recommendations:
+
+```
+🚨 [CRITICAL] NaN/Inf Detected
+   NaN values found in training loss!
+   → Check for division by zero in your data
+   → Reduce learning rate (try 1e-4)
+   → Add gradient clipping
+
+⚠️  [WARNING] Overfitting Detected
+   Validation loss increasing while training loss decreases (ratio: 1.8×)
+   → Add dropout layers (rate 0.2-0.5)
+   → Reduce model complexity
+   → Increase training data or use data augmentation
+   → Try early stopping
+
+🔴 [DANGER] Vanishing Gradients
+   Layer 'dense_3' gradient L2 norm = 2.1e-09
+   → Use ReLU/LeakyReLU instead of sigmoid/tanh
+   → Add batch normalization
+   → Use skip connections
+```
+
+### Export Training Logs
+
+```python
+config = LogConfig.research()
+config.export_formats = ["json", "csv", "html", "markdown"]
+config.export_dir = "./my_training_logs"
+
+model.compile(loss="mse", optimizer="adam", log_config=config)
+model.fit(X, y, epochs=50)
+
+# After training, check ./my_training_logs/ for:
+#   training_log.json   — Full structured event log
+#   metrics.csv         — Epoch-level metrics table
+#   report.html         — Interactive HTML report with Chart.js graphs
+#   report.md           — Human-readable Markdown report
+```
+
+### Standalone Monitors
+
+Use the monitoring tools independently, outside of model training:
+
+```python
+from neurogebra.logging.monitors import GradientMonitor, WeightMonitor
+from neurogebra.logging.health_checks import SmartHealthChecker
+import numpy as np
+
+# Monitor gradients
+gm = GradientMonitor()
+stats = gm.record("layer_0", np.random.randn(64, 32) * 0.001)
+print(stats["status"])   # "healthy", "danger", or "critical"
+print(stats["alerts"])   # Human-readable alerts if any
+
+# Run health checks on your training history
+checker = SmartHealthChecker()
+alerts = checker.run_all(
+    epoch=10,
+    train_losses=[1.0, 0.8, 0.5, 0.3, 0.15],
+    val_losses=[1.0, 0.9, 0.85, 0.95, 1.1],
+    gradient_norms={"dense_0": 0.5, "dense_1": 1e-9},
+)
+for alert in alerts:
+    print(f"[{alert.severity}] {alert.message}")
+    for rec in alert.recommendations:
+        print(f"  → {rec}")
+```
+
+---
+
+## Complete Feature List
+
+### Core Mathematical Engine
+- **285 Pre-built Expressions** — Activations, losses, metrics, optimizers, statistics, transforms, and more
+- **Symbolic Mathematics** — Full SymPy integration with LaTeX rendering
+- **Fast Numerical Evaluation** — NumPy-backed lambdify for production-speed computation
+- **Analytical Gradients** — Symbolic differentiation for any expression
+- **Expression Composition** — Combine expressions with arithmetic (+, -, *, /) and function composition
+- **Trainable Parameters** — Attach learnable coefficients to any symbolic expression
+- **Searchable Repository** — Find formulas by name, category, keyword, or use case
+
+### Neural Network Builder
+- **ModelBuilder API** — Intuitive, Keras-like interface for building neural networks
+- **Layer Types** — Dense, Conv2D, Dropout, BatchNorm, MaxPooling2D, Flatten
+- **Architecture Templates** — Pre-built templates for classification, regression, image recognition, binary classification
+- **Educational Explanations** — Every layer comes with plain-language descriptions and "explain()" methods
+- **Real Forward/Backward Passes** — Actual matrix multiplications, gradient computation (not simulated)
+- **Model Summary & Architecture Visualization** — See parameter counts and data flow
+
+### Training Observatory (v1.2.1) 🔭
+- **Colour-coded Terminal Display** — Green (healthy), yellow (warning), red (danger), purple (formulas)
+- **5 Log Levels** — Silent, Basic, Detailed, Expert, Debug
+- **Layer-by-Layer Formula Display** — Forward and backward pass equations in Unicode math notation
+- **Gradient Flow Monitoring** — Vanishing/exploding gradient detection with L1/L2 norms
+- **Weight Distribution Tracking** — Histogram, dead neuron detection, weight change percentage
+- **Activation Monitoring** — Dead ReLU detection, sigmoid/tanh saturation analysis
+- **Per-Layer Timing** — Identify computational bottlenecks
+- **Smart Health Diagnostics** — Automatic detection of 8+ training problems with actionable recommendations
+- **Computation Graph Tracking** — Full DAG of operations with shapes, values, and gradients
+- **4 Export Formats** — JSON (structured), CSV (metrics), HTML (interactive charts), Markdown (reports)
+- **Preset Configurations** — Minimal, Standard, Verbose, Research, Production
+- **Standalone Monitors** — Use gradient/weight/activation monitors independently
+- **Formula Renderer** — Unicode and LaTeX rendering of forward/backward formulas, loss functions
+- **Image Logger** — ASCII art rendering of input images and activation maps in terminal
+
+### Autograd Engine
+- **From-Scratch Automatic Differentiation** — Educational autograd with Value and Tensor classes
+- **Computation Graph** — Build and inspect the gradient computation graph
+- **Backpropagation** — Automatic gradient computation through arbitrary expressions
+- **Operations** — Add, multiply, power, relu, sigmoid, tanh, exp, log, and more
+
+### Datasets (100+)
+- **Classification** — Iris, Wine, Breast Cancer, MNIST, Fashion-MNIST, Spam, Titanic, Adult Income
+- **Regression** — California Housing, Diabetes, Auto MPG, Bike Sharing, Energy Efficiency
+- **Synthetic Patterns** — XOR, Moons, Circles, Spirals, Checkerboard, Blobs, Swiss Roll
+- **Time Series** — Sine Waves, Random Walks, Stock Prices, Seasonal Data
+- **Image Recognition** — MNIST, Fashion-MNIST, Digits (8×8), CIFAR-style
+- **Text/NLP** — Spam Detection, Sentiment Analysis
+- **Educational Metadata** — Difficulty level, use cases, sample count for every dataset
+
+### Framework Bridges
+- **PyTorch Export** — Convert Neurogebra models to PyTorch `nn.Module`
+- **TensorFlow Export** — Convert to TensorFlow/Keras models
+- **Seamless Workflow** — Prototype in Neurogebra, deploy in production frameworks
+
+### Visualization
+- **Training History Plots** — Loss and accuracy curves with Matplotlib
+- **Expression Visualization** — Plot any mathematical expression
+- **Interactive Plots** — Plotly-based interactive visualization (optional)
+
+### Educational Features
+- **NeuroCraft** — Educational interface with guided tutorials and explanations
+- **Interactive Tutorials** — Step-by-step lessons on tensors, gradients, training, and more
+- **Explain Everything** — Every expression, layer, and operation has an `.explain()` method
+- **Educational Trainer** — Training with real-time tips, debugging advice, and step explanations
+- **Plain-Language Descriptions** — No jargon — every concept explained for beginners
 
 ---
 
@@ -302,6 +531,16 @@ neurogebra/
   repository/         # 10 domain modules, 285 expressions
   builders/           # ModelBuilder: architecture templates and guidance
   training/           # EducationalTrainer: training with explanations
+  logging/            # 🔭 Training Observatory (v1.2.1)
+    logger.py         #   Event-driven training logger
+    config.py         #   Preset configurations
+    monitors.py       #   Gradient, weight, activation, performance monitors
+    health_checks.py  #   Smart diagnostics with recommendations
+    terminal_display.py # Rich colour-coded terminal renderer
+    formula_renderer.py # Unicode/LaTeX math formula display
+    image_logger.py   #   ASCII pixel art for images & activations
+    exporters.py      #   JSON, CSV, HTML, Markdown exporters
+    computation_graph.py # Full DAG tracker
   tutorials/          # Interactive step-by-step tutorial system
   datasets/           # Built-in dataset loaders (MNIST, Iris, moons, etc.)
   bridges/            # Framework converters (PyTorch, TensorFlow, JAX)

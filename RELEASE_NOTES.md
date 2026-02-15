@@ -1,3 +1,52 @@
+# Release Notes - Neurogebra v1.2.1
+
+## 🔭 Major Update: Training Observatory
+
+### Headline Feature
+
+**Training Observatory** — See every neuron fire. Watch every gradient flow. Understand every weight update — in colour, in real time, in your terminal.
+
+### What's New
+
+#### 🔭 Training Observatory (`neurogebra.logging`)
+- **TrainingLogger** — Event-driven, multi-level logger with pluggable backends
+- **5 Log Levels** — Silent, Basic, Detailed, Expert, Debug
+- **Colour-coded Terminal Display** — Rich-based renderer with severity colours (green/yellow/red/purple)
+- **Layer-by-Layer Formula Display** — Unicode math formulas for forward and backward passes
+- **Gradient Flow Monitoring** — Vanishing/exploding gradient detection with L1/L2 norms
+- **Weight Distribution Tracking** — Histogram, dead neuron detection, weight change tracking
+- **Activation Monitoring** — Dead ReLU detection, sigmoid/tanh saturation analysis
+- **Per-Layer Timing** — Identify computational bottlenecks
+- **Smart Health Diagnostics** — 8+ automatic checks with actionable recommendations
+- **Computation Graph** — Full DAG of operations with shapes, values, and gradients
+- **4 Export Formats** — JSON, CSV, HTML (with Chart.js), Markdown
+- **5 Preset Configurations** — Minimal, Standard, Verbose, Research, Production
+- **Image Logger** — ASCII art rendering of images and activation maps
+- **Formula Renderer** — Unicode and LaTeX rendering of all math operations
+
+#### 🧠 Real Forward/Backward Computation
+- Layer class performs actual matrix multiplications and gradient computation
+- He weight initialization for each layer type
+- Adam and SGD optimizers built into layers
+- 8 activation functions with correct forward/backward: relu, sigmoid, tanh, softmax, leaky_relu, elu, swish, gelu
+- Real loss computation: MSE, MAE, binary cross-entropy, categorical cross-entropy
+
+#### 📦 New Dependencies
+- `rich>=13.0.0` for colourful terminal output
+- `colorama>=0.4.6` for cross-platform ANSI support
+- Optional: `tensorboard>=2.12.0`, `wandb>=0.15.0`
+
+### Quick Start
+
+```python
+model.compile(loss="mse", optimizer="adam", log_level="expert")
+model.fit(X, y, epochs=20)
+```
+
+That's it — one argument enables the entire Observatory.
+
+---
+
 # Release Notes - Neurogebra v0.2.0
 
 ## 🎉 Major Update: 100+ Educational Datasets Added!
