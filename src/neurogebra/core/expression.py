@@ -5,7 +5,7 @@ This module defines the fundamental Expression class that represents
 mathematical operations with symbolic, numerical, and trainable capabilities.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 import numpy as np
 import sympy as sp
 from sympy import Symbol, sympify, lambdify
@@ -72,7 +72,7 @@ class Expression:
             # Constant expression
             self._numerical_func = lambda: float(self.symbolic_expr)
 
-    def eval(self, *args, **kwargs) -> Union[float, np.ndarray]:
+    def eval(self, *args: Any, **kwargs: Any) -> Union[float, np.ndarray]:
         """
         Evaluate the expression numerically.
 
@@ -179,10 +179,10 @@ class Expression:
 
     def visualize(
         self,
-        x_range=(-5, 5),
+        x_range: Tuple[float, float] = (-5, 5),
         n_points: int = 500,
         interactive: bool = False,
-        **kwargs,
+        **kwargs: Any,
     ):
         """
         Visualize this expression.

@@ -4,7 +4,7 @@ Helper utilities for Neurogebra.
 Provides common utility functions used across the library.
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Callable, Dict, List, Optional, Union
 import numpy as np
 
 
@@ -53,7 +53,7 @@ def clip_gradients(
 
 
 def numerical_gradient(
-    func, x: np.ndarray, epsilon: float = 1e-5
+    func: Callable, x: np.ndarray, epsilon: float = 1e-5
 ) -> np.ndarray:
     """
     Compute numerical gradient using central differences.
@@ -118,7 +118,7 @@ def normalize(data: np.ndarray, method: str = "minmax") -> np.ndarray:
 
 
 def generate_data(
-    func,
+    func: Callable,
     x_range: tuple = (-5, 5),
     n_points: int = 100,
     noise_std: float = 0.0,

@@ -4,7 +4,7 @@ Micro autograd engine for Neurogebra.
 Implements automatic differentiation for training mathematical expressions.
 """
 
-from typing import List, Optional, Set, Tuple
+from typing import Any, List, Optional, Set, Tuple, Union
 import numpy as np
 
 
@@ -215,7 +215,7 @@ class Tensor:
         >>> print(t.grad)  # [1.0, 1.0, 1.0]
     """
 
-    def __init__(self, data, requires_grad: bool = False):
+    def __init__(self, data: Union[List, np.ndarray, Any], requires_grad: bool = False):
         """
         Initialize a Tensor.
 

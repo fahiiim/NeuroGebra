@@ -189,7 +189,7 @@ class MathForge:
             if expr.metadata.get("category") == category
         ]
 
-    def compose(self, expression_str: str, **params) -> Expression:
+    def compose(self, expression_str: str, **params: Any) -> Expression:
         """
         Compose expressions using string notation.
 

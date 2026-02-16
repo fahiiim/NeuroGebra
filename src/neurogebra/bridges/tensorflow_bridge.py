@@ -4,7 +4,7 @@ TensorFlow bridge for Neurogebra expressions.
 Converts Neurogebra expressions to TensorFlow-compatible functions.
 """
 
-from typing import Optional
+from typing import Any, Callable, Optional
 import numpy as np
 
 try:
@@ -27,7 +27,7 @@ def check_tensorflow():
         )
 
 
-def to_tensorflow(expression: Expression):
+def to_tensorflow(expression: Expression) -> Callable:
     """
     Convert a Neurogebra Expression to a TensorFlow function.
 
@@ -53,7 +53,7 @@ def to_tensorflow(expression: Expression):
     return tf_expression
 
 
-def to_keras_layer(expression: Expression, name: Optional[str] = None):
+def to_keras_layer(expression: Expression, name: Optional[str] = None) -> Any:
     """
     Convert a Neurogebra Expression to a Keras Layer.
 

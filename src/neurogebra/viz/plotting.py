@@ -4,7 +4,7 @@ Plotting utilities for Neurogebra.
 Provides static plotting functions for expressions using matplotlib.
 """
 
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 import matplotlib.pyplot as plt
 from neurogebra.core.expression import Expression
@@ -21,7 +21,7 @@ def plot_expression(
     show_grid: bool = True,
     show_formula: bool = True,
     ax: Optional[plt.Axes] = None,
-    **eval_kwargs,
+    **eval_kwargs: Any,
 ) -> plt.Figure:
     """
     Plot a single expression.

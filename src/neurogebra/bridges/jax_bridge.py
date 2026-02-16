@@ -4,7 +4,7 @@ JAX bridge for Neurogebra expressions.
 Converts Neurogebra expressions to JAX-compatible functions.
 """
 
-from typing import Optional
+from typing import Callable, Optional
 import numpy as np
 
 try:
@@ -27,7 +27,7 @@ def check_jax():
         )
 
 
-def to_jax(expression: Expression):
+def to_jax(expression: Expression) -> Callable:
     """
     Convert a Neurogebra Expression to a JAX-compatible function.
 
@@ -53,7 +53,7 @@ def to_jax(expression: Expression):
     return jax_fn
 
 
-def to_jax_grad(expression: Expression, var: str = "x"):
+def to_jax_grad(expression: Expression, var: str = "x") -> Callable:
     """
     Convert expression and return its gradient as a JAX function.
 

@@ -368,7 +368,7 @@ class ModelBuilder:
         >>> model.summary()
     """
 
-    def __init__(self, craft=None):
+    def __init__(self, craft: Optional[Any] = None):
         """
         Initialize ModelBuilder.
 
