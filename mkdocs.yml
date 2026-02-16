@@ -81,6 +81,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Quick Start: getting-started.md
 
   - Getting Started:
       - Installation: getting-started/installation.md
@@ -98,6 +99,11 @@ nav:
       - The ML Workflow: ml-fundamentals/ml-workflow.md
       - Math Behind ML: ml-fundamentals/math-behind-ml.md
 
+  - Tutorials:
+      - Beginner: tutorials/beginner.md
+      - Intermediate: tutorials/intermediate.md
+      - Advanced: tutorials/advanced.md
+
   - Neurogebra Tutorial:
       - MathForge — The Core: tutorial/mathforge.md
       - Expressions — Building Blocks: tutorial/expressions.md
@@ -112,6 +118,11 @@ nav:
       - NeuroCraft Interface: tutorial/neurocraft.md
       - Datasets: tutorial/datasets.md
       - "🔭 Training Observatory": tutorial/training-observatory.md
+
+  - Examples:
+      - Custom Activation Functions: examples/custom_activation.md
+      - Custom Loss Functions: examples/custom_loss.md
+      - Training Expressions: examples/training_expressions.md
 
   - Advanced Topics:
       - Custom Expressions: advanced/custom-expressions.md
