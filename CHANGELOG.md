@@ -5,6 +5,61 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-02-27
+
+### Added — Observatory Pro 🚀
+
+Six major upgrades that turn the Training Observatory from a passive logger into an **active diagnostic engine**.
+
+#### New Module: `neurogebra.logging.adaptive`
+- **`AdaptiveLogger`** — Wraps `TrainingLogger` and stays at BASIC level until an anomaly is detected, then escalates to EXPERT detail automatically (80-90% log reduction)
+- **`AnomalyConfig`** — Configurable thresholds for dead neurons, gradient spikes, vanishing/exploding gradients, NaN/Inf, loss spikes, weight stagnation, activation saturation
+- **`AnomalyRecord`** — Structured anomaly data with type, severity, layer name, values, and human-readable message
+
+#### New Module: `neurogebra.logging.health_warnings`
+- **`AutoHealthWarnings`** — Threshold-based rule engine that runs on every batch/epoch, emitting structured `HealthWarning` objects with diagnosis and actionable recommendations
+- **`WarningConfig`** — Configurable thresholds and patience values for all 10 health rules
+- **`HealthWarning`** — Structured alert with rule name, severity, message, diagnosis, recommendations, and context (layer/epoch/batch)
+- **10 Built-in Rules** — dead_relu, vanishing/exploding gradient, gradient_spike, nan_inf_loss, overfitting, loss_stagnation, weight_stagnation, loss_divergence, activation_saturation
+
+#### New Module: `neurogebra.logging.epoch_summary`
+- **`EpochSummarizer`** — Aggregates batch-level metrics and produces per-epoch statistical summaries
+- **`EpochSummary`** — Full epoch summary with batch count, duration, and per-metric stats
+- **`EpochStats`** — Mean, std, min, max, first, last for each tracked metric
+- Human-readable `format_text()` and machine-readable `to_dict()` output
+
+#### New Module: `neurogebra.logging.tiered_storage`
+- **`TieredStorage`** — Splits log events into 3 NDJSON files: `basic.log`, `health.log`, `debug.log`
+- Buffered writes with configurable flush interval
+- `write_debug` flag to disable debug tier in production
+- Event classification by type and severity
+
+#### New Module: `neurogebra.logging.dashboard`
+- **`DashboardExporter`** — Generates self-contained interactive HTML dashboard with Chart.js (loss curves, accuracy curves, timing bar chart, batch loss, health diagnostics)
+- **`TensorBoardBridge`** — Optional TensorBoard integration via `torch.utils.tensorboard`
+- **`WandBBridge`** — Optional Weights & Biases integration
+
+#### New Module: `neurogebra.logging.fingerprint`
+- **`TrainingFingerprint`** — Captures everything needed to reproduce a training run: seeds, dataset hash, versions, hardware info, OS, model architecture hash, hyperparameters, git state
+- `capture()` classmethod for one-line fingerprint creation
+- `to_dict()` / `from_dict()` for JSON serialisation
+- `format_text()` for human-readable output
+
+### Changed
+- Version bumped from 1.2.1 to 1.3.0
+- Updated `__init__.py` to export all Observatory Pro classes
+- Updated main package docstring to reference Observatory Pro v1.3.0
+
+### Tests
+- Added `tests/test_logging/test_observatory_pro.py` — 56 comprehensive tests covering all 6 new features
+- Total test count: 470 (all passing)
+
+### Documentation
+- Added `docs/advanced/observatory-pro.md` — Full documentation for all 6 features with usage examples and API reference
+- Updated `mkdocs.yml` navigation with Observatory Pro entry
+
+[1.3.0]: https://github.com/fahiiim/NeuroGebra/releases/tag/v1.3.0
+
 ## [1.2.1] - 2026-02-16
 
 ### Added — Training Observatory 🔭

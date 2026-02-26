@@ -1,3 +1,65 @@
+# Release Notes - Neurogebra v1.3.0
+
+## 🚀 Major Update: Observatory Pro
+
+### Headline Feature
+
+**Observatory Pro** — The Training Observatory is no longer a passive log dump. v1.3.0 adds six intelligent systems that detect problems automatically, summarise results per epoch, route logs into separate files, render interactive HTML dashboards, and capture everything needed to reproduce any training run.
+
+### What's New
+
+#### 🧠 Smart / Adaptive Logging (`AdaptiveLogger`)
+- Stays at BASIC level until an anomaly is detected, then escalates to EXPERT
+- 80-90% less log noise compared to always-on EXPERT mode
+- Detects: dead neurons, gradient spikes, vanishing/exploding gradients, NaN/Inf, loss spikes, weight stagnation, activation saturation
+- Configurable thresholds via `AnomalyConfig`
+
+#### ⚠️ Automated Health Warnings (`AutoHealthWarnings`)
+- 10 threshold-based rules that run on every batch and epoch
+- Structured `HealthWarning` objects with diagnosis and actionable recommendations
+- Rules: dead_relu, vanishing/exploding gradient, gradient_spike, nan_inf_loss, overfitting, loss_stagnation, weight_stagnation, loss_divergence, activation_saturation
+- Deduplication to avoid alert spam
+
+#### 📊 Epoch Summaries (`EpochSummarizer`)
+- Aggregates batch-level metrics into per-epoch statistics
+- Mean, std, min, max, first, last for every tracked metric
+- Human-readable `format_text()` and machine-readable `to_dict()`
+
+#### 📁 Tiered Storage (`TieredStorage`)
+- Splits logs into 3 NDJSON files: `basic.log`, `health.log`, `debug.log`
+- Buffered writes, configurable flush interval
+- `write_debug=False` to disable debug tier in production
+
+#### 📈 Visual Dashboard (`DashboardExporter`)
+- Self-contained interactive HTML with Chart.js charts
+- Loss curves, accuracy curves, epoch timing, batch loss, health diagnostics
+- **TensorBoard bridge** and **Weights & Biases bridge** (optional)
+
+#### 🔑 Training Fingerprint (`TrainingFingerprint`)
+- Captures seeds, dataset SHA-256 hash, all library versions, CPU/RAM/GPU, OS, git state
+- Model architecture hash and hyperparameters
+- `to_dict()` / `from_dict()` for JSON round-tripping
+
+### Quick Start
+
+```python
+from neurogebra.logging.adaptive import AdaptiveLogger
+from neurogebra.logging.health_warnings import AutoHealthWarnings
+from neurogebra.logging.epoch_summary import EpochSummarizer
+from neurogebra.logging.tiered_storage import TieredStorage
+from neurogebra.logging.dashboard import DashboardExporter
+from neurogebra.logging.fingerprint import TrainingFingerprint
+
+# All six features plug into the existing Observatory pipeline
+# See docs/advanced/observatory-pro.md for the full integration example
+```
+
+### Tests
+- 56 new tests in `test_observatory_pro.py`
+- Total: 470 tests, all passing
+
+---
+
 # Release Notes - Neurogebra v1.2.1
 
 ## 🔭 Major Update: Training Observatory
