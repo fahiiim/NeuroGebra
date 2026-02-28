@@ -1,13 +1,17 @@
 # Welcome to Neurogebra
 
-## Learn Machine Learning from Scratch — The Easy Way
+## The Executable Mathematical Formula Companion for AI and Data Science
+
+**v2.5.3** | 285 Symbolic Expressions | 100+ Datasets | Training Observatory Pro
 
 ---
 
-**Neurogebra** is a Python framework built for **students and beginners** who want to learn Machine Learning and Deep Learning by actually understanding the math behind it — not just calling black-box functions.
+**Neurogebra** is a unified Python library that bridges **symbolic mathematics**, **numerical computation**, and **machine learning**. It provides 285 pre-built, tested, and documented mathematical expressions, 100+ curated datasets, and a training system with full mathematical transparency -- designed for students, researchers, and engineers alike.
 
 !!! tip "Who is this for?"
-    If you know **basic Python** and want to start your **ML/AI journey**, you're in the right place. No prior ML experience needed.
+    - **Students** learning ML/AI who want to see the math behind every operation
+    - **Researchers** who need reproducibility, rapid formula prototyping, and transparent diagnostics
+    - **Engineers** who want a verified formula library with production-ready logging
 
 ---
 
@@ -15,11 +19,14 @@
 
 | Feature | Traditional Frameworks (PyTorch, TF) | Neurogebra |
 |---------|--------------------------------------|------------|
-| Learning curve | Steep — many hidden abstractions | Gentle — every step is explained |
-| Math visibility | Hidden inside C++ kernels | Symbolic — you SEE the formulas |
+| Learning curve | Steep -- many hidden abstractions | Gentle -- every step is explained |
+| Math visibility | Hidden inside C++ kernels | Symbolic -- you SEE the formulas |
 | Expressions | Tensors/Modules you don't understand | Mathematical expressions you can read |
 | Explanations | Read research papers | Built-in `.explain()` on everything |
-| Target audience | Production engineers | Students & learners |
+| Training diagnostics | Basic loss curves | Full math transparency with Observatory Pro |
+| Reproducibility | Manual tracking | Automatic training fingerprinting |
+| Formula library | Build your own | 285 verified, searchable, composable formulas |
+| Target audience | Production engineers | Students, researchers, and engineers |
 
 ---
 
@@ -58,25 +65,28 @@ print(relu_grad)
 
 ## What You'll Learn in This Documentation
 
-This documentation is structured like a **step-by-step course**, starting from absolute basics:
+This documentation is structured as a **progressive learning path**, starting from absolute basics:
 
-### 📘 Getting Started
+### Getting Started
 Install Neurogebra and write your first program in under 5 minutes.
 
-### 🐍 Python for ML (Refresher)
-A quick refresher on Python basics, NumPy, and data handling — the prerequisites for ML.
+### Python for ML (Refresher)
+A quick refresher on Python basics, NumPy, and data handling -- the prerequisites for ML.
 
-### 🧠 ML Fundamentals
+### ML Fundamentals
 What Machine Learning actually is, the types of ML, the standard workflow, and the math behind it all.
 
-### 🔧 Neurogebra Tutorial
-Step-by-step lessons on every Neurogebra feature — from expressions to training to model building.
+### Neurogebra Tutorial
+Step-by-step lessons on every feature -- from expressions to training to model building.
 
-### 🚀 Advanced Topics
-Custom expressions, framework bridges (PyTorch/TF/JAX), visualization, and optimization.
+### Training Observatory and Observatory Pro
+Real-time training diagnostics with adaptive logging, automated health warnings, epoch summaries, visual dashboards, and training fingerprinting.
 
-### 🏗️ Full Projects (Neurogebra vs PyTorch)
-3 complete ML/Deep Learning projects with **side-by-side code comparison** between Neurogebra and PyTorch, so you understand the value of this framework.
+### Advanced Topics
+Custom expressions, framework bridges (PyTorch / TF / JAX), visualization, and optimization.
+
+### Full Projects (Neurogebra vs PyTorch)
+3 complete ML/Deep Learning projects with **side-by-side code comparison** between Neurogebra and PyTorch.
 
 ---
 

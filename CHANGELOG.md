@@ -5,6 +5,22 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.3] - 2026-03-01
+
+### Changed -- Documentation and Packaging Overhaul
+
+- **Professional README** -- Complete rewrite with expanded badges, feature comparison matrix, end-to-end Observatory training example, and dedicated sections for students, researchers, and engineers
+- **Updated documentation** -- Refreshed landing page, Observatory Pro docs updated to reference v2.5.3
+- **Version bump** from 1.3.0 to 2.5.3
+
+### Highlights
+- 12 unique features documented with code examples
+- Full end-to-end training walkthrough with all Observatory Pro features
+- "Who Should Use Neurogebra?" section with tailored guidance for students, researchers, and engineers
+- 20+ badges covering CI, coverage, downloads, activity, and more
+
+[2.5.3]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.3
+
 ## [1.3.0] - 2026-02-27
 
 ### Added — Observatory Pro 🚀
