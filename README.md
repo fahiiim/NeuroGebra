@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/neurogebra-logo.png" alt="Neurogebra Logo" width="600">
+  <img src="https://raw.githubusercontent.com/fahiiim/NeuroGebra/v2.5.8/assets/neurogebra-logo.png" alt="Neurogebra Logo" width="600">
 </p>
 
 <h3 align="center">The Executable Mathematical Formula Companion for AI and Data Science</h3>
@@ -68,7 +68,7 @@ Neurogebra is a unified Python library that bridges **symbolic mathematics**, **
 
 Unlike traditional ML frameworks, Neurogebra is a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, complete with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
-> **v2.5.7** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
+> **v2.5.8** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
 
 <br>
 
@@ -567,7 +567,7 @@ print(fingerprint.format_text())
 #   Timestamp:    2026-03-01 12:00:00
 #   Seed:         42
 #   Dataset Hash: 8f14e45fceea167a
-#   Neurogebra:   2.5.7
+#   Neurogebra:   2.5.8
 #   Python:       3.11.5
 #   NumPy:        1.26.0
 #   ...

@@ -5,7 +5,7 @@ This file tracks current publishing readiness without conflicting historical not
 ## Current Snapshot
 
 - Package name: `neurogebra`
-- Repository version target: `2.5.7` (see `pyproject.toml`)
+- Repository version target: `2.5.8` (see `pyproject.toml`)
 - Canonical docs config: `.readthedocs.yaml`
 - Historical public release evidence exists for `0.2.0`.
 
