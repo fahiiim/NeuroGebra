@@ -1,6 +1,6 @@
 # Framework Bridges
 
-Neurogebra can convert expressions to **PyTorch**, **TensorFlow**, and **JAX** — letting you use Neurogebra's readable syntax and then deploy with production frameworks.
+Neurogebra can convert expressions to **PyTorch**, **TensorFlow**, and **JAX** so you can prototype symbolically and integrate with common frameworks.
 
 ---
 
@@ -14,7 +14,15 @@ Convert to PyTorch/TF/JAX (fast, production-ready)
 Deploy in production
 ```
 
-You get the **best of both worlds**: Neurogebra for understanding, production frameworks for speed.
+Support level currently varies by backend, so check the compatibility notes below before production deployment.
+
+---
+
+## Compatibility Notes
+
+- **PyTorch:** Single-input expressions are supported. Gradients flow for input tensor `x` and scalar trainable parameters declared in `Expression(trainable_params=...)`.
+- **TensorFlow:** Uses `tf.numpy_function` for interoperability and works in eager/graph execution, but TensorFlow gradients do not propagate through this bridge.
+- **JAX:** Uses NumPy-backed eager evaluation for interoperability; not intended for traced `jit`/`grad` workflows.
 
 ---
 
@@ -151,10 +159,10 @@ torch_activation = to_pytorch(chosen)
 
 | Feature | PyTorch | TensorFlow | JAX |
 |---------|---------|------------|-----|
-| Support level | Full | Full | Full |
+| Support level | Partial (single-input) | Interop (single-input) | Interop (single-input) |
 | Returns | `nn.Module` | TF function | JAX function |
-| GPU support | ✅ | ✅ | ✅ |
-| Autograd compatible | ✅ | ✅ | ✅ |
+| GPU support | Framework-dependent | Framework-dependent | Framework-dependent |
+| Autograd compatible | ✅ (input + scalar trainable params) | ❌ | ❌ |
 
 ---
 

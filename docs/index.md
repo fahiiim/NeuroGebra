@@ -2,11 +2,11 @@
 
 ## The Executable Mathematical Formula Companion for AI and Data Science
 
-**v2.5.3** | 285 Symbolic Expressions | 100+ Datasets | Training Observatory Pro
+**v2.5.7** | Curated Formula Library | Base + Expanded Dataset Loaders | Training Observatory Pro
 
 ---
 
-**Neurogebra** is a unified Python library that bridges **symbolic mathematics**, **numerical computation**, and **machine learning**. It provides 285 pre-built, tested, and documented mathematical expressions, 100+ curated datasets, and a training system with full mathematical transparency -- designed for students, researchers, and engineers alike.
+**Neurogebra** is a unified Python library that bridges **symbolic mathematics**, **numerical computation**, and **machine learning**. It provides a curated expression library, base and expanded dataset loaders, and a training system with full mathematical transparency -- designed for students, researchers, and engineers alike.
 
 !!! tip "Who is this for?"
     - **Students** learning ML/AI who want to see the math behind every operation
@@ -25,7 +25,7 @@
 | Explanations | Read research papers | Built-in `.explain()` on everything |
 | Training diagnostics | Basic loss curves | Full math transparency with Observatory Pro |
 | Reproducibility | Manual tracking | Automatic training fingerprinting |
-| Formula library | Build your own | 285 verified, searchable, composable formulas |
+| Formula library | Build your own | Curated, searchable, composable formulas |
 | Target audience | Production engineers | Students, researchers, and engineers |
 
 ---
@@ -87,6 +87,9 @@ Custom expressions, framework bridges (PyTorch / TF / JAX), visualization, and o
 
 ### Full Projects (Neurogebra vs PyTorch)
 3 complete ML/Deep Learning projects with **side-by-side code comparison** between Neurogebra and PyTorch.
+
+### Real Project Notebooks (Colab)
+10 intermediate to advanced, real-dataset notebooks for image classification, GANs, diffusion workflows, core NLP, and small language model training. Each notebook includes official dataset source links and explicit download instructions.
 
 ---
 

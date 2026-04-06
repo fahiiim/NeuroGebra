@@ -5,6 +5,20 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.7] - 2026-04-07
+
+### Added
+
+- 10 intermediate-to-advanced real-dataset project notebooks under `examples/projects/` (image classification, GANs, diffusion, NLP, and small language model workflows)
+- New docs index page for project notebooks: `docs/examples/project_notebooks.md`
+
+### Changed
+
+- README and docs updated to surface the new project notebook portfolio
+- Bridge docs and runtime validation coverage expanded to reflect current bridge behavior
+- Read the Docs configuration consolidated to `.readthedocs.yaml`
+- Version bump to 2.5.7 across package metadata and documentation
+
 ## [2.5.3] - 2026-03-01
 
 ### Changed -- Documentation and Packaging Overhaul
@@ -19,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "Who Should Use Neurogebra?" section with tailored guidance for students, researchers, and engineers
 - 20+ badges covering CI, coverage, downloads, activity, and more
 
+[2.5.7]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.7
 [2.5.3]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.3
 
 ## [1.3.0] - 2026-02-27

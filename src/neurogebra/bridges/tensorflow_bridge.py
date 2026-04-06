@@ -39,16 +39,30 @@ def to_tensorflow(expression: Expression) -> Callable:
 
     Raises:
         ImportError: If TensorFlow is not installed
+        ValueError: If expression has more than one runtime input variable
     """
     check_tensorflow()
 
-    @tf.function
-    def tf_expression(x):
-        x_np = x.numpy()
-        result = np.vectorize(
-            lambda val: float(expression.symbolic_expr.subs("x", val))
-        )(x_np)
-        return tf.constant(result, dtype=x.dtype)
+    runtime_vars = [
+        str(var)
+        for var in expression.variables
+        if str(var) not in expression.params
+    ]
+    if len(runtime_vars) > 1:
+        raise ValueError(
+            "to_tensorflow currently supports single-input expressions. "
+            f"Found unresolved variables: {runtime_vars}"
+        )
+    input_var = runtime_vars[0] if runtime_vars else "x"
+
+    def _evaluate_numpy(x_np: np.ndarray) -> np.ndarray:
+        result = expression.eval(**{input_var: x_np})
+        return np.asarray(result, dtype=x_np.dtype)
+
+    def tf_expression(x: "tf.Tensor") -> "tf.Tensor":
+        output = tf.numpy_function(_evaluate_numpy, [x], Tout=x.dtype)
+        output.set_shape(x.shape)
+        return output
 
     return tf_expression
 
@@ -63,19 +77,33 @@ def to_keras_layer(expression: Expression, name: Optional[str] = None) -> Any:
 
     Returns:
         Keras Lambda layer
+
+    Raises:
+        ValueError: If expression has more than one runtime input variable
     """
     check_tensorflow()
 
     layer_name = name or f"neurogebra_{expression.name}"
 
-    def layer_fn(x):
-        # Use numpy callback for evaluation
-        return tf.numpy_function(
-            lambda x_np: np.vectorize(
-                lambda val: float(expression.symbolic_expr.subs("x", val))
-            )(x_np).astype(np.float32),
-            [x],
-            tf.float32,
+    runtime_vars = [
+        str(var)
+        for var in expression.variables
+        if str(var) not in expression.params
+    ]
+    if len(runtime_vars) > 1:
+        raise ValueError(
+            "to_keras_layer currently supports single-input expressions. "
+            f"Found unresolved variables: {runtime_vars}"
         )
+    input_var = runtime_vars[0] if runtime_vars else "x"
+
+    def _evaluate_numpy(x_np: np.ndarray) -> np.ndarray:
+        result = expression.eval(**{input_var: x_np})
+        return np.asarray(result, dtype=np.float32)
+
+    def layer_fn(x):
+        output = tf.numpy_function(_evaluate_numpy, [x], tf.float32)
+        output.set_shape(x.shape)
+        return output
 
     return tf.keras.layers.Lambda(layer_fn, name=layer_name)

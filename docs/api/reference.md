@@ -26,7 +26,7 @@ from neurogebra.builders.model_builder import ModelBuilder
 from neurogebra.core.neurocraft import NeuroCraft
 
 # Datasets
-from neurogebra.datasets.loaders import generate_linear, generate_spirals
+from neurogebra.datasets import Datasets, ExpandedDatasets
 ```
 
 ---
@@ -46,7 +46,7 @@ The fundamental building block — a mathematical expression with symbolic and n
 
 ### MathForge
 
-Your gateway to 50+ pre-built mathematical expressions organized by category.
+Your gateway to a curated library of pre-built mathematical expressions organized by category.
 
 ::: neurogebra.core.forge.MathForge
     options:

@@ -35,19 +35,33 @@ def to_jax(expression: Expression) -> Callable:
         expression: Neurogebra Expression instance
 
     Returns:
-        JAX-compatible function that can be used with jit, grad, etc.
+        JAX-compatible function for eager evaluation.
 
     Raises:
         ImportError: If JAX is not installed
+        ValueError: If expression has more than one runtime input variable
+
+    Notes:
+        This bridge uses NumPy-backed evaluation under the hood. It is intended
+        for interoperability, not traced JIT/grad execution.
     """
     check_jax()
 
+    runtime_vars = [
+        str(var)
+        for var in expression.variables
+        if str(var) not in expression.params
+    ]
+    if len(runtime_vars) > 1:
+        raise ValueError(
+            "to_jax currently supports single-input expressions. "
+            f"Found unresolved variables: {runtime_vars}"
+        )
+    input_var = runtime_vars[0] if runtime_vars else "x"
+
     def jax_fn(x):
-        # Convert to numpy, evaluate, convert back
         x_np = np.asarray(x)
-        result = np.vectorize(
-            lambda val: float(expression.symbolic_expr.subs("x", val))
-        )(x_np)
+        result = expression.eval(**{input_var: x_np})
         return jnp.array(result)
 
     return jax_fn

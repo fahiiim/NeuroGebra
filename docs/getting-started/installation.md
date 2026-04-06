@@ -4,7 +4,7 @@
 
 Before installing Neurogebra, make sure you have:
 
-- **Python 3.8 or higher** installed on your computer
+- **Python 3.9 or higher** installed on your computer
 - **pip** (Python's package manager — comes with Python)
 
 !!! info "Don't have Python?"
@@ -39,7 +39,7 @@ import neurogebra
 print(neurogebra.__version__)
 ```
 
-You should see the version number printed (e.g., `0.1.1`). 
+You should see the version number printed (e.g., `2.5.7`).
 
 ---
 
@@ -86,8 +86,8 @@ Installs all optional dependencies at once.
     Try `pip install --user neurogebra` or use a virtual environment.
 
     **Old Python version?**
-    
-    Neurogebra requires Python 3.8+. Check with `python --version`.
+
+    Neurogebra requires Python 3.9+. Check with `python --version`.
 
 ---
 

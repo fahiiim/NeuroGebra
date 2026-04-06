@@ -123,6 +123,7 @@ nav:
       - Custom Activation Functions: examples/custom_activation.md
       - Custom Loss Functions: examples/custom_loss.md
       - Training Expressions: examples/training_expressions.md
+      - Real Project Notebooks (Colab): examples/project_notebooks.md
 
   - Advanced Topics:
       - Custom Expressions: advanced/custom-expressions.md

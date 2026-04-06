@@ -62,8 +62,8 @@ def main():
     print("=" * 60)
 
     results = forge.search("smooth")
-    for name, score in results:
-        print(f"  {name}: score={score:.2f}")
+    for name in results:
+        print(f"  {name}")
 
     # ── List all ───────────────────────────────────────────────────
     print("\n" + "=" * 60)
@@ -89,7 +89,7 @@ def main():
     print(f"f'(x) = {custom.gradient('x').symbolic_expr}")
     print(f"Explanation: {custom.explain()}")
 
-    print("\n✅ All basic examples completed successfully!")
+    print("\n[OK] All basic examples completed successfully!")
 
 
 if __name__ == "__main__":

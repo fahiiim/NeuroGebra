@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/fahiiim/NeuroGebra/main/assets/logo.png" alt="Neurogebra Logo" width="600">
+  <img src="assets/neurogebra-logo.png" alt="Neurogebra Logo" width="600">
 </p>
 
 <h3 align="center">The Executable Mathematical Formula Companion for AI and Data Science</h3>
 
 <p align="center">
-  <strong>285 symbolic expressions | 100+ datasets | Real training with full math transparency</strong>
+  <strong>Curated symbolic formula library | Base + expanded dataset loaders | Real training with full math transparency</strong>
 </p>
 
 <br>
@@ -64,11 +64,11 @@
 
 ## What is Neurogebra?
 
-Neurogebra is a unified Python library that bridges **symbolic mathematics**, **numerical computation**, and **machine learning** into a single, searchable, executable toolkit. It ships with **285 pre-built, tested, and documented mathematical expressions** spanning activations, losses, statistics, optimization, linear algebra, and more -- each one symbolic, numerically evaluable, trainable, and accompanied by educational metadata. It also includes **100+ curated datasets** for immediate experimentation.
+Neurogebra is a unified Python library that bridges **symbolic mathematics**, **numerical computation**, and **machine learning** into a single, searchable, executable toolkit. It ships with a curated library of pre-built, tested mathematical expressions spanning activations, losses, statistics, optimization, linear algebra, and more -- each one symbolic, numerically evaluable, trainable, and accompanied by educational metadata. It also includes base and expanded dataset loaders for immediate experimentation.
 
 Unlike traditional ML frameworks, Neurogebra is a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, complete with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
-> **v2.5.3** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
+> **v2.5.7** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
 
 <br>
 
@@ -85,11 +85,12 @@ Unlike traditional ML frameworks, Neurogebra is a **mathematical formula compani
 | [Observatory Pro](#observatory-pro) | Adaptive diagnostics, dashboards, fingerprinting |
 | [End-to-End Example: Training with Observatory Logs](#end-to-end-example-training-with-observatory-logs) | Complete step-by-step walkthrough |
 | [Who Should Use Neurogebra?](#who-should-use-neurogebra) | Students, Researchers, Engineers |
-| [Expression Library](#expression-library) | 285 verified mathematical expressions |
-| [Datasets](#datasets) | 100+ curated datasets |
+| [Expression Library](#expression-library) | Curated formulas across 10 domains |
+| [Datasets](#datasets) | Base + expanded dataset loaders |
 | [Building and Training Models](#building-and-training-models) | ModelBuilder and EducationalTrainer |
 | [Autograd Engine](#autograd-engine) | From-scratch automatic differentiation |
 | [Framework Bridges](#framework-bridges) | Export to PyTorch, TensorFlow, JAX |
+| [Colab Project Notebooks (Real Datasets)](#colab-project-notebooks-real-datasets) | 10 intermediate-advanced portfolio notebooks with official dataset sources |
 | [Architecture](#architecture) | Project structure |
 | [Documentation](#documentation) | Full docs and tutorials |
 | [Contributing](#contributing) | How to help |
@@ -131,7 +132,7 @@ from neurogebra import MathForge
 
 forge = MathForge()
 
-# Retrieve any of the 285 pre-built expressions by name
+# Retrieve pre-built expressions by name
 relu = forge.get("relu")
 print(relu.eval(x=5))         # 5
 print(relu.eval(x=-3))        # 0
@@ -159,7 +160,7 @@ Neurogebra provides a combination of capabilities that does not exist in any sin
 
 ### 1. Searchable Executable Formula Repository
 
-A curated library of **285 verified mathematical expressions** organized across 10 domains. Every formula is simultaneously a symbolic object, a numerical function, and an educational resource. Access any formula by name, category, or keyword.
+A curated library of pre-built mathematical expressions organized across 10 domains. Every formula is simultaneously a symbolic object, a numerical function, and an educational resource. Access any formula by name, category, or keyword.
 
 ```python
 forge = MathForge()
@@ -217,9 +218,9 @@ mae = forge.get("mae")
 custom_loss = 0.7 * mse + 0.3 * mae
 ```
 
-### 8. 100+ Curated Datasets with Educational Metadata
+### 8. Dataset Loaders with Educational Metadata
 
-Every dataset comes with difficulty level, use cases, sample count, descriptions, and consistent `(X, y)` numpy output. Classification, regression, synthetic patterns, time series, image recognition, and text/NLP datasets are included.
+Neurogebra includes base and expanded dataset loaders with consistent `(X, y)` numpy output and discovery helpers. The collection spans classification, regression, synthetic patterns, and time-series tasks; some base loaders are intentionally synthetic for educational use.
 
 ### 9. Framework Bridges -- Prototype Then Deploy
 
@@ -245,7 +246,7 @@ Export training logs and reports to **JSON**, **CSV**, **HTML** (interactive cha
 |:---|:---:|:---:|:---:|:---:|:---:|
 | Symbolic math (LaTeX, calculus) | Yes | Yes | -- | Yes | -- |
 | Fast numerical evaluation | Yes | Slow | Yes | Yes | Yes |
-| 285 curated ML/statistics formulas | **Yes** | -- | -- | -- | -- |
+| Curated ML/statistics formula repository | **Yes** | -- | -- | -- | -- |
 | Educational metadata per formula | **Yes** | -- | -- | -- | -- |
 | Trainable symbolic parameters | **Yes** | -- | -- | -- | N/A |
 | Searchable formula repository | **Yes** | -- | -- | -- | -- |
@@ -566,7 +567,7 @@ print(fingerprint.format_text())
 #   Timestamp:    2026-03-01 12:00:00
 #   Seed:         42
 #   Dataset Hash: 8f14e45fceea167a
-#   Neurogebra:   2.5.3
+#   Neurogebra:   2.5.7
 #   Python:       3.11.5
 #   NumPy:        1.26.0
 #   ...
@@ -712,7 +713,7 @@ Students do not need to "learn Neurogebra" the way they learn PyTorch. They use 
 
 **It bridges the gap between mathematical theory and code.** In most curricula, students learn formulas on a whiteboard and then separately implement them in code. Neurogebra collapses that gap: every formula is simultaneously a symbolic object (inspect the math), a numerical function (run it on data), and an educational resource (read what it does and when to use it).
 
-**It eliminates transcription errors.** Students routinely introduce bugs when translating formulas from papers or textbooks into code. Neurogebra's 285 expressions are verified with 470+ automated tests. Using `forge.get("cross_entropy")` is faster and more reliable than re-deriving it from scratch.
+**It eliminates transcription errors.** Students routinely introduce bugs when translating formulas from papers or textbooks into code. Neurogebra's formula library is verified with an extensive automated test suite. Using `forge.get("cross_entropy")` is faster and more reliable than re-deriving it from scratch.
 
 **It teaches through transparency.** The autograd engine, the educational trainer with real-time debugging advice, the layer explanation system, and the interactive tutorials are designed to make invisible processes visible. Students do not just see numbers -- they see *why* their loss is diverging, *what* each layer does, and *how* gradients flow through a computation graph.
 
@@ -736,7 +737,7 @@ Students do not need to "learn Neurogebra" the way they learn PyTorch. They use 
 
 ### For Engineers
 
-**Verified formula library.** The 285 expressions are tested with 470+ automated tests. Use them as a reference implementation or as building blocks for custom metrics and loss functions -- without re-deriving from papers.
+**Verified formula library.** Neurogebra expressions are covered by an extensive automated test suite. Use them as a reference implementation or as building blocks for custom metrics and loss functions -- without re-deriving from papers.
 
 **Production logging presets.** `LogConfig.production()` provides lean, structured logging suitable for deployment. Tiered storage separates operational metrics from diagnostic detail. Adaptive logging reduces noise by 80-90%.
 
@@ -752,20 +753,20 @@ Students do not need to "learn Neurogebra" the way they learn PyTorch. They use 
 
 ## Expression Library
 
-285 verified mathematical expressions organized into 10 domain modules:
+Curated mathematical expressions organized into 10 domain modules:
 
-| Module | Count | Scope |
-|:-------|------:|:------|
-| **Activations** | 15 | ReLU, Sigmoid, Tanh, Swish, GELU, Mish, ELU, SELU, Softmax, LeakyReLU |
-| **Losses** | 8 | MSE, MAE, Cross-Entropy, Huber, Hinge, Log-Cosh, Quantile, Focal |
-| **Regularizers** | 20 | L1, L2, Elastic Net, Dropout, SCAD, MCP, Group Lasso, Tikhonov |
-| **Algebra** | 48 | Polynomials, kernels, probability distributions, special functions |
-| **Calculus** | 48 | Elementary, trigonometric, hyperbolic, Taylor series, integral transforms |
-| **Statistics** | 35 | PDFs, CDFs, information theory, Bayesian inference, regression |
-| **Linear Algebra** | 24 | Norms, distances, projections, matrix operations, attention mechanisms |
-| **Optimization** | 27 | SGD, Adam, AdamW, learning rate schedules, loss landscapes |
-| **Metrics** | 27 | Precision, Recall, F1, R-squared, AIC, BIC, NDCG, Matthews correlation |
-| **Transforms** | 33 | Normalization, encoding, weight initialization, signal processing |
+| Module | Scope |
+|:-------|:------|
+| **Activations** | ReLU, Sigmoid, Tanh, Swish, GELU, Mish, ELU, SELU, Softmax, LeakyReLU |
+| **Losses** | MSE, MAE, Cross-Entropy, Huber, Hinge, Log-Cosh, Quantile, Focal |
+| **Regularizers** | L1, L2, Elastic Net, Dropout, SCAD, MCP, Group Lasso, Tikhonov |
+| **Algebra** | Polynomials, kernels, probability distributions, special functions |
+| **Calculus** | Elementary, trigonometric, hyperbolic, Taylor series, integral transforms |
+| **Statistics** | PDFs, CDFs, information theory, Bayesian inference, regression |
+| **Linear Algebra** | Norms, distances, projections, matrix operations, attention mechanisms |
+| **Optimization** | SGD, Adam, AdamW, learning rate schedules, loss landscapes |
+| **Metrics** | Precision, Recall, F1, R-squared, AIC, BIC, NDCG, Matthews correlation |
+| **Transforms** | Normalization, encoding, weight initialization, signal processing |
 
 Every expression includes:
 
@@ -782,7 +783,7 @@ Every expression includes:
 
 ## Datasets
 
-100+ curated datasets for immediate experimentation and learning.
+Base and expanded dataset loaders for immediate experimentation and learning.
 
 ```python
 from neurogebra.datasets import Datasets
@@ -793,16 +794,16 @@ Datasets.search("classification")                             # Search
 Datasets.get_info("california_housing")                       # Details
 ```
 
-| Category | Count | Examples |
-|:---------|------:|:--------|
-| **Classification** | 25+ | Iris, Wine, Breast Cancer, MNIST, Fashion-MNIST, Spam, Titanic, Adult Income |
-| **Regression** | 25+ | California Housing, Diabetes, Auto MPG, Bike Sharing, Energy Efficiency |
-| **Synthetic Patterns** | 20+ | XOR, Moons, Circles, Spirals, Checkerboard, Blobs, Swiss Roll |
-| **Time Series** | 15+ | Sine Waves, Random Walks, Stock Prices, Seasonal Data, AR Processes |
-| **Image Recognition** | 10+ | MNIST, Fashion-MNIST, Digits (8x8), CIFAR-style |
-| **Text / NLP** | 5+ | Spam Detection, Sentiment Analysis |
+| Category | Examples |
+|:---------|:--------|
+| **Classification** | Iris, Wine, Breast Cancer-style, MNIST-style, Fashion-MNIST-style, Spam-style, Titanic-style, Adult Income-style |
+| **Regression** | California Housing-style, Diabetes-style, Auto MPG-style, Bike Sharing-style, Energy Efficiency-style |
+| **Synthetic Patterns** | XOR, Moons, Circles, Spirals, Checkerboard, Blobs, Swiss Roll |
+| **Time Series** | Sine Waves, Random Walks, Stock Prices, Seasonal Data, AR Processes |
+| **Image Recognition** | MNIST-style, Fashion-MNIST-style, Digits-style |
+| **Text / NLP** | Spam Detection-style, Sentiment-style |
 
-Every dataset includes educational metadata (difficulty, use cases, sample count), pre-split train/test sets, verbose mode, and consistent numpy array output.
+Every loader includes educational metadata hooks, verbose mode, and consistent numpy array output. Some base loaders are synthetic by design for teaching-oriented workflows.
 
 <br>
 
@@ -930,7 +931,7 @@ neurogebra/
     neurocraft.py          # NeuroCraft: educational interface with tutorials
     autograd.py            # Micro autograd engine (Value, Tensor)
     trainer.py             # Parameter optimization (SGD, Adam)
-  repository/              # 10 domain modules, 285 expressions
+  repository/              # 10 expression domains
   builders/                # ModelBuilder: architecture templates and layer definitions
   training/                # EducationalTrainer: training with explanations
   logging/                 # Training Observatory + Observatory Pro
@@ -950,13 +951,35 @@ neurogebra/
     exporters.py           #   JSON, CSV, HTML, Markdown exporters
     computation_graph.py   #   Full DAG tracker
   tutorials/               # Interactive step-by-step tutorial system
-  datasets/                # 100+ built-in dataset loaders
+  datasets/                # Base + expanded dataset loaders
   bridges/                 # Framework converters (PyTorch, TensorFlow, JAX)
   viz/                     # Visualization tools (Matplotlib, Plotly)
   utils/                   # Helpers and explanation engine
 ```
 
 <br>
+
+---
+
+## Colab Project Notebooks (Real Datasets)
+
+Neurogebra now includes 10 intermediate to advanced, copy-paste ready project notebooks in `examples/projects/`.
+Every notebook uses a real public dataset and includes a `Dataset Source and Download Instructions` block with official URLs and manual fallback steps.
+
+Project index page: [Real Project Notebooks (Google Colab)](https://neurogebra.readthedocs.io/examples/project_notebooks/)
+
+| Notebook | Dataset | Colab |
+|:--|:--|:--|
+| 01-image-classification-fmnist-cnn.ipynb | Fashion-MNIST | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb) |
+| 02-image-classification-observatory-pro.ipynb | Fashion-MNIST | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb) |
+| 03-gan-mnist-baseline.ipynb | MNIST | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb) |
+| 04-gan-mode-collapse-diagnostics.ipynb | MNIST | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb) |
+| 05-diffusion-image-denoising-baseline.ipynb | CIFAR-10 | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb) |
+| 06-diffusion-math-scheduler-deep-dive.ipynb | CelebA (primary), CIFAR-10 fallback | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb) |
+| 07-core-nlp-spam-classifier.ipynb | SMS Spam Collection | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb) |
+| 08-core-nlp-sentiment-classifier.ipynb | IMDb Reviews | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb) |
+| 09-small-language-model-charlm-from-scratch.ipynb | Tiny Shakespeare | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb) |
+| 10-small-language-model-charlm-tuning.ipynb | WikiText-2 | [Open](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb) |
 
 ---
 
@@ -972,6 +995,7 @@ Full documentation is available at [neurogebra.readthedocs.io](https://neurogebr
 | [Tutorials](https://neurogebra.readthedocs.io/tutorial/) | MathForge, expressions, activations, losses, training, autograd |
 | [Advanced Topics](https://neurogebra.readthedocs.io/advanced/) | Custom expressions, framework bridges, Observatory Pro |
 | [Projects](https://neurogebra.readthedocs.io/projects/) | Linear regression, image classifier, neural network from scratch |
+| [Colab Project Notebooks](https://neurogebra.readthedocs.io/examples/project_notebooks/) | 10 real-dataset project notebooks (image, GAN, diffusion, NLP, small language model) |
 | [API Reference](https://neurogebra.readthedocs.io/api/) | Complete API documentation |
 
 <br>

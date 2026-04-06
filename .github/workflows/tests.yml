@@ -49,3 +49,39 @@ jobs:
           file: ./coverage.xml
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
+
+  optional-extras-runtime-validation:
+    name: Optional Extras Runtime Validation
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: optional-extras-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            optional-extras-${{ runner.os }}-py${{ matrix.python-version }}-
+
+      - name: Install dependencies with optional extras
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,frameworks,datasets]"
+          pip install jax jaxlib
+
+      - name: Run optional extras validation tests
+        env:
+          PYTHONPATH: src
+        run: |
+          pytest tests/test_bridges/test_runtime_validation.py tests/test_datasets/test_loaders.py -v -o "addopts="

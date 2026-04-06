@@ -1,188 +1,72 @@
-# ReadTheDocs Setup Guide for Neurogebra
+# ReadTheDocs Setup Guide
 
-## Quick Start
+This guide documents the current Read the Docs setup for this repository.
 
-Your documentation is ready to be hosted on ReadTheDocs! Here's how to set it up:
+## Canonical Configuration
 
-### 1. Import Your Project
+Use only:
 
-1. Go to **https://readthedocs.org/**
-2. Click **"Sign Up"** or **"Log In"** with your GitHub account
-3. Click **"Import a Project"**
-4. Find **"NeuroGebra"** in the list and click **"+"**
-5. Click **"Next"** (default settings are fine)
+- `.readthedocs.yaml`
 
-### 2. Verify Configuration
+Do not maintain a parallel `.readthedocs.yml` file. A single config avoids ambiguous builds.
 
-ReadTheDocs will automatically use the `.readthedocs.yaml` file in your repository. This file configures:
-- Python 3.11
-- Ubuntu 22.04
-- MkDocs for documentation building
-- Automatic installation of docs dependencies
+## Current Build Profile
 
-### 3. Build Documentation
+The canonical config currently specifies:
 
-1. ReadTheDocs will automatically trigger a build after import
-2. Wait for the build to complete (usually 2-5 minutes)
-3. Visit your documentation at: **https://neurogebra.readthedocs.io/**
+- Config version: 2
+- OS: Ubuntu 22.04
+- Python: 3.11
+- Docs builder: MkDocs (`mkdocs.yml`)
+- Python install method: pip with `docs` extra
 
-### 4. Enable Webhooks (Automatic Builds)
+## Initial Setup
 
-ReadTheDocs should automatically set up a webhook in your GitHub repository. This means:
-- Every push to `main` triggers a new documentation build
-- Pull requests get preview documentation builds
-- Tags/releases get versioned documentation
+1. Go to https://readthedocs.org/
+2. Sign in with GitHub.
+3. Import repository `fahiiim/NeuroGebra`.
+4. Confirm the project uses `.readthedocs.yaml`.
+5. Trigger first build and verify status.
 
-To verify webhooks:
-1. Go to your GitHub repo: https://github.com/fahiiim/NeuroGebra
-2. Click **Settings** → **Webhooks**
-3. You should see a webhook for `readthedocs.org`
+Expected docs URL:
 
-### 5. Configure Build Settings (Optional)
+- https://neurogebra.readthedocs.io/
 
-In ReadTheDocs project settings, you can:
+## Local Validation
 
-**Enable/Disable Builds:**
-- `Admin` → `Advanced Settings`
-- Set **"Default branch"** to `main`
-- Enable **"Build pull requests"** for PR previews
+Before pushing docs changes, validate locally:
 
-**Versioning:**
-- `Versions` tab
-- Activate versions you want (e.g., `latest`, `stable`, `v0.2.0`)
-
-**Notifications:**
-- `Notifications` → Add email for build failure alerts
-
-### 6. Custom Domain (Optional)
-
-To use a custom domain like `docs.neurogebra.com`:
-
-1. In ReadTheDocs: `Admin` → `Domains` → Add domain
-2. In your DNS provider: Add CNAME record pointing to `neurogebra.readthedocs.io`
-3. Wait for DNS propagation (can take up to 48 hours)
-
-## Documentation Structure
-
-Your project uses **MkDocs** with the following structure:
-
-```
-docs/
-├── index.md              # Homepage
-├── getting-started.md    # Installation & Quick Start
-├── api/
-│   └── reference.md     # API Documentation
-├── examples/
-│   ├── custom_activation.md
-│   ├── custom_loss.md
-│   └── training_expressions.md
-└── tutorials/
-    ├── beginner.md
-    ├── intermediate.md
-    └── advanced.md
+```powershell
+pip install -e .[docs]
+mkdocs build
+mkdocs serve
 ```
 
-**Configuration:** `mkdocs.yml`
+## Recommended Project Settings (Read the Docs)
 
-## Debugging Build Failures
-
-If your build fails:
-
-1. **Check Build Logs:**
-   - Click on the failed build in ReadTheDocs
-   - Review the error messages
-
-2. **Common Issues:**
-   - Missing dependencies: Update `pyproject.toml` `[project.optional-dependencies.docs]`
-   - Invalid Markdown: Check for syntax errors in `.md` files
-   - MkDocs config errors: Validate `mkdocs.yml`
-
-3. **Test Locally:**
-   ```powershell
-   # Install docs dependencies
-   pip install -e .[docs]
-   
-   # Build docs locally
-   mkdocs build
-   
-   # Serve docs locally (http://127.0.0.1:8000)
-   mkdocs serve
-   ```
-
-## Advanced Features
-
-### Search
-
-ReadTheDocs provides built-in search across all your documentation automatically.
-
-### Versioned Documentation
-
-ReadTheDocs creates separate documentation for each tag/release:
-- `latest` - built from `main` branch
-- `stable` - latest release tag
-- `v0.2.0` - specific version
-
-### Download Formats
-
-ReadTheDocs can build PDF, EPUB, and HTMLZip formats. Enable in:
-`Admin` → `Advanced Settings` → Check desired formats
-
-### Analytics
-
-Enable traffic analytics:
-`Admin` → `Advanced Settings` → Enable **"Analytics"**
-
-## Updating Documentation
-
-After pushing changes to GitHub:
-
-1. **Automatic:** ReadTheDocs webhook triggers a build automatically
-2. **Manual:** Click **"Build Version"** button in ReadTheDocs dashboard
-
-## Status Badge
-
-Add a ReadTheDocs status badge to your README.md:
-
-```markdown
-[![Documentation Status](https://readthedocs.org/projects/neurogebra/badge/?version=latest)](https://neurogebra.readthedocs.io/en/latest/?badge=latest)
-```
-
-## Links
-
-- **Your Documentation:** https://neurogebra.readthedocs.io/
-- **Project Dashboard:** https://readthedocs.org/projects/neurogebra/
-- **Build History:** https://readthedocs.org/projects/neurogebra/builds/
-- **ReadTheDocs Docs:** https://docs.readthedocs.io/
+- Default branch: `main`
+- Enable pull request builds
+- Keep `latest` and `stable` versions active
 
 ## Troubleshooting
 
-### "Project not found"
-- Make sure you've imported the project on ReadTheDocs
-- Check that your GitHub repository is public or you've granted access
+### Build fails with import errors
 
-### "Build failed: No module named 'neurogebra'"
-- The `.readthedocs.yaml` should install your package with `pip install -e .[docs]`
-- Check that `pyproject.toml` has the correct `docs` extra dependencies
+- Verify `pyproject.toml` includes required docs dependencies.
+- Verify `.readthedocs.yaml` installs package with docs extras.
 
-### "MkDocs configuration error"
-- Validate `mkdocs.yml` syntax
-- Test locally with `mkdocs build`
+### MkDocs errors
 
-### Documentation not updating
-- Check webhook is active in GitHub settings
-- Manually trigger a build in ReadTheDocs
-- Check build logs for errors
+- Validate `mkdocs.yml` syntax.
+- Re-run `mkdocs build` locally to reproduce.
 
----
+### Docs do not update
 
-## Summary
+- Confirm GitHub webhook exists and is active.
+- Trigger a manual build from Read the Docs dashboard.
 
-✅ Configuration file created: `.readthedocs.yaml`
-✅ Ready to import on https://readthedocs.org/
-✅ Automatic builds on every git push
-✅ Documentation will be live at: https://neurogebra.readthedocs.io/
+## Useful Links
 
-**Next steps:**
-1. Import project on ReadTheDocs
-2. Wait for first build to complete
-3. Share your documentation link!
+- Project dashboard: https://readthedocs.org/projects/neurogebra/
+- Build history: https://readthedocs.org/projects/neurogebra/builds/
+- RTD docs: https://docs.readthedocs.io/

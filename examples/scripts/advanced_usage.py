@@ -148,8 +148,8 @@ def search_and_explain_demo():
     # Search
     results = forge.search("classification")
     print("Search 'classification':")
-    for name, score in results[:5]:
-        print(f"  {name}: {score:.2f}")
+    for name in results[:5]:
+        print(f"  {name}")
 
     # Compare
     print("\nComparing activations:")
@@ -162,7 +162,7 @@ def main():
     training_demo()
     composition_demo()
     search_and_explain_demo()
-    print("\n✅ All advanced examples completed successfully!")
+    print("\n[OK] All advanced examples completed successfully!")
 
 
 if __name__ == "__main__":
