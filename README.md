@@ -60,7 +60,17 @@
 
 ## Location-Based Downloads
 
-<iframe src="https://clickhouse-analytics.metabaseapp.com/public/dashboard/365e0045-2935-4fe3-a66f-4f8059261dc4?project_name=neurogebra#&theme=night" frameborder="0" width="100%" height="600"></iframe>
+GitHub README pages do not support iframe embeds. Open the live dashboard here:
+
+<p align="center">
+  <a href="https://clickhouse-analytics.metabaseapp.com/public/dashboard/365e0045-2935-4fe3-a66f-4f8059261dc4?project_name=neurogebra#&theme=night">
+    <img src="https://img.shields.io/badge/Open%20Location--Based%20Downloads%20Dashboard-Click%20Here-0ea5e9?style=for-the-badge" alt="Open location-based downloads dashboard">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://clickhouse-analytics.metabaseapp.com/public/dashboard/365e0045-2935-4fe3-a66f-4f8059261dc4?project_name=neurogebra#&theme=night">Open Interactive Dashboard</a>
+</p>
 
 ---
 
