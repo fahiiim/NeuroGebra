@@ -4,12 +4,12 @@ Neurogebra: Neural-powered mathematics for AI developers.
 A unified library bridging symbolic mathematics, numerical computation,
 and deep learning with educational features built-in.
 
-v2.5.9 -- Observatory Pro: adaptive logging, automated health warnings,
+v2.5.10 -- Observatory Pro: adaptive logging, automated health warnings,
 epoch summarization, tiered storage, visual dashboards, and training
 fingerprinting for full reproducibility.
 """
 
-__version__ = "2.5.9"
+__version__ = "2.5.10"
 __author__ = "Fahim Sarker"
 __email__ = "fahimsarker0805@gmail.com"
 

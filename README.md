@@ -82,7 +82,7 @@ Neurogebra is a unified Python library that bridges **symbolic mathematics**, **
 
 Unlike traditional ML frameworks, Neurogebra is a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, complete with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
-> **v2.5.9** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
+> **v2.5.10** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
 
 <br>
 
