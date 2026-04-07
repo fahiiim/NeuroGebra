@@ -58,6 +58,10 @@
   <a href="https://github.com/fahiiim/NeuroGebra/issues">Report Bug</a>
 </p>
 
+## Location-Based Downloads
+
+<iframe src="https://clickhouse-analytics.metabaseapp.com/public/dashboard/365e0045-2935-4fe3-a66f-4f8059261dc4?project_name=neurogebra#&theme=night" frameborder="0" width="100%" height="600"></iframe>
+
 ---
 
 <br>
