@@ -28,7 +28,6 @@ ENV/
 env/
 
 # IDEs
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -63,5 +62,9 @@ dmypy.json
 .ipynb_checkpoints
 
 # Environment variables
-.env
-.env.local
+config.bat
+node_modules
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
