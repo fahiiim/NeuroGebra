@@ -1,3 +1,27 @@
+# Release Notes - Neurogebra v2.5.11
+
+## Branding and project presentation
+
+- Replaced the NeuroGebra logo with the refreshed teal brand asset.
+- Simplified the README badge header to focus on package compatibility, release status, CI, coverage, documentation, licensing, and lifetime downloads.
+- Made the README logo URL absolute so the image renders consistently on GitHub and PyPI.
+
+## Release infrastructure
+
+- Updated GitHub Actions to Node.js 24-compatible major versions.
+- Restored consistent 2.5.11 version banners across package metadata and documentation.
+- Added the missing 2.5.9 and 2.5.10 changelog history.
+
+## Validation
+
+- 470 tests pass on Python 3.12 locally.
+- Strict MkDocs build passes.
+- Wheel and source distributions pass `twine check` and the installed-wheel import smoke test.
+
+There are no runtime API changes in this release.
+
+---
+
 # Release Notes - Neurogebra v1.3.0
 
 ## 🚀 Major Update: Observatory Pro

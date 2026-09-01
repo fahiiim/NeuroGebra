@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/fahiiim/NeuroGebra/v2.5.8/assets/neurogebra-logo.png" alt="Neurogebra Logo" width="600">
+  <img src="https://raw.githubusercontent.com/fahiiim/NeuroGebra/main/assets/neurogebra-logo.png" alt="NeuroGebra Logo" width="600">
 </p>
 
 <h3 align="center">The Executable Mathematical Formula Companion for AI and Data Science</h3>
@@ -11,37 +11,19 @@
 <br>
 
 <p align="center">
-  <!-- Package & Version -->
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/v/neurogebra.svg?style=flat-square&color=blue" alt="PyPI version"></a>
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/pyversions/neurogebra.svg?style=flat-square" alt="Python versions"></a>
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/dm/neurogebra.svg?style=flat-square&color=green" alt="Downloads"></a>
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/status/neurogebra.svg?style=flat-square" alt="Status"></a>
+  <!-- Package & compatibility -->
+  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/v/neurogebra?style=flat-square&amp;logo=pypi&amp;logoColor=white&amp;color=0f766e" alt="Latest PyPI release"></a>
+  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/pyversions/neurogebra?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Supported Python versions"></a>
+  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/status/neurogebra?style=flat-square&amp;label=status" alt="PyPI development status"></a>
+  <a href="https://pepy.tech/project/neurogebra"><img src="https://static.pepy.tech/badge/neurogebra?style=flat-square" alt="Lifetime PyPI downloads"></a>
 </p>
 
 <p align="center">
-  <!-- Quality & CI -->
-  <a href="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/fahiiim/NeuroGebra/tests.yml?style=flat-square&label=tests" alt="Tests"></a>
-  <a href="https://codecov.io/github/fahiiim/NeuroGebra"><img src="https://img.shields.io/codecov/c/github/fahiiim/NeuroGebra?style=flat-square&color=brightgreen" alt="Coverage"></a>
-  <a href="https://neurogebra.readthedocs.io"><img src="https://img.shields.io/readthedocs/neurogebra?style=flat-square" alt="Docs"></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License: MIT"></a>
-</p>
-
-<p align="center">
-  <!-- Community & Repo -->
-  <a href="https://github.com/fahiiim/NeuroGebra"><img src="https://img.shields.io/github/stars/fahiiim/NeuroGebra?style=flat-square&color=yellow" alt="GitHub stars"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra/issues"><img src="https://img.shields.io/github/issues/fahiiim/NeuroGebra?style=flat-square" alt="Issues"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra/pulls"><img src="https://img.shields.io/github/issues-pr/fahiiim/NeuroGebra?style=flat-square" alt="Pull Requests"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra"><img src="https://img.shields.io/github/last-commit/fahiiim/NeuroGebra?style=flat-square" alt="Last Commit"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra"><img src="https://img.shields.io/github/repo-size/fahiiim/NeuroGebra?style=flat-square" alt="Repo Size"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra"><img src="https://img.shields.io/github/languages/top/fahiiim/NeuroGebra?style=flat-square" alt="Top Language"></a>
-</p>
-
-<p align="center">
-  <!-- Extra -->
-  <a href="https://pepy.tech/project/neurogebra"><img src="https://static.pepy.tech/badge/neurogebra?style=flat-square" alt="Total Downloads"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra/commits/main"><img src="https://img.shields.io/github/commit-activity/m/fahiiim/NeuroGebra?style=flat-square" alt="Commit Activity"></a>
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/format/neurogebra?style=flat-square" alt="Format"></a>
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/implementation/neurogebra?style=flat-square" alt="Implementation"></a>
+  <!-- Quality, documentation & licensing -->
+  <a href="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml"><img src="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml/badge.svg?branch=main" alt="Test suite status"></a>
+  <a href="https://codecov.io/gh/fahiiim/NeuroGebra"><img src="https://codecov.io/gh/fahiiim/NeuroGebra/branch/main/graph/badge.svg" alt="Code coverage"></a>
+  <a href="https://neurogebra.readthedocs.io/"><img src="https://readthedocs.org/projects/neurogebra/badge/?version=latest" alt="Documentation status"></a>
+  <a href="https://github.com/fahiiim/NeuroGebra/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fahiiim/NeuroGebra?style=flat-square&amp;color=0f766e" alt="MIT License"></a>
 </p>
 
 <br>
@@ -82,7 +64,7 @@ Neurogebra is a unified Python library that bridges **symbolic mathematics**, **
 
 Unlike traditional ML frameworks, Neurogebra is a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, complete with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
-> **v2.5.10** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
+> **v2.5.11** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
 
 <br>
 
@@ -581,7 +563,7 @@ print(fingerprint.format_text())
 #   Timestamp:    2026-03-01 12:00:00
 #   Seed:         42
 #   Dataset Hash: 8f14e45fceea167a
-#   Neurogebra:   2.5.8
+#   Neurogebra:   2.5.11
 #   Python:       3.11.5
 #   NumPy:        1.26.0
 #   ...

@@ -5,6 +5,39 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.11] - 2026-09-01
+
+### Changed
+
+- Replaced the NeuroGebra logo with the refreshed teal brand asset
+- Streamlined the README badge header around package, compatibility, CI, coverage, documentation, licensing, and lifetime-download signals
+- Updated GitHub Actions to Node.js 24-compatible major versions
+- Aligned the publishing workflow with the configured PyPI repository secret names
+
+### Fixed
+
+- Made the README logo use an absolute GitHub raw URL so it renders on both GitHub and PyPI
+
+## [2.5.10] - 2026-04-07
+
+### Fixed
+
+- Replaced the unsupported README dashboard iframe with a GitHub-safe dashboard link block
+
+### Changed
+
+- Version bump to 2.5.10 across package metadata and documentation banners
+
+## [2.5.9] - 2026-04-07
+
+### Added
+
+- Added the location-based downloads dashboard to the README
+
+### Changed
+
+- Version bump to 2.5.9 across package metadata and documentation banners
+
 ## [2.5.8] - 2026-04-07
 
 ### Fixed
@@ -43,8 +76,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - "Who Should Use Neurogebra?" section with tailored guidance for students, researchers, and engineers
 - 20+ badges covering CI, coverage, downloads, activity, and more
 
-[2.5.7]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.7
+[2.5.11]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.11
+[2.5.10]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.10
+[2.5.9]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.9
 [2.5.8]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.8
+[2.5.7]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.7
 [2.5.3]: https://github.com/fahiiim/NeuroGebra/releases/tag/v2.5.3
 
 ## [1.3.0] - 2026-02-27
