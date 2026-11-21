@@ -1,7 +1,7 @@
 """Tests for expanded calculus repository."""
 
 import pytest
-import numpy as np
+
 from neurogebra.repository.calculus import get_calculus_expressions
 
 

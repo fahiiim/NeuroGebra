@@ -31,10 +31,9 @@ from __future__ import annotations
 import hashlib
 import os
 import platform
-import sys
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import numpy as np
 
@@ -49,40 +48,40 @@ class TrainingFingerprint:
     timestamp_unix: float = 0.0
 
     # Seeds
-    random_seed: Optional[int] = None
-    numpy_seed: Optional[int] = None
+    random_seed: int | None = None
+    numpy_seed: int | None = None
 
     # Dataset
-    dataset_hash: Optional[str] = None
-    dataset_shape: Optional[tuple] = None
-    dataset_dtype: Optional[str] = None
-    dataset_samples: Optional[int] = None
+    dataset_hash: str | None = None
+    dataset_shape: tuple | None = None
+    dataset_dtype: str | None = None
+    dataset_samples: int | None = None
 
     # Versions
     neurogebra_version: str = ""
     python_version: str = ""
     numpy_version: str = ""
-    dependency_versions: Dict[str, str] = field(default_factory=dict)
+    dependency_versions: dict[str, str] = field(default_factory=dict)
 
     # Hardware
     cpu: str = ""
     cpu_count: int = 0
     ram_gb: float = 0.0
-    gpu: Optional[str] = None
+    gpu: str | None = None
     os_info: str = ""
     machine: str = ""
 
     # Model
-    model_architecture_hash: Optional[str] = None
-    model_info: Dict[str, Any] = field(default_factory=dict)
+    model_architecture_hash: str | None = None
+    model_info: dict[str, Any] = field(default_factory=dict)
 
     # Hyperparameters
-    hyperparameters: Dict[str, Any] = field(default_factory=dict)
+    hyperparameters: dict[str, Any] = field(default_factory=dict)
 
     # Git
-    git_commit: Optional[str] = None
-    git_branch: Optional[str] = None
-    git_dirty: Optional[bool] = None
+    git_commit: str | None = None
+    git_branch: str | None = None
+    git_dirty: bool | None = None
 
     # ------------------------------------------------------------------
     # Factory
@@ -92,11 +91,11 @@ class TrainingFingerprint:
     def capture(
         cls,
         *,
-        model_info: Optional[Dict[str, Any]] = None,
-        hyperparameters: Optional[Dict[str, Any]] = None,
-        dataset: Optional[Union[np.ndarray, str]] = None,
-        random_seed: Optional[int] = None,
-    ) -> "TrainingFingerprint":
+        model_info: dict[str, Any] | None = None,
+        hyperparameters: dict[str, Any] | None = None,
+        dataset: np.ndarray | str | None = None,
+        random_seed: int | None = None,
+    ) -> TrainingFingerprint:
         """
         Capture the current environment and return a fingerprint.
 
@@ -158,7 +157,7 @@ class TrainingFingerprint:
     # Serialisation
     # ------------------------------------------------------------------
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Return a JSON-serialisable dict."""
         return {
             "run_id": self.run_id,
@@ -201,7 +200,7 @@ class TrainingFingerprint:
         }
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]) -> "TrainingFingerprint":
+    def from_dict(cls, d: dict[str, Any]) -> TrainingFingerprint:
         """Reconstruct from a dict (e.g. loaded from JSON)."""
         fp = cls()
         fp.run_id = d.get("run_id", "")
@@ -223,8 +222,7 @@ class TrainingFingerprint:
         fp.python_version = vers.get("python", "")
         fp.numpy_version = vers.get("numpy", "")
         fp.dependency_versions = {
-            k: v for k, v in vers.items()
-            if k not in ("neurogebra", "python", "numpy")
+            k: v for k, v in vers.items() if k not in ("neurogebra", "python", "numpy")
         }
 
         hw = d.get("hardware", {})
@@ -251,7 +249,7 @@ class TrainingFingerprint:
     def format_text(self) -> str:
         """Human-readable fingerprint summary."""
         lines = [
-            f"╔══ Training Fingerprint ══╗",
+            "╔══ Training Fingerprint ══╗",
             f"  Run ID:       {self.run_id}",
             f"  Timestamp:    {self.timestamp}",
             f"  Seed:         {self.random_seed}",
@@ -260,18 +258,22 @@ class TrainingFingerprint:
             lines.append(f"  Dataset Hash: {self.dataset_hash}")
         if self.dataset_shape:
             lines.append(f"  Dataset:      {self.dataset_shape} ({self.dataset_dtype})")
-        lines.extend([
-            f"  Neurogebra:   {self.neurogebra_version}",
-            f"  Python:       {self.python_version}",
-            f"  NumPy:        {self.numpy_version}",
-            f"  CPU:          {self.cpu} ({self.cpu_count} cores)",
-            f"  RAM:          {self.ram_gb:.1f} GB",
-            f"  GPU:          {self.gpu or 'None'}",
-            f"  OS:           {self.os_info}",
-        ])
+        lines.extend(
+            [
+                f"  Neurogebra:   {self.neurogebra_version}",
+                f"  Python:       {self.python_version}",
+                f"  NumPy:        {self.numpy_version}",
+                f"  CPU:          {self.cpu} ({self.cpu_count} cores)",
+                f"  RAM:          {self.ram_gb:.1f} GB",
+                f"  GPU:          {self.gpu or 'None'}",
+                f"  OS:           {self.os_info}",
+            ]
+        )
         if self.git_commit:
             dirty = " (dirty)" if self.git_dirty else ""
-            lines.append(f"  Git:          {self.git_branch}@{self.git_commit[:8]}{dirty}")
+            lines.append(
+                f"  Git:          {self.git_branch}@{self.git_commit[:8]}{dirty}"
+            )
         if self.model_architecture_hash:
             lines.append(f"  Model Hash:   {self.model_architecture_hash}")
         if self.hyperparameters:
@@ -284,16 +286,18 @@ class TrainingFingerprint:
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _get_neurogebra_version() -> str:
     try:
         import neurogebra
+
         return getattr(neurogebra, "__version__", "unknown")
     except ImportError:
         return "unknown"
 
 
-def _get_dependency_versions() -> Dict[str, str]:
-    versions: Dict[str, str] = {}
+def _get_dependency_versions() -> dict[str, str]:
+    versions: dict[str, str] = {}
     for pkg in ("scipy", "sympy", "matplotlib", "rich", "colorama"):
         try:
             mod = __import__(pkg)
@@ -306,13 +310,15 @@ def _get_dependency_versions() -> Dict[str, str]:
 def _get_ram_gb() -> float:
     try:
         import psutil
-        return psutil.virtual_memory().total / (1024 ** 3)
+
+        return psutil.virtual_memory().total / (1024**3)
     except ImportError:
         pass
     # Fallback for Windows
     if platform.system() == "Windows":
         try:
             import ctypes
+
             kernel32 = ctypes.windll.kernel32
             c_ulonglong = ctypes.c_ulonglong
 
@@ -332,7 +338,7 @@ def _get_ram_gb() -> float:
             stat = MEMORYSTATUSEX()
             stat.dwLength = ctypes.sizeof(stat)
             kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
-            return stat.ullTotalPhys / (1024 ** 3)
+            return stat.ullTotalPhys / (1024**3)
         except Exception:
             pass
     # Linux / macOS fallback
@@ -340,16 +346,17 @@ def _get_ram_gb() -> float:
         with open("/proc/meminfo") as f:
             for line in f:
                 if "MemTotal" in line:
-                    return int(line.split()[1]) / (1024 ** 2)
+                    return int(line.split()[1]) / (1024**2)
     except Exception:
         pass
     return 0.0
 
 
-def _detect_gpu() -> Optional[str]:
+def _detect_gpu() -> str | None:
     # Try CUDA (PyTorch)
     try:
         import torch
+
         if torch.cuda.is_available():
             return torch.cuda.get_device_name(0)
     except ImportError:
@@ -357,6 +364,7 @@ def _detect_gpu() -> Optional[str]:
     # Try TensorFlow
     try:
         import tensorflow as tf
+
         gpus = tf.config.list_physical_devices("GPU")
         if gpus:
             return str(gpus[0])
@@ -368,18 +376,22 @@ def _detect_gpu() -> Optional[str]:
 def _get_git_info():
     """Return (commit_hash, branch, is_dirty) or (None, None, None)."""
     import subprocess
+
     try:
         commit = subprocess.check_output(
             ["git", "rev-parse", "HEAD"],
-            stderr=subprocess.DEVNULL, text=True,
+            stderr=subprocess.DEVNULL,
+            text=True,
         ).strip()
         branch = subprocess.check_output(
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-            stderr=subprocess.DEVNULL, text=True,
+            stderr=subprocess.DEVNULL,
+            text=True,
         ).strip()
         status = subprocess.check_output(
             ["git", "status", "--porcelain"],
-            stderr=subprocess.DEVNULL, text=True,
+            stderr=subprocess.DEVNULL,
+            text=True,
         ).strip()
         return commit, branch, bool(status)
     except Exception:

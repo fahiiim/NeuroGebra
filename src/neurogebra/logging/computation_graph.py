@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import numpy as np
 
@@ -18,22 +18,23 @@ import numpy as np
 @dataclass
 class ComputationNode:
     """A single node in the computation graph."""
+
     node_id: int
-    operation: str            # "matmul", "relu", "add_bias", "mse", …
+    operation: str  # "matmul", "relu", "add_bias", "mse", …
     layer_name: str = ""
     layer_index: int = -1
 
     # Shapes
-    input_shapes: List[Tuple] = field(default_factory=list)
-    output_shape: Optional[Tuple] = None
+    input_shapes: list[tuple] = field(default_factory=list)
+    output_shape: tuple | None = None
 
     # Values (optional – may be large)
-    input_values: Optional[List[np.ndarray]] = None
-    output_value: Optional[np.ndarray] = None
+    input_values: list[np.ndarray] | None = None
+    output_value: np.ndarray | None = None
 
     # Gradient
-    gradient: Optional[np.ndarray] = None
-    gradient_norm: Optional[float] = None
+    gradient: np.ndarray | None = None
+    gradient_norm: float | None = None
 
     # Formula
     formula: str = ""
@@ -45,13 +46,13 @@ class ComputationNode:
     timestamp: float = field(default_factory=time.time)
 
     # DAG edges
-    parent_ids: List[int] = field(default_factory=list)
-    child_ids: List[int] = field(default_factory=list)
+    parent_ids: list[int] = field(default_factory=list)
+    child_ids: list[int] = field(default_factory=list)
 
     # Metadata
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "node_id": self.node_id,
             "operation": self.operation,
@@ -91,9 +92,9 @@ class GraphTracker:
                           Increases memory but enables replay.
         """
         self.store_values = store_values
-        self._nodes: Dict[int, ComputationNode] = {}
+        self._nodes: dict[int, ComputationNode] = {}
         self._counter = 0
-        self._layer_index_map: Dict[str, int] = {}
+        self._layer_index_map: dict[str, int] = {}
 
     # ------------------------------------------------------------------
     # Recording
@@ -104,11 +105,11 @@ class GraphTracker:
         operation: str,
         layer_name: str = "",
         layer_index: int = -1,
-        inputs: Optional[List[np.ndarray]] = None,
-        output: Optional[np.ndarray] = None,
+        inputs: list[np.ndarray] | None = None,
+        output: np.ndarray | None = None,
         formula: str = "",
         formula_latex: str = "",
-        parent_ids: Optional[List[int]] = None,
+        parent_ids: list[int] | None = None,
         forward_time: float = 0.0,
         **metadata,
     ) -> int:
@@ -143,8 +144,9 @@ class GraphTracker:
 
         return nid
 
-    def record_gradient(self, node_id: int, gradient: np.ndarray,
-                        backward_time: float = 0.0) -> None:
+    def record_gradient(
+        self, node_id: int, gradient: np.ndarray, backward_time: float = 0.0
+    ) -> None:
         """Attach gradient info to an existing node."""
         if node_id in self._nodes:
             node = self._nodes[node_id]
@@ -156,20 +158,20 @@ class GraphTracker:
     # Queries
     # ------------------------------------------------------------------
 
-    def get_node(self, node_id: int) -> Optional[ComputationNode]:
+    def get_node(self, node_id: int) -> ComputationNode | None:
         return self._nodes.get(node_id)
 
-    def get_all_nodes(self) -> List[ComputationNode]:
+    def get_all_nodes(self) -> list[ComputationNode]:
         return list(self._nodes.values())
 
-    def get_layer_subgraph(self, layer_name: str) -> List[ComputationNode]:
+    def get_layer_subgraph(self, layer_name: str) -> list[ComputationNode]:
         return [n for n in self._nodes.values() if n.layer_name == layer_name]
 
-    def get_forward_path(self) -> List[ComputationNode]:
+    def get_forward_path(self) -> list[ComputationNode]:
         """Return nodes in topological (forward) order."""
         return sorted(self._nodes.values(), key=lambda n: n.node_id)
 
-    def get_backward_path(self) -> List[ComputationNode]:
+    def get_backward_path(self) -> list[ComputationNode]:
         """Return nodes in reverse topological (backward) order."""
         return sorted(self._nodes.values(), key=lambda n: n.node_id, reverse=True)
 
@@ -177,7 +179,7 @@ class GraphTracker:
     # Summaries
     # ------------------------------------------------------------------
 
-    def summary(self) -> Dict[str, Any]:
+    def summary(self) -> dict[str, Any]:
         nodes = list(self._nodes.values())
         return {
             "total_nodes": len(nodes),
@@ -187,7 +189,7 @@ class GraphTracker:
             "total_backward_ms": sum(n.backward_time for n in nodes) * 1000,
         }
 
-    def export_graph(self) -> Dict[str, Any]:
+    def export_graph(self) -> dict[str, Any]:
         """Export the full graph as a JSON-serialisable dict."""
         return {
             "nodes": [n.to_dict() for n in self.get_forward_path()],
@@ -207,6 +209,7 @@ class GraphTracker:
         try:
             from rich.console import Console
             from rich.tree import Tree
+
             console = Console()
             tree = Tree("[bold cyan]Computation Graph[/]")
             for node in self.get_forward_path():

@@ -31,16 +31,16 @@ from __future__ import annotations
 import time
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Any, Callable, Deque, Dict, List, Optional, Sequence
+from typing import Any
 
 import numpy as np
 
-from neurogebra.logging.logger import LogEvent, LogLevel, TrainingLogger
-
+from neurogebra.logging.logger import LogLevel, TrainingLogger
 
 # ---------------------------------------------------------------------------
 # Anomaly configuration
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class AnomalyConfig:
@@ -75,22 +75,25 @@ class AnomalyConfig:
 # Anomaly record
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class AnomalyRecord:
     """Structured record of a detected anomaly."""
-    anomaly_type: str          # e.g. "dead_relu", "gradient_spike", ...
+
+    anomaly_type: str  # e.g. "dead_relu", "gradient_spike", ...
     timestamp: float = field(default_factory=time.time)
-    epoch: Optional[int] = None
-    batch: Optional[int] = None
-    layer_name: Optional[str] = None
+    epoch: int | None = None
+    batch: int | None = None
+    layer_name: str | None = None
     severity: str = "warning"  # "warning" | "danger" | "critical"
     message: str = ""
-    data: Dict[str, Any] = field(default_factory=dict)
+    data: dict[str, Any] = field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
 # Adaptive Logger
 # ---------------------------------------------------------------------------
+
 
 class AdaptiveLogger:
     """
@@ -109,7 +112,7 @@ class AdaptiveLogger:
     def __init__(
         self,
         base_logger: TrainingLogger,
-        config: Optional[AnomalyConfig] = None,
+        config: AnomalyConfig | None = None,
     ):
         self._base = base_logger
         self.config = config or AnomalyConfig()
@@ -119,10 +122,10 @@ class AdaptiveLogger:
             self._base.level = LogLevel.EXPERT
 
         # Rolling state
-        self._gradient_norms: Dict[str, Deque[float]] = {}
-        self._last_batch_loss: Optional[float] = None
-        self._weight_deltas: Dict[str, Deque[float]] = {}
-        self._anomalies: List[AnomalyRecord] = []
+        self._gradient_norms: dict[str, deque[float]] = {}
+        self._last_batch_loss: float | None = None
+        self._weight_deltas: dict[str, deque[float]] = {}
+        self._anomalies: list[AnomalyRecord] = []
 
         # Escalation bookkeeping
         self._escalated = False
@@ -136,7 +139,7 @@ class AdaptiveLogger:
     # ------------------------------------------------------------------
 
     @property
-    def anomalies(self) -> List[AnomalyRecord]:
+    def anomalies(self) -> list[AnomalyRecord]:
         """Return all detected anomalies so far."""
         return list(self._anomalies)
 
@@ -191,8 +194,9 @@ class AdaptiveLogger:
         if anomaly or self._escalated:
             self._base.on_gradient_computed(param_name, gradient, **kwargs)
 
-    def on_weight_updated(self, param_name: str, old_value: float,
-                          new_value: float, **kwargs) -> None:
+    def on_weight_updated(
+        self, param_name: str, old_value: float, new_value: float, **kwargs
+    ) -> None:
         anomaly = self._check_weight_stagnation(param_name, old_value, new_value)
         if anomaly or self._escalated:
             self._base.on_weight_updated(param_name, old_value, new_value, **kwargs)
@@ -228,7 +232,7 @@ class AdaptiveLogger:
 
     # -- forward checks ---------------------------------------------------
 
-    def _check_forward_anomaly(self, layer_name: str, kwargs: Dict) -> bool:
+    def _check_forward_anomaly(self, layer_name: str, kwargs: dict) -> bool:
         self._tick_escalation()
 
         output_data = kwargs.get("output_data")
@@ -237,28 +241,36 @@ class AdaptiveLogger:
 
             # NaN / Inf
             if np.any(np.isnan(arr)) or np.any(np.isinf(arr)):
-                self._flag_anomaly(AnomalyRecord(
-                    anomaly_type="nan_inf_activation",
-                    layer_name=layer_name,
-                    severity="critical",
-                    message=f"NaN/Inf detected in activations of '{layer_name}'",
-                    data={"nan_count": int(np.sum(np.isnan(arr))),
-                          "inf_count": int(np.sum(np.isinf(arr)))},
-                ))
+                self._flag_anomaly(
+                    AnomalyRecord(
+                        anomaly_type="nan_inf_activation",
+                        layer_name=layer_name,
+                        severity="critical",
+                        message=f"NaN/Inf detected in activations of '{layer_name}'",
+                        data={
+                            "nan_count": int(np.sum(np.isnan(arr))),
+                            "inf_count": int(np.sum(np.isinf(arr))),
+                        },
+                    )
+                )
                 return True
 
             # Dead neurons
             flat = arr.ravel()
             zeros_pct = float(np.sum(flat == 0) / max(flat.size, 1) * 100)
             if zeros_pct > self.config.zeros_pct_threshold:
-                self._flag_anomaly(AnomalyRecord(
-                    anomaly_type="dead_neurons",
-                    layer_name=layer_name,
-                    severity="warning",
-                    message=(f"{zeros_pct:.1f}% zeros in '{layer_name}' "
-                             f"— possible dying ReLU"),
-                    data={"zeros_pct": zeros_pct},
-                ))
+                self._flag_anomaly(
+                    AnomalyRecord(
+                        anomaly_type="dead_neurons",
+                        layer_name=layer_name,
+                        severity="warning",
+                        message=(
+                            f"{zeros_pct:.1f}% zeros in '{layer_name}' "
+                            f"— possible dying ReLU"
+                        ),
+                        data={"zeros_pct": zeros_pct},
+                    )
+                )
                 return True
 
             # Saturation (sigmoid/tanh activations mostly ∈ (0,1) or (-1,1))
@@ -267,32 +279,38 @@ class AdaptiveLogger:
                 sat_high = float(np.sum(np.abs(flat) > 0.99) / flat.size * 100)
                 sat_total = sat_low + sat_high
                 if sat_total > self.config.saturation_threshold:
-                    self._flag_anomaly(AnomalyRecord(
-                        anomaly_type="activation_saturation",
-                        layer_name=layer_name,
-                        severity="warning",
-                        message=(f"{sat_total:.1f}% activations saturated "
-                                 f"in '{layer_name}'"),
-                        data={"saturation_pct": sat_total},
-                    ))
+                    self._flag_anomaly(
+                        AnomalyRecord(
+                            anomaly_type="activation_saturation",
+                            layer_name=layer_name,
+                            severity="warning",
+                            message=(
+                                f"{sat_total:.1f}% activations saturated "
+                                f"in '{layer_name}'"
+                            ),
+                            data={"saturation_pct": sat_total},
+                        )
+                    )
                     return True
 
         return False
 
     # -- backward checks --------------------------------------------------
 
-    def _check_backward_anomaly(self, layer_name: str, kwargs: Dict) -> bool:
+    def _check_backward_anomaly(self, layer_name: str, kwargs: dict) -> bool:
         self._tick_escalation()
         grad_output = kwargs.get("grad_output")
         if grad_output is not None:
             arr = np.asarray(grad_output, dtype=np.float64)
             if np.any(np.isnan(arr)) or np.any(np.isinf(arr)):
-                self._flag_anomaly(AnomalyRecord(
-                    anomaly_type="nan_inf_gradient",
-                    layer_name=layer_name,
-                    severity="critical",
-                    message=f"NaN/Inf in gradient output of '{layer_name}'",
-                ))
+                self._flag_anomaly(
+                    AnomalyRecord(
+                        anomaly_type="nan_inf_gradient",
+                        layer_name=layer_name,
+                        severity="critical",
+                        message=f"NaN/Inf in gradient output of '{layer_name}'",
+                    )
+                )
                 return True
         return False
 
@@ -304,23 +322,27 @@ class AdaptiveLogger:
 
         # Absolute thresholds
         if g < self.config.gradient_vanish_threshold:
-            self._flag_anomaly(AnomalyRecord(
-                anomaly_type="vanishing_gradient",
-                layer_name=param_name,
-                severity="danger",
-                message=f"Vanishing gradient for '{param_name}' (|g|={g:.2e})",
-                data={"gradient": gradient},
-            ))
+            self._flag_anomaly(
+                AnomalyRecord(
+                    anomaly_type="vanishing_gradient",
+                    layer_name=param_name,
+                    severity="danger",
+                    message=f"Vanishing gradient for '{param_name}' (|g|={g:.2e})",
+                    data={"gradient": gradient},
+                )
+            )
             return True
 
         if g > self.config.gradient_explode_threshold:
-            self._flag_anomaly(AnomalyRecord(
-                anomaly_type="exploding_gradient",
-                layer_name=param_name,
-                severity="danger",
-                message=f"Exploding gradient for '{param_name}' (|g|={g:.2e})",
-                data={"gradient": gradient},
-            ))
+            self._flag_anomaly(
+                AnomalyRecord(
+                    anomaly_type="exploding_gradient",
+                    layer_name=param_name,
+                    severity="danger",
+                    message=f"Exploding gradient for '{param_name}' (|g|={g:.2e})",
+                    data={"gradient": gradient},
+                )
+            )
             return True
 
         # Spike detection
@@ -329,15 +351,22 @@ class AdaptiveLogger:
         )
         if len(buf) >= 3:
             rolling_mean = float(np.mean(buf))
-            if rolling_mean > 0 and g > rolling_mean * self.config.gradient_spike_factor:
-                self._flag_anomaly(AnomalyRecord(
-                    anomaly_type="gradient_spike",
-                    layer_name=param_name,
-                    severity="warning",
-                    message=(f"Gradient spike in '{param_name}': "
-                             f"{g:.2e} vs rolling avg {rolling_mean:.2e}"),
-                    data={"gradient": gradient, "rolling_mean": rolling_mean},
-                ))
+            if (
+                rolling_mean > 0
+                and g > rolling_mean * self.config.gradient_spike_factor
+            ):
+                self._flag_anomaly(
+                    AnomalyRecord(
+                        anomaly_type="gradient_spike",
+                        layer_name=param_name,
+                        severity="warning",
+                        message=(
+                            f"Gradient spike in '{param_name}': "
+                            f"{g:.2e} vs rolling avg {rolling_mean:.2e}"
+                        ),
+                        data={"gradient": gradient, "rolling_mean": rolling_mean},
+                    )
+                )
                 buf.append(g)
                 return True
         buf.append(g)
@@ -345,28 +374,33 @@ class AdaptiveLogger:
 
     # -- loss spike -------------------------------------------------------
 
-    def _check_loss_spike(self, loss: float, epoch: Optional[int],
-                          batch: int) -> bool:
+    def _check_loss_spike(self, loss: float, epoch: int | None, batch: int) -> bool:
         if self._last_batch_loss is not None and self._last_batch_loss > 0:
             pct_increase = (loss - self._last_batch_loss) / self._last_batch_loss * 100
             if pct_increase > self.config.loss_spike_pct:
-                self._flag_anomaly(AnomalyRecord(
-                    anomaly_type="loss_spike",
-                    epoch=epoch,
-                    batch=batch,
-                    severity="warning",
-                    message=(f"Loss spiked by {pct_increase:.1f}% "
-                             f"({self._last_batch_loss:.4f} → {loss:.4f})"),
-                    data={"prev_loss": self._last_batch_loss, "new_loss": loss,
-                          "pct_increase": pct_increase},
-                ))
+                self._flag_anomaly(
+                    AnomalyRecord(
+                        anomaly_type="loss_spike",
+                        epoch=epoch,
+                        batch=batch,
+                        severity="warning",
+                        message=(
+                            f"Loss spiked by {pct_increase:.1f}% "
+                            f"({self._last_batch_loss:.4f} → {loss:.4f})"
+                        ),
+                        data={
+                            "prev_loss": self._last_batch_loss,
+                            "new_loss": loss,
+                            "pct_increase": pct_increase,
+                        },
+                    )
+                )
                 return True
         return False
 
     # -- weight stagnation ------------------------------------------------
 
-    def _check_weight_stagnation(self, param_name: str, old: float,
-                                 new: float) -> bool:
+    def _check_weight_stagnation(self, param_name: str, old: float, new: float) -> bool:
         self._tick_escalation()
         delta = abs(new - old)
         buf = self._weight_deltas.setdefault(
@@ -375,15 +409,19 @@ class AdaptiveLogger:
         buf.append(delta)
         if len(buf) >= self.config.weight_stagnation_window:
             if all(d < self.config.weight_stagnation_threshold for d in buf):
-                self._flag_anomaly(AnomalyRecord(
-                    anomaly_type="weight_stagnation",
-                    layer_name=param_name,
-                    severity="warning",
-                    message=(f"Weight '{param_name}' stagnant for "
-                             f"{self.config.weight_stagnation_window} updates "
-                             f"(max Δ={max(buf):.2e})"),
-                    data={"max_delta": float(max(buf))},
-                ))
+                self._flag_anomaly(
+                    AnomalyRecord(
+                        anomaly_type="weight_stagnation",
+                        layer_name=param_name,
+                        severity="warning",
+                        message=(
+                            f"Weight '{param_name}' stagnant for "
+                            f"{self.config.weight_stagnation_window} updates "
+                            f"(max Δ={max(buf):.2e})"
+                        ),
+                        data={"max_delta": float(max(buf))},
+                    )
+                )
                 return True
         return False
 
@@ -391,10 +429,10 @@ class AdaptiveLogger:
     # Utilities
     # ------------------------------------------------------------------
 
-    def get_anomaly_summary(self) -> Dict[str, Any]:
+    def get_anomaly_summary(self) -> dict[str, Any]:
         """Return a structured summary of all detected anomalies."""
-        by_type: Dict[str, int] = {}
-        by_severity: Dict[str, int] = {}
+        by_type: dict[str, int] = {}
+        by_severity: dict[str, int] = {}
         for a in self._anomalies:
             by_type[a.anomaly_type] = by_type.get(a.anomaly_type, 0) + 1
             by_severity[a.severity] = by_severity.get(a.severity, 0) + 1

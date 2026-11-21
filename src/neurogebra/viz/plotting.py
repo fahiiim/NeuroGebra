@@ -4,20 +4,22 @@ Plotting utilities for Neurogebra.
 Provides static plotting functions for expressions using matplotlib.
 """
 
-from typing import Any, Dict, List, Optional, Tuple, Union
-import numpy as np
+from typing import Any, Optional
+
 import matplotlib.pyplot as plt
+import numpy as np
+
 from neurogebra.core.expression import Expression
 
 
 def plot_expression(
     expression: Expression,
-    x_range: Tuple[float, float] = (-5, 5),
+    x_range: tuple[float, float] = (-5, 5),
     n_points: int = 500,
     title: Optional[str] = None,
     xlabel: str = "x",
     ylabel: str = "f(x)",
-    figsize: Tuple[int, int] = (8, 5),
+    figsize: tuple[int, int] = (8, 5),
     show_grid: bool = True,
     show_formula: bool = True,
     ax: Optional[plt.Axes] = None,
@@ -74,11 +76,11 @@ def plot_expression(
 
 
 def plot_comparison(
-    expressions: List[Expression],
-    x_range: Tuple[float, float] = (-5, 5),
+    expressions: list[Expression],
+    x_range: tuple[float, float] = (-5, 5),
     n_points: int = 500,
     title: str = "Expression Comparison",
-    figsize: Tuple[int, int] = (10, 6),
+    figsize: tuple[int, int] = (10, 6),
     show_grid: bool = True,
 ) -> plt.Figure:
     """
@@ -122,9 +124,9 @@ def plot_comparison(
 def plot_gradient(
     expression: Expression,
     var: str = "x",
-    x_range: Tuple[float, float] = (-5, 5),
+    x_range: tuple[float, float] = (-5, 5),
     n_points: int = 500,
-    figsize: Tuple[int, int] = (10, 5),
+    figsize: tuple[int, int] = (10, 5),
 ) -> plt.Figure:
     """
     Plot expression alongside its gradient.
@@ -166,8 +168,8 @@ def plot_gradient(
 
 
 def plot_training_history(
-    history: Dict[str, List],
-    figsize: Tuple[int, int] = (12, 4),
+    history: dict[str, list],
+    figsize: tuple[int, int] = (12, 4),
 ) -> plt.Figure:
     """
     Plot training history (loss and accuracy).
@@ -191,9 +193,7 @@ def plot_training_history(
     epochs = range(1, len(history["loss"]) + 1)
 
     # Loss plot
-    axes[0].plot(
-        epochs, history["loss"], "b-", linewidth=2, label="Training Loss"
-    )
+    axes[0].plot(epochs, history["loss"], "b-", linewidth=2, label="Training Loss")
     if has_val:
         axes[0].plot(
             epochs,

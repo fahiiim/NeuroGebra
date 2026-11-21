@@ -1,7 +1,8 @@
 """Tests for expanded regularizers repository."""
 
-import pytest
 import numpy as np
+import pytest
+
 from neurogebra.repository.regularizers import get_regularizers
 
 
@@ -53,7 +54,7 @@ class TestRegularizersRepository:
     def test_max_norm(self):
         mn = self.regs["max_norm"]
         assert float(mn.eval(w=1, max_val=3)) == 0.0  # within limit
-        assert float(mn.eval(w=4, max_val=3)) > 0     # exceeds limit
+        assert float(mn.eval(w=4, max_val=3)) > 0  # exceeds limit
 
     def test_orthogonal_reg(self):
         oreg = self.regs["orthogonal_reg"]
@@ -65,7 +66,7 @@ class TestRegularizersRepository:
         """Every regularizer should evaluate without error for basic inputs."""
         for name, expr in self.regs.items():
             syms = [str(s) for s in expr.variables]
-            kwargs = {s: 0.5 for s in syms}
+            kwargs = dict.fromkeys(syms, 0.5)
             # Override specific params
             for p, v in expr.params.items():
                 kwargs[p] = v

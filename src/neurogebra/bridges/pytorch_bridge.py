@@ -4,6 +4,8 @@ PyTorch bridge for Neurogebra expressions.
 Converts Neurogebra expressions to PyTorch-compatible modules.
 """
 
+from typing import Any
+
 import numpy as np
 import sympy as sp
 
@@ -28,26 +30,89 @@ def check_torch():
         )
 
 
-def to_pytorch(expression: Expression) -> "nn.Module":
+def model_to_pytorch(model) -> "nn.Module":
+    """Convert a Neurogebra Model to a PyTorch nn.Sequential module."""
+    check_torch()
+    modules = []
+    for layer in model.layers:
+        ltype = layer.layer_type.lower()
+        if ltype == "dense":
+            in_dim = (
+                layer.weights.shape[0]
+                if layer.weights is not None
+                else (
+                    layer.params.get("input_shape", (1,))[0]
+                    if "input_shape" in layer.params
+                    else 1
+                )
+            )
+            out_dim = layer.units or 1
+            linear = nn.Linear(in_dim, out_dim)
+            if layer.weights is not None:
+                linear.weight.data = torch.from_numpy(layer.weights.T).float()
+            if layer.bias is not None:
+                linear.bias.data = torch.from_numpy(layer.bias).float()
+            modules.append(linear)
+            act = (layer.activation or "").lower()
+            if act == "relu":
+                modules.append(nn.ReLU())
+            elif act == "sigmoid":
+                modules.append(nn.Sigmoid())
+            elif act == "tanh":
+                modules.append(nn.Tanh())
+            elif act == "softmax":
+                modules.append(nn.Softmax(dim=-1))
+            elif act == "leaky_relu":
+                modules.append(nn.LeakyReLU(0.01))
+            elif act == "gelu":
+                modules.append(nn.GELU())
+        elif ltype == "dropout":
+            modules.append(nn.Dropout(p=layer.params.get("rate", 0.2)))
+        elif ltype == "flatten":
+            modules.append(nn.Flatten())
+        elif ltype == "batchnorm":
+            modules.append(nn.BatchNorm1d(layer.params.get("num_features", 1)))
+        elif ltype == "conv2d":
+            k = layer.params.get("kernel_size", 3)
+            c_in = layer.weights.shape[2] if layer.weights is not None else 1
+            c_out = layer.units or 32
+            padding = (
+                1 if str(layer.params.get("padding", "valid")).lower() == "same" else 0
+            )
+            conv = nn.Conv2d(c_in, c_out, kernel_size=k, padding=padding)
+            if layer.weights is not None:
+                w_pt = np.transpose(layer.weights, (3, 2, 0, 1))
+                conv.weight.data = torch.from_numpy(w_pt).float()
+            if layer.bias is not None:
+                conv.bias.data = torch.from_numpy(layer.bias).float()
+            modules.append(conv)
+            act = (layer.activation or "").lower()
+            if act == "relu":
+                modules.append(nn.ReLU())
+            elif act == "sigmoid":
+                modules.append(nn.Sigmoid())
+        elif ltype == "maxpool2d":
+            p = layer.params.get("pool_size", 2)
+            modules.append(nn.MaxPool2d(kernel_size=p))
+
+    return nn.Sequential(*modules)
+
+
+def to_pytorch(obj: Any) -> "nn.Module":
     """
-    Convert a Neurogebra Expression to a PyTorch nn.Module.
+    Convert a Neurogebra Expression or Model to a PyTorch nn.Module.
 
     Args:
-        expression: Neurogebra Expression instance
+        obj: Neurogebra Expression or Model instance
 
     Returns:
-        PyTorch nn.Module that implements the expression and gradient flow.
-
-    Raises:
-        ImportError: If PyTorch is not installed
-        ValueError: If expression has more than one runtime input variable
-
-    Notes:
-        This bridge supports single-input expressions (for example, x -> f(x)).
-        Trainable scalar parameters are supported and receive gradients using
-        symbolic differentiation.
+        PyTorch nn.Module that implements the computation and gradient flow.
     """
     check_torch()
+    if hasattr(obj, "layers"):
+        return model_to_pytorch(obj)
+
+    expression = obj
 
     class ExpressionModule(nn.Module):
         def __init__(self, expr: Expression):
@@ -119,7 +184,7 @@ def to_pytorch(expression: Expression) -> "nn.Module":
                 )
 
         def _build_symbol_values(self, x_np, param_values):
-            symbol_values = {name: value for name, value in self._base_params.items()}
+            symbol_values = dict(self._base_params.items())
             symbol_values.update(param_values)
             symbol_values[self._input_symbol_name] = x_np
             return symbol_values
@@ -150,10 +215,16 @@ def to_pytorch(expression: Expression) -> "nn.Module":
                 symbol_values.get(name, 0.0) for name in self._ordered_symbol_names
             ]
 
-            output_np = self._evaluate_callable(self._value_fn, ordered_args, x_np.shape)
-            grad_x_np = self._evaluate_callable(self._grad_x_fn, ordered_args, x_np.shape)
+            output_np = self._evaluate_callable(
+                self._value_fn, ordered_args, x_np.shape
+            )
+            grad_x_np = self._evaluate_callable(
+                self._grad_x_fn, ordered_args, x_np.shape
+            )
             grad_param_nps = [
-                self._evaluate_callable(self._grad_param_fns[name], ordered_args, x_np.shape)
+                self._evaluate_callable(
+                    self._grad_param_fns[name], ordered_args, x_np.shape
+                )
                 for name in self._trainable_names
             ]
 

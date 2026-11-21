@@ -1,7 +1,7 @@
 """Tests for expanded algebra repository."""
 
 import pytest
-import numpy as np
+
 from neurogebra.repository.algebra import get_algebra_expressions
 
 
@@ -85,7 +85,12 @@ class TestAlgebraRepository:
             assert name in self.algebra, f"Missing polynomial: {name}"
 
     def test_distribution_names_exist(self):
-        dist_names = ["gaussian", "cauchy_distribution", "student_t",
-                       "rayleigh", "laplace_distribution"]
+        dist_names = [
+            "gaussian",
+            "cauchy_distribution",
+            "student_t",
+            "rayleigh",
+            "laplace_distribution",
+        ]
         for name in dist_names:
             assert name in self.algebra, f"Missing distribution: {name}"

@@ -4,7 +4,8 @@ Micro autograd engine for Neurogebra.
 Implements automatic differentiation for training mathematical expressions.
 """
 
-from typing import Any, List, Optional, Set, Tuple, Union
+from typing import Any, Optional, Union
+
 import numpy as np
 
 
@@ -23,7 +24,7 @@ class Value:
         >>> print(a.grad)  # dc/da = b + 1 = 4.0
     """
 
-    def __init__(self, data: float, _children: Tuple = (), _op: str = ""):
+    def __init__(self, data: float, _children: tuple = (), _op: str = ""):
         """
         Initialize a Value node.
 
@@ -144,8 +145,8 @@ class Value:
         Performs topological sort and calls _backward on each node.
         """
         # Build topological order
-        topo: List[Value] = []
-        visited: Set[int] = set()
+        topo: list[Value] = []
+        visited: set[int] = set()
 
         def build_topo(v: Value):
             if id(v) not in visited:
@@ -202,11 +203,27 @@ class Value:
         return id(self)
 
 
+def _unbroadcast(grad: np.ndarray, target_shape: tuple) -> np.ndarray:
+    """Sum gradients along broadcasted dimensions so shape matches target_shape."""
+    if grad.shape == target_shape:
+        return grad
+    grad_arr = grad
+    grad_ndim = grad_arr.ndim
+    target_ndim = len(target_shape)
+    if grad_ndim > target_ndim:
+        for _ in range(grad_ndim - target_ndim):
+            grad_arr = grad_arr.sum(axis=0)
+    for i, dim in enumerate(target_shape):
+        if dim == 1 and grad_arr.shape[i] > 1:
+            grad_arr = grad_arr.sum(axis=i, keepdims=True)
+    return grad_arr.reshape(target_shape)
+
+
 class Tensor:
     """
-    Multi-dimensional array with autograd support.
+    Multi-dimensional array with autograd support and topological reverse-mode AD.
 
-    Extends Value concept to tensors for mini-batch training.
+    Extends autograd capabilities to multi-dimensional tensors for deep learning.
 
     Examples:
         >>> t = Tensor([1.0, 2.0, 3.0], requires_grad=True)
@@ -215,7 +232,7 @@ class Tensor:
         >>> print(t.grad)  # [1.0, 1.0, 1.0]
     """
 
-    def __init__(self, data: Union[List, np.ndarray, Any], requires_grad: bool = False):
+    def __init__(self, data: Union[list, np.ndarray, Any], requires_grad: bool = False):
         """
         Initialize a Tensor.
 
@@ -227,13 +244,13 @@ class Tensor:
         self.grad: Optional[np.ndarray] = None
         self.requires_grad = requires_grad
         self._grad_fn = None
-        self._prev: Set["Tensor"] = set()
+        self._prev: set[Tensor] = set()
 
         if requires_grad:
             self.grad = np.zeros_like(self.data)
 
     @property
-    def shape(self) -> Tuple:
+    def shape(self) -> tuple:
         """Return the shape of the tensor."""
         return self.data.shape
 
@@ -242,9 +259,57 @@ class Tensor:
         """Return the number of dimensions."""
         return self.data.ndim
 
+    @property
+    def T(self) -> "Tensor":
+        """Transpose tensor."""
+        out = Tensor(self.data.T, requires_grad=self.requires_grad)
+        out._prev = {self}
+
+        def _grad_fn(grad):
+            if self.requires_grad:
+                g = grad.T
+                self.grad = g if self.grad is None else self.grad + g
+
+        out._grad_fn = _grad_fn
+        return out
+
+    def transpose(self, *axes) -> "Tensor":
+        """Permute tensor axes."""
+        out = Tensor(
+            np.transpose(self.data, *axes if axes else None),
+            requires_grad=self.requires_grad,
+        )
+        out._prev = {self}
+
+        def _grad_fn(grad):
+            if self.requires_grad:
+                if axes:
+                    # Invert permutation
+                    inv_axes = np.argsort(axes)
+                    g = np.transpose(grad, inv_axes)
+                else:
+                    g = grad.T
+                self.grad = g if self.grad is None else self.grad + g
+
+        out._grad_fn = _grad_fn
+        return out
+
+    def reshape(self, *shape) -> "Tensor":
+        """Reshape tensor."""
+        out = Tensor(self.data.reshape(*shape), requires_grad=self.requires_grad)
+        out._prev = {self}
+
+        def _grad_fn(grad):
+            if self.requires_grad:
+                g = grad.reshape(self.shape)
+                self.grad = g if self.grad is None else self.grad + g
+
+        out._grad_fn = _grad_fn
+        return out
+
     def backward(self, gradient: Optional[np.ndarray] = None):
         """
-        Compute gradients via backpropagation.
+        Compute gradients via reverse-mode automatic differentiation (topological sort).
 
         Args:
             gradient: Upstream gradient. If None, uses ones.
@@ -252,16 +317,27 @@ class Tensor:
         if not self.requires_grad:
             return
 
+        # Build topological order
+        topo: list[Tensor] = []
+        visited: set[int] = set()
+
+        def build_topo(t: Tensor):
+            if id(t) not in visited:
+                visited.add(id(t))
+                for child in t._prev:
+                    build_topo(child)
+                topo.append(t)
+
+        build_topo(self)
+
         if gradient is None:
-            gradient = np.ones_like(self.data)
-
-        if self.grad is not None:
-            self.grad += gradient
+            self.grad = np.ones_like(self.data)
         else:
-            self.grad = gradient.copy()
+            self.grad = np.array(gradient, dtype=np.float64)
 
-        if self._grad_fn is not None:
-            self._grad_fn(gradient)
+        for node in reversed(topo):
+            if node._grad_fn is not None and node.grad is not None:
+                node._grad_fn(node.grad)
 
     def zero_grad(self):
         """Reset gradient to zero."""
@@ -274,7 +350,9 @@ class Tensor:
         out._prev = {self}
 
         def _grad_fn(gradient):
-            self.backward(gradient * np.ones_like(self.data))
+            if self.requires_grad:
+                g = gradient * np.ones_like(self.data)
+                self.grad = g if self.grad is None else self.grad + g
 
         out._grad_fn = _grad_fn
         return out
@@ -286,13 +364,56 @@ class Tensor:
         out._prev = {self}
 
         def _grad_fn(gradient):
-            self.backward(gradient * np.ones_like(self.data) / n)
+            if self.requires_grad:
+                g = gradient * np.ones_like(self.data) / n
+                self.grad = g if self.grad is None else self.grad + g
+
+        out._grad_fn = _grad_fn
+        return out
+
+    def relu(self) -> "Tensor":
+        """ReLU activation."""
+        out = Tensor(np.maximum(0, self.data), requires_grad=self.requires_grad)
+        out._prev = {self}
+
+        def _grad_fn(gradient):
+            if self.requires_grad:
+                g = (self.data > 0) * gradient
+                self.grad = g if self.grad is None else self.grad + g
+
+        out._grad_fn = _grad_fn
+        return out
+
+    def sigmoid(self) -> "Tensor":
+        """Sigmoid activation."""
+        s = 1.0 / (1.0 + np.exp(-np.clip(self.data, -500, 500)))
+        out = Tensor(s, requires_grad=self.requires_grad)
+        out._prev = {self}
+
+        def _grad_fn(gradient):
+            if self.requires_grad:
+                g = gradient * s * (1.0 - s)
+                self.grad = g if self.grad is None else self.grad + g
+
+        out._grad_fn = _grad_fn
+        return out
+
+    def tanh(self) -> "Tensor":
+        """Tanh activation."""
+        t = np.tanh(self.data)
+        out = Tensor(t, requires_grad=self.requires_grad)
+        out._prev = {self}
+
+        def _grad_fn(gradient):
+            if self.requires_grad:
+                g = gradient * (1.0 - t**2)
+                self.grad = g if self.grad is None else self.grad + g
 
         out._grad_fn = _grad_fn
         return out
 
     def __add__(self, other):
-        """Element-wise addition."""
+        """Element-wise addition with broadcasting support."""
         if isinstance(other, Tensor):
             out = Tensor(
                 self.data + other.data,
@@ -302,25 +423,29 @@ class Tensor:
 
             def _grad_fn(gradient):
                 if self.requires_grad:
-                    self.backward(gradient)
+                    g_self = _unbroadcast(gradient, self.shape)
+                    self.grad = g_self if self.grad is None else self.grad + g_self
                 if other.requires_grad:
-                    other.backward(gradient)
+                    g_other = _unbroadcast(gradient, other.shape)
+                    other.grad = g_other if other.grad is None else other.grad + g_other
 
             out._grad_fn = _grad_fn
         else:
-            out = Tensor(self.data + other, requires_grad=self.requires_grad)
+            other_data = np.asarray(other, dtype=np.float64)
+            out = Tensor(self.data + other_data, requires_grad=self.requires_grad)
             out._prev = {self}
 
             def _grad_fn(gradient):
                 if self.requires_grad:
-                    self.backward(gradient)
+                    g_self = _unbroadcast(gradient, self.shape)
+                    self.grad = g_self if self.grad is None else self.grad + g_self
 
             out._grad_fn = _grad_fn
 
         return out
 
     def __mul__(self, other):
-        """Element-wise multiplication."""
+        """Element-wise multiplication with broadcasting support."""
         if isinstance(other, Tensor):
             out = Tensor(
                 self.data * other.data,
@@ -330,32 +455,64 @@ class Tensor:
 
             def _grad_fn(gradient):
                 if self.requires_grad:
-                    self.backward(gradient * other.data)
+                    g_self = _unbroadcast(gradient * other.data, self.shape)
+                    self.grad = g_self if self.grad is None else self.grad + g_self
                 if other.requires_grad:
-                    other.backward(gradient * self.data)
+                    g_other = _unbroadcast(gradient * self.data, other.shape)
+                    other.grad = g_other if other.grad is None else other.grad + g_other
 
             out._grad_fn = _grad_fn
         else:
-            out = Tensor(self.data * other, requires_grad=self.requires_grad)
+            other_data = np.asarray(other, dtype=np.float64)
+            out = Tensor(self.data * other_data, requires_grad=self.requires_grad)
             out._prev = {self}
 
             def _grad_fn(gradient):
                 if self.requires_grad:
-                    self.backward(gradient * other)
+                    g_self = _unbroadcast(gradient * other_data, self.shape)
+                    self.grad = g_self if self.grad is None else self.grad + g_self
 
             out._grad_fn = _grad_fn
 
         return out
 
+    def __matmul__(self, other):
+        """Matrix multiplication with autograd support."""
+        other = other if isinstance(other, Tensor) else Tensor(other)
+        out = Tensor(
+            self.data @ other.data,
+            requires_grad=self.requires_grad or other.requires_grad,
+        )
+        out._prev = {self, other}
+
+        def _grad_fn(gradient):
+            if self.requires_grad:
+                g_self = (
+                    gradient @ other.data.swapaxes(-1, -2)
+                    if other.data.ndim > 1
+                    else np.outer(gradient, other.data)
+                )
+                self.grad = g_self if self.grad is None else self.grad + g_self
+            if other.requires_grad:
+                g_other = (
+                    self.data.swapaxes(-1, -2) @ gradient
+                    if self.data.ndim > 1
+                    else np.outer(self.data, gradient)
+                )
+                other.grad = g_other if other.grad is None else other.grad + g_other
+
+        out._grad_fn = _grad_fn
+        return out
+
     def __sub__(self, other):
         """Element-wise subtraction."""
         if isinstance(other, Tensor):
-            return self + Tensor(-other.data, requires_grad=other.requires_grad)
+            return self + (-other)
         return self + (-other)
 
     def __neg__(self):
         """Negate tensor."""
-        return self * (-1)
+        return self * (-1.0)
 
     def __rmul__(self, other):
         return self * other
@@ -370,9 +527,13 @@ class Tensor:
 
         def _grad_fn(gradient):
             if self.requires_grad:
-                self.backward(gradient * power * self.data ** (power - 1))
+                g_self = _unbroadcast(
+                    gradient * power * (self.data ** (power - 1)), self.shape
+                )
+                self.grad = g_self if self.grad is None else self.grad + g_self
 
         out._grad_fn = _grad_fn
+        return out
         return out
 
     def __repr__(self):

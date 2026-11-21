@@ -1,8 +1,8 @@
 """Visualization tools for Neurogebra."""
 
 from neurogebra.viz.plotting import (
-    plot_expression,
     plot_comparison,
+    plot_expression,
     plot_gradient,
     plot_training_history,
 )

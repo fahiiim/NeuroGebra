@@ -5,8 +5,6 @@ Provides step-by-step guided tutorials covering neural network basics,
 building models, activations, and training.
 """
 
-from typing import Optional
-
 
 class TutorialSystem:
     """
@@ -37,16 +35,10 @@ class TutorialSystem:
 
         print("Available tutorials:\n")
         print("1. 📚 basics          - Neural Network Basics (15 min)")
-        print(
-            "   Learn what neural networks are and how they work\n"
-        )
-        print(
-            "2. 🏗️  first_model     - Build Your First Model (20 min)"
-        )
+        print("   Learn what neural networks are and how they work\n")
+        print("2. 🏗️  first_model     - Build Your First Model (20 min)")
         print("   Step-by-step guide to creating a classifier\n")
-        print(
-            "3. ⚡ activations      - Understanding Activations (15 min)"
-        )
+        print("3. ⚡ activations      - Understanding Activations (15 min)")
         print("   Explore different activation functions\n")
         print("4. 🎯 training        - Training Models (25 min)")
         print("   Learn how to train and evaluate models\n")
@@ -189,9 +181,7 @@ class FirstModelTutorial:
         print("🏗️  Build Your First Model - Interactive Tutorial")
         print("=" * 60 + "\n")
 
-        print(
-            "In this tutorial, you'll learn the steps to build a classifier!\n"
-        )
+        print("In this tutorial, you'll learn the steps to build a classifier!\n")
 
         self._step1_problem()
         self._step2_architecture()
@@ -229,10 +219,7 @@ class FirstModelTutorial:
         print()
         print("Code:")
         print("  >>> model = builder.Sequential([")
-        print(
-            "  ...     builder.Dense(128, activation='relu', "
-            "input_shape=(784,)),"
-        )
+        print("  ...     builder.Dense(128, activation='relu', input_shape=(784,)),")
         print("  ...     builder.Dropout(0.2),")
         print("  ...     builder.Dense(64, activation='relu'),")
         print("  ...     builder.Dense(10, activation='softmax')")
@@ -308,9 +295,7 @@ class ActivationsTutorial:
         print("STEP 1: What Are Activation Functions?")
         print("-" * 60 + "\n")
 
-        print(
-            "Activation functions add NON-LINEARITY to neural networks."
-        )
+        print("Activation functions add NON-LINEARITY to neural networks.")
         print("Without them, a deep network would just be a linear model!\n")
         print("They decide which neurons 'fire' (output a signal).")
         print()
@@ -433,9 +418,7 @@ class TrainingTutorial:
         print("-" * 60 + "\n")
 
         print("Hyperparameters YOU choose:\n")
-        print(
-            "  Learning Rate (0.001): How big each weight update is"
-        )
+        print("  Learning Rate (0.001): How big each weight update is")
         print("    Too high → unstable, too low → very slow")
         print()
         print("  Batch Size (32): Samples per gradient update")
@@ -444,9 +427,7 @@ class TrainingTutorial:
         print("  Epochs (10-100): How many times to see all data")
         print("    Too many → overfitting, too few → underfitting")
         print()
-        print(
-            "  Dropout Rate (0.2): Fraction of neurons to randomly disable"
-        )
+        print("  Dropout Rate (0.2): Fraction of neurons to randomly disable")
         print("    Helps prevent overfitting")
         print()
 

@@ -1,6 +1,7 @@
 """Tests for MathForge."""
 
 import pytest
+
 from neurogebra import MathForge
 from neurogebra.core.expression import Expression
 

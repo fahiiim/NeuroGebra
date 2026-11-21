@@ -8,14 +8,13 @@ terminal or exports them as PNG/GIF files.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
-
 import numpy as np
 
 try:
     from rich.console import Console
     from rich.panel import Panel
     from rich.text import Text
+
     HAS_RICH = True
 except ImportError:
     HAS_RICH = False
@@ -46,8 +45,9 @@ class ImageLogger:
     # Input image rendering
     # ------------------------------------------------------------------
 
-    def render_image(self, image: np.ndarray, title: str = "Input Image",
-                     grayscale: bool = False) -> str:
+    def render_image(
+        self, image: np.ndarray, title: str = "Input Image", grayscale: bool = False
+    ) -> str:
         """
         Render an image as ASCII art in the terminal.
 
@@ -68,7 +68,9 @@ class ImageLogger:
         elif img.ndim == 3 and img.shape[2] == 3 and not grayscale:
             return self._render_rgb(img, title)
         else:
-            return self._render_grayscale(img.mean(axis=-1) if img.ndim == 3 else img, title)
+            return self._render_grayscale(
+                img.mean(axis=-1) if img.ndim == 3 else img, title
+            )
 
     def _normalise(self, img: np.ndarray) -> np.ndarray:
         img = np.asarray(img, dtype=np.float64)
@@ -107,9 +109,14 @@ class ImageLogger:
 
         art = "\n".join(lines)
         if self._console:
-            self._console.print(Panel(art, title=f"[bold cyan]{title}[/]",
-                                      subtitle=f"{img.shape[1]}×{img.shape[0]} px",
-                                      border_style="cyan"))
+            self._console.print(
+                Panel(
+                    art,
+                    title=f"[bold cyan]{title}[/]",
+                    subtitle=f"{img.shape[1]}×{img.shape[0]} px",
+                    border_style="cyan",
+                )
+            )
         else:
             print(f"\n{title} ({img.shape[1]}×{img.shape[0]}):\n{art}\n")
         return art
@@ -128,18 +135,23 @@ class ImageLogger:
                 text.append(_BLOCK * 2, style=f"rgb({r},{g},{b})")
             text.append("\n")
 
-        self._console.print(Panel(text, title=f"[bold cyan]{title}[/]",
-                                  subtitle=f"{w}×{h} px (RGB)",
-                                  border_style="cyan"))
+        self._console.print(
+            Panel(
+                text,
+                title=f"[bold cyan]{title}[/]",
+                subtitle=f"{w}×{h} px (RGB)",
+                border_style="cyan",
+            )
+        )
         return str(text)
 
     # ------------------------------------------------------------------
     # Activation map rendering
     # ------------------------------------------------------------------
 
-    def render_activation_maps(self, activations: np.ndarray,
-                               title: str = "Activation Maps",
-                               max_maps: int = 8) -> None:
+    def render_activation_maps(
+        self, activations: np.ndarray, title: str = "Activation Maps", max_maps: int = 8
+    ) -> None:
         """
         Render Conv2D activation maps.
 
@@ -158,7 +170,9 @@ class ImageLogger:
         n_maps = min(a.shape[2] if a.ndim == 3 else 1, max_maps)
 
         if self._console:
-            self._console.print(f"\n[bold cyan]{title}[/] — showing {n_maps} feature maps")
+            self._console.print(
+                f"\n[bold cyan]{title}[/] — showing {n_maps} feature maps"
+            )
 
         for i in range(n_maps):
             fmap = a[:, :, i] if a.ndim == 3 else a
@@ -174,9 +188,12 @@ class ImageLogger:
     # Filter visualisation
     # ------------------------------------------------------------------
 
-    def render_filters(self, weights: np.ndarray,
-                       title: str = "Conv Filter Weights",
-                       max_filters: int = 8) -> None:
+    def render_filters(
+        self,
+        weights: np.ndarray,
+        title: str = "Conv Filter Weights",
+        max_filters: int = 8,
+    ) -> None:
         """
         Render convolutional filter weights.
 
@@ -199,9 +216,12 @@ class ImageLogger:
     # Saliency map
     # ------------------------------------------------------------------
 
-    def render_saliency(self, input_image: np.ndarray,
-                        gradients: np.ndarray,
-                        title: str = "Saliency Map") -> None:
+    def render_saliency(
+        self,
+        input_image: np.ndarray,
+        gradients: np.ndarray,
+        title: str = "Saliency Map",
+    ) -> None:
         """
         Render a saliency map highlighting which pixels matter most.
 
@@ -238,11 +258,11 @@ class ImageLogger:
     # Export
     # ------------------------------------------------------------------
 
-    def save_image(self, image: np.ndarray, path: str,
-                   title: str = "Image") -> None:
+    def save_image(self, image: np.ndarray, path: str, title: str = "Image") -> None:
         """Save image to file using matplotlib."""
         try:
             import matplotlib.pyplot as plt
+
             fig, ax = plt.subplots(1, 1, figsize=(4, 4))
             img = self._normalise(image)
             if img.ndim == 2 or (img.ndim == 3 and img.shape[2] == 1):

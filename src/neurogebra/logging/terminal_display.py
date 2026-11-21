@@ -8,34 +8,25 @@ rendering, and severity-coded health alerts.
 
 from __future__ import annotations
 
-import math
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import numpy as np
 
 try:
+    from rich import box
     from rich.console import Console
     from rich.panel import Panel
+    from rich.progress import Progress
+    from rich.rule import Rule
     from rich.table import Table
     from rich.text import Text
-    from rich.progress import (
-        Progress,
-        BarColumn,
-        TextColumn,
-        TimeRemainingColumn,
-        SpinnerColumn,
-    )
     from rich.tree import Tree
-    from rich.columns import Columns
-    from rich.rule import Rule
-    from rich import box
 
     HAS_RICH = True
 except ImportError:
     HAS_RICH = False
 
-from neurogebra.logging.logger import LogEvent, LogLevel
-
+from neurogebra.logging.logger import LogEvent
 
 # ======================================================================
 # Sparkline helper (works without rich too)
@@ -44,7 +35,7 @@ from neurogebra.logging.logger import LogEvent, LogLevel
 _SPARK_CHARS = "▁▂▃▄▅▆▇█"
 
 
-def sparkline(values: List[float], width: int = 20) -> str:
+def sparkline(values: list[float], width: int = 20) -> str:
     """Return a Unicode sparkline string for *values*."""
     if not values:
         return ""
@@ -55,7 +46,9 @@ def sparkline(values: List[float], width: int = 20) -> str:
         step = len(values) / width
         values = [values[int(i * step)] for i in range(width)]
     return "".join(
-        _SPARK_CHARS[min(int((v - mn) / rng * (len(_SPARK_CHARS) - 1)), len(_SPARK_CHARS) - 1)]
+        _SPARK_CHARS[
+            min(int((v - mn) / rng * (len(_SPARK_CHARS) - 1)), len(_SPARK_CHARS) - 1)
+        ]
         for v in values
     )
 
@@ -90,6 +83,7 @@ def _sev_style(severity: str) -> str:
 # Terminal Display backend
 # ======================================================================
 
+
 class TerminalDisplay:
     """
     Rich terminal backend for the Training Observatory logger.
@@ -98,7 +92,7 @@ class TerminalDisplay:
     The logger will call ``handle_<event_type>`` methods automatically.
     """
 
-    def __init__(self, config: Optional[Any] = None):
+    def __init__(self, config: Any | None = None):
         if not HAS_RICH:
             raise ImportError(
                 "The 'rich' package is required for TerminalDisplay. "
@@ -106,10 +100,10 @@ class TerminalDisplay:
             )
         self.console = Console()
         self.config = config
-        self._loss_history: List[float] = []
-        self._val_loss_history: List[float] = []
-        self._acc_history: List[float] = []
-        self._epoch_progress: Optional[Progress] = None
+        self._loss_history: list[float] = []
+        self._val_loss_history: list[float] = []
+        self._acc_history: list[float] = []
+        self._epoch_progress: Progress | None = None
 
     # ------------------------------------------------------------------
     # Event handlers (called by TrainingLogger._emit)
@@ -122,7 +116,9 @@ class TerminalDisplay:
         batch_size = d.get("batch_size", "?")
 
         self.console.print()
-        self.console.print(Rule("[bold cyan]NEUROGEBRA TRAINING OBSERVATORY[/]", style="cyan"))
+        self.console.print(
+            Rule("[bold cyan]NEUROGEBRA TRAINING OBSERVATORY[/]", style="cyan")
+        )
         self.console.print()
 
         model_info = d.get("model_info", {})
@@ -139,8 +135,11 @@ class TerminalDisplay:
         info_table.add_row("Optimizer", str(model_info.get("optimizer", "—")))
         info_table.add_row("Learning rate", str(model_info.get("lr", "—")))
 
-        self.console.print(Panel(info_table, title="[bold]Training Configuration[/]",
-                                 border_style="cyan"))
+        self.console.print(
+            Panel(
+                info_table, title="[bold]Training Configuration[/]", border_style="cyan"
+            )
+        )
         self.console.print()
 
     def handle_train_end(self, event: LogEvent) -> None:
@@ -151,7 +150,9 @@ class TerminalDisplay:
         self.console.print()
         self.console.print(Rule("[bold green]TRAINING COMPLETE[/]", style="green"))
 
-        summary_table = Table(box=box.ROUNDED, show_header=True, header_style="bold green")
+        summary_table = Table(
+            box=box.ROUNDED, show_header=True, header_style="bold green"
+        )
         summary_table.add_column("Metric")
         summary_table.add_column("Value", justify="right")
         summary_table.add_row("Total time", f"{elapsed:.1f}s")
@@ -162,15 +163,14 @@ class TerminalDisplay:
         if self._acc_history:
             summary_table.add_row("Accuracy trend", sparkline(self._acc_history))
 
-        self.console.print(Panel(summary_table, title="[bold]Final Summary[/]",
-                                 border_style="green"))
+        self.console.print(
+            Panel(summary_table, title="[bold]Final Summary[/]", border_style="green")
+        )
         self.console.print()
 
     def handle_epoch_start(self, event: LogEvent) -> None:
         epoch = event.epoch
-        self.console.print(
-            f"\n[bold cyan]━━━ Epoch {epoch + 1} ━━━[/]"
-        )
+        self.console.print(f"\n[bold cyan]━━━ Epoch {epoch + 1} ━━━[/]")
 
     def handle_epoch_end(self, event: LogEvent) -> None:
         d = event.data
@@ -224,9 +224,13 @@ class TerminalDisplay:
         name = event.layer_name or f"layer_{event.layer_index}"
         formula = d.get("formula", "")
 
-        table = Table(title=f"[bold bright_cyan]→ Forward: {name}[/]",
-                      box=box.SIMPLE_HEAVY, show_header=True,
-                      header_style="bold", padding=(0, 1))
+        table = Table(
+            title=f"[bold bright_cyan]→ Forward: {name}[/]",
+            box=box.SIMPLE_HEAVY,
+            show_header=True,
+            header_style="bold",
+            padding=(0, 1),
+        )
         table.add_column("Property", style="cyan")
         table.add_column("Value", justify="right")
 
@@ -256,9 +260,13 @@ class TerminalDisplay:
         name = event.layer_name or f"layer_{event.layer_index}"
         formula = d.get("formula", "")
 
-        table = Table(title=f"[bold yellow]← Backward: {name}[/]",
-                      box=box.SIMPLE_HEAVY, show_header=True,
-                      header_style="bold", padding=(0, 1))
+        table = Table(
+            title=f"[bold yellow]← Backward: {name}[/]",
+            box=box.SIMPLE_HEAVY,
+            show_header=True,
+            header_style="bold",
+            padding=(0, 1),
+        )
         table.add_column("Property", style="yellow")
         table.add_column("Value", justify="right")
 
@@ -285,9 +293,7 @@ class TerminalDisplay:
         sev = event.severity
         style = _sev_style(sev)
         icon = _SEVERITY_ICONS.get(sev, "")
-        self.console.print(
-            f"    {icon} ∇{param} = [{style}]{grad:.8e}[/]"
-        )
+        self.console.print(f"    {icon} ∇{param} = [{style}]{grad:.8e}[/]")
 
     def handle_weight_updated(self, event: LogEvent) -> None:
         d = event.data
@@ -340,7 +346,7 @@ class TerminalDisplay:
                     branch.add(f"[dim]{k}:[/] {v}")
         self.console.print(tree)
 
-    def render_gradient_heatmap(self, grad_norms: Dict[str, float]) -> None:
+    def render_gradient_heatmap(self, grad_norms: dict[str, float]) -> None:
         """Render a simple text-based gradient heatmap across layers."""
         if not grad_norms:
             return
@@ -358,12 +364,11 @@ class TerminalDisplay:
             else:
                 colour = "green"
             bar = "█" * bar_len + "░" * (30 - bar_len)
-            self.console.print(
-                f"  {name:>20s}  [{colour}]{bar}[/]  {norm:.2e}"
-            )
+            self.console.print(f"  {name:>20s}  [{colour}]{bar}[/]  {norm:.2e}")
 
-    def render_weight_histogram(self, layer_name: str,
-                                histogram: Dict[str, Any]) -> None:
+    def render_weight_histogram(
+        self, layer_name: str, histogram: dict[str, Any]
+    ) -> None:
         """Render an ASCII histogram of weight distribution."""
         counts = histogram.get("counts", [])
         edges = histogram.get("edges", [])

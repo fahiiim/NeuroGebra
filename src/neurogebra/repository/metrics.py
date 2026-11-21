@@ -8,17 +8,16 @@ educational demonstration.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_metrics_expressions() -> Dict[str, Expression]:
+def get_metrics_expressions() -> dict[str, Expression]:
     """
     Get dictionary of evaluation metric expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    met: Dict[str, Expression] = {}
+    met: dict[str, Expression] = {}
 
     # ================================================================
     # Classification Metrics (element-wise / scalar forms)

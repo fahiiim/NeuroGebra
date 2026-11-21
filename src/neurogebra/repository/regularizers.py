@@ -6,17 +6,16 @@ Regularizers add penalty terms to the loss to prevent overfitting.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_regularizers() -> Dict[str, Expression]:
+def get_regularizers() -> dict[str, Expression]:
     """
     Get dictionary of regularization expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    regs: Dict[str, Expression] = {}
+    regs: dict[str, Expression] = {}
 
     # ----------------------------------------------------------------
     # Classic Norm-Based Regularizers
@@ -52,10 +51,7 @@ def get_regularizers() -> Dict[str, Expression]:
 
     regs["elastic_net"] = Expression(
         name="elastic_net",
-        symbolic_expr=(
-            "alpha * lambda_reg * Abs(w) "
-            "+ (1 - alpha) * lambda_reg * w**2"
-        ),
+        symbolic_expr=("alpha * lambda_reg * Abs(w) + (1 - alpha) * lambda_reg * w**2"),
         params={"lambda_reg": 0.01, "alpha": 0.5},
         metadata={
             "category": "regularizer",
@@ -142,8 +138,7 @@ def get_regularizers() -> Dict[str, Expression]:
     regs["entropy_reg"] = Expression(
         name="entropy_reg",
         symbolic_expr=(
-            "-lambda_reg * (p * log(p + epsilon) "
-            "+ (1 - p) * log(1 - p + epsilon))"
+            "-lambda_reg * (p * log(p + epsilon) + (1 - p) * log(1 - p + epsilon))"
         ),
         params={"lambda_reg": 0.01, "epsilon": 1e-8},
         metadata={

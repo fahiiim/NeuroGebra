@@ -5,16 +5,16 @@ This file tracks current publishing readiness without conflicting historical not
 ## Current Snapshot
 
 - Package name: `neurogebra`
-- Repository version target: `2.5.11` (see `pyproject.toml`)
+- Repository version target: `2.6.0` (see `pyproject.toml`)
 - Canonical docs config: `.readthedocs.yaml`
-- Current PyPI release: `2.5.11`.
+- Current PyPI release: `2.6.0`.
 
 ## Platform Status
 
 | Platform | Current State | Notes |
 |---|---|---|
-| GitHub | `v2.5.11` published | Release and tag point to tested commit `f7f8eb6`. |
-| PyPI | `2.5.11` published | Wheel and source distribution are publicly available. |
+| GitHub | `v2.6.0` published | Release and tag include hardware acceleration and CNN engine. |
+| PyPI | `2.6.0` published | Wheel and source distribution are publicly available on PyPI. |
 | Read the Docs | Configured | Use `.readthedocs.yaml` as the single source of truth. |
 
 ## Pre-Release Gate (Current)

@@ -1,7 +1,8 @@
 """Tests for statistics repository."""
 
-import pytest
 import numpy as np
+import pytest
+
 from neurogebra.repository.statistics import get_statistics_expressions
 
 
@@ -54,6 +55,7 @@ class TestStatisticsRepository:
         # Default mu=0, s=1, n=30 -> t = x * sqrt(30)
         val = float(self.stats["t_statistic"].eval(x=1))
         import numpy as np
+
         assert val == pytest.approx(np.sqrt(30), rel=1e-3)
 
     def test_logistic_cdf_at_zero(self):
@@ -71,24 +73,29 @@ class TestStatisticsRepository:
         assert val == pytest.approx(5.0)
 
     def test_logistic_regression_pred_at_zero(self):
-        val = float(self.stats["logistic_regression_pred"].eval(
-            x=0, beta_0=0, beta_1=1
-        ))
+        val = float(
+            self.stats["logistic_regression_pred"].eval(x=0, beta_0=0, beta_1=1)
+        )
         assert val == pytest.approx(0.5)
 
     def test_subcategories_exist(self):
         subcats = set()
         for expr in self.stats.values():
             subcats.add(expr.metadata.get("subcategory", ""))
-        for expected in ["distribution", "information_theory", "descriptive",
-                          "bayesian", "regression"]:
+        for expected in [
+            "distribution",
+            "information_theory",
+            "descriptive",
+            "bayesian",
+            "regression",
+        ]:
             assert expected in subcats, f"Missing subcategory: {expected}"
 
     def test_all_expressions_eval(self):
         """Every expression should evaluate without error."""
         for name, expr in self.stats.items():
             syms = [str(s) for s in expr.variables]
-            kwargs = {s: 0.5 for s in syms}
+            kwargs = dict.fromkeys(syms, 0.5)
             for p, v in expr.params.items():
                 kwargs[p] = v
             try:

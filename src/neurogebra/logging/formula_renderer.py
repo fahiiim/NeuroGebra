@@ -7,19 +7,19 @@ and inline formula annotations for forward and backward passes.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 try:
     from rich.console import Console
     from rich.panel import Panel
-    from rich.text import Text
+
     HAS_RICH = True
 except ImportError:
     HAS_RICH = False
 
 try:
-    import sympy as sp
-    from sympy import Symbol, latex, pretty
+    from sympy import latex, pretty
+
     HAS_SYMPY = True
 except ImportError:
     HAS_SYMPY = False
@@ -67,8 +67,13 @@ class FormulaRenderer:
     # Layer formulas
     # ------------------------------------------------------------------
 
-    def dense_forward_formula(self, layer_name: str, activation: str = "linear",
-                              input_symbol: str = "x", layer_idx: int = 0) -> str:
+    def dense_forward_formula(
+        self,
+        layer_name: str,
+        activation: str = "linear",
+        input_symbol: str = "x",
+        layer_idx: int = 0,
+    ) -> str:
         """Return the forward formula string for a Dense layer."""
         act = self._OP_SYMBOLS.get(activation, activation)
         w = f"W{layer_idx}"
@@ -81,8 +86,9 @@ class FormulaRenderer:
         ]
         return "\n".join(lines)
 
-    def dense_backward_formula(self, layer_name: str, activation: str = "linear",
-                               layer_idx: int = 0) -> str:
+    def dense_backward_formula(
+        self, layer_name: str, activation: str = "linear", layer_idx: int = 0
+    ) -> str:
         """Return the backward formula string for a Dense layer."""
         grad = self._GRAD_SYMBOLS.get(activation, f"∂{activation}/∂z")
         w = f"W{layer_idx}"
@@ -120,7 +126,7 @@ class FormulaRenderer:
     # Composition
     # ------------------------------------------------------------------
 
-    def full_model_equation(self, layer_specs: List[Dict[str, Any]]) -> str:
+    def full_model_equation(self, layer_specs: list[dict[str, Any]]) -> str:
         """Compose the entire model into one chained equation."""
         eq_parts = []
         input_sym = "x"
@@ -143,26 +149,31 @@ class FormulaRenderer:
     # Pretty printing
     # ------------------------------------------------------------------
 
-    def render(self, formula: str, title: str = "Formula",
-               style: str = "magenta") -> None:
+    def render(
+        self, formula: str, title: str = "Formula", style: str = "magenta"
+    ) -> None:
         """Print a formula panel to the terminal."""
         if self._console:
-            self._console.print(Panel(
-                f"[{style}]{formula}[/]",
-                title=f"[bold {style}]{title}[/]",
-                border_style=style,
-            ))
+            self._console.print(
+                Panel(
+                    f"[{style}]{formula}[/]",
+                    title=f"[bold {style}]{title}[/]",
+                    border_style=style,
+                )
+            )
         else:
             print(f"\n{title}: {formula}\n")
 
-    def render_forward(self, layer_name: str, activation: str,
-                       layer_idx: int) -> None:
-        formula = self.dense_forward_formula(layer_name, activation, layer_idx=layer_idx)
+    def render_forward(self, layer_name: str, activation: str, layer_idx: int) -> None:
+        formula = self.dense_forward_formula(
+            layer_name, activation, layer_idx=layer_idx
+        )
         self.render(formula, title=f"→ Forward: {layer_name}")
 
-    def render_backward(self, layer_name: str, activation: str,
-                        layer_idx: int) -> None:
-        formula = self.dense_backward_formula(layer_name, activation, layer_idx=layer_idx)
+    def render_backward(self, layer_name: str, activation: str, layer_idx: int) -> None:
+        formula = self.dense_backward_formula(
+            layer_name, activation, layer_idx=layer_idx
+        )
         self.render(formula, title=f"← Backward: {layer_name}", style="yellow")
 
     def render_loss(self, loss_name: str) -> None:

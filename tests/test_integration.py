@@ -1,6 +1,5 @@
 """Integration tests for Neurogebra."""
 
-import pytest
 import numpy as np
 
 
@@ -53,7 +52,7 @@ class TestEndToEndWorkflow:
 
     def test_training_workflow(self):
         """Test expression training workflow."""
-        from neurogebra import MathForge, Expression
+        from neurogebra import Expression
         from neurogebra.core.trainer import Trainer
 
         np.random.seed(42)
@@ -93,7 +92,7 @@ class TestEndToEndWorkflow:
 
     def test_custom_expression_workflow(self):
         """Test creating and using custom expressions."""
-        from neurogebra import MathForge, Expression
+        from neurogebra import Expression, MathForge
 
         forge = MathForge()
 

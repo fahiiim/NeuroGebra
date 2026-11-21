@@ -1,7 +1,5 @@
 """Tests for loss function repository."""
 
-import pytest
-import numpy as np
 from neurogebra.repository.losses import get_losses
 
 

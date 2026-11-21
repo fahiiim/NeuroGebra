@@ -5,10 +5,11 @@ This module defines the fundamental Expression class that represents
 mathematical operations with symbolic, numerical, and trainable capabilities.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Optional, Union
+
 import numpy as np
 import sympy as sp
-from sympy import Symbol, sympify, lambdify
+from sympy import Symbol, lambdify, sympify
 
 
 class Expression:
@@ -28,9 +29,9 @@ class Expression:
         self,
         name: str,
         symbolic_expr: Union[str, sp.Expr],
-        params: Optional[Dict[str, Any]] = None,
-        trainable_params: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        params: Optional[dict[str, Any]] = None,
+        trainable_params: Optional[list[str]] = None,
+        metadata: Optional[dict[str, Any]] = None,
     ):
         """
         Initialize an Expression.
@@ -54,12 +55,14 @@ class Expression:
             self.symbolic_expr = symbolic_expr
 
         # Extract variables from symbolic expression
-        self.variables = sorted(
-            list(self.symbolic_expr.free_symbols), key=lambda s: s.name
-        )
+        self.variables = sorted(self.symbolic_expr.free_symbols, key=lambda s: s.name)
+        self._var_names = [s.name for s in self.variables]
 
         # Create numerical function
         self._numerical_func = None
+        self._c_func = None
+        self._cuda_func = None
+        self._preferred_backend = "numpy"
         self._compile_numerical()
 
     def _compile_numerical(self):
@@ -70,14 +73,55 @@ class Expression:
             )
         else:
             # Constant expression
-            self._numerical_func = lambda: float(self.symbolic_expr)
+            try:
+                const_val = float(self.symbolic_expr)
+            except Exception:
+                const_val = 0.0
+            self._numerical_func = lambda *args, **kwargs: const_val
 
-    def eval(self, *args: Any, **kwargs: Any) -> Union[float, np.ndarray]:
+    def compile(self, backend: str = "c") -> "Expression":
         """
-        Evaluate the expression numerically.
+        Pre-compile the expression into high-performance native machine code or CUDA.
+
+        Args:
+            backend: 'c' (AVX2 SIMD), 'cuda' (NVIDIA GPU), or 'numpy'
+
+        Returns:
+            Self for chaining
+        """
+        b = backend.lower()
+        if b == "c":
+            from neurogebra.acceleration.c_jit import compile_c, is_c_available
+
+            if not is_c_available():
+                raise RuntimeError("No C/C++ compiler found on system.")
+            self._c_func = compile_c(self.symbolic_expr, self.variables)
+            self._preferred_backend = "c"
+        elif b == "cuda":
+            from neurogebra.acceleration.cuda_jit import compile_cuda, is_cuda_available
+
+            if not is_cuda_available():
+                raise RuntimeError("CUDA is not available on this machine.")
+            self._cuda_func = compile_cuda(self.symbolic_expr, self.variables)
+            self._preferred_backend = "cuda"
+        elif b == "numpy":
+            self._compile_numerical()
+            self._preferred_backend = "numpy"
+        else:
+            raise ValueError(
+                f"Unknown backend '{backend}'. Supported: 'c', 'cuda', 'numpy'"
+            )
+        return self
+
+    def eval(
+        self, *args: Any, backend: Optional[str] = None, **kwargs: Any
+    ) -> Union[float, np.ndarray]:
+        """
+        Evaluate the expression numerically or with hardware acceleration.
 
         Args:
             *args: Positional arguments for variables
+            backend: Optional backend override: 'numpy', 'c', 'cuda', or 'auto'
             **kwargs: Keyword arguments for variables
 
         Returns:
@@ -87,28 +131,68 @@ class Expression:
             >>> expr = Expression("quadratic", "a*x**2 + b*x + c")
             >>> result = expr.eval(x=2, a=1, b=2, c=1)
         """
-        # Substitute parameters into expression
-        expr_with_params = self.symbolic_expr.subs(self.params)
+        if not self.variables:
+            return float(self.symbolic_expr)
 
-        # Determine remaining free symbols after parameter substitution
-        remaining_vars = sorted(
-            list(expr_with_params.free_symbols), key=lambda s: s.name
-        )
+        # Map variable values
+        ordered_args = []
+        pos_idx = 0
 
-        if not remaining_vars:
-            return float(expr_with_params)
+        # Identify variables not present in params
+        runtime_vars = [v for v in self.variables if v.name not in self.params]
 
-        # Create function with current parameters
-        func = lambdify(remaining_vars, expr_with_params, modules=["numpy"])
+        for var in self.variables:
+            name = var.name
+            if name in kwargs:
+                ordered_args.append(kwargs[name])
+            elif name in self.params:
+                ordered_args.append(self.params[name])
+            elif args:
+                if len(args) == len(self.variables):
+                    ordered_args.append(args[self.variables.index(var)])
+                elif pos_idx < len(args) and var in runtime_vars:
+                    ordered_args.append(args[pos_idx])
+                    pos_idx += 1
+                elif pos_idx < len(args):
+                    ordered_args.append(args[pos_idx])
+                    pos_idx += 1
+                else:
+                    ordered_args.append(0.0)
+            else:
+                ordered_args.append(0.0)
 
-        # Handle both positional and keyword arguments
-        if args:
-            return func(*args)
-        elif kwargs:
-            ordered_args = [kwargs.get(str(var), 0) for var in remaining_vars]
-            return func(*ordered_args)
-        else:
-            return func()
+        chosen_backend = backend.lower() if backend else self._preferred_backend
+
+        # Dispatch to backend
+        if chosen_backend == "c":
+            if self._c_func is None:
+                from neurogebra.acceleration.c_jit import compile_c, is_c_available
+
+                if is_c_available():
+                    self._c_func = compile_c(self.symbolic_expr, self.variables)
+            if self._c_func is not None:
+                return self._c_func(*ordered_args)
+
+        elif chosen_backend == "cuda":
+            if self._cuda_func is None:
+                from neurogebra.acceleration.cuda_jit import (
+                    compile_cuda,
+                    is_cuda_available,
+                )
+
+                if is_cuda_available():
+                    self._cuda_func = compile_cuda(self.symbolic_expr, self.variables)
+            if self._cuda_func is not None:
+                return self._cuda_func(*ordered_args)
+
+        # Default / Fallback to fast compiled NumPy lambdify
+        if self._numerical_func is None:
+            self._compile_numerical()
+
+        result = self._numerical_func(*ordered_args)
+        if isinstance(result, np.ndarray) and result.shape == ():
+            return float(result)
+        return result
 
     def gradient(self, var: Union[str, Symbol]) -> "Expression":
         """
@@ -179,7 +263,7 @@ class Expression:
 
     def visualize(
         self,
-        x_range: Tuple[float, float] = (-5, 5),
+        x_range: tuple[float, float] = (-5, 5),
         n_points: int = 500,
         interactive: bool = False,
         **kwargs: Any,
@@ -272,11 +356,11 @@ class Expression:
     def __pow__(self, other):
         """Power of expression."""
         if isinstance(other, Expression):
-            new_expr = self.symbolic_expr ** other.symbolic_expr
+            new_expr = self.symbolic_expr**other.symbolic_expr
             new_name = f"({self.name}**{other.name})"
             new_params = {**self.params, **other.params}
         else:
-            new_expr = self.symbolic_expr ** other
+            new_expr = self.symbolic_expr**other
             new_name = f"({self.name}**{other})"
             new_params = self.params.copy()
 
@@ -284,9 +368,7 @@ class Expression:
 
     def __neg__(self):
         """Negate expression."""
-        return Expression(
-            f"(-{self.name})", -self.symbolic_expr, self.params.copy()
-        )
+        return Expression(f"(-{self.name})", -self.symbolic_expr, self.params.copy())
 
     def __repr__(self):
         return f"Expression('{self.name}': {self.symbolic_expr})"

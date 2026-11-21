@@ -7,17 +7,16 @@ used in ML preprocessing and feature pipelines.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_transforms_expressions() -> Dict[str, Expression]:
+def get_transforms_expressions() -> dict[str, Expression]:
     """
     Get dictionary of transform expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    tf: Dict[str, Expression] = {}
+    tf: dict[str, Expression] = {}
 
     # ================================================================
     # Normalization Transforms

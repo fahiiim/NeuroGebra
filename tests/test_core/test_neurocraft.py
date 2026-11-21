@@ -1,8 +1,9 @@
 """Tests for NeuroCraft."""
 
 import pytest
-from neurogebra.core.neurocraft import NeuroCraft
+
 from neurogebra.core.expression import Expression
+from neurogebra.core.neurocraft import NeuroCraft
 
 
 class TestNeuroCraftInitialization:

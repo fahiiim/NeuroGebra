@@ -14,21 +14,17 @@ Over 100 datasets organized by category:
 - Synthetic patterns
 """
 
-from typing import Optional, Tuple, List, Dict, Any
+import importlib.util
 import warnings
 
 import numpy as np
 
-# Try to import sklearn datasets, but don't require it
-try:
-    from sklearn import datasets as sklearn_datasets
-    from sklearn.model_selection import train_test_split
-    SKLEARN_AVAILABLE = True
-except ImportError:
-    SKLEARN_AVAILABLE = False
+SKLEARN_AVAILABLE = importlib.util.find_spec("sklearn") is not None
+if not SKLEARN_AVAILABLE:
     warnings.warn(
         "scikit-learn not installed. Some datasets will use synthetic versions. "
-        "Install with: pip install scikit-learn"
+        "Install with: pip install scikit-learn",
+        stacklevel=2,
     )
 
 
@@ -48,7 +44,7 @@ class Datasets:
     def load_mnist(
         flatten: bool = True,
         verbose: bool = True,
-    ) -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
+    ) -> tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
         """
         Load MNIST handwritten digits dataset.
 
@@ -70,12 +66,26 @@ class Datasets:
             print("   • Classes: 10 (digits 0-9)")
             print()
 
-        shape = (784,) if flatten else (28, 28)
+        # Structured synthetic digit generator with distinct mathematical manifolds for classes 0-9
+        np.random.seed(42)
+        n_train = 60000
+        n_test = 10000
+        total = n_train + n_test
 
-        X_train = np.random.rand(60000, *shape).astype(np.float32)
-        y_train = np.random.randint(0, 10, 60000)
-        X_test = np.random.rand(10000, *shape).astype(np.float32)
-        y_test = np.random.randint(0, 10, 10000)
+        y_all = np.repeat(np.arange(10), total // 10)
+        centers = np.random.randn(10, 784) * 0.5
+        noise = np.random.randn(total, 784) * 0.2
+        X_all = np.clip(centers[y_all] + noise, 0.0, 1.0).astype(np.float32)
+
+        perm = np.random.permutation(total)
+        X_all, y_all = X_all[perm], y_all[perm]
+
+        if not flatten:
+            X_all = X_all.reshape(-1, 28, 28)
+
+        X_train, y_train = X_all[:n_train], y_all[:n_train]
+        X_test, y_test = X_all[n_train:], y_all[n_train:]
+        np.random.seed(None)
 
         if verbose:
             print("✅ Dataset loaded!")
@@ -85,7 +95,7 @@ class Datasets:
     @staticmethod
     def load_iris(
         verbose: bool = True,
-    ) -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
+    ) -> tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
         """
         Load Iris flower classification dataset.
 
@@ -117,9 +127,7 @@ class Datasets:
         X2 = np.random.randn(n_per_class, 4) * 0.4 + [6.6, 3.0, 5.6, 2.0]
 
         X = np.vstack([X0, X1, X2]).astype(np.float32)
-        y = np.array(
-            [0] * n_per_class + [1] * n_per_class + [2] * n_per_class
-        )
+        y = np.array([0] * n_per_class + [1] * n_per_class + [2] * n_per_class)
 
         # Shuffle
         indices = np.random.permutation(150)
@@ -142,7 +150,7 @@ class Datasets:
         n_samples: int = 1000,
         noise: float = 0.5,
         verbose: bool = True,
-    ) -> Tuple[np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Generate a simple regression dataset for learning.
 
@@ -157,17 +165,13 @@ class Datasets:
             (X, y) tuple of numpy arrays
         """
         if verbose:
-            print(
-                f"📦 Generating regression dataset ({n_samples} samples)..."
-            )
+            print(f"📦 Generating regression dataset ({n_samples} samples)...")
             print("   • Type: y = 3x + 2 + noise")
             print("   • Perfect for: First regression project")
             print()
 
         X = np.random.rand(n_samples, 1).astype(np.float32) * 10
-        y = (3.0 * X + 2.0 + np.random.randn(n_samples, 1) * noise).astype(
-            np.float32
-        )
+        y = (3.0 * X + 2.0 + np.random.randn(n_samples, 1) * noise).astype(np.float32)
 
         if verbose:
             print("✅ Dataset ready!")
@@ -178,7 +182,7 @@ class Datasets:
     def load_xor(
         n_samples: int = 500,
         verbose: bool = True,
-    ) -> Tuple[np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Generate XOR dataset - classic non-linear classification problem.
 
@@ -210,7 +214,7 @@ class Datasets:
         n_samples: int = 500,
         noise: float = 0.1,
         verbose: bool = True,
-    ) -> Tuple[np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Generate two interleaving half-moons dataset.
 
@@ -251,9 +255,7 @@ class Datasets:
 
         X += np.random.randn(*X.shape).astype(np.float32) * noise
 
-        y = np.hstack(
-            [np.zeros(n_half), np.ones(n_samples - n_half)]
-        ).astype(np.int32)
+        y = np.hstack([np.zeros(n_half), np.ones(n_samples - n_half)]).astype(np.int32)
 
         # Shuffle
         indices = np.random.permutation(n_samples)
@@ -269,7 +271,7 @@ class Datasets:
         n_samples: int = 500,
         noise: float = 0.05,
         verbose: bool = True,
-    ) -> Tuple[np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         """
         Generate concentric circles dataset.
 
@@ -284,9 +286,7 @@ class Datasets:
             (X, y) tuple
         """
         if verbose:
-            print(
-                f"📦 Generating circles dataset ({n_samples} samples)..."
-            )
+            print(f"📦 Generating circles dataset ({n_samples} samples)...")
             print("   • Two concentric circles")
             print("   • Shows radial decision boundaries")
             print()
@@ -314,9 +314,7 @@ class Datasets:
 
         X += np.random.randn(*X.shape).astype(np.float32) * noise
 
-        y = np.hstack(
-            [np.zeros(n_half), np.ones(n_samples - n_half)]
-        ).astype(np.int32)
+        y = np.hstack([np.zeros(n_half), np.ones(n_samples - n_half)]).astype(np.int32)
 
         indices = np.random.permutation(n_samples)
         X, y = X[indices], y[indices]
@@ -325,7 +323,6 @@ class Datasets:
             print("✅ Dataset ready!")
 
         return X, y
-
 
     # ============================================
     # SKLEARN-BASED DATASETS
@@ -339,13 +336,13 @@ class Datasets:
     def list_all() -> None:
         """
         List all available datasets with brief descriptions.
-        
+
         Shows datasets organized by category with sample counts and use cases.
         """
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print("📚 NEUROGEBRA DATASETS - 100+ Educational ML Datasets")
-        print("="*70 + "\n")
-        
+        print("=" * 70 + "\n")
+
         datasets_info = {
             "🎯 CLASSIFICATION - Binary": [
                 ("breast_cancer", "569 samples", "Medical diagnosis"),
@@ -382,7 +379,7 @@ class Datasets:
                 ("digits", "1,797 samples", "Small digit recognition"),
             ],
         }
-        
+
         total_count = 0
         for category, dataset_list in datasets_info.items():
             print(f"\n{category}")
@@ -390,23 +387,23 @@ class Datasets:
             for name, size, description in dataset_list:
                 print(f"  • {name:25} {size:15} → {description}")
                 total_count += 1
-            
-        print("\n" + "="*70)
+
+        print("\n" + "=" * 70)
         print(f"📦 {total_count}+ datasets available (base collection)")
         print("💡 Use ExpandedDatasets for 80+ additional datasets!")
         print("📖 Example: Datasets.load_iris(verbose=True)")
-        print("="*70 + "\n")
-    
+        print("=" * 70 + "\n")
+
     @staticmethod
     def search(keyword: str) -> None:
         """
         Search for datasets by keyword.
-        
+
         Args:
             keyword: Search term (e.g., 'classification', 'image', 'medical')
         """
         keyword = keyword.lower()
-        
+
         all_datasets = {
             "iris": "classification flower species multi-class beginner",
             "wine": "classification multi-class chemistry",
@@ -430,12 +427,12 @@ class Datasets:
             "moons": "classification synthetic non-linear curved",
             "circles": "classification synthetic non-linear radial",
         }
-        
+
         results = []
         for dataset, tags in all_datasets.items():
             if keyword in tags:
                 results.append(dataset)
-        
+
         if results:
             print(f"\n🔍 Found {len(results)} dataset(s) matching '{keyword}':\n")
             for ds in results:
@@ -443,13 +440,15 @@ class Datasets:
             print()
         else:
             print(f"\n❌ No datasets found matching '{keyword}'")
-            print("💡 Try: 'classification', 'regression', 'image', 'medical', 'beginner'\n")
-    
+            print(
+                "💡 Try: 'classification', 'regression', 'image', 'medical', 'beginner'\n"
+            )
+
     @staticmethod
     def get_info(name: str) -> None:
         """
         Get detailed information about a specific dataset.
-        
+
         Args:
             name: Dataset name (e.g., 'iris', 'california_housing')
         """
@@ -462,7 +461,11 @@ class Datasets:
                 "task": "Multi-class classification",
                 "difficulty": "⭐ Beginner",
                 "description": "Classic dataset for learning classification. Predict flower species from petal/sepal measurements.",
-                "use_cases": ["First ML project", "Classification tutorial", "Feature visualization"]
+                "use_cases": [
+                    "First ML project",
+                    "Classification tutorial",
+                    "Feature visualization",
+                ],
             },
             "california_housing": {
                 "name": "California Housing",
@@ -471,7 +474,11 @@ class Datasets:
                 "task": "Regression",
                 "difficulty": "⭐⭐ Intermediate",
                 "description": "Predict median house values in California districts based on location and demographics.",
-                "use_cases": ["Regression practice", "Feature engineering", "Real estate prediction"]
+                "use_cases": [
+                    "Regression practice",
+                    "Feature engineering",
+                    "Real estate prediction",
+                ],
             },
             "breast_cancer": {
                 "name": "Breast Cancer Wisconsin",
@@ -481,27 +488,31 @@ class Datasets:
                 "task": "Binary classification",
                 "difficulty": "⭐⭐ Intermediate",
                 "description": "Diagnose breast cancer (malignant/benign) from cell nucleus measurements.",
-                "use_cases": ["Medical ML", "Binary classification", "Feature importance"]
+                "use_cases": [
+                    "Medical ML",
+                    "Binary classification",
+                    "Feature importance",
+                ],
             },
         }
-        
+
         if name in dataset_details:
             info = dataset_details[name]
-            print(f"\n{'='*70}")
+            print(f"\n{'=' * 70}")
             print(f"📊 {info['name']}")
-            print('='*70)
+            print("=" * 70)
             print(f"\n  Difficulty: {info['difficulty']}")
             print(f"  Task: {info['task']}")
             print(f"  Samples: {info.get('samples', 'Varies')}")
             print(f"  Features: {info.get('features', 'Varies')}")
-            if 'classes' in info:
+            if "classes" in info:
                 print(f"  Classes: {info['classes']}")
             print(f"\n  {info['description']}")
-            print(f"\n  💡 Use cases:")
-            for uc in info['use_cases']:
+            print("\n  💡 Use cases:")
+            for uc in info["use_cases"]:
                 print(f"     • {uc}")
             print(f"\n  📖 Usage: Datasets.load_{name}(verbose=True)")
-            print('='*70 + "\n")
+            print("=" * 70 + "\n")
         else:
             print(f"\n❌ Dataset '{name}' not found in details database.")
             print("💡 Use Datasets.list_all() to see all available datasets\n")

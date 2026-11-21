@@ -1,12 +1,11 @@
 """Tests for TutorialSystem."""
 
-import pytest
 from neurogebra.tutorials.tutorial_system import (
-    TutorialSystem,
+    ActivationsTutorial,
     BasicsTutorial,
     FirstModelTutorial,
-    ActivationsTutorial,
     TrainingTutorial,
+    TutorialSystem,
 )
 
 

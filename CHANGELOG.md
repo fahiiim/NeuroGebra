@@ -5,6 +5,34 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2026-11-21
+
+### Added
+
+- **Hardware Acceleration Engine (`neurogebra.acceleration`)**:
+  - `c_jit`: On-the-fly compilation of SymPy mathematical expressions into native C/C++ shared libraries with Clang/GCC, OpenMP, and AVX2 SIMD vectorization.
+  - `cuda_jit`: Direct generation and NVRTC compilation of fused CUDA kernels running natively on NVIDIA GPUs (RTX 5070, 40-series, 30-series).
+  - Multi-backend evaluation on `Expression`: `expr.compile("c")` and `expr.compile("cuda")`.
+  - Up to 2.04x speedup over NumPy with C-JIT and 4.76x speedup over NumPy on NVIDIA RTX 5070 GPU.
+- **Real Convolutional Neural Network Operations**:
+  - Vectorized 2D spatial convolution (`Conv2D`) forward and backward pass with image sliding window view and tensordot.
+  - Spatial max pooling (`MaxPooling2D`) forward pass and backward pass with spatial boolean max masks.
+- **Sequential Model Framework Bridges**:
+  - `model.to_pytorch()` converting NeuroGebra `Model` into PyTorch `nn.Sequential` with full layer weight migration.
+  - `model.to_tensorflow()` converting NeuroGebra `Model` into TensorFlow `tf.keras.Sequential`.
+- **Autograd Engine Overhaul**:
+  - Gradient unbroadcasting (`_unbroadcast`) in `Tensor` preventing broadcasting shape crashes.
+  - Topological sort reverse-mode execution in `Tensor.backward()`.
+  - Added matrix multiplication (`__matmul__` / `@`), `.T`, `transpose()`, `reshape()`, `relu()`, `sigmoid()`, and `tanh()`.
+
+### Changed
+
+- Replaced simulated fake training curves in `EducationalTrainer` with authentic forward passes, real losses, analytical backpropagation, and parameter optimization.
+- Replaced mock random outputs in `Model.predict()` with real inference evaluation.
+- Fixed Adam optimizer step counter in `Trainer` so bias correction factors decay once per batch step.
+- Upgraded dataset loaders with structured mathematical manifolds instead of pure random noise.
+- Cleaned and formatted entire codebase to 100% Ruff and PEP 8 compliance (0 errors, 0 warnings).
+
 ## [2.5.11] - 2026-09-01
 
 ### Changed

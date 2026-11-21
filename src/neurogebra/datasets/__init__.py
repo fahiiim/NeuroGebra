@@ -13,9 +13,8 @@ Neurogebra now includes 100+ datasets organized by category:
 Use Datasets.list_all() to see all available datasets.
 """
 
+from neurogebra.datasets.expanded_loaders import CombinedDatasets, ExpandedDatasets
 from neurogebra.datasets.loaders import Datasets
-from neurogebra.datasets.expanded_loaders import ExpandedDatasets, CombinedDatasets
 
 # Main interface - includes all base datasets plus can access expanded ones
 __all__ = ["Datasets", "ExpandedDatasets", "CombinedDatasets"]
-

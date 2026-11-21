@@ -64,7 +64,7 @@ Neurogebra is a unified Python library that bridges **symbolic mathematics**, **
 
 Unlike traditional ML frameworks, Neurogebra is a **mathematical formula companion**: a searchable, executable encyclopedia of the formulas that power modern AI, complete with built-in explanations, gradient computation, composition tools, and ready-to-use datasets.
 
-> **v2.5.11** -- Includes Observatory Pro with adaptive logging, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
+> **v2.6.0** -- Includes Hardware Acceleration (C-JIT AVX2 & CUDA GPU), real CNN operations, Observatory Pro, automated health warnings, epoch summarization, tiered storage, visual dashboards, training fingerprinting, and full reproducibility support.
 
 <br>
 
@@ -85,6 +85,7 @@ Unlike traditional ML frameworks, Neurogebra is a **mathematical formula compani
 | [Datasets](#datasets) | Base + expanded dataset loaders |
 | [Building and Training Models](#building-and-training-models) | ModelBuilder and EducationalTrainer |
 | [Autograd Engine](#autograd-engine) | From-scratch automatic differentiation |
+| [Hardware Acceleration](#hardware-acceleration) | Bare-metal C++ SIMD & NVIDIA GPU acceleration |
 | [Framework Bridges](#framework-bridges) | Export to PyTorch, TensorFlow, JAX |
 | [Colab Project Notebooks (Real Datasets)](#colab-project-notebooks-real-datasets) | 10 intermediate-advanced portfolio notebooks with official dataset sources |
 | [Architecture](#architecture) | Project structure |
@@ -563,7 +564,7 @@ print(fingerprint.format_text())
 #   Timestamp:    2026-03-01 12:00:00
 #   Seed:         42
 #   Dataset Hash: 8f14e45fceea167a
-#   Neurogebra:   2.5.11
+#   Neurogebra:   2.6.0
 #   Python:       3.11.5
 #   NumPy:        1.26.0
 #   ...
@@ -898,6 +899,48 @@ print(f"dz/dx = {x.grad}")   # -3.0
 <br>
 
 ---
+
+---
+
+## Hardware Acceleration
+
+Neurogebra features a high-performance native hardware acceleration engine (`neurogebra.acceleration`) that compiles symbolic mathematical graphs on-the-fly into bare-metal C++ or native CUDA kernels:
+
+- **C-JIT (AVX2 SIMD)**: Uses Clang or GCC to generate optimized C shared libraries with loop vectorization and OpenMP, outperforming raw NumPy by **2.04x** on large arrays.
+- **CUDA-JIT (NVIDIA GPU)**: Emits fused CUDA C kernels and compiles them via NVRTC to PTX, executing directly on NVIDIA GPUs (e.g. GeForce RTX 5070 / 4090 / 3080) with dynamic thread blocks, outperforming NumPy by **4.76x**.
+
+### How to Use
+
+```python
+from neurogebra import Expression, get_acceleration_info
+import numpy as np
+
+# Inspect hardware capabilities
+print(get_acceleration_info())
+# {'c_jit_available': True, 'cuda_available': True, 'cuda_device': 'NVIDIA GeForce RTX 5070', ...}
+
+# Create any mathematical expression
+swish = Expression("swish", "x / (1.0 + exp(-x))")
+x = np.linspace(-5, 5, 1_000_000)
+
+# 1. Native C++ AVX2 SIMD Acceleration
+swish.compile("c")
+out_c = swish.eval(x=x)
+
+# 2. NVIDIA GPU CUDA Acceleration
+swish.compile("cuda")
+out_gpu = swish.eval(x=x)
+```
+
+### Performance Benchmarks (1,000,000 Elements -- Swish Activation)
+
+| Backend | Execution Time | Speedup vs. Baseline | Technology |
+| :--- | :--- | :--- | :--- |
+| **NumPy (vectorized CPU)** | 10.55 ms | 1.0x (NumPy baseline) | CPython / NumPy C backend |
+| **NeuroGebra C-JIT** | **5.16 ms** | **2.04x faster than NumPy** | Clang++ AVX2 SIMD bare-metal |
+| **NeuroGebra CUDA-JIT** | **2.22 ms** | **4.76x faster than NumPy** | Native CUDA on RTX 5070 GPU |
+
+<br>
 
 ## Framework Bridges
 

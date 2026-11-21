@@ -5,6 +5,7 @@ Converts Neurogebra expressions to TensorFlow-compatible functions.
 """
 
 from typing import Any, Callable, Optional
+
 import numpy as np
 
 try:
@@ -27,26 +28,55 @@ def check_tensorflow():
         )
 
 
-def to_tensorflow(expression: Expression) -> Callable:
+def model_to_tensorflow(model):
+    """Convert a Neurogebra Model to a TensorFlow/Keras Sequential model."""
+    check_tensorflow()
+    tf_layers = []
+    for layer in model.layers:
+        ltype = layer.layer_type.lower()
+        if ltype == "dense":
+            tf_layers.append(
+                tf.keras.layers.Dense(layer.units, activation=layer.activation)
+            )
+        elif ltype == "dropout":
+            tf_layers.append(tf.keras.layers.Dropout(layer.params.get("rate", 0.2)))
+        elif ltype == "flatten":
+            tf_layers.append(tf.keras.layers.Flatten())
+        elif ltype == "batchnorm":
+            tf_layers.append(tf.keras.layers.BatchNormalization())
+        elif ltype == "conv2d":
+            tf_layers.append(
+                tf.keras.layers.Conv2D(
+                    layer.units or 32,
+                    kernel_size=layer.params.get("kernel_size", 3),
+                    activation=layer.activation,
+                )
+            )
+        elif ltype == "maxpool2d":
+            tf_layers.append(
+                tf.keras.layers.MaxPooling2D(pool_size=layer.params.get("pool_size", 2))
+            )
+    return tf.keras.Sequential(tf_layers)
+
+
+def to_tensorflow(obj: Any) -> Callable:
     """
-    Convert a Neurogebra Expression to a TensorFlow function.
+    Convert a Neurogebra Expression or Model to a TensorFlow function or model.
 
     Args:
-        expression: Neurogebra Expression instance
+        obj: Neurogebra Expression or Model instance
 
     Returns:
-        TensorFlow-compatible function
-
-    Raises:
-        ImportError: If TensorFlow is not installed
-        ValueError: If expression has more than one runtime input variable
+        TensorFlow-compatible function or Keras Sequential model
     """
     check_tensorflow()
+    if hasattr(obj, "layers"):
+        return model_to_tensorflow(obj)
+
+    expression = obj
 
     runtime_vars = [
-        str(var)
-        for var in expression.variables
-        if str(var) not in expression.params
+        str(var) for var in expression.variables if str(var) not in expression.params
     ]
     if len(runtime_vars) > 1:
         raise ValueError(
@@ -86,9 +116,7 @@ def to_keras_layer(expression: Expression, name: Optional[str] = None) -> Any:
     layer_name = name or f"neurogebra_{expression.name}"
 
     runtime_vars = [
-        str(var)
-        for var in expression.variables
-        if str(var) not in expression.params
+        str(var) for var in expression.variables if str(var) not in expression.params
     ]
     if len(runtime_vars) > 1:
         raise ValueError(

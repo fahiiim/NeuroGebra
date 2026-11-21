@@ -4,16 +4,20 @@ JAX bridge for Neurogebra expressions.
 Converts Neurogebra expressions to JAX-compatible functions.
 """
 
-from typing import Callable, Optional
+from typing import Callable
+
 import numpy as np
+import sympy as sp
 
 try:
     import jax
     import jax.numpy as jnp
 
     JAX_AVAILABLE = True
+    _ = jax
 except ImportError:
     JAX_AVAILABLE = False
+    jax = None  # type: ignore
 
 from neurogebra.core.expression import Expression
 
@@ -22,8 +26,7 @@ def check_jax():
     """Raise if JAX is not installed."""
     if not JAX_AVAILABLE:
         raise ImportError(
-            "JAX is required for this feature. "
-            "Install it with: pip install jax jaxlib"
+            "JAX is required for this feature. Install it with: pip install jax jaxlib"
         )
 
 
@@ -48,9 +51,7 @@ def to_jax(expression: Expression) -> Callable:
     check_jax()
 
     runtime_vars = [
-        str(var)
-        for var in expression.variables
-        if str(var) not in expression.params
+        str(var) for var in expression.variables if str(var) not in expression.params
     ]
     if len(runtime_vars) > 1:
         raise ValueError(
@@ -59,12 +60,18 @@ def to_jax(expression: Expression) -> Callable:
         )
     input_var = runtime_vars[0] if runtime_vars else "x"
 
-    def jax_fn(x):
-        x_np = np.asarray(x)
-        result = expression.eval(**{input_var: x_np})
-        return jnp.array(result)
+    try:
+        sym_expr = expression.symbolic_expr.subs(expression.params)
+        var_symbol = sp.Symbol(input_var)
+        return sp.lambdify(var_symbol, sym_expr, modules=["jax", "jax.numpy"])
+    except Exception:
 
-    return jax_fn
+        def jax_fn(x):
+            x_np = np.asarray(x)
+            result = expression.eval(**{input_var: x_np})
+            return jnp.array(result)
+
+        return jax_fn
 
 
 def to_jax_grad(expression: Expression, var: str = "x") -> Callable:

@@ -1,7 +1,8 @@
 """Tests for transforms repository."""
 
-import pytest
 import numpy as np
+import pytest
+
 from neurogebra.repository.transforms import get_transforms_expressions
 
 
@@ -88,15 +89,20 @@ class TestTransformsRepository:
         subcats = set()
         for expr in self.tf.values():
             subcats.add(expr.metadata.get("subcategory", ""))
-        for expected in ["normalization", "power", "nonlinear", "encoding",
-                          "initialization"]:
+        for expected in [
+            "normalization",
+            "power",
+            "nonlinear",
+            "encoding",
+            "initialization",
+        ]:
             assert expected in subcats, f"Missing subcategory: {expected}"
 
     def test_all_expressions_eval(self):
         """Every transform should evaluate without error."""
         for name, expr in self.tf.items():
             syms = [str(s) for s in expr.variables]
-            kwargs = {s: 0.5 for s in syms}
+            kwargs = dict.fromkeys(syms, 0.5)
             for p, v in expr.params.items():
                 kwargs[p] = v
             try:

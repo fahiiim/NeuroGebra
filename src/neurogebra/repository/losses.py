@@ -5,17 +5,16 @@ Pre-built loss functions for training neural networks.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_losses() -> Dict[str, Expression]:
+def get_losses() -> dict[str, Expression]:
     """
     Get dictionary of loss function expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    loss_fns: Dict[str, Expression] = {}
+    loss_fns: dict[str, Expression] = {}
 
     # Mean Squared Error
     loss_fns["mse"] = Expression(

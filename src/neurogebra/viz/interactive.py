@@ -4,13 +4,14 @@ Interactive visualization tools for Neurogebra.
 Provides interactive plotting using plotly (optional dependency).
 """
 
-from typing import Dict, List, Optional, Tuple
+from typing import Optional
+
 import numpy as np
+
 from neurogebra.core.expression import Expression
 
 try:
     import plotly.graph_objects as go
-    from plotly.subplots import make_subplots
 
     PLOTLY_AVAILABLE = True
 except ImportError:
@@ -29,7 +30,7 @@ def check_plotly():
 
 def interactive_plot(
     expression: Expression,
-    x_range: Tuple[float, float] = (-5, 5),
+    x_range: tuple[float, float] = (-5, 5),
     n_points: int = 500,
     title: Optional[str] = None,
 ) -> "go.Figure":
@@ -57,7 +58,7 @@ def interactive_plot(
             y=y,
             mode="lines",
             name=expression.name,
-            line=dict(width=2),
+            line={"width": 2},
             hovertemplate="x: %{x:.3f}<br>f(x): %{y:.3f}<extra></extra>",
         )
     )
@@ -74,8 +75,8 @@ def interactive_plot(
 
 
 def interactive_comparison(
-    expressions: List[Expression],
-    x_range: Tuple[float, float] = (-5, 5),
+    expressions: list[Expression],
+    x_range: tuple[float, float] = (-5, 5),
     n_points: int = 500,
     title: str = "Expression Comparison",
 ) -> "go.Figure":
@@ -105,7 +106,7 @@ def interactive_comparison(
                     y=y,
                     mode="lines",
                     name=expr.name,
-                    line=dict(width=2),
+                    line={"width": 2},
                 )
             )
         except Exception as e:

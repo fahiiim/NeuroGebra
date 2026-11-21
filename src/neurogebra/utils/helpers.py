@@ -4,7 +4,8 @@ Helper utilities for Neurogebra.
 Provides common utility functions used across the library.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Union
+from typing import Any, Callable, Optional
+
 import numpy as np
 
 
@@ -26,13 +27,13 @@ def validate_array(data: Any, name: str = "input") -> np.ndarray:
         arr = np.asarray(data, dtype=np.float64)
         return arr
     except (ValueError, TypeError) as e:
-        raise TypeError(f"Cannot convert {name} to numpy array: {e}")
+        raise TypeError(f"Cannot convert {name} to numpy array: {e}") from e
 
 
 def clip_gradients(
-    gradients: Dict[str, float],
+    gradients: dict[str, float],
     max_norm: float = 1.0,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Clip gradients by global norm.
 

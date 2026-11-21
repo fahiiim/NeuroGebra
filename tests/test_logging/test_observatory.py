@@ -1,23 +1,28 @@
 """Tests for the Training Observatory — logger, monitors, health checks, exporters."""
+
 from __future__ import annotations
 
 import json
 import os
 import tempfile
-import time
 
 import numpy as np
-import pytest
 
 # ---------------------------------------------------------------------------
 # Logger & LogEvent
 # ---------------------------------------------------------------------------
-from neurogebra.logging.logger import TrainingLogger, LogLevel, LogEvent
+from neurogebra.logging.logger import LogEvent, LogLevel, TrainingLogger
 
 
 class TestLogLevel:
     def test_ordering(self):
-        assert LogLevel.SILENT < LogLevel.BASIC < LogLevel.DETAILED < LogLevel.EXPERT < LogLevel.DEBUG
+        assert (
+            LogLevel.SILENT
+            < LogLevel.BASIC
+            < LogLevel.DETAILED
+            < LogLevel.EXPERT
+            < LogLevel.DEBUG
+        )
 
     def test_integer_values(self):
         assert int(LogLevel.SILENT) == 0
@@ -65,7 +70,8 @@ class TestTrainingLogger:
     def test_on_layer_forward(self):
         logger = TrainingLogger(level=LogLevel.DEBUG)
         logger.on_layer_forward(
-            layer_index=0, layer_name="dense_0",
+            layer_index=0,
+            layer_name="dense_0",
             input_data=np.ones((4, 3)),
             output_data=np.zeros((4, 5)),
             formula="z = W·x + b",
@@ -77,8 +83,10 @@ class TestTrainingLogger:
     def test_on_health_check(self):
         logger = TrainingLogger(level=LogLevel.BASIC)
         logger.on_health_check(
-            check_name="nan", severity="critical",
-            message="NaN!", recommendations=["check data"],
+            check_name="nan",
+            severity="critical",
+            message="NaN!",
+            recommendations=["check data"],
         )
         assert logger.get_event_log()[-1].severity == "critical"
 
@@ -136,7 +144,10 @@ class TestLogConfig:
 # Monitors
 # ---------------------------------------------------------------------------
 from neurogebra.logging.monitors import (
-    GradientMonitor, WeightMonitor, ActivationMonitor, PerformanceMonitor,
+    ActivationMonitor,
+    GradientMonitor,
+    PerformanceMonitor,
+    WeightMonitor,
 )
 
 
@@ -197,7 +208,7 @@ class TestPerformanceMonitor:
 # ---------------------------------------------------------------------------
 # Health checks
 # ---------------------------------------------------------------------------
-from neurogebra.logging.health_checks import SmartHealthChecker, HealthAlert
+from neurogebra.logging.health_checks import SmartHealthChecker
 
 
 class TestSmartHealthChecker:
@@ -242,7 +253,7 @@ class TestSmartHealthChecker:
 # ---------------------------------------------------------------------------
 # Exporters
 # ---------------------------------------------------------------------------
-from neurogebra.logging.exporters import JSONExporter, CSVExporter, MarkdownExporter
+from neurogebra.logging.exporters import CSVExporter, JSONExporter, MarkdownExporter
 
 
 class TestJSONExporter:
@@ -250,10 +261,14 @@ class TestJSONExporter:
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as f:
             path = f.name
         exp = JSONExporter(path)
-        exp.handle_event(LogEvent(
-            event_type="epoch_end", level=LogLevel.BASIC,
-            epoch=0, data={"metrics": {"loss": 0.5}},
-        ))
+        exp.handle_event(
+            LogEvent(
+                event_type="epoch_end",
+                level=LogLevel.BASIC,
+                epoch=0,
+                data={"metrics": {"loss": 0.5}},
+            )
+        )
         result = exp.save()
         assert os.path.exists(result)
         with open(result) as f:
@@ -267,10 +282,14 @@ class TestCSVExporter:
         with tempfile.NamedTemporaryFile(suffix=".csv", delete=False) as f:
             path = f.name
         exp = CSVExporter(path)
-        exp.handle_event(LogEvent(
-            event_type="epoch_end", level=LogLevel.BASIC,
-            epoch=0, data={"metrics": {"loss": 0.42, "accuracy": 0.88}},
-        ))
+        exp.handle_event(
+            LogEvent(
+                event_type="epoch_end",
+                level=LogLevel.BASIC,
+                epoch=0,
+                data={"metrics": {"loss": 0.42, "accuracy": 0.88}},
+            )
+        )
         result = exp.save()
         assert os.path.exists(result)
         contents = open(result).read()
@@ -283,10 +302,14 @@ class TestMarkdownExporter:
         with tempfile.NamedTemporaryFile(suffix=".md", delete=False) as f:
             path = f.name
         exp = MarkdownExporter(path)
-        exp.handle_event(LogEvent(
-            event_type="epoch_end", level=LogLevel.BASIC,
-            epoch=0, data={"metrics": {"loss": 0.3}},
-        ))
+        exp.handle_event(
+            LogEvent(
+                event_type="epoch_end",
+                level=LogLevel.BASIC,
+                epoch=0,
+                data={"metrics": {"loss": 0.3}},
+            )
+        )
         result = exp.save()
         assert os.path.exists(result)
         os.unlink(result)
@@ -295,7 +318,7 @@ class TestMarkdownExporter:
 # ---------------------------------------------------------------------------
 # Computation graph
 # ---------------------------------------------------------------------------
-from neurogebra.logging.computation_graph import GraphTracker, ComputationNode
+from neurogebra.logging.computation_graph import GraphTracker
 
 
 class TestGraphTracker:
@@ -334,10 +357,13 @@ class TestModelObservatoryIntegration:
 
     def _build_model(self, log_level="expert"):
         builder = ModelBuilder()
-        model = builder.Sequential([
-            builder.Dense(16, activation="relu"),
-            builder.Dense(1, activation="sigmoid"),
-        ], name="test_model")
+        model = builder.Sequential(
+            [
+                builder.Dense(16, activation="relu"),
+                builder.Dense(1, activation="sigmoid"),
+            ],
+            name="test_model",
+        )
         model.compile(
             loss="binary_crossentropy",
             optimizer="adam",

@@ -1,7 +1,7 @@
 """Tests for activation function repository."""
 
-import pytest
 import numpy as np
+
 from neurogebra.repository.activations import get_activations
 
 

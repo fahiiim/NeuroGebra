@@ -6,17 +6,16 @@ information theory, hypothesis testing, and descriptive statistics.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_statistics_expressions() -> Dict[str, Expression]:
+def get_statistics_expressions() -> dict[str, Expression]:
     """
     Get dictionary of statistical expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    stats: Dict[str, Expression] = {}
+    stats: dict[str, Expression] = {}
 
     # ================================================================
     # Probability Density Functions

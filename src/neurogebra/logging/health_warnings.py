@@ -31,7 +31,7 @@ from __future__ import annotations
 import time
 from collections import deque
 from dataclasses import dataclass, field
-from typing import Any, Deque, Dict, List, Optional
+from typing import Any
 
 import numpy as np
 
@@ -39,16 +39,17 @@ import numpy as np
 @dataclass
 class HealthWarning:
     """A single automated health warning."""
+
     rule_name: str
-    severity: str              # "info" | "warning" | "danger" | "critical"
+    severity: str  # "info" | "warning" | "danger" | "critical"
     message: str
     diagnosis: str
-    recommendations: List[str] = field(default_factory=list)
-    layer_name: Optional[str] = None
-    epoch: Optional[int] = None
-    batch: Optional[int] = None
+    recommendations: list[str] = field(default_factory=list)
+    layer_name: str | None = None
+    epoch: int | None = None
+    batch: int | None = None
     timestamp: float = field(default_factory=time.time)
-    data: Dict[str, Any] = field(default_factory=dict)
+    data: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -66,7 +67,7 @@ class WarningConfig:
 
     # Overfitting
     overfit_patience: int = 3
-    overfit_ratio: float = 1.3          # val_loss / train_loss
+    overfit_ratio: float = 1.3  # val_loss / train_loss
 
     # Stagnation
     weight_stagnation_eps: float = 1e-6
@@ -94,25 +95,25 @@ class AutoHealthWarnings:
     accessible via :attr:`warnings`.
     """
 
-    def __init__(self, config: Optional[WarningConfig] = None):
+    def __init__(self, config: WarningConfig | None = None):
         self.config = config or WarningConfig()
 
         # Rolling state
-        self._gradient_norms: Dict[str, Deque[float]] = {}
-        self._weight_deltas: Dict[str, Deque[float]] = {}
-        self._train_losses: List[float] = []
-        self._val_losses: List[float] = []
-        self._batch_losses: Deque[float] = deque(maxlen=100)
+        self._gradient_norms: dict[str, deque[float]] = {}
+        self._weight_deltas: dict[str, deque[float]] = {}
+        self._train_losses: list[float] = []
+        self._val_losses: list[float] = []
+        self._batch_losses: deque[float] = deque(maxlen=100)
 
         # Collected warnings
-        self._warnings: List[HealthWarning] = []
+        self._warnings: list[HealthWarning] = []
 
         # Dedup: avoid spamming the same warning every batch
-        self._fired_rules: Dict[str, float] = {}  # rule_key → last-fired timestamp
+        self._fired_rules: dict[str, float] = {}  # rule_key → last-fired timestamp
         self._dedup_interval = 30.0  # seconds
 
     @property
-    def warnings(self) -> List[HealthWarning]:
+    def warnings(self) -> list[HealthWarning]:
         return list(self._warnings)
 
     # ------------------------------------------------------------------
@@ -122,16 +123,16 @@ class AutoHealthWarnings:
     def check_batch(
         self,
         *,
-        epoch: Optional[int] = None,
-        batch: Optional[int] = None,
-        loss: Optional[float] = None,
-        gradient_norms: Optional[Dict[str, float]] = None,
-        weight_stats: Optional[Dict[str, Dict[str, Any]]] = None,
-        activation_stats: Optional[Dict[str, Dict[str, Any]]] = None,
-        weight_deltas: Optional[Dict[str, float]] = None,
-    ) -> List[HealthWarning]:
+        epoch: int | None = None,
+        batch: int | None = None,
+        loss: float | None = None,
+        gradient_norms: dict[str, float] | None = None,
+        weight_stats: dict[str, dict[str, Any]] | None = None,
+        activation_stats: dict[str, dict[str, Any]] | None = None,
+        weight_deltas: dict[str, float] | None = None,
+    ) -> list[HealthWarning]:
         """Run all batch-level rules and return new warnings."""
-        new: List[HealthWarning] = []
+        new: list[HealthWarning] = []
 
         if loss is not None:
             self._batch_losses.append(loss)
@@ -161,16 +162,16 @@ class AutoHealthWarnings:
         self,
         *,
         epoch: int,
-        train_loss: Optional[float] = None,
-        val_loss: Optional[float] = None,
-        train_acc: Optional[float] = None,
-        val_acc: Optional[float] = None,
-        gradient_norms: Optional[Dict[str, float]] = None,
-        weight_stats: Optional[Dict[str, Dict[str, Any]]] = None,
-        activation_stats: Optional[Dict[str, Dict[str, Any]]] = None,
-    ) -> List[HealthWarning]:
+        train_loss: float | None = None,
+        val_loss: float | None = None,
+        train_acc: float | None = None,
+        val_acc: float | None = None,
+        gradient_norms: dict[str, float] | None = None,
+        weight_stats: dict[str, dict[str, Any]] | None = None,
+        activation_stats: dict[str, dict[str, Any]] | None = None,
+    ) -> list[HealthWarning]:
         """Run all epoch-level rules and return new warnings."""
-        new: List[HealthWarning] = []
+        new: list[HealthWarning] = []
 
         if train_loss is not None:
             self._train_losses.append(train_loss)
@@ -211,33 +212,36 @@ class AutoHealthWarnings:
 
     # -- NaN / Inf --------------------------------------------------------
 
-    def _check_nan_inf_loss(self, loss: float, epoch, batch) -> List[HealthWarning]:
+    def _check_nan_inf_loss(self, loss: float, epoch, batch) -> list[HealthWarning]:
         if not (np.isnan(loss) or np.isinf(loss)):
             return []
         key = "nan_inf_loss"
         if not self._should_fire(key):
             return []
-        return [HealthWarning(
-            rule_name="nan_inf_loss",
-            severity="critical",
-            message="NaN/Inf detected in loss!",
-            diagnosis=(
-                "Numerical instability has corrupted the loss. "
-                "Training should be stopped immediately."
-            ),
-            recommendations=[
-                "Lower the learning rate (current may be too high)",
-                "Add gradient clipping (max_norm=1.0)",
-                "Check input data for NaN/Inf values",
-                "Use a more numerically stable loss function",
-            ],
-            epoch=epoch, batch=batch,
-            data={"loss": float(loss) if np.isfinite(loss) else str(loss)},
-        )]
+        return [
+            HealthWarning(
+                rule_name="nan_inf_loss",
+                severity="critical",
+                message="NaN/Inf detected in loss!",
+                diagnosis=(
+                    "Numerical instability has corrupted the loss. "
+                    "Training should be stopped immediately."
+                ),
+                recommendations=[
+                    "Lower the learning rate (current may be too high)",
+                    "Add gradient clipping (max_norm=1.0)",
+                    "Check input data for NaN/Inf values",
+                    "Use a more numerically stable loss function",
+                ],
+                epoch=epoch,
+                batch=batch,
+                data={"loss": float(loss) if np.isfinite(loss) else str(loss)},
+            )
+        ]
 
     # -- Loss divergence --------------------------------------------------
 
-    def _check_loss_divergence(self, epoch, batch) -> List[HealthWarning]:
+    def _check_loss_divergence(self, epoch, batch) -> list[HealthWarning]:
         w = self.config.loss_divergence_window
         if len(self._batch_losses) < w:
             return []
@@ -246,28 +250,32 @@ class AutoHealthWarnings:
             key = "loss_divergence"
             if not self._should_fire(key):
                 return []
-            return [HealthWarning(
-                rule_name="loss_divergence",
-                severity="danger",
-                message=f"Loss diverging over last {w} batches",
-                diagnosis=(
-                    "The loss is increasing rapidly, indicating training instability."
-                ),
-                recommendations=[
-                    "Immediately lower the learning rate",
-                    "Add gradient clipping",
-                    "Check data preprocessing (normalise inputs)",
-                ],
-                epoch=epoch, batch=batch,
-                data={"recent_losses": recent},
-            )]
+            return [
+                HealthWarning(
+                    rule_name="loss_divergence",
+                    severity="danger",
+                    message=f"Loss diverging over last {w} batches",
+                    diagnosis=(
+                        "The loss is increasing rapidly, indicating training instability."
+                    ),
+                    recommendations=[
+                        "Immediately lower the learning rate",
+                        "Add gradient clipping",
+                        "Check data preprocessing (normalise inputs)",
+                    ],
+                    epoch=epoch,
+                    batch=batch,
+                    data={"recent_losses": recent},
+                )
+            ]
         return []
 
     # -- Gradient checks --------------------------------------------------
 
-    def _check_gradients(self, gradient_norms: Dict[str, float],
-                         epoch, batch) -> List[HealthWarning]:
-        alerts: List[HealthWarning] = []
+    def _check_gradients(
+        self, gradient_norms: dict[str, float], epoch, batch
+    ) -> list[HealthWarning]:
+        alerts: list[HealthWarning] = []
         cfg = self.config
 
         for layer, norm in gradient_norms.items():
@@ -275,194 +283,238 @@ class AutoHealthWarnings:
             if np.isnan(norm) or np.isinf(norm):
                 key = f"gradient_nan_{layer}"
                 if self._should_fire(key):
-                    alerts.append(HealthWarning(
-                        rule_name="gradient_nan_inf",
-                        severity="critical",
-                        message=f"NaN/Inf gradient in '{layer}'",
-                        diagnosis="Gradient corruption prevents learning.",
-                        recommendations=[
-                            "Lower the learning rate",
-                            "Add gradient clipping (max_norm=1.0)",
-                            "Use batch normalisation before this layer",
-                        ],
-                        layer_name=layer, epoch=epoch, batch=batch,
-                    ))
+                    alerts.append(
+                        HealthWarning(
+                            rule_name="gradient_nan_inf",
+                            severity="critical",
+                            message=f"NaN/Inf gradient in '{layer}'",
+                            diagnosis="Gradient corruption prevents learning.",
+                            recommendations=[
+                                "Lower the learning rate",
+                                "Add gradient clipping (max_norm=1.0)",
+                                "Use batch normalisation before this layer",
+                            ],
+                            layer_name=layer,
+                            epoch=epoch,
+                            batch=batch,
+                        )
+                    )
                 continue
 
             # Vanishing
             if norm < cfg.gradient_vanish_thresh:
                 key = f"gradient_vanish_{layer}"
                 if self._should_fire(key):
-                    alerts.append(HealthWarning(
-                        rule_name="vanishing_gradient",
-                        severity="danger",
-                        message=f"Vanishing gradient in '{layer}' (norm={norm:.2e})",
-                        diagnosis="Gradients too small — this layer is effectively frozen.",
-                        recommendations=[
-                            "Switch to ReLU or LeakyReLU activation",
-                            "Use batch normalisation",
-                            "Try skip connections (ResNet-style)",
-                        ],
-                        layer_name=layer, epoch=epoch, batch=batch,
-                        data={"norm": norm},
-                    ))
+                    alerts.append(
+                        HealthWarning(
+                            rule_name="vanishing_gradient",
+                            severity="danger",
+                            message=f"Vanishing gradient in '{layer}' (norm={norm:.2e})",
+                            diagnosis="Gradients too small — this layer is effectively frozen.",
+                            recommendations=[
+                                "Switch to ReLU or LeakyReLU activation",
+                                "Use batch normalisation",
+                                "Try skip connections (ResNet-style)",
+                            ],
+                            layer_name=layer,
+                            epoch=epoch,
+                            batch=batch,
+                            data={"norm": norm},
+                        )
+                    )
 
             # Exploding
             if norm > cfg.gradient_explode_thresh:
                 key = f"gradient_explode_{layer}"
                 if self._should_fire(key):
-                    alerts.append(HealthWarning(
-                        rule_name="exploding_gradient",
-                        severity="danger",
-                        message=f"Exploding gradient in '{layer}' (norm={norm:.2e})",
-                        diagnosis="Excessively large gradients cause unstable weight updates.",
-                        recommendations=[
-                            "Add gradient clipping (max_norm=1.0)",
-                            "Lower the learning rate",
-                            "Use batch normalisation",
-                        ],
-                        layer_name=layer, epoch=epoch, batch=batch,
-                        data={"norm": norm},
-                    ))
+                    alerts.append(
+                        HealthWarning(
+                            rule_name="exploding_gradient",
+                            severity="danger",
+                            message=f"Exploding gradient in '{layer}' (norm={norm:.2e})",
+                            diagnosis="Excessively large gradients cause unstable weight updates.",
+                            recommendations=[
+                                "Add gradient clipping (max_norm=1.0)",
+                                "Lower the learning rate",
+                                "Use batch normalisation",
+                            ],
+                            layer_name=layer,
+                            epoch=epoch,
+                            batch=batch,
+                            data={"norm": norm},
+                        )
+                    )
 
             # Spike
             buf = self._gradient_norms.setdefault(
-                layer, deque(maxlen=cfg.gradient_rolling_window))
+                layer, deque(maxlen=cfg.gradient_rolling_window)
+            )
             if len(buf) >= 3:
                 rolling_mean = float(np.mean(buf))
                 if rolling_mean > 0 and norm > rolling_mean * cfg.gradient_spike_factor:
                     key = f"gradient_spike_{layer}"
                     if self._should_fire(key):
-                        alerts.append(HealthWarning(
-                            rule_name="gradient_spike",
-                            severity="warning",
-                            message=(f"Possible exploding gradient in '{layer}': "
-                                     f"norm {norm:.2e} vs rolling avg {rolling_mean:.2e}"),
-                            diagnosis="A sudden gradient spike may indicate instability.",
-                            recommendations=[
-                                "Add gradient clipping",
-                                "Reduce learning rate temporarily",
-                                "Check for outlier data in the current batch",
-                            ],
-                            layer_name=layer, epoch=epoch, batch=batch,
-                            data={"norm": norm, "rolling_mean": rolling_mean},
-                        ))
+                        alerts.append(
+                            HealthWarning(
+                                rule_name="gradient_spike",
+                                severity="warning",
+                                message=(
+                                    f"Possible exploding gradient in '{layer}': "
+                                    f"norm {norm:.2e} vs rolling avg {rolling_mean:.2e}"
+                                ),
+                                diagnosis="A sudden gradient spike may indicate instability.",
+                                recommendations=[
+                                    "Add gradient clipping",
+                                    "Reduce learning rate temporarily",
+                                    "Check for outlier data in the current batch",
+                                ],
+                                layer_name=layer,
+                                epoch=epoch,
+                                batch=batch,
+                                data={"norm": norm, "rolling_mean": rolling_mean},
+                            )
+                        )
             buf.append(norm)
 
         return alerts
 
     # -- Activation checks ------------------------------------------------
 
-    def _check_activations(self, activation_stats: Dict[str, Dict],
-                           epoch, batch) -> List[HealthWarning]:
-        alerts: List[HealthWarning] = []
+    def _check_activations(
+        self, activation_stats: dict[str, dict], epoch, batch
+    ) -> list[HealthWarning]:
+        alerts: list[HealthWarning] = []
         for layer, stats in activation_stats.items():
             zeros_pct = stats.get("zeros_pct", 0)
             act_type = stats.get("activation_type", "")
 
             # Dead ReLU
-            if act_type in ("relu", "leaky_relu") and zeros_pct > self.config.dead_relu_zeros_pct:
+            if (
+                act_type in ("relu", "leaky_relu")
+                and zeros_pct > self.config.dead_relu_zeros_pct
+            ):
                 key = f"dead_relu_{layer}"
                 if self._should_fire(key):
-                    alerts.append(HealthWarning(
-                        rule_name="dead_relu",
-                        severity="warning",
-                        message=f"Possible dying ReLU in '{layer}' ({zeros_pct:.1f}% zeros)",
-                        diagnosis=(
-                            "Neurons producing zero outputs will receive zero gradients "
-                            "and never recover."
-                        ),
-                        recommendations=[
-                            "Use LeakyReLU(negative_slope=0.01) instead of ReLU",
-                            "Lower the learning rate",
-                            "Use He initialisation",
-                        ],
-                        layer_name=layer, epoch=epoch, batch=batch,
-                        data={"zeros_pct": zeros_pct},
-                    ))
+                    alerts.append(
+                        HealthWarning(
+                            rule_name="dead_relu",
+                            severity="warning",
+                            message=f"Possible dying ReLU in '{layer}' ({zeros_pct:.1f}% zeros)",
+                            diagnosis=(
+                                "Neurons producing zero outputs will receive zero gradients "
+                                "and never recover."
+                            ),
+                            recommendations=[
+                                "Use LeakyReLU(negative_slope=0.01) instead of ReLU",
+                                "Lower the learning rate",
+                                "Use He initialisation",
+                            ],
+                            layer_name=layer,
+                            epoch=epoch,
+                            batch=batch,
+                            data={"zeros_pct": zeros_pct},
+                        )
+                    )
 
             # Saturation
             sat_pct = stats.get("saturation_pct", 0)
             if sat_pct > self.config.saturation_pct_thresh:
                 key = f"saturation_{layer}"
                 if self._should_fire(key):
-                    alerts.append(HealthWarning(
-                        rule_name="activation_saturation",
-                        severity="warning",
-                        message=f"{sat_pct:.1f}% activations saturated in '{layer}'",
-                        diagnosis="Saturated activations produce near-zero gradients.",
-                        recommendations=[
-                            "Switch to ReLU or GELU activation",
-                            "Normalise inputs to the layer",
-                            "Use batch normalisation",
-                        ],
-                        layer_name=layer, epoch=epoch, batch=batch,
-                        data={"saturation_pct": sat_pct},
-                    ))
+                    alerts.append(
+                        HealthWarning(
+                            rule_name="activation_saturation",
+                            severity="warning",
+                            message=f"{sat_pct:.1f}% activations saturated in '{layer}'",
+                            diagnosis="Saturated activations produce near-zero gradients.",
+                            recommendations=[
+                                "Switch to ReLU or GELU activation",
+                                "Normalise inputs to the layer",
+                                "Use batch normalisation",
+                            ],
+                            layer_name=layer,
+                            epoch=epoch,
+                            batch=batch,
+                            data={"saturation_pct": sat_pct},
+                        )
+                    )
         return alerts
 
     # -- Weight checks ----------------------------------------------------
 
-    def _check_dead_weights(self, weight_stats: Dict[str, Dict],
-                            epoch, batch) -> List[HealthWarning]:
-        alerts: List[HealthWarning] = []
+    def _check_dead_weights(
+        self, weight_stats: dict[str, dict], epoch, batch
+    ) -> list[HealthWarning]:
+        alerts: list[HealthWarning] = []
         for layer, stats in weight_stats.items():
             zeros_pct = stats.get("zeros_pct", 0)
             if zeros_pct > self.config.dead_relu_zeros_pct:
                 key = f"dead_weights_{layer}"
                 if self._should_fire(key):
-                    alerts.append(HealthWarning(
-                        rule_name="dead_weights",
-                        severity="warning",
-                        message=f"{zeros_pct:.1f}% dead neurons in '{layer}'",
-                        diagnosis="Most weights near zero — layer contributes nothing.",
-                        recommendations=[
-                            "Switch to LeakyReLU or ELU",
-                            "Use a different weight initialisation",
-                            "Lower the learning rate",
-                        ],
-                        layer_name=layer, epoch=epoch, batch=batch,
-                        data={"zeros_pct": zeros_pct},
-                    ))
+                    alerts.append(
+                        HealthWarning(
+                            rule_name="dead_weights",
+                            severity="warning",
+                            message=f"{zeros_pct:.1f}% dead neurons in '{layer}'",
+                            diagnosis="Most weights near zero — layer contributes nothing.",
+                            recommendations=[
+                                "Switch to LeakyReLU or ELU",
+                                "Use a different weight initialisation",
+                                "Lower the learning rate",
+                            ],
+                            layer_name=layer,
+                            epoch=epoch,
+                            batch=batch,
+                            data={"zeros_pct": zeros_pct},
+                        )
+                    )
         return alerts
 
     # -- Weight stagnation ------------------------------------------------
 
-    def _check_weight_stagnation(self, weight_deltas: Dict[str, float],
-                                 epoch, batch) -> List[HealthWarning]:
-        alerts: List[HealthWarning] = []
+    def _check_weight_stagnation(
+        self, weight_deltas: dict[str, float], epoch, batch
+    ) -> list[HealthWarning]:
+        alerts: list[HealthWarning] = []
         cfg = self.config
         for param, delta in weight_deltas.items():
             buf = self._weight_deltas.setdefault(
-                param, deque(maxlen=cfg.weight_stagnation_window))
+                param, deque(maxlen=cfg.weight_stagnation_window)
+            )
             buf.append(delta)
             if len(buf) >= cfg.weight_stagnation_window:
                 if all(d < cfg.weight_stagnation_eps for d in buf):
                     key = f"weight_stagnation_{param}"
                     if self._should_fire(key):
-                        alerts.append(HealthWarning(
-                            rule_name="weight_stagnation",
-                            severity="warning",
-                            message=(f"Optimizer may have stagnated for '{param}' "
-                                     f"({cfg.weight_stagnation_window} batches, "
-                                     f"max Δ={max(buf):.2e})"),
-                            diagnosis=(
-                                "Weight updates are near-zero for several consecutive "
-                                "batches, suggesting the optimizer has plateaued."
-                            ),
-                            recommendations=[
-                                "Reduce learning rate and use a scheduler",
-                                "Try a different optimizer (switch SGD↔Adam)",
-                                "Check that gradients are flowing to this parameter",
-                            ],
-                            layer_name=param, epoch=epoch, batch=batch,
-                            data={"max_delta": float(max(buf))},
-                        ))
+                        alerts.append(
+                            HealthWarning(
+                                rule_name="weight_stagnation",
+                                severity="warning",
+                                message=(
+                                    f"Optimizer may have stagnated for '{param}' "
+                                    f"({cfg.weight_stagnation_window} batches, "
+                                    f"max Δ={max(buf):.2e})"
+                                ),
+                                diagnosis=(
+                                    "Weight updates are near-zero for several consecutive "
+                                    "batches, suggesting the optimizer has plateaued."
+                                ),
+                                recommendations=[
+                                    "Reduce learning rate and use a scheduler",
+                                    "Try a different optimizer (switch SGD↔Adam)",
+                                    "Check that gradients are flowing to this parameter",
+                                ],
+                                layer_name=param,
+                                epoch=epoch,
+                                batch=batch,
+                                data={"max_delta": float(max(buf))},
+                            )
+                        )
         return alerts
 
     # -- Overfitting ------------------------------------------------------
 
-    def _check_overfitting(self, epoch: int) -> List[HealthWarning]:
+    def _check_overfitting(self, epoch: int) -> list[HealthWarning]:
         p = self.config.overfit_patience
         if len(self._train_losses) < p or len(self._val_losses) < p:
             return []
@@ -475,28 +527,30 @@ class AutoHealthWarnings:
             key = "overfitting"
             if not self._should_fire(key):
                 return []
-            return [HealthWarning(
-                rule_name="overfitting",
-                severity="warning",
-                message=f"Possible overfitting (val/train loss ratio = {ratio:.2f})",
-                diagnosis=(
-                    "Validation loss is diverging from training loss, "
-                    "indicating the model is memorising rather than learning."
-                ),
-                recommendations=[
-                    "Add Dropout layers (rate=0.2-0.5)",
-                    "Use L2 regularization (weight_decay=1e-4)",
-                    "Get more training data or use data augmentation",
-                    "Reduce model complexity (fewer layers / neurons)",
-                ],
-                epoch=epoch,
-                data={"ratio": ratio, "train": recent_train, "val": recent_val},
-            )]
+            return [
+                HealthWarning(
+                    rule_name="overfitting",
+                    severity="warning",
+                    message=f"Possible overfitting (val/train loss ratio = {ratio:.2f})",
+                    diagnosis=(
+                        "Validation loss is diverging from training loss, "
+                        "indicating the model is memorising rather than learning."
+                    ),
+                    recommendations=[
+                        "Add Dropout layers (rate=0.2-0.5)",
+                        "Use L2 regularization (weight_decay=1e-4)",
+                        "Get more training data or use data augmentation",
+                        "Reduce model complexity (fewer layers / neurons)",
+                    ],
+                    epoch=epoch,
+                    data={"ratio": ratio, "train": recent_train, "val": recent_val},
+                )
+            ]
         return []
 
     # -- Loss stagnation --------------------------------------------------
 
-    def _check_loss_stagnation(self, epoch: int) -> List[HealthWarning]:
+    def _check_loss_stagnation(self, epoch: int) -> list[HealthWarning]:
         w = self.config.loss_stagnation_window
         if len(self._train_losses) < w:
             return []
@@ -506,29 +560,31 @@ class AutoHealthWarnings:
             key = "loss_stagnation"
             if not self._should_fire(key):
                 return []
-            return [HealthWarning(
-                rule_name="loss_stagnation",
-                severity="warning",
-                message=f"Loss stagnant for {w} epochs (Δ={delta:.2e})",
-                diagnosis="Training progress has plateaued.",
-                recommendations=[
-                    "Reduce learning rate (try lr × 0.1)",
-                    "Use learning rate scheduling (e.g., cosine annealing)",
-                    "Try a different optimizer (switch SGD↔Adam)",
-                ],
-                epoch=epoch,
-                data={"delta": delta, "window": w},
-            )]
+            return [
+                HealthWarning(
+                    rule_name="loss_stagnation",
+                    severity="warning",
+                    message=f"Loss stagnant for {w} epochs (Δ={delta:.2e})",
+                    diagnosis="Training progress has plateaued.",
+                    recommendations=[
+                        "Reduce learning rate (try lr × 0.1)",
+                        "Use learning rate scheduling (e.g., cosine annealing)",
+                        "Try a different optimizer (switch SGD↔Adam)",
+                    ],
+                    epoch=epoch,
+                    data={"delta": delta, "window": w},
+                )
+            ]
         return []
 
     # ------------------------------------------------------------------
     # Utilities
     # ------------------------------------------------------------------
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """Return a structured summary of all warnings fired."""
-        by_rule: Dict[str, int] = {}
-        by_severity: Dict[str, int] = {}
+        by_rule: dict[str, int] = {}
+        by_severity: dict[str, int] = {}
         for w in self._warnings:
             by_rule[w.rule_name] = by_rule.get(w.rule_name, 0) + 1
             by_severity[w.severity] = by_severity.get(w.severity, 0) + 1

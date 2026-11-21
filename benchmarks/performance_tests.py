@@ -140,6 +140,38 @@ def bench_training():
     benchmark(train_adam, "  Adam 50 epochs (100 points)", iterations=10)
 
 
+def bench_acceleration():
+    """Benchmark C-JIT and CUDA-JIT hardware acceleration."""
+    from neurogebra.acceleration import get_acceleration_info, is_c_available, is_cuda_available
+
+    print("\n" + "=" * 60)
+    print("Benchmark: Hardware Acceleration (C-JIT & CUDA RTX 5070)")
+    print("=" * 60)
+
+    info = get_acceleration_info()
+    print(f"  Compiler: {info.get('c_compiler')}")
+    print(f"  GPU Device: {info.get('cuda_device')}")
+    print(f"  Compute Capability: {info.get('cuda_compute_capability')}")
+
+    e = Expression("swish", "x / (1.0 + exp(-x))")
+    N = 1_000_000
+    x_np = np.linspace(-5, 5, N, dtype=np.float64)
+    x_cu = np.linspace(-5, 5, N, dtype=np.float32)
+
+    print(f"\n  Evaluating {N:,} elements (Swish activation):")
+    t_np = benchmark(lambda: e.eval(x=x_np, backend="numpy"), "    NumPy (CPU vectorized)", iterations=20)
+
+    if is_c_available():
+        e.compile("c")
+        t_c = benchmark(lambda: e.eval(x=x_np, backend="c"), "    C-JIT (AVX2 SIMD bare-metal)", iterations=20)
+        print(f"    🚀 C-JIT Speedup: {t_np / t_c:.2f}x over NumPy")
+
+    if is_cuda_available():
+        e.compile("cuda")
+        t_cu = benchmark(lambda: e.eval(x=x_cu, backend="cuda"), "    CUDA-JIT (NVIDIA RTX 5070 GPU)", iterations=20)
+        print(f"    ⚡ CUDA-JIT Speedup: {t_np / t_cu:.2f}x over NumPy")
+
+
 def main():
     print("Neurogebra Performance Benchmarks")
     print("=" * 60)
@@ -149,6 +181,7 @@ def main():
     bench_gradient()
     bench_autograd()
     bench_training()
+    bench_acceleration()
 
     print("\n✅ Benchmarks complete!")
 

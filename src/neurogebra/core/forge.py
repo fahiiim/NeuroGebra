@@ -4,18 +4,19 @@ MathForge: Main interface for Neurogebra.
 Provides user-facing API for accessing and creating mathematical expressions.
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional
+
 from neurogebra.core.expression import Expression
 from neurogebra.repository import (
     activations,
-    losses,
-    regularizers,
     algebra,
     calculus,
-    statistics,
     linalg,
-    optimization,
+    losses,
     metrics,
+    optimization,
+    regularizers,
+    statistics,
     transforms,
 )
 
@@ -40,7 +41,7 @@ class MathForge:
 
     def __init__(self):
         """Initialize MathForge with expression repository."""
-        self._repository: Dict[str, Expression] = {}
+        self._repository: dict[str, Expression] = {}
         self._load_repository()
 
     def _load_repository(self):
@@ -78,7 +79,7 @@ class MathForge:
     def get(
         self,
         name: str,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[dict[str, Any]] = None,
         trainable: bool = False,
     ) -> Expression:
         """
@@ -102,10 +103,7 @@ class MathForge:
         """
         if name not in self._repository:
             available = ", ".join(list(self._repository.keys())[:10])
-            raise KeyError(
-                f"Expression '{name}' not found. "
-                f"Available: {available}..."
-            )
+            raise KeyError(f"Expression '{name}' not found. Available: {available}...")
 
         expr_template = self._repository[name]
 
@@ -138,7 +136,7 @@ class MathForge:
         """
         self._repository[name] = expression
 
-    def search(self, query: str) -> List[str]:
+    def search(self, query: str) -> list[str]:
         """
         Search for expressions by name or description.
 
@@ -170,7 +168,7 @@ class MathForge:
 
         return results
 
-    def list_all(self, category: Optional[str] = None) -> List[str]:
+    def list_all(self, category: Optional[str] = None) -> list[str]:
         """
         List all available expressions.
 
@@ -243,7 +241,7 @@ class MathForge:
         expr = self.get(name)
         return expr.explain(level=level)
 
-    def compare(self, names: List[str]) -> str:
+    def compare(self, names: list[str]) -> str:
         """
         Compare multiple expressions side by side.
 

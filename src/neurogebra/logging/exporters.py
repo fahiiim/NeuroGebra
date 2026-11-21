@@ -12,35 +12,37 @@ import csv
 import json
 import os
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from neurogebra.logging.logger import LogEvent
-
 
 # ======================================================================
 # JSON Exporter
 # ======================================================================
+
 
 class JSONExporter:
     """Accumulate events and write a structured JSON log file."""
 
     def __init__(self, path: str = "training_logs/training_log.json"):
         self.path = path
-        self._events: List[Dict[str, Any]] = []
+        self._events: list[dict[str, Any]] = []
 
     def handle_event(self, event: LogEvent) -> None:
-        self._events.append({
-            "event_type": event.event_type,
-            "level": event.level.name,
-            "timestamp": event.timestamp,
-            "epoch": event.epoch,
-            "batch": event.batch,
-            "layer_name": event.layer_name,
-            "layer_index": event.layer_index,
-            "severity": event.severity,
-            "message": event.message,
-            "data": _serialisable(event.data),
-        })
+        self._events.append(
+            {
+                "event_type": event.event_type,
+                "level": event.level.name,
+                "timestamp": event.timestamp,
+                "epoch": event.epoch,
+                "batch": event.batch,
+                "layer_name": event.layer_name,
+                "layer_index": event.layer_index,
+                "severity": event.severity,
+                "message": event.message,
+                "data": _serialisable(event.data),
+            }
+        )
 
     def save(self) -> str:
         os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
@@ -53,12 +55,13 @@ class JSONExporter:
 # CSV Exporter
 # ======================================================================
 
+
 class CSVExporter:
     """Export epoch-level metrics to a CSV file."""
 
     def __init__(self, path: str = "training_logs/metrics.csv"):
         self.path = path
-        self._rows: List[Dict[str, Any]] = []
+        self._rows: list[dict[str, Any]] = []
 
     def handle_event(self, event: LogEvent) -> None:
         if event.event_type != "epoch_end":
@@ -89,13 +92,14 @@ class CSVExporter:
 # HTML Exporter
 # ======================================================================
 
+
 class HTMLExporter:
     """Generate a self-contained HTML training report."""
 
     def __init__(self, path: str = "training_logs/report.html"):
         self.path = path
-        self._events: List[LogEvent] = []
-        self._epoch_metrics: List[Dict] = []
+        self._events: list[LogEvent] = []
+        self._epoch_metrics: list[dict] = []
 
     def handle_event(self, event: LogEvent) -> None:
         self._events.append(event)
@@ -117,11 +121,19 @@ class HTMLExporter:
         for e in self._events:
             if e.event_type == "health_check":
                 sev = e.severity
-                colour = {"danger": "#e74c3c", "warning": "#f39c12",
-                          "critical": "#c0392b", "success": "#2ecc71",
-                          "info": "#3498db"}.get(sev, "#95a5a6")
+                colour = {
+                    "danger": "#e74c3c",
+                    "warning": "#f39c12",
+                    "critical": "#c0392b",
+                    "success": "#2ecc71",
+                    "info": "#3498db",
+                }.get(sev, "#95a5a6")
                 recs = e.data.get("recommendations", [])
-                rec_html = "<ul>" + "".join(f"<li>{r}</li>" for r in recs) + "</ul>" if recs else ""
+                rec_html = (
+                    "<ul>" + "".join(f"<li>{r}</li>" for r in recs) + "</ul>"
+                    if recs
+                    else ""
+                )
                 health_rows += (
                     f'<tr style="border-left:4px solid {colour}">'
                     f"<td>{sev.upper()}</td>"
@@ -209,13 +221,14 @@ new Chart(document.getElementById('accChart'), {{
 # Markdown Exporter
 # ======================================================================
 
+
 class MarkdownExporter:
     """Export training summary as a Markdown report."""
 
     def __init__(self, path: str = "training_logs/report.md"):
         self.path = path
-        self._events: List[LogEvent] = []
-        self._epoch_metrics: List[Dict] = []
+        self._events: list[LogEvent] = []
+        self._epoch_metrics: list[dict] = []
 
     def handle_event(self, event: LogEvent) -> None:
         self._events.append(event)
@@ -246,8 +259,13 @@ class MarkdownExporter:
         lines.append("\n## Health Diagnostics\n")
         for e in self._events:
             if e.event_type == "health_check":
-                icon = {"danger": "🔴", "warning": "⚠️", "critical": "🚨",
-                        "success": "✅", "info": "ℹ️"}.get(e.severity, "")
+                icon = {
+                    "danger": "🔴",
+                    "warning": "⚠️",
+                    "critical": "🚨",
+                    "success": "✅",
+                    "info": "ℹ️",
+                }.get(e.severity, "")
                 lines.append(f"- {icon} **{e.severity.upper()}**: {e.message}")
                 for rec in e.data.get("recommendations", []):
                     lines.append(f"  - 💡 {rec}")
@@ -260,6 +278,7 @@ class MarkdownExporter:
 # ======================================================================
 # Helpers
 # ======================================================================
+
 
 def _serialisable(obj: Any) -> Any:
     """Make an object JSON-serialisable."""
@@ -279,6 +298,7 @@ def _serialisable(obj: Any) -> Any:
         return obj
     try:
         import numpy as np
+
         if isinstance(obj, (np.integer,)):
             return int(obj)
         if isinstance(obj, (np.floating,)):

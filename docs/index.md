@@ -2,7 +2,7 @@
 
 ## The Executable Mathematical Formula Companion for AI and Data Science
 
-**v2.5.11** | Curated Formula Library | Base + Expanded Dataset Loaders | Training Observatory Pro
+**v2.6.0** | Hardware Acceleration (C-JIT & CUDA GPU) | Curated Formula Library | Training Observatory Pro
 
 ---
 

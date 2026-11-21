@@ -1,7 +1,7 @@
 """Tests for Datasets loaders."""
 
-import pytest
 import numpy as np
+
 from neurogebra.datasets.loaders import Datasets
 
 
@@ -20,9 +20,7 @@ class TestLoadMnist:
 
     def test_load_mnist_unflatten(self):
         """Test MNIST with flatten=False returns 2D images."""
-        (X_train, _), _ = Datasets.load_mnist(
-            flatten=False, verbose=False
-        )
+        (X_train, _), _ = Datasets.load_mnist(flatten=False, verbose=False)
         assert X_train.shape == (60000, 28, 28)
 
     def test_load_mnist_dtype(self):
@@ -49,9 +47,7 @@ class TestLoadIris:
 
     def test_load_iris_shape(self):
         """Test Iris returns correct shapes."""
-        (X_train, y_train), (X_test, y_test) = Datasets.load_iris(
-            verbose=False
-        )
+        (X_train, y_train), (X_test, y_test) = Datasets.load_iris(verbose=False)
         assert X_train.shape == (120, 4)
         assert y_train.shape == (120,)
         assert X_test.shape == (30, 4)
@@ -86,9 +82,7 @@ class TestLoadSimpleRegression:
 
     def test_load_shape(self):
         """Test regression dataset shapes."""
-        X, y = Datasets.load_simple_regression(
-            n_samples=500, verbose=False
-        )
+        X, y = Datasets.load_simple_regression(n_samples=500, verbose=False)
         assert X.shape == (500, 1)
         assert y.shape == (500,)
 
@@ -100,9 +94,7 @@ class TestLoadSimpleRegression:
 
     def test_load_custom_samples(self):
         """Test custom number of samples."""
-        X, y = Datasets.load_simple_regression(
-            n_samples=200, verbose=False
-        )
+        X, y = Datasets.load_simple_regression(n_samples=200, verbose=False)
         assert len(X) == 200
         assert len(y) == 200
 

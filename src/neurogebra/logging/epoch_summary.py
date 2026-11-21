@@ -28,7 +28,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import numpy as np
 
@@ -36,6 +36,7 @@ import numpy as np
 @dataclass
 class EpochStats:
     """Statistical summary of one metric across all batches in an epoch."""
+
     name: str
     count: int
     mean: float
@@ -45,7 +46,7 @@ class EpochStats:
     first: float
     last: float
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "name": self.name,
             "count": self.count,
@@ -61,14 +62,15 @@ class EpochStats:
 @dataclass
 class EpochSummary:
     """Full per-epoch summary across all tracked dimensions."""
+
     epoch: int
     num_batches: int
-    metrics: Dict[str, EpochStats] = field(default_factory=dict)
-    gradient_norms: Dict[str, EpochStats] = field(default_factory=dict)
-    weight_summaries: Dict[str, Dict[str, EpochStats]] = field(default_factory=dict)
-    activation_summaries: Dict[str, Dict[str, EpochStats]] = field(default_factory=dict)
+    metrics: dict[str, EpochStats] = field(default_factory=dict)
+    gradient_norms: dict[str, EpochStats] = field(default_factory=dict)
+    weight_summaries: dict[str, dict[str, EpochStats]] = field(default_factory=dict)
+    activation_summaries: dict[str, dict[str, EpochStats]] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "epoch": self.epoch,
             "num_batches": self.num_batches,
@@ -133,31 +135,35 @@ class EpochSummarizer:
 
     def __init__(self):
         # {epoch: {metric_name: [values]}}
-        self._metric_buffers: Dict[int, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
+        self._metric_buffers: dict[int, dict[str, list[float]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
         # {epoch: {layer: [norm_values]}}
-        self._gradient_buffers: Dict[int, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
+        self._gradient_buffers: dict[int, dict[str, list[float]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
         # {epoch: {layer: {stat_name: [values]}}}
-        self._weight_buffers: Dict[int, Dict[str, Dict[str, List[float]]]] = defaultdict(
-            lambda: defaultdict(lambda: defaultdict(list))
+        self._weight_buffers: dict[int, dict[str, dict[str, list[float]]]] = (
+            defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         )
-        self._activation_buffers: Dict[int, Dict[str, Dict[str, List[float]]]] = defaultdict(
-            lambda: defaultdict(lambda: defaultdict(list))
+        self._activation_buffers: dict[int, dict[str, dict[str, list[float]]]] = (
+            defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         )
-        self._batch_counts: Dict[int, int] = defaultdict(int)
-        self._summaries: List[EpochSummary] = []
+        self._batch_counts: dict[int, int] = defaultdict(int)
+        self._summaries: list[EpochSummary] = []
 
     @property
-    def summaries(self) -> List[EpochSummary]:
+    def summaries(self) -> list[EpochSummary]:
         return list(self._summaries)
 
     def record_batch(
         self,
         epoch: int,
         *,
-        metrics: Optional[Dict[str, float]] = None,
-        gradient_norms: Optional[Dict[str, float]] = None,
-        weight_stats: Optional[Dict[str, Dict[str, float]]] = None,
-        activation_stats: Optional[Dict[str, Dict[str, float]]] = None,
+        metrics: dict[str, float] | None = None,
+        gradient_norms: dict[str, float] | None = None,
+        weight_stats: dict[str, dict[str, float]] | None = None,
+        activation_stats: dict[str, dict[str, float]] | None = None,
     ) -> None:
         """Buffer one batch of data for the given epoch."""
         self._batch_counts[epoch] += 1
@@ -197,19 +203,19 @@ class EpochSummarizer:
         n_batches = self._batch_counts.get(epoch, 0)
 
         # Metrics
-        metric_stats: Dict[str, EpochStats] = {}
+        metric_stats: dict[str, EpochStats] = {}
         for name, vals in self._metric_buffers.get(epoch, {}).items():
             if vals:
                 metric_stats[name] = _compute_stats(name, vals)
 
         # Gradient norms
-        grad_stats: Dict[str, EpochStats] = {}
+        grad_stats: dict[str, EpochStats] = {}
         for layer, vals in self._gradient_buffers.get(epoch, {}).items():
             if vals:
                 grad_stats[layer] = _compute_stats(layer, vals)
 
         # Weight summaries
-        weight_sums: Dict[str, Dict[str, EpochStats]] = {}
+        weight_sums: dict[str, dict[str, EpochStats]] = {}
         for layer, keys in self._weight_buffers.get(epoch, {}).items():
             weight_sums[layer] = {}
             for key, vals in keys.items():
@@ -217,7 +223,7 @@ class EpochSummarizer:
                     weight_sums[layer][key] = _compute_stats(key, vals)
 
         # Activation summaries
-        act_sums: Dict[str, Dict[str, EpochStats]] = {}
+        act_sums: dict[str, dict[str, EpochStats]] = {}
         for layer, keys in self._activation_buffers.get(epoch, {}).items():
             act_sums[layer] = {}
             for key, vals in keys.items():
@@ -243,7 +249,7 @@ class EpochSummarizer:
 
         return summary
 
-    def get_all_summaries(self) -> List[Dict[str, Any]]:
+    def get_all_summaries(self) -> list[dict[str, Any]]:
         """Return all epoch summaries as dicts."""
         return [s.to_dict() for s in self._summaries]
 
@@ -261,7 +267,8 @@ class EpochSummarizer:
 # Helper
 # ---------------------------------------------------------------------------
 
-def _compute_stats(name: str, values: List[float]) -> EpochStats:
+
+def _compute_stats(name: str, values: list[float]) -> EpochStats:
     arr = np.array(values, dtype=np.float64)
     return EpochStats(
         name=name,

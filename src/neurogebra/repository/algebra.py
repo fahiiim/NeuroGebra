@@ -7,17 +7,16 @@ special curves, and fitting functions.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_algebra_expressions() -> Dict[str, Expression]:
+def get_algebra_expressions() -> dict[str, Expression]:
     """
     Get dictionary of algebraic expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    algebra: Dict[str, Expression] = {}
+    algebra: dict[str, Expression] = {}
 
     # ================================================================
     # Polynomial Functions
@@ -387,9 +386,7 @@ def get_algebra_expressions() -> Dict[str, Expression]:
 
     algebra["sawtooth_approx"] = Expression(
         name="sawtooth_approx",
-        symbolic_expr=(
-            "0.5 - (1/pi) * (sin(x) + sin(2*x)/2 + sin(3*x)/3)"
-        ),
+        symbolic_expr=("0.5 - (1/pi) * (sin(x) + sin(2*x)/2 + sin(3*x)/3)"),
         metadata={
             "category": "algebra",
             "description": "Sawtooth wave (Fourier approx, 3 terms)",
@@ -399,9 +396,7 @@ def get_algebra_expressions() -> Dict[str, Expression]:
 
     algebra["square_wave_approx"] = Expression(
         name="square_wave_approx",
-        symbolic_expr=(
-            "(4/pi) * (sin(x) + sin(3*x)/3 + sin(5*x)/5)"
-        ),
+        symbolic_expr=("(4/pi) * (sin(x) + sin(3*x)/3 + sin(5*x)/5)"),
         metadata={
             "category": "algebra",
             "description": "Square wave (Fourier approx, 3 terms)",

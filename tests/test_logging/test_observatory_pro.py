@@ -8,21 +8,19 @@ Covers:
     - DashboardExporter (HTML dashboard generation)
     - TrainingFingerprint (reproducibility block)
 """
+
 from __future__ import annotations
 
-import json
 import os
 import tempfile
-import time
 
 import numpy as np
-import pytest
 
 # =========================================================================
 # AdaptiveLogger
 # =========================================================================
-from neurogebra.logging.adaptive import AdaptiveLogger, AnomalyConfig, AnomalyRecord
-from neurogebra.logging.logger import TrainingLogger, LogLevel, LogEvent
+from neurogebra.logging.adaptive import AdaptiveLogger, AnomalyConfig
+from neurogebra.logging.logger import LogEvent, LogLevel, TrainingLogger
 
 
 class TestAnomalyConfig:
@@ -47,7 +45,8 @@ class TestAdaptiveLogger:
         """Normal activations should NOT produce EXPERT events."""
         adaptive = self._make()
         adaptive.on_layer_forward(
-            layer_index=0, layer_name="dense_0",
+            layer_index=0,
+            layer_name="dense_0",
             output_data=np.random.randn(32, 64),
         )
         # The base logger should have NO layer_forward events
@@ -97,8 +96,10 @@ class TestAdaptiveLogger:
         assert any(a.anomaly_type == "loss_spike" for a in adaptive.anomalies)
 
     def test_weight_stagnation(self):
-        adaptive = self._make(weight_stagnation_window=3, weight_stagnation_threshold=1e-8)
-        for i in range(5):
+        adaptive = self._make(
+            weight_stagnation_window=3, weight_stagnation_threshold=1e-8
+        )
+        for _i in range(5):
             adaptive.on_weight_updated("w0", 1.0, 1.0 + 1e-12)
         assert any(a.anomaly_type == "weight_stagnation" for a in adaptive.anomalies)
 
@@ -142,7 +143,7 @@ class TestAdaptiveLogger:
 # =========================================================================
 # AutoHealthWarnings
 # =========================================================================
-from neurogebra.logging.health_warnings import AutoHealthWarnings, HealthWarning, WarningConfig
+from neurogebra.logging.health_warnings import AutoHealthWarnings, WarningConfig
 
 
 class TestWarningConfig:
@@ -156,8 +157,11 @@ class TestAutoHealthWarnings:
     def test_dead_relu_warning(self):
         hw = AutoHealthWarnings()
         alerts = hw.check_batch(
-            activation_stats={"dense_0": {"zeros_pct": 80.0, "activation_type": "relu"}},
-            epoch=5, batch=10,
+            activation_stats={
+                "dense_0": {"zeros_pct": 80.0, "activation_type": "relu"}
+            },
+            epoch=5,
+            batch=10,
         )
         assert any(w.rule_name == "dead_relu" for w in alerts)
         assert "dense_0" in alerts[0].message
@@ -166,7 +170,8 @@ class TestAutoHealthWarnings:
         hw = AutoHealthWarnings()
         alerts = hw.check_batch(
             gradient_norms={"dense_0": 1e-10},
-            epoch=1, batch=0,
+            epoch=1,
+            batch=0,
         )
         assert any(w.rule_name == "vanishing_gradient" for w in alerts)
 
@@ -174,7 +179,8 @@ class TestAutoHealthWarnings:
         hw = AutoHealthWarnings()
         alerts = hw.check_batch(
             gradient_norms={"dense_0": 500.0},
-            epoch=1, batch=0,
+            epoch=1,
+            batch=0,
         )
         assert any(w.rule_name == "exploding_gradient" for w in alerts)
 
@@ -193,7 +199,9 @@ class TestAutoHealthWarnings:
         assert any(w.rule_name == "nan_inf_loss" for w in alerts)
 
     def test_overfitting(self):
-        hw = AutoHealthWarnings(config=WarningConfig(overfit_patience=2, overfit_ratio=1.2))
+        hw = AutoHealthWarnings(
+            config=WarningConfig(overfit_patience=2, overfit_ratio=1.2)
+        )
         hw._dedup_interval = 0  # disable dedup for test
         for i in range(3):
             hw.check_epoch(
@@ -205,20 +213,26 @@ class TestAutoHealthWarnings:
         assert any(w.rule_name == "overfitting" for w in alerts)
 
     def test_loss_stagnation(self):
-        hw = AutoHealthWarnings(config=WarningConfig(loss_stagnation_window=3, loss_stagnation_eps=1e-3))
+        hw = AutoHealthWarnings(
+            config=WarningConfig(loss_stagnation_window=3, loss_stagnation_eps=1e-3)
+        )
         for i in range(5):
             hw.check_epoch(epoch=i, train_loss=0.5)
         # All the same → stagnation
         assert any(w.rule_name == "loss_stagnation" for w in hw.warnings)
 
     def test_weight_stagnation(self):
-        hw = AutoHealthWarnings(config=WarningConfig(weight_stagnation_window=3, weight_stagnation_eps=1e-5))
+        hw = AutoHealthWarnings(
+            config=WarningConfig(weight_stagnation_window=3, weight_stagnation_eps=1e-5)
+        )
         for i in range(5):
             hw.check_batch(weight_deltas={"w0": 1e-8}, epoch=0, batch=i)
         assert any(w.rule_name == "weight_stagnation" for w in hw.warnings)
 
     def test_loss_divergence(self):
-        hw = AutoHealthWarnings(config=WarningConfig(loss_divergence_window=3, lr_too_high_loss_factor=2.0))
+        hw = AutoHealthWarnings(
+            config=WarningConfig(loss_divergence_window=3, lr_too_high_loss_factor=2.0)
+        )
         hw.check_batch(loss=0.5, epoch=0, batch=0)
         hw.check_batch(loss=0.8, epoch=0, batch=1)
         alerts = hw.check_batch(loss=2.0, epoch=0, batch=2)
@@ -230,7 +244,8 @@ class TestAutoHealthWarnings:
             hw.check_batch(
                 loss=1.0 - i * 0.1,
                 gradient_norms={"dense_0": 0.5},
-                epoch=0, batch=i,
+                epoch=0,
+                batch=i,
             )
         hw.check_epoch(epoch=0, train_loss=0.5, val_loss=0.55)
         critical = [w for w in hw.warnings if w.severity in ("danger", "critical")]
@@ -252,7 +267,7 @@ class TestAutoHealthWarnings:
 # =========================================================================
 # EpochSummarizer
 # =========================================================================
-from neurogebra.logging.epoch_summary import EpochSummarizer, EpochSummary, EpochStats
+from neurogebra.logging.epoch_summary import EpochStats, EpochSummarizer
 
 
 class TestEpochStats:
@@ -282,7 +297,7 @@ class TestEpochSummarizer:
 
     def test_gradient_summarization(self):
         es = EpochSummarizer()
-        for batch in range(5):
+        for _batch in range(5):
             es.record_batch(
                 epoch=0,
                 gradient_norms={"dense_0": np.random.uniform(0.01, 0.1)},
@@ -323,7 +338,7 @@ class TestEpochSummarizer:
     def test_multiple_epochs(self):
         es = EpochSummarizer()
         for epoch in range(3):
-            for batch in range(5):
+            for _batch in range(5):
                 es.record_batch(epoch=epoch, metrics={"loss": 1.0 - epoch * 0.2})
             es.finalize_epoch(epoch)
         assert len(es.summaries) == 3
@@ -355,8 +370,10 @@ class TestTieredStorage:
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir, buffer_size=1)
             event = LogEvent(
-                event_type="epoch_end", level=LogLevel.BASIC,
-                epoch=0, data={"metrics": {"loss": 0.5}},
+                event_type="epoch_end",
+                level=LogLevel.BASIC,
+                epoch=0,
+                data={"metrics": {"loss": 0.5}},
             )
             ts.handle_event(event)
             ts.flush()
@@ -368,8 +385,10 @@ class TestTieredStorage:
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir, buffer_size=1)
             event = LogEvent(
-                event_type="health_check", level=LogLevel.BASIC,
-                severity="warning", message="Dead ReLU",
+                event_type="health_check",
+                level=LogLevel.BASIC,
+                severity="warning",
+                message="Dead ReLU",
                 data={"check": "dead_relu"},
             )
             ts.handle_event(event)
@@ -382,7 +401,8 @@ class TestTieredStorage:
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir, buffer_size=1)
             event = LogEvent(
-                event_type="layer_forward", level=LogLevel.EXPERT,
+                event_type="layer_forward",
+                level=LogLevel.EXPERT,
                 layer_name="dense_0",
                 data={"formula": "z = Wx + b"},
             )
@@ -396,7 +416,8 @@ class TestTieredStorage:
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir, buffer_size=1, write_debug=False)
             event = LogEvent(
-                event_type="layer_forward", level=LogLevel.EXPERT,
+                event_type="layer_forward",
+                level=LogLevel.EXPERT,
                 data={},
             )
             ts.handle_event(event)
@@ -409,8 +430,10 @@ class TestTieredStorage:
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir, buffer_size=1)
             event = LogEvent(
-                event_type="batch_end", level=LogLevel.DETAILED,
-                severity="danger", message="Loss spike",
+                event_type="batch_end",
+                level=LogLevel.DETAILED,
+                severity="danger",
+                message="Loss spike",
                 data={},
             )
             ts.handle_event(event)
@@ -421,8 +444,17 @@ class TestTieredStorage:
     def test_summary(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir, buffer_size=1)
-            ts.handle_event(LogEvent(event_type="epoch_end", level=LogLevel.BASIC, data={}))
-            ts.handle_event(LogEvent(event_type="health_check", level=LogLevel.BASIC, severity="warning", data={}))
+            ts.handle_event(
+                LogEvent(event_type="epoch_end", level=LogLevel.BASIC, data={})
+            )
+            ts.handle_event(
+                LogEvent(
+                    event_type="health_check",
+                    level=LogLevel.BASIC,
+                    severity="warning",
+                    data={},
+                )
+            )
             ts.flush()
             summary = ts.summary()
             assert summary["basic"]["events"] == 1
@@ -432,7 +464,9 @@ class TestTieredStorage:
         """close() should flush without error."""
         with tempfile.TemporaryDirectory() as tmpdir:
             ts = TieredStorage(base_dir=tmpdir)
-            ts.handle_event(LogEvent(event_type="epoch_end", level=LogLevel.BASIC, data={}))
+            ts.handle_event(
+                LogEvent(event_type="epoch_end", level=LogLevel.BASIC, data={})
+            )
             ts.close()
             assert ts.basic_count == 1
 
@@ -449,22 +483,44 @@ class TestDashboardExporter:
             path = os.path.join(tmpdir, "dashboard.html")
             dash = DashboardExporter(path=path)
             # Simulate events
-            dash.handle_train_start(LogEvent(
-                event_type="train_start", level=LogLevel.BASIC,
-                data={"model_info": {"layers": 3}, "total_epochs": 5, "batch_size": 32},
-            ))
+            dash.handle_train_start(
+                LogEvent(
+                    event_type="train_start",
+                    level=LogLevel.BASIC,
+                    data={
+                        "model_info": {"layers": 3},
+                        "total_epochs": 5,
+                        "batch_size": 32,
+                    },
+                )
+            )
             for i in range(3):
-                dash.handle_epoch_end(LogEvent(
-                    event_type="epoch_end", level=LogLevel.BASIC, epoch=i,
-                    data={"metrics": {"loss": 1.0 - i * 0.2, "accuracy": 0.5 + i * 0.1,
-                                      "val_loss": 1.1 - i * 0.15, "val_accuracy": 0.4 + i * 0.08},
-                          "epoch_time": 1.5},
-                ))
-            dash.handle_health_check(LogEvent(
-                event_type="health_check", level=LogLevel.BASIC, epoch=2,
-                severity="warning", message="Dead ReLU detected",
-                data={"check": "dead_relu", "recommendations": ["Use LeakyReLU"]},
-            ))
+                dash.handle_epoch_end(
+                    LogEvent(
+                        event_type="epoch_end",
+                        level=LogLevel.BASIC,
+                        epoch=i,
+                        data={
+                            "metrics": {
+                                "loss": 1.0 - i * 0.2,
+                                "accuracy": 0.5 + i * 0.1,
+                                "val_loss": 1.1 - i * 0.15,
+                                "val_accuracy": 0.4 + i * 0.08,
+                            },
+                            "epoch_time": 1.5,
+                        },
+                    )
+                )
+            dash.handle_health_check(
+                LogEvent(
+                    event_type="health_check",
+                    level=LogLevel.BASIC,
+                    epoch=2,
+                    severity="warning",
+                    message="Dead ReLU detected",
+                    data={"check": "dead_relu", "recommendations": ["Use LeakyReLU"]},
+                )
+            )
             result = dash.save()
             assert os.path.exists(result)
             content = open(result, encoding="utf-8").read()
@@ -554,6 +610,7 @@ class TestTrainingFingerprint:
 # Integration: all v1.3.0 features together
 # =========================================================================
 
+
 class TestObservatoryProIntegration:
     """Test that all v1.3.0 features work together."""
 
@@ -574,7 +631,7 @@ class TestObservatoryProIntegration:
                 summarizer.record_batch(epoch=epoch, metrics={"loss": loss})
                 warnings.check_batch(loss=loss, epoch=epoch, batch=batch)
 
-            summary = summarizer.finalize_epoch(epoch)
+            summarizer.finalize_epoch(epoch)
             adaptive.on_epoch_end(epoch, metrics={"loss": loss})
             warnings.check_epoch(epoch=epoch, train_loss=loss)
 
@@ -598,7 +655,9 @@ class TestObservatoryProIntegration:
             logger.on_train_start(total_epochs=3, model_info={"name": "test"})
             for epoch in range(3):
                 logger.on_epoch_start(epoch)
-                logger.on_epoch_end(epoch, metrics={"loss": 1.0 - epoch * 0.2, "accuracy": 0.5})
+                logger.on_epoch_end(
+                    epoch, metrics={"loss": 1.0 - epoch * 0.2, "accuracy": 0.5}
+                )
             logger.on_train_end()
 
             ts.flush()
@@ -611,10 +670,13 @@ class TestObservatoryProIntegration:
         """Fingerprint captures model + dataset info."""
         X = np.random.randn(50, 4)
         fp = TrainingFingerprint.capture(
-            model_info={"name": "test", "layers": [
-                {"name": "dense_0", "units": 16},
-                {"name": "dense_1", "units": 1},
-            ]},
+            model_info={
+                "name": "test",
+                "layers": [
+                    {"name": "dense_0", "units": 16},
+                    {"name": "dense_1", "units": 1},
+                ],
+            },
             hyperparameters={"lr": 0.01, "batch_size": 16, "epochs": 10},
             dataset=X,
             random_seed=42,

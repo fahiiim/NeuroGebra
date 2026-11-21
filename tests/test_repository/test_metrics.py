@@ -1,7 +1,7 @@
 """Tests for metrics repository."""
 
 import pytest
-import numpy as np
+
 from neurogebra.repository.metrics import get_metrics_expressions
 
 

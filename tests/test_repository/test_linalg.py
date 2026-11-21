@@ -1,7 +1,7 @@
 """Tests for linear algebra repository."""
 
 import pytest
-import numpy as np
+
 from neurogebra.repository.linalg import get_linalg_expressions
 
 
@@ -24,9 +24,7 @@ class TestLinalgRepository:
         assert val == pytest.approx(12.0)
 
     def test_cosine_similarity_identical(self):
-        val = float(self.la["cosine_similarity"].eval(
-            dot_xy=1, norm_x=1, norm_y=1
-        ))
+        val = float(self.la["cosine_similarity"].eval(dot_xy=1, norm_x=1, norm_y=1))
         assert val == pytest.approx(1.0, rel=1e-3)
 
     def test_euclidean_dist_same_point(self):

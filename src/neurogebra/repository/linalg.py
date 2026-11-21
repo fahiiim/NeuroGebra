@@ -6,17 +6,16 @@ projections, and matrix operation components commonly used in ML.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_linalg_expressions() -> Dict[str, Expression]:
+def get_linalg_expressions() -> dict[str, Expression]:
     """
     Get dictionary of linear algebra expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    la: Dict[str, Expression] = {}
+    la: dict[str, Expression] = {}
 
     # ================================================================
     # Vector Norms (element-wise components)

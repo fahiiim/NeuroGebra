@@ -7,17 +7,16 @@ used in machine learning training loops.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_optimization_expressions() -> Dict[str, Expression]:
+def get_optimization_expressions() -> dict[str, Expression]:
     """
     Get dictionary of optimization expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    opt: Dict[str, Expression] = {}
+    opt: dict[str, Expression] = {}
 
     # ================================================================
     # Gradient-Based Optimizer Update Rules

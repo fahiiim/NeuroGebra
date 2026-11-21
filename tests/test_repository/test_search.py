@@ -1,9 +1,10 @@
 """Tests for search functionality."""
 
 import pytest
-from neurogebra.repository.search import ExpressionSearch
+
 from neurogebra.repository.activations import get_activations
 from neurogebra.repository.losses import get_losses
+from neurogebra.repository.search import ExpressionSearch
 
 
 @pytest.fixture

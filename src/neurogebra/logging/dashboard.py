@@ -28,9 +28,9 @@ from __future__ import annotations
 import json
 import os
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-from neurogebra.logging.logger import LogEvent, LogLevel
+from neurogebra.logging.logger import LogEvent
 
 
 class DashboardExporter:
@@ -43,13 +43,13 @@ class DashboardExporter:
 
     def __init__(self, path: str = "training_logs/dashboard.html"):
         self.path = path
-        self._events: List[LogEvent] = []
-        self._epoch_metrics: List[Dict] = []
-        self._gradient_data: Dict[str, List[float]] = {}  # layer → [norms per epoch]
-        self._weight_data: Dict[str, List[Dict]] = {}     # layer → [stats per epoch]
-        self._health_events: List[Dict] = []
-        self._train_info: Dict[str, Any] = {}
-        self._batch_losses: List[float] = []
+        self._events: list[LogEvent] = []
+        self._epoch_metrics: list[dict] = []
+        self._gradient_data: dict[str, list[float]] = {}  # layer → [norms per epoch]
+        self._weight_data: dict[str, list[dict]] = {}  # layer → [stats per epoch]
+        self._health_events: list[dict] = []
+        self._train_info: dict[str, Any] = {}
+        self._batch_losses: list[float] = []
 
     # ------------------------------------------------------------------
     # Backend interface
@@ -80,14 +80,16 @@ class DashboardExporter:
 
     def handle_health_check(self, event: LogEvent) -> None:
         self._events.append(event)
-        self._health_events.append({
-            "epoch": event.epoch,
-            "severity": event.severity,
-            "message": event.message,
-            "check": event.data.get("check", ""),
-            "recommendations": event.data.get("recommendations", []),
-            "timestamp": event.timestamp,
-        })
+        self._health_events.append(
+            {
+                "epoch": event.epoch,
+                "severity": event.severity,
+                "message": event.message,
+                "check": event.data.get("check", ""),
+                "recommendations": event.data.get("recommendations", []),
+                "timestamp": event.timestamp,
+            }
+        )
 
     def handle_layer_forward(self, event: LogEvent) -> None:
         self._events.append(event)
@@ -119,22 +121,30 @@ class DashboardExporter:
 
         # Gradient data for heatmap
         grad_layers = list(self._gradient_data.keys())
-        grad_matrix = [self._gradient_data.get(l, []) for l in grad_layers]
+        grad_matrix = [
+            self._gradient_data.get(layer_name, []) for layer_name in grad_layers
+        ]
 
         # Health timeline
         health_rows = ""
         for h in self._health_events:
             sev = h["severity"]
             colour = {
-                "danger": "#e74c3c", "warning": "#f39c12",
-                "critical": "#c0392b", "success": "#2ecc71",
+                "danger": "#e74c3c",
+                "warning": "#f39c12",
+                "critical": "#c0392b",
+                "success": "#2ecc71",
                 "info": "#3498db",
             }.get(sev, "#95a5a6")
             recs = h.get("recommendations", [])
-            rec_html = "<ul>" + "".join(f"<li>{r}</li>" for r in recs) + "</ul>" if recs else ""
+            rec_html = (
+                "<ul>" + "".join(f"<li>{r}</li>" for r in recs) + "</ul>"
+                if recs
+                else ""
+            )
             health_rows += (
                 f'<tr style="border-left:4px solid {colour}">'
-                f'<td>E{h.get("epoch", "?")}</td>'
+                f"<td>E{h.get('epoch', '?')}</td>"
                 f"<td><span class='badge' style='background:{colour}'>{sev.upper()}</span></td>"
                 f"<td>{h['message']}</td>"
                 f"<td>{rec_html}</td></tr>\n"
@@ -154,7 +164,11 @@ class DashboardExporter:
             final_val_loss=f"{val_losses[-1]:.6f}" if val_losses else "—",
             final_val_acc=f"{val_accs[-1]:.4f}" if val_accs else "—",
             total_events=len(self._events),
-            n_warnings=sum(1 for h in self._health_events if h["severity"] in ("warning", "danger", "critical")),
+            n_warnings=sum(
+                1
+                for h in self._health_events
+                if h["severity"] in ("warning", "danger", "critical")
+            ),
             epochs=json.dumps(epochs_list),
             losses=json.dumps(losses),
             val_losses=json.dumps(val_losses),
@@ -177,6 +191,7 @@ class DashboardExporter:
 # TensorBoard bridge (optional)
 # ---------------------------------------------------------------------------
 
+
 class TensorBoardBridge:
     """
     Write Training Observatory events to TensorBoard.
@@ -191,6 +206,7 @@ class TensorBoardBridge:
         self._step = 0
         try:
             from torch.utils.tensorboard import SummaryWriter
+
             self._writer = SummaryWriter(log_dir=log_dir)
         except ImportError:
             pass  # TensorBoard not available
@@ -231,6 +247,7 @@ class TensorBoardBridge:
 # Weights & Biases bridge (optional)
 # ---------------------------------------------------------------------------
 
+
 class WandBBridge:
     """
     Log Training Observatory events to Weights & Biases.
@@ -238,11 +255,16 @@ class WandBBridge:
     Requires ``wandb`` to be installed (``pip install neurogebra[logging]``).
     """
 
-    def __init__(self, project: str = "neurogebra", run_name: Optional[str] = None,
-                 config: Optional[Dict] = None):
+    def __init__(
+        self,
+        project: str = "neurogebra",
+        run_name: str | None = None,
+        config: dict | None = None,
+    ):
         self._run = None
         try:
             import wandb
+
             self._run = wandb.init(
                 project=project,
                 name=run_name,
@@ -260,10 +282,13 @@ class WandBBridge:
         if not self._run:
             return
         import wandb
+
         if event.event_type == "epoch_end":
             metrics = event.data.get("metrics", {})
-            wandb.log({k: v for k, v in metrics.items() if isinstance(v, (int, float))},
-                      step=event.epoch)
+            wandb.log(
+                {k: v for k, v in metrics.items() if isinstance(v, (int, float))},
+                step=event.epoch,
+            )
 
     def handle_epoch_end(self, event: LogEvent) -> None:
         self.handle_event(event)
@@ -272,15 +297,19 @@ class WandBBridge:
         if not self._run:
             return
         import wandb
+
         wandb.alert(
             title=f"Health: {event.severity.upper()}",
             text=event.message,
-            level=wandb.AlertLevel.WARN if event.severity == "warning" else wandb.AlertLevel.ERROR,
+            level=wandb.AlertLevel.WARN
+            if event.severity == "warning"
+            else wandb.AlertLevel.ERROR,
         )
 
     def close(self) -> None:
         if self._run:
             import wandb
+
             wandb.finish()
 
 

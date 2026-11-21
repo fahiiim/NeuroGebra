@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "neurogebra"
-version = "2.5.11"
+version = "2.6.0"
 description = "The executable mathematical formula companion for AI and Data Science"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -135,6 +135,8 @@ extend-exclude = '''
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 select = [
     "E",
     "W",
@@ -150,8 +152,9 @@ ignore = [
     "C901",
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
+"tests/*" = ["E402", "E741"]
 
 [tool.mypy]
 python_version = "3.9"

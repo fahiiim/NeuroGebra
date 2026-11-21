@@ -7,15 +7,14 @@ emits structured diagnostics through the TrainingLogger.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import numpy as np
-
 
 # ======================================================================
 # Gradient Monitor
 # ======================================================================
+
 
 class GradientMonitor:
     """
@@ -27,13 +26,14 @@ class GradientMonitor:
     EXPLODING_THRESHOLD = 100.0
 
     def __init__(self):
-        self.history: Dict[str, List[Dict[str, float]]] = {}  # layer → list of stats
+        self.history: dict[str, list[dict[str, float]]] = {}  # layer → list of stats
 
-    def record(self, layer_name: str, gradient: np.ndarray,
-               weights: Optional[np.ndarray] = None) -> Dict[str, Any]:
+    def record(
+        self, layer_name: str, gradient: np.ndarray, weights: np.ndarray | None = None
+    ) -> dict[str, Any]:
         """Record gradient statistics for a layer and return a report dict."""
         g = np.asarray(gradient, dtype=np.float64).ravel()
-        stats: Dict[str, Any] = {
+        stats: dict[str, Any] = {
             "norm_l2": float(np.linalg.norm(g)),
             "norm_l1": float(np.sum(np.abs(g))),
             "mean": float(np.mean(g)),
@@ -79,6 +79,7 @@ class GradientMonitor:
 # Weight Monitor
 # ======================================================================
 
+
 class WeightMonitor:
     """Track weight distributions, dead neurons, and symmetry."""
 
@@ -86,11 +87,11 @@ class WeightMonitor:
     DEAD_NEURON_PCT_WARN = 50.0
 
     def __init__(self):
-        self.history: Dict[str, List[Dict[str, float]]] = {}
+        self.history: dict[str, list[dict[str, float]]] = {}
 
-    def record(self, layer_name: str, weights: np.ndarray) -> Dict[str, Any]:
+    def record(self, layer_name: str, weights: np.ndarray) -> dict[str, Any]:
         w = np.asarray(weights, dtype=np.float64).ravel()
-        stats: Dict[str, Any] = {
+        stats: dict[str, Any] = {
             "mean": float(np.mean(w)),
             "std": float(np.std(w)),
             "min": float(np.min(w)),
@@ -133,6 +134,7 @@ class WeightMonitor:
 # Activation Monitor
 # ======================================================================
 
+
 class ActivationMonitor:
     """Track activation statistics, saturation, and dead units."""
 
@@ -140,12 +142,13 @@ class ActivationMonitor:
     SATURATION_HIGH = 0.99
 
     def __init__(self):
-        self.history: Dict[str, List[Dict[str, float]]] = {}
+        self.history: dict[str, list[dict[str, float]]] = {}
 
-    def record(self, layer_name: str, activations: np.ndarray,
-               activation_type: str = "unknown") -> Dict[str, Any]:
+    def record(
+        self, layer_name: str, activations: np.ndarray, activation_type: str = "unknown"
+    ) -> dict[str, Any]:
         a = np.asarray(activations, dtype=np.float64).ravel()
-        stats: Dict[str, Any] = {
+        stats: dict[str, Any] = {
             "mean": float(np.mean(a)),
             "std": float(np.std(a)),
             "min": float(np.min(a)),
@@ -169,15 +172,17 @@ class ActivationMonitor:
         # Sigmoid/tanh saturation check
         if activation_type in ("sigmoid", "tanh"):
             if activation_type == "sigmoid":
-                sat = float(np.sum((a < self.SATURATION_LOW) | (a > self.SATURATION_HIGH)) / a.size * 100)
+                sat = float(
+                    np.sum((a < self.SATURATION_LOW) | (a > self.SATURATION_HIGH))
+                    / a.size
+                    * 100
+                )
             else:
                 sat = float(np.sum((a < -0.99) | (a > 0.99)) / a.size * 100)
             stats["saturation_pct"] = sat
             if sat > 40:
                 stats["status"] = "warning"
-                stats["alerts"].append(
-                    f"{sat:.1f}% activations are saturated"
-                )
+                stats["alerts"].append(f"{sat:.1f}% activations are saturated")
 
         self.history.setdefault(layer_name, []).append(stats)
         return stats
@@ -187,18 +192,20 @@ class ActivationMonitor:
 # Performance Monitor
 # ======================================================================
 
+
 class PerformanceMonitor:
     """Track per-layer computation time, memory, and bottlenecks."""
 
     def __init__(self):
-        self.layer_times: Dict[str, List[float]] = {}   # forward
-        self.backward_times: Dict[str, List[float]] = {}
-        self.epoch_times: List[float] = []
-        self.batch_times: List[float] = []
-        self._memory_snapshots: List[Dict[str, int]] = []
+        self.layer_times: dict[str, list[float]] = {}  # forward
+        self.backward_times: dict[str, list[float]] = {}
+        self.epoch_times: list[float] = []
+        self.batch_times: list[float] = []
+        self._memory_snapshots: list[dict[str, int]] = []
 
-    def record_layer_time(self, layer_name: str, elapsed: float,
-                          phase: str = "forward") -> None:
+    def record_layer_time(
+        self, layer_name: str, elapsed: float, phase: str = "forward"
+    ) -> None:
         bucket = self.layer_times if phase == "forward" else self.backward_times
         bucket.setdefault(layer_name, []).append(elapsed)
 
@@ -208,13 +215,12 @@ class PerformanceMonitor:
     def record_batch_time(self, elapsed: float) -> None:
         self.batch_times.append(elapsed)
 
-    def bottleneck_report(self) -> Dict[str, Any]:
+    def bottleneck_report(self) -> dict[str, Any]:
         """Identify the layer consuming the most time."""
         if not self.layer_times:
             return {"bottleneck": None}
         avg_times = {
-            name: float(np.mean(times))
-            for name, times in self.layer_times.items()
+            name: float(np.mean(times)) for name, times in self.layer_times.items()
         }
         worst = max(avg_times, key=avg_times.get)  # type: ignore[arg-type]
         return {
@@ -223,10 +229,14 @@ class PerformanceMonitor:
             "all_layers": {k: v * 1000 for k, v in avg_times.items()},
         }
 
-    def summary(self) -> Dict[str, Any]:
+    def summary(self) -> dict[str, Any]:
         return {
             "total_epoch_time": sum(self.epoch_times),
-            "avg_epoch_time": float(np.mean(self.epoch_times)) if self.epoch_times else 0,
-            "avg_batch_time": float(np.mean(self.batch_times)) if self.batch_times else 0,
+            "avg_epoch_time": float(np.mean(self.epoch_times))
+            if self.epoch_times
+            else 0,
+            "avg_batch_time": float(np.mean(self.batch_times))
+            if self.batch_times
+            else 0,
             "bottleneck": self.bottleneck_report(),
         }

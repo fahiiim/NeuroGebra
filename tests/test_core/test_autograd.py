@@ -1,8 +1,8 @@
 """Tests for autograd module."""
 
-import pytest
 import numpy as np
-from neurogebra.core.autograd import Value, Tensor
+
+from neurogebra.core.autograd import Tensor, Value
 
 
 class TestValueBasic:
@@ -77,7 +77,7 @@ class TestValueArithmetic:
     def test_power(self):
         """Test value power."""
         a = Value(3.0)
-        c = a ** 2
+        c = a**2
         assert c.data == 9.0
 
     def test_negation(self):
@@ -151,14 +151,14 @@ class TestValueBackprop:
     def test_power_gradient(self):
         """Test gradient through power."""
         a = Value(3.0)
-        c = a ** 2
+        c = a**2
         c.backward()
         assert abs(a.grad - 6.0) < 1e-10  # d(x^2)/dx = 2x = 6
 
     def test_complex_expression(self):
         """Test gradient through complex expression."""
         x = Value(2.0)
-        y = x ** 2 + 3 * x + 1  # y = x^2 + 3x + 1
+        y = x**2 + 3 * x + 1  # y = x^2 + 3x + 1
         y.backward()
         # dy/dx = 2x + 3 = 7
         assert abs(x.grad - 7.0) < 1e-10
@@ -244,10 +244,59 @@ class TestTensor:
     def test_power(self):
         """Test tensor power."""
         t = Tensor([2.0, 3.0])
-        c = t ** 2
+        c = t**2
         np.testing.assert_array_equal(c.data, [4.0, 9.0])
 
     def test_repr(self):
         """Test tensor repr."""
         t = Tensor([1.0, 2.0])
         assert "shape" in repr(t)
+
+    def test_matmul(self):
+        """Test matrix multiplication and gradients."""
+        a = Tensor([[1.0, 2.0], [3.0, 4.0]], requires_grad=True)
+        b = Tensor([[5.0, 6.0], [7.0, 8.0]], requires_grad=True)
+        c = a @ b
+        np.testing.assert_array_equal(c.data, [[19.0, 22.0], [43.0, 50.0]])
+        loss = c.sum()
+        loss.backward()
+        # dL/da = ones @ b.T = [[11, 15], [11, 15]]
+        np.testing.assert_array_equal(a.grad, [[11.0, 15.0], [11.0, 15.0]])
+        # dL/db = a.T @ ones = [[4, 4], [6, 6]]
+        np.testing.assert_array_equal(b.grad, [[4.0, 4.0], [6.0, 6.0]])
+
+    def test_broadcasting_addition_gradient(self):
+        """Test backward pass through broadcasted tensor addition."""
+        a = Tensor(np.ones((4, 3)), requires_grad=True)
+        b = Tensor(np.array([1.0, 2.0, 3.0]), requires_grad=True)
+        c = a + b
+        loss = c.sum()
+        loss.backward()
+        np.testing.assert_array_equal(a.grad, np.ones((4, 3)))
+        np.testing.assert_array_equal(b.grad, np.array([4.0, 4.0, 4.0]))
+
+    def test_diamond_dag_gradient(self):
+        """Test gradient accumulation when a node branches to multiple paths."""
+        x = Tensor([2.0, 3.0], requires_grad=True)
+        # y = x * x (diamond graph)
+        y = x * x
+        loss = y.sum()
+        loss.backward()
+        # dy/dx = 2*x = [4.0, 6.0]
+        np.testing.assert_array_equal(x.grad, [4.0, 6.0])
+
+    def test_activations_and_transpose(self):
+        """Test tensor activations, transpose, and reshape."""
+        x = Tensor([[-1.0, 2.0], [-3.0, 4.0]], requires_grad=True)
+        r = x.relu()
+        np.testing.assert_array_equal(r.data, [[0.0, 2.0], [0.0, 4.0]])
+
+        t = x.T
+        assert t.shape == (2, 2)
+
+        reshaped = x.reshape(4)
+        assert reshaped.shape == (4,)
+
+        loss = reshaped.sum()
+        loss.backward()
+        np.testing.assert_array_equal(x.grad, np.ones((2, 2)))

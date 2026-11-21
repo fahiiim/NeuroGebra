@@ -1,6 +1,6 @@
-# Observatory Pro -- v2.5.11
+# Observatory Pro -- v2.6.0
 
-**Available since v1.3.0, current in v2.5.11** -- Six major upgrades that turn the Training Observatory from a passive log dump into an **active diagnostic engine**.
+**Available since v1.3.0, current in v2.6.0** -- Six major upgrades that turn the Training Observatory from a passive log dump into an **active diagnostic engine**.
 
 ---
 

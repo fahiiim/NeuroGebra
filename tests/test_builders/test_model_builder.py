@@ -1,8 +1,9 @@
 """Tests for ModelBuilder, Layer, and Model."""
 
-import pytest
 import numpy as np
-from neurogebra.builders.model_builder import Layer, ModelBuilder, Model
+import pytest
+
+from neurogebra.builders.model_builder import Layer, Model, ModelBuilder
 
 
 class TestLayer:
@@ -27,6 +28,52 @@ class TestLayer:
         assert layer.layer_type == "conv2d"
         assert layer.units == 32
         assert layer.params["kernel_size"] == 3
+
+    def test_conv2d_forward_backward(self):
+        """Test real computation through Conv2D forward and backward passes."""
+        layer = Layer(
+            "conv2d", units=4, kernel_size=3, activation="relu", padding="same"
+        )
+        x = np.random.randn(2, 8, 8, 3)
+        out = layer.forward(x)
+        assert out.shape == (2, 8, 8, 4)
+        assert np.all(out >= 0.0)  # ReLU non-negativity
+
+        grad_out = np.ones_like(out)
+        grad_in = layer.backward(grad_out)
+        assert grad_in.shape == (2, 8, 8, 3)
+        assert layer.grad_weights.shape == (3, 3, 3, 4)
+        assert layer.grad_bias.shape == (4,)
+
+    def test_maxpool2d_forward_backward(self):
+        """Test real computation through MaxPooling2D forward and backward passes."""
+        layer = Layer("maxpool2d", pool_size=2)
+        x = np.random.randn(2, 8, 8, 3)
+        out = layer.forward(x)
+        assert out.shape == (2, 4, 4, 3)
+
+        grad_out = np.ones_like(out)
+        grad_in = layer.backward(grad_out)
+        assert grad_in.shape == (2, 8, 8, 3)
+
+    def test_cnn_sequential_model_flow(self):
+        """Test end-to-end CNN pipeline forward, backward, fit and predict."""
+        builder = ModelBuilder()
+        model = builder.Sequential(
+            [
+                builder.Conv2D(4, kernel_size=3, activation="relu", padding="same"),
+                builder.MaxPooling2D(2),
+                builder.Flatten(),
+                builder.Dense(2, activation="softmax"),
+            ]
+        )
+        model.compile(loss="cross_entropy", optimizer="adam", learning_rate=0.01)
+        X = np.random.randn(10, 8, 8, 3)
+        y = np.random.randint(0, 2, 10)
+        history = model.fit(X, y, epochs=2, batch_size=5, verbose=False)
+        assert len(history["loss"]) == 2
+        preds = model.predict(X)
+        assert preds.shape == (10, 2)
 
     def test_flatten_layer(self):
         """Test creating a flatten layer."""
@@ -126,10 +173,12 @@ class TestModelBuilderSequential:
     def test_sequential_creates_model(self):
         """Test Sequential returns a Model instance."""
         builder = ModelBuilder()
-        model = builder.Sequential([
-            builder.Dense(64, activation="relu"),
-            builder.Dense(10, activation="softmax"),
-        ])
+        model = builder.Sequential(
+            [
+                builder.Dense(64, activation="relu"),
+                builder.Dense(10, activation="softmax"),
+            ]
+        )
         assert isinstance(model, Model)
 
     def test_sequential_with_name(self):
@@ -144,12 +193,14 @@ class TestModelBuilderSequential:
     def test_sequential_preserves_layers(self):
         """Test Sequential preserves all layers."""
         builder = ModelBuilder()
-        model = builder.Sequential([
-            builder.Dense(128, activation="relu"),
-            builder.Dropout(0.2),
-            builder.Dense(64, activation="relu"),
-            builder.Dense(10, activation="softmax"),
-        ])
+        model = builder.Sequential(
+            [
+                builder.Dense(128, activation="relu"),
+                builder.Dropout(0.2),
+                builder.Dense(64, activation="relu"),
+                builder.Dense(10, activation="softmax"),
+            ]
+        )
         assert len(model.layers) == 4
 
 
@@ -229,11 +280,13 @@ class TestModel:
     def simple_model(self):
         """Create a simple model for testing."""
         builder = ModelBuilder()
-        return builder.Sequential([
-            builder.Dense(64, activation="relu"),
-            builder.Dropout(0.2),
-            builder.Dense(10, activation="softmax"),
-        ])
+        return builder.Sequential(
+            [
+                builder.Dense(64, activation="relu"),
+                builder.Dropout(0.2),
+                builder.Dense(10, activation="softmax"),
+            ]
+        )
 
     def test_model_creation(self, simple_model):
         """Test model is created correctly."""
@@ -313,6 +366,7 @@ class TestModel:
         filepath = str(tmp_path / "test_model.pkl")
         simple_model.save(filepath)
         import os
+
         assert os.path.exists(filepath)
 
     def test_model_repr(self, simple_model):
@@ -332,5 +386,6 @@ class TestModel:
         }
         # This will try to plot - just verify it doesn't crash
         import matplotlib
+
         matplotlib.use("Agg")
         simple_model.plot_history()

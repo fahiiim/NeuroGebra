@@ -7,17 +7,16 @@ and fundamental calculus operations.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_calculus_expressions() -> Dict[str, Expression]:
+def get_calculus_expressions() -> dict[str, Expression]:
     """
     Get dictionary of common calculus expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    calc: Dict[str, Expression] = {}
+    calc: dict[str, Expression] = {}
 
     # ================================================================
     # Elementary Functions

@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import os
 from dataclasses import dataclass, field
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from neurogebra.logging.logger import LogLevel
 
@@ -46,18 +46,20 @@ class LogConfig:
     show_health_checks: bool = True
     show_images: bool = False
 
-    color_scheme: Dict[str, str] = field(default_factory=lambda: {
-        "info": "blue",
-        "success": "green",
-        "warning": "yellow",
-        "danger": "bold red",
-        "header": "bold cyan",
-        "muted": "dim white",
-        "formula": "magenta",
-        "layer": "bright_cyan",
-    })
+    color_scheme: dict[str, str] = field(
+        default_factory=lambda: {
+            "info": "blue",
+            "success": "green",
+            "warning": "yellow",
+            "danger": "bold red",
+            "header": "bold cyan",
+            "muted": "dim white",
+            "formula": "magenta",
+            "layer": "bright_cyan",
+        }
+    )
 
-    export_formats: List[str] = field(default_factory=list)
+    export_formats: list[str] = field(default_factory=list)
     export_dir: str = "./training_logs"
     health_check_interval: int = 1
     max_image_width: int = 60
@@ -69,12 +71,12 @@ class LogConfig:
     # ------------------------------------------------------------------
 
     @classmethod
-    def minimal(cls) -> "LogConfig":
+    def minimal(cls) -> LogConfig:
         """Epoch-level progress only."""
         return cls(level=LogLevel.BASIC, layout_mode="compact")
 
     @classmethod
-    def standard(cls) -> "LogConfig":
+    def standard(cls) -> LogConfig:
         """Layer info + health checks + timing."""
         return cls(
             level=LogLevel.DETAILED,
@@ -84,7 +86,7 @@ class LogConfig:
         )
 
     @classmethod
-    def verbose(cls) -> "LogConfig":
+    def verbose(cls) -> LogConfig:
         """Full layer-by-layer breakdown with formulas + gradients."""
         return cls(
             level=LogLevel.EXPERT,
@@ -99,14 +101,14 @@ class LogConfig:
         )
 
     @classmethod
-    def research(cls) -> "LogConfig":
+    def research(cls) -> LogConfig:
         """Everything + JSON + HTML export."""
         cfg = cls.verbose()
         cfg.export_formats = ["json", "csv", "html"]
         return cfg
 
     @classmethod
-    def production(cls) -> "LogConfig":
+    def production(cls) -> LogConfig:
         """Silent console, export to JSON only."""
         return cls(
             level=LogLevel.SILENT,
@@ -118,7 +120,7 @@ class LogConfig:
     # Serialisation
     # ------------------------------------------------------------------
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "level": self.level.name,
             "show_formulas": self.show_formulas,
@@ -138,7 +140,7 @@ class LogConfig:
         }
 
     @classmethod
-    def from_dict(cls, d: Dict[str, Any]) -> "LogConfig":
+    def from_dict(cls, d: dict[str, Any]) -> LogConfig:
         d = dict(d)
         if "level" in d and isinstance(d["level"], str):
             d["level"] = LogLevel[d["level"]]
@@ -151,15 +153,19 @@ class LogConfig:
             json.dump(self.to_dict(), f, indent=2)
 
     @classmethod
-    def load(cls, path: str) -> "LogConfig":
+    def load(cls, path: str) -> LogConfig:
         """Load config from JSON."""
         with open(path) as f:
             return cls.from_dict(json.load(f))
 
     @classmethod
-    def from_env(cls) -> "LogConfig":
+    def from_env(cls) -> LogConfig:
         """Build config from ``NEUROGEBRA_LOG_*`` environment variables."""
         level_name = os.environ.get("NEUROGEBRA_LOG_LEVEL", "BASIC").upper()
-        level = LogLevel[level_name] if level_name in LogLevel.__members__ else LogLevel.BASIC
+        level = (
+            LogLevel[level_name]
+            if level_name in LogLevel.__members__
+            else LogLevel.BASIC
+        )
         layout = os.environ.get("NEUROGEBRA_LOG_LAYOUT", "compact")
         return cls(level=level, layout_mode=layout)

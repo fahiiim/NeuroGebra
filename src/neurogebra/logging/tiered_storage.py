@@ -29,26 +29,30 @@ from __future__ import annotations
 
 import json
 import os
-import time
-from typing import Any, Dict, List, Optional
+from typing import Any
 
-from neurogebra.logging.logger import LogEvent, LogLevel
-
+from neurogebra.logging.logger import LogEvent
 
 # ---------------------------------------------------------------------------
 # Tier classification
 # ---------------------------------------------------------------------------
 
 # Events that go to basic.log
-_BASIC_EVENTS = frozenset({
-    "train_start", "train_end",
-    "epoch_start", "epoch_end",
-})
+_BASIC_EVENTS = frozenset(
+    {
+        "train_start",
+        "train_end",
+        "epoch_start",
+        "epoch_end",
+    }
+)
 
 # Events that go to health.log
-_HEALTH_EVENTS = frozenset({
-    "health_check",
-})
+_HEALTH_EVENTS = frozenset(
+    {
+        "health_check",
+    }
+)
 
 # Severity levels that always route to health.log regardless of event type
 _HEALTH_SEVERITIES = frozenset({"warning", "danger", "critical"})
@@ -93,9 +97,9 @@ class TieredStorage:
         self.write_debug = write_debug
 
         self._buffer_size = buffer_size
-        self._basic_buffer: List[str] = []
-        self._health_buffer: List[str] = []
-        self._debug_buffer: List[str] = []
+        self._basic_buffer: list[str] = []
+        self._health_buffer: list[str] = []
+        self._debug_buffer: list[str] = []
 
         self._opened = False
         self._basic_fh = None
@@ -181,7 +185,7 @@ class TieredStorage:
     # ------------------------------------------------------------------
 
     @staticmethod
-    def _serialise(event: LogEvent) -> Dict[str, Any]:
+    def _serialise(event: LogEvent) -> dict[str, Any]:
         return {
             "event_type": event.event_type,
             "level": event.level.name,
@@ -207,7 +211,7 @@ class TieredStorage:
     def _flush_buffer(self, tier: str) -> None:
         buf_attr = f"_{tier}_buffer"
         path_attr = f"{tier}_path"
-        buf: List[str] = getattr(self, buf_attr)
+        buf: list[str] = getattr(self, buf_attr)
         if not buf:
             return
         self._ensure_dir()
@@ -232,24 +236,24 @@ class TieredStorage:
     # Reading helpers
     # ------------------------------------------------------------------
 
-    def read_basic(self) -> List[Dict[str, Any]]:
+    def read_basic(self) -> list[dict[str, Any]]:
         """Read all basic-tier events from disk."""
         return self._read_ndjson(self.basic_path)
 
-    def read_health(self) -> List[Dict[str, Any]]:
+    def read_health(self) -> list[dict[str, Any]]:
         """Read all health-tier events from disk."""
         return self._read_ndjson(self.health_path)
 
-    def read_debug(self) -> List[Dict[str, Any]]:
+    def read_debug(self) -> list[dict[str, Any]]:
         """Read all debug-tier events from disk."""
         return self._read_ndjson(self.debug_path)
 
     @staticmethod
-    def _read_ndjson(path: str) -> List[Dict[str, Any]]:
+    def _read_ndjson(path: str) -> list[dict[str, Any]]:
         if not os.path.exists(path):
             return []
         events = []
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if line:
@@ -263,8 +267,9 @@ class TieredStorage:
     # Utilities
     # ------------------------------------------------------------------
 
-    def summary(self) -> Dict[str, Any]:
+    def summary(self) -> dict[str, Any]:
         """Return file-size and event-count statistics."""
+
         def _size(path):
             try:
                 return os.path.getsize(path)
@@ -273,7 +278,10 @@ class TieredStorage:
 
         return {
             "basic": {"events": self.basic_count, "size_bytes": _size(self.basic_path)},
-            "health": {"events": self.health_count, "size_bytes": _size(self.health_path)},
+            "health": {
+                "events": self.health_count,
+                "size_bytes": _size(self.health_path),
+            },
             "debug": {"events": self.debug_count, "size_bytes": _size(self.debug_path)},
             "total_events": self.basic_count + self.health_count + self.debug_count,
         }
@@ -282,6 +290,7 @@ class TieredStorage:
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _safe(obj: Any) -> Any:
     """Make an object JSON-serialisable."""
@@ -301,6 +310,7 @@ def _safe(obj: Any) -> Any:
         return obj
     try:
         import numpy as np
+
         if isinstance(obj, (np.integer,)):
             return int(obj)
         if isinstance(obj, (np.floating,)):

@@ -5,19 +5,19 @@ The main hub for accessing, creating, and learning about mathematical
 operations used in machine learning and deep learning.
 """
 
-from typing import Any, Dict, List, Optional, Union
-import numpy as np
+from typing import Any, Optional
+
 from neurogebra.core.expression import Expression
 from neurogebra.repository import (
     activations,
-    losses,
-    regularizers,
     algebra,
     calculus,
-    statistics,
     linalg,
-    optimization,
+    losses,
     metrics,
+    optimization,
+    regularizers,
+    statistics,
     transforms,
 )
 
@@ -47,7 +47,7 @@ class NeuroCraft:
             educational_mode: Enable educational features (explanations, tips)
         """
         self.educational_mode = educational_mode
-        self._repository: Dict[str, Expression] = {}
+        self._repository: dict[str, Expression] = {}
         self._load_repository()
 
         if educational_mode:
@@ -72,7 +72,7 @@ class NeuroCraft:
         print("   Type craft.tutorial() to start learning")
         print("   Type craft.search('activation') to explore")
 
-    def _find_similar(self, name: str, max_results: int = 5) -> List[str]:
+    def _find_similar(self, name: str, max_results: int = 5) -> list[str]:
         """
         Find expression names similar to the given name.
 
@@ -103,7 +103,7 @@ class NeuroCraft:
     def get(
         self,
         name: str,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[dict[str, Any]] = None,
         explain: bool = False,
     ) -> Expression:
         """
@@ -148,7 +148,7 @@ class NeuroCraft:
         query: str,
         category: Optional[str] = None,
         show_details: bool = True,
-    ) -> List[str]:
+    ) -> list[str]:
         """
         Search for expressions with smart suggestions.
 
@@ -179,7 +179,7 @@ class NeuroCraft:
 
         return [name for name, _ in results]
 
-    def _display_search_results(self, results: List[tuple]):
+    def _display_search_results(self, results: list[tuple]):
         """Display search results with formatting."""
         print(f"\n📚 Found {len(results)} expressions:\n")
 
@@ -190,7 +190,7 @@ class NeuroCraft:
             print(f"    {desc[:80]}")
             print()
 
-    def list_all(self, category: Optional[str] = None) -> List[str]:
+    def list_all(self, category: Optional[str] = None) -> list[str]:
         """
         List all available expressions.
 
@@ -261,7 +261,7 @@ class NeuroCraft:
 
     def compare(
         self,
-        expressions: List[str],
+        expressions: list[str],
         on_data: Optional[tuple] = None,
         metric: str = "behavior",
     ):
@@ -281,9 +281,7 @@ class NeuroCraft:
             plot_comparison(exprs, title="Expression Behavior Comparison")
         elif metric == "gradient":
             grad_exprs = [e.gradient("x") for e in exprs]
-            plot_comparison(
-                grad_exprs, title="Gradient Comparison"
-            )
+            plot_comparison(grad_exprs, title="Gradient Comparison")
 
     def tutorial(self, topic: Optional[str] = None):
         """

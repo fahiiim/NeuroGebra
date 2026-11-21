@@ -4,7 +4,8 @@ Search utilities for expression repository.
 Provides advanced search and filtering capabilities.
 """
 
-from typing import Dict, List, Optional
+from typing import Optional
+
 from neurogebra.core.expression import Expression
 
 
@@ -15,7 +16,7 @@ class ExpressionSearch:
     Supports fuzzy matching, category filtering, and similarity search.
     """
 
-    def __init__(self, repository: Dict[str, Expression]):
+    def __init__(self, repository: dict[str, Expression]):
         """
         Initialize search engine.
 
@@ -29,7 +30,7 @@ class ExpressionSearch:
         query: str,
         category: Optional[str] = None,
         max_results: int = 10,
-    ) -> List[Dict]:
+    ) -> list[dict]:
         """
         Search for expressions matching query.
 
@@ -65,9 +66,7 @@ class ExpressionSearch:
         results.sort(key=lambda x: x["score"], reverse=True)
         return results[:max_results]
 
-    def _compute_score(
-        self, query: str, name: str, expr: Expression
-    ) -> float:
+    def _compute_score(self, query: str, name: str, expr: Expression) -> float:
         """
         Compute relevance score for a query-expression pair.
 
@@ -113,7 +112,7 @@ class ExpressionSearch:
 
         return score
 
-    def get_categories(self) -> List[str]:
+    def get_categories(self) -> list[str]:
         """
         Get all available categories.
 
@@ -127,7 +126,7 @@ class ExpressionSearch:
                 categories.add(cat)
         return sorted(categories)
 
-    def get_by_category(self, category: str) -> List[str]:
+    def get_by_category(self, category: str) -> list[str]:
         """
         Get all expression names in a category.
 

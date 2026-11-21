@@ -1,7 +1,7 @@
 """Tests for Expression class."""
 
-import pytest
 import numpy as np
+
 from neurogebra.core.expression import Expression
 
 
@@ -202,7 +202,7 @@ class TestExpressionArithmetic:
     def test_power(self):
         """Test expression power."""
         e = Expression("f", "x")
-        result = e ** 3
+        result = e**3
         assert result.eval(x=2) == 8.0
 
 

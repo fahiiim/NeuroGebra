@@ -10,16 +10,16 @@ from __future__ import annotations
 
 import copy
 import time
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import numpy as np
-
 
 # ======================================================================
 # Activation helpers (vectorised NumPy implementations)
 # ======================================================================
 
-def _apply_activation(z: np.ndarray, name: Optional[str]) -> np.ndarray:
+
+def _apply_activation(z: np.ndarray, name: str | None) -> np.ndarray:
     """Apply activation function element-wise."""
     if name is None or name == "linear":
         return z
@@ -41,11 +41,13 @@ def _apply_activation(z: np.ndarray, name: Optional[str]) -> np.ndarray:
         sig = 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
         return z * sig
     if name == "gelu":
-        return 0.5 * z * (1 + np.tanh(np.sqrt(2 / np.pi) * (z + 0.044715 * z ** 3)))
+        return 0.5 * z * (1 + np.tanh(np.sqrt(2 / np.pi) * (z + 0.044715 * z**3)))
     return z  # fallback
 
 
-def _activation_derivative(z: np.ndarray, a: np.ndarray, name: Optional[str]) -> np.ndarray:
+def _activation_derivative(
+    z: np.ndarray, a: np.ndarray, name: str | None
+) -> np.ndarray:
     """Compute derivative of activation w.r.t. pre-activation *z*."""
     if name is None or name == "linear":
         return np.ones_like(z)
@@ -54,7 +56,7 @@ def _activation_derivative(z: np.ndarray, a: np.ndarray, name: Optional[str]) ->
     if name == "sigmoid":
         return a * (1 - a)
     if name == "tanh":
-        return 1 - a ** 2
+        return 1 - a**2
     if name == "leaky_relu":
         return np.where(z > 0, 1.0, 0.01)
     if name == "elu":
@@ -86,16 +88,11 @@ class Layer:
         ),
         "conv2d": "Convolutional layer - detects patterns in images",
         "dropout": (
-            "Randomly turns off neurons during training to "
-            "prevent overfitting"
+            "Randomly turns off neurons during training to prevent overfitting"
         ),
         "flatten": "Converts multi-dimensional data to 1D for dense layers",
-        "maxpool2d": (
-            "Reduces image size by taking maximum values in regions"
-        ),
-        "batchnorm": (
-            "Normalizes activations in a layer to stabilize training"
-        ),
+        "maxpool2d": ("Reduces image size by taking maximum values in regions"),
+        "batchnorm": ("Normalizes activations in a layer to stabilize training"),
     }
 
     _USE_CASES = {
@@ -114,8 +111,8 @@ class Layer:
     def __init__(
         self,
         layer_type: str,
-        units: Optional[int] = None,
-        activation: Optional[str] = None,
+        units: int | None = None,
+        activation: str | None = None,
         **kwargs,
     ):
         """
@@ -133,43 +130,50 @@ class Layer:
         self.params = kwargs
 
         # Educational metadata
-        self.description = self._DESCRIPTIONS.get(
-            self.layer_type, "Custom layer"
-        )
-        self.best_for = self._USE_CASES.get(
-            self.layer_type, ["General purpose"]
-        )
+        self.description = self._DESCRIPTIONS.get(self.layer_type, "Custom layer")
+        self.best_for = self._USE_CASES.get(self.layer_type, ["General purpose"])
 
         # ---- Real computation state (initialised on first use) ----
-        self.weights: Optional[np.ndarray] = None       # (in_features, units)
-        self.bias: Optional[np.ndarray] = None           # (units,)
+        self.weights: np.ndarray | None = None  # (in_features, units)
+        self.bias: np.ndarray | None = None  # (units,)
         self._initialised = False
 
         # Caches for backward pass
-        self._last_input: Optional[np.ndarray] = None
-        self._last_z: Optional[np.ndarray] = None        # pre-activation
-        self._last_output: Optional[np.ndarray] = None    # post-activation
-        self._last_mask: Optional[np.ndarray] = None      # dropout mask
+        self._last_input: np.ndarray | None = None
+        self._last_z: np.ndarray | None = None  # pre-activation
+        self._last_output: np.ndarray | None = None  # post-activation
+        self._last_mask: np.ndarray | None = None  # dropout mask
 
         # Gradient accumulators
-        self.grad_weights: Optional[np.ndarray] = None
-        self.grad_bias: Optional[np.ndarray] = None
+        self.grad_weights: np.ndarray | None = None
+        self.grad_bias: np.ndarray | None = None
 
         # Adam state
-        self._m_w: Optional[np.ndarray] = None
-        self._v_w: Optional[np.ndarray] = None
-        self._m_b: Optional[np.ndarray] = None
-        self._v_b: Optional[np.ndarray] = None
+        self._m_w: np.ndarray | None = None
+        self._v_w: np.ndarray | None = None
+        self._m_b: np.ndarray | None = None
+        self._v_b: np.ndarray | None = None
 
     # ------------------------------------------------------------------
     # Initialisation (He / Xavier)
     # ------------------------------------------------------------------
 
-    def _init_params(self, input_dim: int) -> None:
+    def _init_params(self, input_dim: int, in_channels: int | None = None) -> None:
         if self.layer_type == "dense" and self.units is not None:
             scale = np.sqrt(2.0 / input_dim)  # He init
             self.weights = np.random.randn(input_dim, self.units) * scale
             self.bias = np.zeros(self.units)
+            self._m_w = np.zeros_like(self.weights)
+            self._v_w = np.zeros_like(self.weights)
+            self._m_b = np.zeros_like(self.bias)
+            self._v_b = np.zeros_like(self.bias)
+        elif self.layer_type == "conv2d":
+            filters = self.units or self.params.get("filters", 32)
+            k = self.params.get("kernel_size", 3)
+            c_in = in_channels if in_channels is not None else 1
+            scale = np.sqrt(2.0 / (k * k * c_in))
+            self.weights = np.random.randn(k, k, c_in, filters) * scale
+            self.bias = np.zeros(filters)
             self._m_w = np.zeros_like(self.weights)
             self._v_w = np.zeros_like(self.weights)
             self._m_b = np.zeros_like(self.bias)
@@ -199,6 +203,52 @@ class Layer:
             self._last_output = _apply_activation(self._last_z, self.activation)
             return self._last_output
 
+        if self.layer_type == "conv2d":
+            if x.ndim == 3:
+                x = x[..., np.newaxis]
+            if not self._initialised:
+                self._init_params(input_dim=x.shape[-1], in_channels=x.shape[-1])
+            self._last_input = x
+            k = self.params.get("kernel_size", 3)
+            padding = str(self.params.get("padding", "valid")).lower()
+            if padding == "same":
+                p = k // 2
+                x_pad = np.pad(x, ((0, 0), (p, p), (p, p), (0, 0)), mode="constant")
+            else:
+                x_pad = x
+            self._last_padded = x_pad
+            windows = np.lib.stride_tricks.sliding_window_view(
+                x_pad, (k, k), axis=(1, 2)
+            )
+            z = (
+                np.tensordot(windows, self.weights, axes=([3, 4, 5], [2, 0, 1]))
+                + self.bias
+            )
+            self._last_z = z
+            self._last_windows = windows
+            self._last_output = _apply_activation(z, self.activation)
+            return self._last_output
+
+        if self.layer_type == "maxpool2d":
+            if x.ndim == 3:
+                x = x[..., np.newaxis]
+            self._last_input = x
+            P = self.params.get("pool_size", 2)
+            N, H, W, C = x.shape
+            H_trim = (H // P) * P
+            W_trim = (W // P) * P
+            x_crop = x[:, :H_trim, :W_trim, :]
+            x_reshaped = (
+                x_crop.reshape(N, H_trim // P, P, W_trim // P, P, C)
+                .transpose(0, 1, 3, 5, 2, 4)
+                .reshape(N, H_trim // P, W_trim // P, C, P * P)
+            )
+            out = x_reshaped.max(axis=-1)
+            mask = x_reshaped == out[..., np.newaxis]
+            self._last_maxpool_meta = (N, H, W, C, H_trim, W_trim, P, mask)
+            self._last_output = out
+            return out
+
         if self.layer_type == "dropout":
             rate = self.params.get("rate", 0.2)
             if training:
@@ -227,7 +277,9 @@ class Layer:
         """Compute gradients and return gradient for previous layer."""
         if self.layer_type == "dense":
             # Activation derivative
-            da = _activation_derivative(self._last_z, self._last_output, self.activation)
+            da = _activation_derivative(
+                self._last_z, self._last_output, self.activation
+            )
 
             # For softmax + cross entropy the gradient is already pre-combined
             if self.activation == "softmax":
@@ -241,6 +293,53 @@ class Layer:
 
             # Gradient for previous layer
             grad_input = dz @ self.weights.T
+            return grad_input
+
+        if self.layer_type == "conv2d":
+            da = _activation_derivative(
+                self._last_z, self._last_output, self.activation
+            )
+            dz = grad_output * da
+            N, H_out, W_out, F = dz.shape
+            k = self.params.get("kernel_size", 3)
+            self.grad_bias = np.sum(dz, axis=(0, 1, 2)) / N
+            gw = np.tensordot(
+                self._last_windows, dz, axes=([0, 1, 2], [0, 1, 2])
+            ).transpose(1, 2, 0, 3)
+            self.grad_weights = gw / N
+
+            x_pad = self._last_padded
+            grad_x_pad = np.zeros_like(x_pad)
+            for di in range(k):
+                for dj in range(k):
+                    grad_x_pad[:, di : di + H_out, dj : dj + W_out, :] += (
+                        dz @ self.weights[di, dj].T
+                    )
+
+            padding = str(self.params.get("padding", "valid")).lower()
+            if padding == "same":
+                p = k // 2
+                grad_input = grad_x_pad[:, p:-p, p:-p, :] if p > 0 else grad_x_pad
+            else:
+                grad_input = grad_x_pad
+
+            if self._last_input.ndim == 3 and grad_input.shape[-1] == 1:
+                grad_input = grad_input.squeeze(-1)
+            return grad_input
+
+        if self.layer_type == "maxpool2d":
+            N, H, W, C, H_trim, W_trim, P, mask = self._last_maxpool_meta
+            denom = np.maximum(1, mask.sum(axis=-1, keepdims=True))
+            g_reshaped = (grad_output[..., np.newaxis] * mask) / denom
+            gx_crop = (
+                g_reshaped.reshape(N, H_trim // P, W_trim // P, C, P, P)
+                .transpose(0, 1, 4, 2, 5, 3)
+                .reshape(N, H_trim, W_trim, C)
+            )
+            grad_input = np.zeros((N, H, W, C), dtype=gx_crop.dtype)
+            grad_input[:, :H_trim, :W_trim, :] = gx_crop
+            if self._last_input.ndim == 3 and grad_input.shape[-1] == 1:
+                grad_input = grad_input.squeeze(-1)
             return grad_input
 
         if self.layer_type == "dropout":
@@ -260,9 +359,15 @@ class Layer:
     # Weight update
     # ------------------------------------------------------------------
 
-    def update_params(self, lr: float, optimizer: str = "adam",
-                      t: int = 1, beta1: float = 0.9,
-                      beta2: float = 0.999, eps: float = 1e-8) -> None:
+    def update_params(
+        self,
+        lr: float,
+        optimizer: str = "adam",
+        t: int = 1,
+        beta1: float = 0.9,
+        beta2: float = 0.999,
+        eps: float = 1e-8,
+    ) -> None:
         """Apply gradient update to weights and bias."""
         if self.weights is None or self.grad_weights is None:
             return
@@ -272,15 +377,15 @@ class Layer:
             self.bias -= lr * self.grad_bias
         elif optimizer == "adam":
             self._m_w = beta1 * self._m_w + (1 - beta1) * self.grad_weights
-            self._v_w = beta2 * self._v_w + (1 - beta2) * self.grad_weights ** 2
-            m_hat_w = self._m_w / (1 - beta1 ** t)
-            v_hat_w = self._v_w / (1 - beta2 ** t)
+            self._v_w = beta2 * self._v_w + (1 - beta2) * self.grad_weights**2
+            m_hat_w = self._m_w / (1 - beta1**t)
+            v_hat_w = self._v_w / (1 - beta2**t)
             self.weights -= lr * m_hat_w / (np.sqrt(v_hat_w) + eps)
 
             self._m_b = beta1 * self._m_b + (1 - beta1) * self.grad_bias
-            self._v_b = beta2 * self._v_b + (1 - beta2) * self.grad_bias ** 2
-            m_hat_b = self._m_b / (1 - beta1 ** t)
-            v_hat_b = self._v_b / (1 - beta2 ** t)
+            self._v_b = beta2 * self._v_b + (1 - beta2) * self.grad_bias**2
+            m_hat_b = self._m_b / (1 - beta1**t)
+            v_hat_b = self._v_b / (1 - beta2**t)
             self.bias -= lr * m_hat_b / (np.sqrt(v_hat_b) + eps)
 
     def zero_grad(self) -> None:
@@ -295,7 +400,7 @@ class Layer:
         """Explain what this layer does in plain language."""
         print(f"\n📚 {self.layer_type.upper()} Layer")
         print(f"   {self.description}")
-        print(f"\n   Best used for:")
+        print("\n   Best used for:")
         for use_case in self.best_for:
             print(f"   • {use_case}")
 
@@ -308,7 +413,7 @@ class Layer:
         for key, val in self.params.items():
             print(f"   {key}: {val}")
 
-    def get_weight_stats(self) -> Optional[Dict[str, Any]]:
+    def get_weight_stats(self) -> dict[str, Any] | None:
         """Return summary statistics for this layer's weights."""
         if self.weights is None:
             return None
@@ -323,7 +428,7 @@ class Layer:
             "size": int(w.size),
         }
 
-    def get_gradient_stats(self) -> Optional[Dict[str, Any]]:
+    def get_gradient_stats(self) -> dict[str, Any] | None:
         """Return summary statistics for this layer's weight gradients."""
         if self.grad_weights is None:
             return None
@@ -368,7 +473,7 @@ class ModelBuilder:
         >>> model.summary()
     """
 
-    def __init__(self, craft: Optional[Any] = None):
+    def __init__(self, craft: Any | None = None):
         """
         Initialize ModelBuilder.
 
@@ -387,7 +492,7 @@ class ModelBuilder:
             self.craft = NeuroCraft(educational_mode=False)
         return self.craft
 
-    def _load_templates(self) -> Dict[str, Dict[str, Any]]:
+    def _load_templates(self) -> dict[str, dict[str, Any]]:
         """Load pre-built model templates for common tasks."""
         return {
             "simple_classifier": {
@@ -464,8 +569,8 @@ class ModelBuilder:
     def Dense(
         self,
         units: int,
-        activation: Optional[str] = None,
-        input_shape: Optional[tuple] = None,
+        activation: str | None = None,
+        input_shape: tuple | None = None,
         **kwargs,
     ) -> Layer:
         """
@@ -493,7 +598,7 @@ class ModelBuilder:
         self,
         filters: int,
         kernel_size: int = 3,
-        activation: Optional[str] = None,
+        activation: str | None = None,
         **kwargs,
     ) -> Layer:
         """
@@ -541,9 +646,7 @@ class ModelBuilder:
 
     # ---- Model construction ----
 
-    def Sequential(
-        self, layers: List[Layer], name: Optional[str] = None
-    ) -> "Model":
+    def Sequential(self, layers: list[Layer], name: str | None = None) -> Model:
         """
         Build a sequential model (layers stacked one after another).
 
@@ -568,8 +671,8 @@ class ModelBuilder:
     def from_template(
         self,
         template_name: str,
-        customize: Optional[Dict] = None,
-    ) -> "Model":
+        customize: dict | None = None,
+    ) -> Model:
         """
         Create a model from a pre-built template.
 
@@ -657,9 +760,7 @@ class ModelBuilder:
         if task in ("classification", "image_classification"):
             if len(input_shape) == 3:
                 print("   Recommended: Convolutional Neural Network (CNN)")
-                print(
-                    "   Why: CNNs are designed to detect patterns in images"
-                )
+                print("   Why: CNNs are designed to detect patterns in images")
                 print("\n   Suggested architecture:")
                 print("   1. Conv2D(32, kernel_size=3) + ReLU")
                 print("   2. MaxPooling2D()")
@@ -678,9 +779,7 @@ class ModelBuilder:
                 print("   2. Dropout(0.2)")
                 print("   3. Dense(64) + ReLU")
                 print(f"   4. Dense({output_size}) + Softmax")
-                print(
-                    "\n   Use: builder.from_template('simple_classifier')"
-                )
+                print("\n   Use: builder.from_template('simple_classifier')")
 
         elif task == "regression":
             print("   Recommended: Regression Network")
@@ -699,13 +798,9 @@ class ModelBuilder:
             print("   2. Dropout(0.3)")
             print("   3. Dense(32) + ReLU")
             print("   4. Dense(1) + Sigmoid")
-            print(
-                "\n   Use: builder.from_template('binary_classifier')"
-            )
+            print("\n   Use: builder.from_template('binary_classifier')")
 
-        print(
-            "\n   💡 Tip: Start with these suggestions, then experiment!"
-        )
+        print("\n   💡 Tip: Start with these suggestions, then experiment!")
 
 
 class Model:
@@ -722,29 +817,29 @@ class Model:
 
     def __init__(
         self,
-        layers: List[Layer],
-        name: Optional[str] = None,
+        layers: list[Layer],
+        name: str | None = None,
         craft=None,
     ):
         self.layers = layers
         self.name = name or "UntitledModel"
         self.craft = craft
-        self.template_info: Optional[Dict] = None
+        self.template_info: dict | None = None
 
         # Training state
         self.is_compiled = False
         self.loss_function = None
-        self.loss_name: Optional[str] = None
-        self.optimizer: Optional[str] = None
+        self.loss_name: str | None = None
+        self.optimizer: str | None = None
         self.learning_rate: float = 0.001
-        self.metrics: List[str] = []
+        self.metrics: list[str] = []
 
         # Training Observatory
         self._logger = None
         self._log_config = None
 
         # History
-        self.history: Dict[str, List[float]] = {
+        self.history: dict[str, list[float]] = {
             "loss": [],
             "accuracy": [],
             "val_loss": [],
@@ -754,6 +849,7 @@ class Model:
     def _get_craft(self):
         if self.craft is None:
             from neurogebra.core.neurocraft import NeuroCraft
+
             self.craft = NeuroCraft(educational_mode=False)
         return self.craft
 
@@ -832,7 +928,7 @@ class Model:
     def _layer_grad_formula(layer: Layer, idx: int) -> str:
         if layer.layer_type == "dense":
             act = layer.activation or "linear"
-            return f"∂L/∂W{idx} = ∂L/∂a{idx} ⊙ {act}'(z{idx}) · a{idx-1}ᵀ"
+            return f"∂L/∂W{idx} = ∂L/∂a{idx} ⊙ {act}'(z{idx}) · a{idx - 1}ᵀ"
         return ""
 
     # ------------------------------------------------------------------
@@ -840,8 +936,9 @@ class Model:
     # ------------------------------------------------------------------
 
     @staticmethod
-    def _compute_loss(predictions: np.ndarray, targets: np.ndarray,
-                      loss_name: str) -> tuple:
+    def _compute_loss(
+        predictions: np.ndarray, targets: np.ndarray, loss_name: str
+    ) -> tuple:
         """Return (loss_scalar, grad_wrt_predictions)."""
         eps = 1e-12
         n = predictions.shape[0]
@@ -851,16 +948,16 @@ class Model:
             t = targets.reshape(predictions.shape)
         except ValueError:
             # Shape mismatch — flatten both for a best-effort comparison
-            p_flat = predictions.ravel()[:targets.ravel().size]
-            t_flat = targets.ravel()[:p_flat.size]
+            p_flat = predictions.ravel()[: targets.ravel().size]
+            t_flat = targets.ravel()[: p_flat.size]
             diff = p_flat - t_flat
-            loss = float(np.mean(diff ** 2))
+            loss = float(np.mean(diff**2))
             grad = np.zeros_like(predictions)
             return loss, grad
 
         if loss_name in ("mse", "mean_squared_error"):
             diff = predictions - t
-            loss = float(np.mean(diff ** 2))
+            loss = float(np.mean(diff**2))
             grad = 2 * diff / n
             return loss, grad
 
@@ -890,7 +987,7 @@ class Model:
 
         # Default: MSE
         diff = predictions - t
-        loss = float(np.mean(diff ** 2))
+        loss = float(np.mean(diff**2))
         grad = 2 * diff / n
         return loss, grad
 
@@ -901,14 +998,16 @@ class Model:
         else:
             pred_labels = (predictions.ravel() > 0.5).astype(int)
         true_labels = targets.ravel().astype(int)
-        return float(np.mean(pred_labels[:len(true_labels)] == true_labels[:len(pred_labels)]))
+        return float(
+            np.mean(pred_labels[: len(true_labels)] == true_labels[: len(pred_labels)])
+        )
 
     # ------------------------------------------------------------------
     # Model info dict (for logger)
     # ------------------------------------------------------------------
 
-    def _model_info(self) -> Dict[str, Any]:
-        total_params = sum(l.n_params for l in self.layers)
+    def _model_info(self) -> dict[str, Any]:
+        total_params = sum(layer.n_params for layer in self.layers)
         return {
             "name": self.name,
             "num_layers": len(self.layers),
@@ -916,7 +1015,7 @@ class Model:
             "loss": self.loss_name,
             "optimizer": self.optimizer,
             "lr": self.learning_rate,
-            "layers": [repr(l) for l in self.layers],
+            "layers": [repr(layer) for layer in self.layers],
         }
 
     # ------------------------------------------------------------------
@@ -924,12 +1023,12 @@ class Model:
     # ------------------------------------------------------------------
 
     def summary(self, educational: bool = True):
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"  Model: {self.name}")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         total_params = 0
-        prev_units: Optional[int] = None
+        prev_units: int | None = None
 
         for i, layer in enumerate(self.layers, 1):
             print(f"  Layer {i}: {layer}")
@@ -947,9 +1046,9 @@ class Model:
                 prev_units = layer.units
             print()
 
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
         print(f"  Total Parameters: ~{total_params:,}")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         if educational and self.template_info:
             print("  📚 About this architecture:")
@@ -960,9 +1059,9 @@ class Model:
     def explain_architecture(self):
         print(f"\n🎓 Understanding Your Model: {self.name}\n")
         for i, layer in enumerate(self.layers, 1):
-            print(f"{'='*60}")
+            print(f"{'=' * 60}")
             print(f"Layer {i}: {layer.layer_type.upper()}")
-            print(f"{'='*60}")
+            print(f"{'=' * 60}")
             layer.explain()
             if i < len(self.layers):
                 print("\n   ⬇️  Passes data to next layer")
@@ -976,9 +1075,9 @@ class Model:
         self,
         loss: str = "mse",
         optimizer: str = "adam",
-        metrics: Optional[List[str]] = None,
+        metrics: list[str] | None = None,
         learning_rate: float = 0.001,
-        log_level: Optional[str] = None,
+        log_level: str | None = None,
         log_config=None,
     ):
         """
@@ -1007,8 +1106,8 @@ class Model:
 
         # --- Training Observatory setup ---
         if log_level or log_config:
-            from neurogebra.logging.logger import TrainingLogger, LogLevel
             from neurogebra.logging.config import LogConfig
+            from neurogebra.logging.logger import LogLevel, TrainingLogger
             from neurogebra.logging.terminal_display import TerminalDisplay
 
             if log_config is None:
@@ -1029,16 +1128,28 @@ class Model:
             # Optional exporters
             if "json" in log_config.export_formats:
                 from neurogebra.logging.exporters import JSONExporter
-                self._logger.add_backend(JSONExporter(f"{log_config.export_dir}/training_log.json"))
+
+                self._logger.add_backend(
+                    JSONExporter(f"{log_config.export_dir}/training_log.json")
+                )
             if "csv" in log_config.export_formats:
                 from neurogebra.logging.exporters import CSVExporter
-                self._logger.add_backend(CSVExporter(f"{log_config.export_dir}/metrics.csv"))
+
+                self._logger.add_backend(
+                    CSVExporter(f"{log_config.export_dir}/metrics.csv")
+                )
             if "html" in log_config.export_formats:
                 from neurogebra.logging.exporters import HTMLExporter
-                self._logger.add_backend(HTMLExporter(f"{log_config.export_dir}/report.html"))
+
+                self._logger.add_backend(
+                    HTMLExporter(f"{log_config.export_dir}/report.html")
+                )
             if "markdown" in log_config.export_formats:
                 from neurogebra.logging.exporters import MarkdownExporter
-                self._logger.add_backend(MarkdownExporter(f"{log_config.export_dir}/report.md"))
+
+                self._logger.add_backend(
+                    MarkdownExporter(f"{log_config.export_dir}/report.md")
+                )
 
         print(f"   Loss: {loss}")
         print(f"   Optimizer: {optimizer} (lr={learning_rate})")
@@ -1058,7 +1169,7 @@ class Model:
         validation_split: float = 0.2,
         verbose: bool = True,
         visualize: bool = False,
-    ) -> Dict[str, List[float]]:
+    ) -> dict[str, list[float]]:
         """
         Train the model on data.
 
@@ -1068,8 +1179,7 @@ class Model:
         """
         if not self.is_compiled:
             raise RuntimeError(
-                "Model must be compiled before training!\n"
-                "Call model.compile() first."
+                "Model must be compiled before training!\nCall model.compile() first."
             )
 
         X = np.asarray(X, dtype=np.float64)
@@ -1093,8 +1203,11 @@ class Model:
             visualize=visualize,
         )
         history = trainer.train(
-            X=X, y=y, epochs=epochs,
-            batch_size=batch_size, validation_split=validation_split,
+            X=X,
+            y=y,
+            epochs=epochs,
+            batch_size=batch_size,
+            validation_split=validation_split,
         )
         self.history = history
         print("\n✅ Training complete!")
@@ -1108,12 +1221,15 @@ class Model:
     # ------------------------------------------------------------------
 
     def _real_fit(self, X, y, epochs, batch_size, validation_split):
-        from neurogebra.logging.monitors import (
-            GradientMonitor, WeightMonitor, ActivationMonitor, PerformanceMonitor,
-        )
-        from neurogebra.logging.health_checks import SmartHealthChecker
         from neurogebra.logging.formula_renderer import FormulaRenderer
+        from neurogebra.logging.health_checks import SmartHealthChecker
         from neurogebra.logging.image_logger import ImageLogger
+        from neurogebra.logging.monitors import (
+            ActivationMonitor,
+            GradientMonitor,
+            PerformanceMonitor,
+            WeightMonitor,
+        )
 
         grad_mon = GradientMonitor()
         weight_mon = WeightMonitor()
@@ -1137,14 +1253,24 @@ class Model:
 
         # Render full model equation once
         if self._log_config and self._log_config.show_formulas:
-            specs = [{"type": l.layer_type, "activation": l.activation,
-                       "rate": l.params.get("rate")} for l in self.layers]
+            specs = [
+                {
+                    "type": layer.layer_type,
+                    "activation": layer.activation,
+                    "rate": layer.params.get("rate"),
+                }
+                for layer in self.layers
+            ]
             eq = renderer.full_model_equation(specs)
             renderer.render(eq, title="Full Model Equation", style="cyan")
             renderer.render_loss(self.loss_name or "mse")
 
         # Check for image data
-        if self._log_config and self._log_config.show_images and img_logger.is_image_data(X_train):
+        if (
+            self._log_config
+            and self._log_config.show_images
+            and img_logger.is_image_data(X_train)
+        ):
             img_logger.render_image(X_train[0], title="Sample Input Image")
 
         global_step = 0
@@ -1190,8 +1316,9 @@ class Model:
                     if layer.weights is not None:
                         weight_mon.record(lname, layer.weights)
                     if layer._last_output is not None:
-                        act_mon.record(lname, layer._last_output,
-                                       layer.activation or "linear")
+                        act_mon.record(
+                            lname, layer._last_output, layer.activation or "linear"
+                        )
 
                 # Update weights
                 self._update_params(t=global_step)
@@ -1200,8 +1327,9 @@ class Model:
                 for layer in self.layers:
                     layer.zero_grad()
 
-                self._logger.on_batch_end(b, epoch=epoch, loss=loss,
-                                          metrics={"accuracy": acc})
+                self._logger.on_batch_end(
+                    b, epoch=epoch, loss=loss, metrics={"accuracy": acc}
+                )
 
             # Validation
             val_preds = self._real_forward(X_val, training=False)
@@ -1219,16 +1347,20 @@ class Model:
             self.history["val_loss"].append(val_loss)
             self.history["val_accuracy"].append(val_acc)
 
-            self._logger.on_epoch_end(epoch, metrics={
-                "loss": avg_loss, "accuracy": avg_acc,
-                "val_loss": val_loss, "val_accuracy": val_acc,
-            })
+            self._logger.on_epoch_end(
+                epoch,
+                metrics={
+                    "loss": avg_loss,
+                    "accuracy": avg_acc,
+                    "val_loss": val_loss,
+                    "val_accuracy": val_acc,
+                },
+            )
 
             # Health checks
             if self._log_config and self._log_config.show_health_checks:
                 if (epoch + 1) % self._log_config.health_check_interval == 0:
                     weight_stats_dict = {}
-                    act_stats_dict = {}
                     for i, layer in enumerate(self.layers):
                         lname = f"{layer.layer_type}_{i}"
                         ws = layer.get_weight_stats()
@@ -1255,7 +1387,9 @@ class Model:
             "loss": self.history["loss"][-1] if self.history["loss"] else 0,
             "accuracy": self.history["accuracy"][-1] if self.history["accuracy"] else 0,
             "val_loss": self.history["val_loss"][-1] if self.history["val_loss"] else 0,
-            "val_accuracy": self.history["val_accuracy"][-1] if self.history["val_accuracy"] else 0,
+            "val_accuracy": self.history["val_accuracy"][-1]
+            if self.history["val_accuracy"]
+            else 0,
         }
         self._logger.on_train_end(final_metrics=final_metrics)
 
@@ -1271,19 +1405,11 @@ class Model:
     # ------------------------------------------------------------------
 
     def predict(self, X: np.ndarray) -> np.ndarray:
+        """Generate predictions using the model's forward pass."""
         X = np.asarray(X, dtype=np.float64)
-        # If layers have been initialised, use real forward
-        if any(l._initialised for l in self.layers):
-            return self._real_forward(X, training=False)
-        # Fallback placeholder
-        output_units = 10
-        for layer in reversed(self.layers):
-            if layer.units is not None:
-                output_units = layer.units
-                break
-        return np.random.rand(len(X), output_units)
+        return self._real_forward(X, training=False)
 
-    def evaluate(self, X: np.ndarray, y: np.ndarray) -> Dict[str, float]:
+    def evaluate(self, X: np.ndarray, y: np.ndarray) -> dict[str, float]:
         X = np.asarray(X, dtype=np.float64)
         y = np.asarray(y, dtype=np.float64)
         predictions = self.predict(X)
@@ -1294,31 +1420,44 @@ class Model:
 
     def save(self, filepath: str):
         import pickle
+
         with open(filepath, "wb") as f:
-            pickle.dump({
-                "name": self.name,
-                "layers": [{
-                    "type": l.layer_type, "units": l.units,
-                    "activation": l.activation, "params": l.params,
-                    "weights": l.weights, "bias": l.bias,
-                } for l in self.layers],
-                "history": self.history,
-                "loss_name": self.loss_name,
-                "optimizer": self.optimizer,
-                "learning_rate": self.learning_rate,
-            }, f)
+            pickle.dump(
+                {
+                    "name": self.name,
+                    "layers": [
+                        {
+                            "type": layer.layer_type,
+                            "units": layer.units,
+                            "activation": layer.activation,
+                            "params": layer.params,
+                            "weights": layer.weights,
+                            "bias": layer.bias,
+                        }
+                        for layer in self.layers
+                    ],
+                    "history": self.history,
+                    "loss_name": self.loss_name,
+                    "optimizer": self.optimizer,
+                    "learning_rate": self.learning_rate,
+                },
+                f,
+            )
         print(f"💾 Model saved to {filepath}")
 
     def plot_history(self):
         from neurogebra.viz.plotting import plot_training_history
+
         plot_training_history(self.history)
 
     def to_pytorch(self):
         from neurogebra.bridges.pytorch_bridge import to_pytorch
+
         return to_pytorch(self)
 
     def to_tensorflow(self):
         from neurogebra.bridges.tensorflow_bridge import to_tensorflow
+
         return to_tensorflow(self)
 
     def __repr__(self):

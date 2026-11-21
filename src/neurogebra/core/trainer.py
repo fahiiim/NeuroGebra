@@ -4,8 +4,10 @@ Training utilities for trainable expressions.
 Implements optimization algorithms for learning parameters in expressions.
 """
 
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Callable, Optional
+
 import numpy as np
+
 from neurogebra.core.expression import Expression
 
 
@@ -43,11 +45,11 @@ class Trainer:
         self.expression = expression
         self.learning_rate = learning_rate
         self.optimizer = optimizer
-        self.history: Dict[str, List] = {"loss": [], "params": []}
+        self.history: dict[str, list] = {"loss": [], "params": []}
 
         # Adam optimizer state
-        self._m: Dict[str, float] = {}
-        self._v: Dict[str, float] = {}
+        self._m: dict[str, float] = {}
+        self._v: dict[str, float] = {}
         self._t = 0
 
         for param_name in self.expression.trainable_params:
@@ -63,7 +65,7 @@ class Trainer:
         loss_fn: str = "mse",
         verbose: bool = True,
         callback: Optional[Callable] = None,
-    ) -> Dict[str, List]:
+    ) -> dict[str, list]:
         """
         Fit expression to data.
 
@@ -124,12 +126,18 @@ class Trainer:
         return self.history
 
     def _forward(self, X: np.ndarray) -> np.ndarray:
-        """Forward pass through expression."""
-        results = []
-        for x in X:
-            result = self.expression.eval(x=float(x))
-            results.append(float(result))
-        return np.array(results)
+        """Forward pass through expression using vectorized evaluation."""
+        try:
+            preds = self.expression.eval(x=X)
+            preds_arr = np.asarray(preds, dtype=np.float64)
+            if preds_arr.shape == () and len(X) > 0:
+                return np.full_like(X, float(preds_arr), dtype=np.float64)
+            return preds_arr
+        except Exception:
+            # Fallback to sample-by-sample evaluation if expression requires scalar inputs
+            return np.array(
+                [float(self.expression.eval(x=float(x))) for x in X], dtype=np.float64
+            )
 
     def _compute_loss(
         self, predictions: np.ndarray, targets: np.ndarray, loss_fn: str
@@ -156,35 +164,62 @@ class Trainer:
 
     def _backward(self, X: np.ndarray, y: np.ndarray, loss_fn: str):
         """
-        Backward pass using numerical gradients.
-
-        For MVP, use finite differences. Later versions can use
-        symbolic differentiation or autograd.
+        Backward pass using analytical gradients when possible,
+        falling back to central finite differences.
         """
-        epsilon = 1e-5
+        if self.optimizer == "adam":
+            self._t += 1
+
+        preds = self._forward(X)
+        n = len(X)
 
         for param_name in self.expression.trainable_params:
             if param_name not in self.expression.params:
                 continue
 
-            original_value = self.expression.params[param_name]
+            gradient = None
+            # Attempt analytical gradient via symbolic differentiation
+            try:
+                grad_expr = self.expression.gradient(param_name)
+                df_dp = grad_expr.eval(x=X)
+                df_dp = np.asarray(df_dp, dtype=np.float64)
+                if df_dp.shape == () and n > 0:
+                    df_dp = np.full_like(preds, float(df_dp), dtype=np.float64)
 
-            # Compute gradient via central finite difference
-            self.expression.params[param_name] = original_value + epsilon
-            pred_plus = self._forward(X)
-            loss_plus = self._compute_loss(pred_plus, y, loss_fn)
+                if loss_fn == "mse":
+                    dL_df = 2.0 * (preds - y) / n
+                    gradient = float(np.sum(dL_df * df_dp))
+                elif loss_fn == "mae":
+                    dL_df = np.sign(preds - y) / n
+                    gradient = float(np.sum(dL_df * df_dp))
+                elif loss_fn == "huber":
+                    delta = 1.0
+                    diff = preds - y
+                    dL_df = (
+                        np.where(np.abs(diff) <= delta, diff, delta * np.sign(diff)) / n
+                    )
+                    gradient = float(np.sum(dL_df * df_dp))
+            except Exception:
+                gradient = None
 
-            self.expression.params[param_name] = original_value - epsilon
-            pred_minus = self._forward(X)
-            loss_minus = self._compute_loss(pred_minus, y, loss_fn)
+            # Fallback to central finite differences if analytical gradient not computed
+            if gradient is None or not np.isfinite(gradient):
+                epsilon = 1e-5
+                original_value = self.expression.params[param_name]
 
-            # Restore original
-            self.expression.params[param_name] = original_value
+                self.expression.params[param_name] = original_value + epsilon
+                pred_plus = self._forward(X)
+                loss_plus = self._compute_loss(pred_plus, y, loss_fn)
 
-            # Gradient
-            gradient = (loss_plus - loss_minus) / (2 * epsilon)
+                self.expression.params[param_name] = original_value - epsilon
+                pred_minus = self._forward(X)
+                loss_minus = self._compute_loss(pred_minus, y, loss_fn)
+
+                self.expression.params[param_name] = original_value
+                gradient = (loss_plus - loss_minus) / (2 * epsilon)
 
             # Update parameter based on optimizer
+            original_value = self.expression.params[param_name]
             if self.optimizer == "adam":
                 self._adam_update(param_name, gradient)
             else:
@@ -202,13 +237,12 @@ class Trainer:
         eps: float = 1e-8,
     ):
         """Adam optimizer update step."""
-        self._t += 1
-
+        t = max(1, self._t)
         self._m[param_name] = beta1 * self._m[param_name] + (1 - beta1) * gradient
         self._v[param_name] = beta2 * self._v[param_name] + (1 - beta2) * gradient**2
 
-        m_hat = self._m[param_name] / (1 - beta1**self._t)
-        v_hat = self._v[param_name] / (1 - beta2**self._t)
+        m_hat = self._m[param_name] / (1 - beta1**t)
+        v_hat = self._v[param_name] / (1 - beta2**t)
 
         self.expression.params[param_name] -= (
             self.learning_rate * m_hat / (np.sqrt(v_hat) + eps)

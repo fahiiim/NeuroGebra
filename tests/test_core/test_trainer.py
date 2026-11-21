@@ -1,7 +1,8 @@
 """Tests for Trainer module."""
 
-import pytest
 import numpy as np
+import pytest
+
 from neurogebra.core.expression import Expression
 from neurogebra.core.trainer import Trainer
 

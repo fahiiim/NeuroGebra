@@ -8,19 +8,21 @@ terminal output, and pluggable backends (console, file, TensorBoard, …).
 from __future__ import annotations
 
 import time
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Any, Callable, Dict, List, Optional, Sequence
+from typing import Any, Callable
 
 import numpy as np
-
 
 # ---------------------------------------------------------------------------
 # Log levels
 # ---------------------------------------------------------------------------
 
+
 class LogLevel(IntEnum):
     """Verbosity levels for the Training Observatory."""
+
     SILENT = 0
     BASIC = 1
     DETAILED = 2
@@ -32,24 +34,27 @@ class LogLevel(IntEnum):
 # Log event
 # ---------------------------------------------------------------------------
 
+
 @dataclass
 class LogEvent:
     """A single structured log event emitted during training."""
-    event_type: str          # e.g. "epoch_start", "layer_forward", …
-    level: LogLevel          # minimum level required to emit this event
+
+    event_type: str  # e.g. "epoch_start", "layer_forward", …
+    level: LogLevel  # minimum level required to emit this event
     timestamp: float = field(default_factory=time.time)
-    epoch: Optional[int] = None
-    batch: Optional[int] = None
-    layer_name: Optional[str] = None
-    layer_index: Optional[int] = None
-    data: Dict[str, Any] = field(default_factory=dict)
-    severity: str = "info"   # "info", "warning", "danger", "success"
+    epoch: int | None = None
+    batch: int | None = None
+    layer_name: str | None = None
+    layer_index: int | None = None
+    data: dict[str, Any] = field(default_factory=dict)
+    severity: str = "info"  # "info", "warning", "danger", "success"
     message: str = ""
 
 
 # ---------------------------------------------------------------------------
 # Training Logger
 # ---------------------------------------------------------------------------
+
 
 class TrainingLogger:
     """
@@ -83,15 +88,15 @@ class TrainingLogger:
     def __init__(
         self,
         level: LogLevel = LogLevel.BASIC,
-        backends: Optional[Sequence[Any]] = None,
+        backends: Sequence[Any] | None = None,
     ):
         self.level = level
-        self._backends: List[Any] = list(backends) if backends else []
-        self._event_log: List[LogEvent] = []
-        self._callbacks: Dict[str, List[Callable]] = {}
-        self._start_time: Optional[float] = None
-        self._epoch_start_time: Optional[float] = None
-        self._batch_start_time: Optional[float] = None
+        self._backends: list[Any] = list(backends) if backends else []
+        self._event_log: list[LogEvent] = []
+        self._callbacks: dict[str, list[Callable]] = {}
+        self._start_time: float | None = None
+        self._epoch_start_time: float | None = None
+        self._batch_start_time: float | None = None
 
         # Aggregate stats
         self.total_epochs: int = 0
@@ -103,7 +108,7 @@ class TrainingLogger:
     # Backend management
     # ------------------------------------------------------------------
 
-    def add_backend(self, backend: Any) -> "TrainingLogger":
+    def add_backend(self, backend: Any) -> TrainingLogger:
         """Add a display/export backend (TerminalDisplay, JSONExporter …)."""
         self._backends.append(backend)
         return self
@@ -136,130 +141,182 @@ class TrainingLogger:
     # High-level event helpers
     # ------------------------------------------------------------------
 
-    def on_train_start(self, *, model_info: Optional[Dict] = None,
-                       total_epochs: int = 0, total_samples: int = 0,
-                       batch_size: int = 0, **extra) -> None:
+    def on_train_start(
+        self,
+        *,
+        model_info: dict | None = None,
+        total_epochs: int = 0,
+        total_samples: int = 0,
+        batch_size: int = 0,
+        **extra,
+    ) -> None:
         self._start_time = time.time()
         self.total_epochs = total_epochs
-        self._emit(LogEvent(
-            event_type=self.TRAIN_START,
-            level=LogLevel.BASIC,
-            data={
-                "model_info": model_info or {},
-                "total_epochs": total_epochs,
-                "total_samples": total_samples,
-                "batch_size": batch_size,
-                **extra,
-            },
-            severity="info",
-            message=f"Training started — {total_epochs} epochs, {total_samples} samples",
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.TRAIN_START,
+                level=LogLevel.BASIC,
+                data={
+                    "model_info": model_info or {},
+                    "total_epochs": total_epochs,
+                    "total_samples": total_samples,
+                    "batch_size": batch_size,
+                    **extra,
+                },
+                severity="info",
+                message=f"Training started — {total_epochs} epochs, {total_samples} samples",
+            )
+        )
 
-    def on_train_end(self, *, final_metrics: Optional[Dict] = None, **extra) -> None:
+    def on_train_end(self, *, final_metrics: dict | None = None, **extra) -> None:
         elapsed = time.time() - self._start_time if self._start_time else 0
-        self._emit(LogEvent(
-            event_type=self.TRAIN_END,
-            level=LogLevel.BASIC,
-            data={
-                "final_metrics": final_metrics or {},
-                "total_time": elapsed,
-                **extra,
-            },
-            severity="success",
-            message=f"Training complete in {elapsed:.1f}s",
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.TRAIN_END,
+                level=LogLevel.BASIC,
+                data={
+                    "final_metrics": final_metrics or {},
+                    "total_time": elapsed,
+                    **extra,
+                },
+                severity="success",
+                message=f"Training complete in {elapsed:.1f}s",
+            )
+        )
 
     def on_epoch_start(self, epoch: int, **extra) -> None:
         self.current_epoch = epoch
         self._epoch_start_time = time.time()
-        self._emit(LogEvent(
-            event_type=self.EPOCH_START,
-            level=LogLevel.BASIC,
-            epoch=epoch,
-            data=extra,
-            message=f"Epoch {epoch + 1}/{self.total_epochs}",
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.EPOCH_START,
+                level=LogLevel.BASIC,
+                epoch=epoch,
+                data=extra,
+                message=f"Epoch {epoch + 1}/{self.total_epochs}",
+            )
+        )
 
-    def on_epoch_end(self, epoch: int, *, metrics: Optional[Dict] = None,
-                     **extra) -> None:
+    def on_epoch_end(self, epoch: int, *, metrics: dict | None = None, **extra) -> None:
         elapsed = time.time() - self._epoch_start_time if self._epoch_start_time else 0
-        self._emit(LogEvent(
-            event_type=self.EPOCH_END,
-            level=LogLevel.BASIC,
-            epoch=epoch,
-            data={"metrics": metrics or {}, "epoch_time": elapsed, **extra},
-            message=f"Epoch {epoch + 1} done — {elapsed:.2f}s",
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.EPOCH_END,
+                level=LogLevel.BASIC,
+                epoch=epoch,
+                data={"metrics": metrics or {}, "epoch_time": elapsed, **extra},
+                message=f"Epoch {epoch + 1} done — {elapsed:.2f}s",
+            )
+        )
 
-    def on_batch_start(self, batch: int, *, epoch: Optional[int] = None,
-                       X_batch: Optional[np.ndarray] = None,
-                       y_batch: Optional[np.ndarray] = None, **extra) -> None:
+    def on_batch_start(
+        self,
+        batch: int,
+        *,
+        epoch: int | None = None,
+        X_batch: np.ndarray | None = None,
+        y_batch: np.ndarray | None = None,
+        **extra,
+    ) -> None:
         self.current_batch = batch
         self._batch_start_time = time.time()
-        self._emit(LogEvent(
-            event_type=self.BATCH_START,
-            level=LogLevel.DETAILED,
-            epoch=epoch,
-            batch=batch,
-            data={
-                "batch_shape": X_batch.shape if X_batch is not None else None,
-                **extra,
-            },
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.BATCH_START,
+                level=LogLevel.DETAILED,
+                epoch=epoch,
+                batch=batch,
+                data={
+                    "batch_shape": X_batch.shape if X_batch is not None else None,
+                    **extra,
+                },
+            )
+        )
 
-    def on_batch_end(self, batch: int, *, epoch: Optional[int] = None,
-                     loss: Optional[float] = None,
-                     metrics: Optional[Dict] = None, **extra) -> None:
+    def on_batch_end(
+        self,
+        batch: int,
+        *,
+        epoch: int | None = None,
+        loss: float | None = None,
+        metrics: dict | None = None,
+        **extra,
+    ) -> None:
         elapsed = time.time() - self._batch_start_time if self._batch_start_time else 0
-        self._emit(LogEvent(
-            event_type=self.BATCH_END,
-            level=LogLevel.DETAILED,
-            epoch=epoch,
-            batch=batch,
-            data={"loss": loss, "metrics": metrics or {}, "batch_time": elapsed, **extra},
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.BATCH_END,
+                level=LogLevel.DETAILED,
+                epoch=epoch,
+                batch=batch,
+                data={
+                    "loss": loss,
+                    "metrics": metrics or {},
+                    "batch_time": elapsed,
+                    **extra,
+                },
+            )
+        )
 
-    def on_layer_forward(self, layer_index: int, layer_name: str, *,
-                         input_data: Optional[np.ndarray] = None,
-                         output_data: Optional[np.ndarray] = None,
-                         weights: Optional[np.ndarray] = None,
-                         bias: Optional[np.ndarray] = None,
-                         formula: str = "", **extra) -> None:
-        self._emit(LogEvent(
-            event_type=self.LAYER_FORWARD,
-            level=LogLevel.EXPERT,
-            layer_name=layer_name,
-            layer_index=layer_index,
-            data={
-                "input_shape": input_data.shape if input_data is not None else None,
-                "output_shape": output_data.shape if output_data is not None else None,
-                "input_stats": _array_stats(input_data),
-                "output_stats": _array_stats(output_data),
-                "weight_stats": _array_stats(weights),
-                "bias_stats": _array_stats(bias),
-                "formula": formula,
-                **extra,
-            },
-        ))
+    def on_layer_forward(
+        self,
+        layer_index: int,
+        layer_name: str,
+        *,
+        input_data: np.ndarray | None = None,
+        output_data: np.ndarray | None = None,
+        weights: np.ndarray | None = None,
+        bias: np.ndarray | None = None,
+        formula: str = "",
+        **extra,
+    ) -> None:
+        self._emit(
+            LogEvent(
+                event_type=self.LAYER_FORWARD,
+                level=LogLevel.EXPERT,
+                layer_name=layer_name,
+                layer_index=layer_index,
+                data={
+                    "input_shape": input_data.shape if input_data is not None else None,
+                    "output_shape": output_data.shape
+                    if output_data is not None
+                    else None,
+                    "input_stats": _array_stats(input_data),
+                    "output_stats": _array_stats(output_data),
+                    "weight_stats": _array_stats(weights),
+                    "bias_stats": _array_stats(bias),
+                    "formula": formula,
+                    **extra,
+                },
+            )
+        )
 
-    def on_layer_backward(self, layer_index: int, layer_name: str, *,
-                          grad_output: Optional[np.ndarray] = None,
-                          grad_weights: Optional[np.ndarray] = None,
-                          grad_bias: Optional[np.ndarray] = None,
-                          formula: str = "", **extra) -> None:
-        self._emit(LogEvent(
-            event_type=self.LAYER_BACKWARD,
-            level=LogLevel.EXPERT,
-            layer_name=layer_name,
-            layer_index=layer_index,
-            data={
-                "grad_output_stats": _array_stats(grad_output),
-                "grad_weights_stats": _array_stats(grad_weights),
-                "grad_bias_stats": _array_stats(grad_bias),
-                "formula": formula,
-                **extra,
-            },
-        ))
+    def on_layer_backward(
+        self,
+        layer_index: int,
+        layer_name: str,
+        *,
+        grad_output: np.ndarray | None = None,
+        grad_weights: np.ndarray | None = None,
+        grad_bias: np.ndarray | None = None,
+        formula: str = "",
+        **extra,
+    ) -> None:
+        self._emit(
+            LogEvent(
+                event_type=self.LAYER_BACKWARD,
+                level=LogLevel.EXPERT,
+                layer_name=layer_name,
+                layer_index=layer_index,
+                data={
+                    "grad_output_stats": _array_stats(grad_output),
+                    "grad_weights_stats": _array_stats(grad_weights),
+                    "grad_bias_stats": _array_stats(grad_bias),
+                    "formula": formula,
+                    **extra,
+                },
+            )
+        )
 
     def on_gradient_computed(self, param_name: str, gradient: float, **extra) -> None:
         sev = "info"
@@ -267,44 +324,60 @@ class TrainingLogger:
             sev = "danger"
         elif abs(gradient) > 100:
             sev = "danger"
-        self._emit(LogEvent(
-            event_type=self.GRADIENT_COMPUTED,
-            level=LogLevel.EXPERT,
-            data={"param": param_name, "gradient": gradient, **extra},
-            severity=sev,
-        ))
+        self._emit(
+            LogEvent(
+                event_type=self.GRADIENT_COMPUTED,
+                level=LogLevel.EXPERT,
+                data={"param": param_name, "gradient": gradient, **extra},
+                severity=sev,
+            )
+        )
 
-    def on_weight_updated(self, param_name: str, old_value: float,
-                          new_value: float, **extra) -> None:
-        self._emit(LogEvent(
-            event_type=self.WEIGHT_UPDATED,
-            level=LogLevel.EXPERT,
-            data={"param": param_name, "old": old_value, "new": new_value, **extra},
-        ))
+    def on_weight_updated(
+        self, param_name: str, old_value: float, new_value: float, **extra
+    ) -> None:
+        self._emit(
+            LogEvent(
+                event_type=self.WEIGHT_UPDATED,
+                level=LogLevel.EXPERT,
+                data={"param": param_name, "old": old_value, "new": new_value, **extra},
+            )
+        )
 
-    def on_health_check(self, check_name: str, severity: str,
-                        message: str, recommendations: Optional[List[str]] = None,
-                        **extra) -> None:
-        self._emit(LogEvent(
-            event_type=self.HEALTH_CHECK,
-            level=LogLevel.BASIC,
-            data={"check": check_name, "recommendations": recommendations or [], **extra},
-            severity=severity,
-            message=message,
-        ))
+    def on_health_check(
+        self,
+        check_name: str,
+        severity: str,
+        message: str,
+        recommendations: list[str] | None = None,
+        **extra,
+    ) -> None:
+        self._emit(
+            LogEvent(
+                event_type=self.HEALTH_CHECK,
+                level=LogLevel.BASIC,
+                data={
+                    "check": check_name,
+                    "recommendations": recommendations or [],
+                    **extra,
+                },
+                severity=severity,
+                message=message,
+            )
+        )
 
     # ------------------------------------------------------------------
     # Utilities
     # ------------------------------------------------------------------
 
-    def get_event_log(self) -> List[LogEvent]:
+    def get_event_log(self) -> list[LogEvent]:
         """Return all recorded events."""
         return list(self._event_log)
 
-    def get_events_by_type(self, event_type: str) -> List[LogEvent]:
+    def get_events_by_type(self, event_type: str) -> list[LogEvent]:
         return [e for e in self._event_log if e.event_type == event_type]
 
-    def summary(self) -> Dict[str, Any]:
+    def summary(self) -> dict[str, Any]:
         """Return aggregate statistics for the training run."""
         events = self._event_log
         return {
@@ -323,7 +396,8 @@ class TrainingLogger:
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _array_stats(arr: Optional[np.ndarray]) -> Optional[Dict[str, float]]:
+
+def _array_stats(arr: np.ndarray | None) -> dict[str, float] | None:
     """Compute summary statistics of a numpy array."""
     if arr is None:
         return None

@@ -84,9 +84,7 @@ def test_jax_bridge_runtime_behavior():
     y = jax_fn(x)
     grad = jax_grad_fn(x)
 
-    expected_y = np.asarray(
-        expr.eval(x=np.array([0.0, 1.0, -1.0], dtype=np.float32))
-    )
+    expected_y = np.asarray(expr.eval(x=np.array([0.0, 1.0, -1.0], dtype=np.float32)))
     expected_grad = np.asarray(
         expr.gradient("x").eval(x=np.array([0.0, 1.0, -1.0], dtype=np.float32))
     )

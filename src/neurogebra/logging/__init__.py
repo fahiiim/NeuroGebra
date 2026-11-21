@@ -23,30 +23,38 @@ Modules:
     computation_graph — Full computational graph tracking
 """
 
-from neurogebra.logging.logger import TrainingLogger, LogLevel, LogEvent
-from neurogebra.logging.config import LogConfig
-from neurogebra.logging.monitors import (
-    GradientMonitor,
-    WeightMonitor,
-    ActivationMonitor,
-    PerformanceMonitor,
-)
-from neurogebra.logging.health_checks import SmartHealthChecker
-from neurogebra.logging.health_warnings import AutoHealthWarnings, HealthWarning, WarningConfig
 from neurogebra.logging.adaptive import AdaptiveLogger, AnomalyConfig, AnomalyRecord
-from neurogebra.logging.epoch_summary import EpochSummarizer, EpochSummary, EpochStats
-from neurogebra.logging.tiered_storage import TieredStorage
-from neurogebra.logging.dashboard import DashboardExporter, TensorBoardBridge, WandBBridge
-from neurogebra.logging.fingerprint import TrainingFingerprint
-from neurogebra.logging.terminal_display import TerminalDisplay
-from neurogebra.logging.formula_renderer import FormulaRenderer
-from neurogebra.logging.image_logger import ImageLogger
+from neurogebra.logging.config import LogConfig
+from neurogebra.logging.dashboard import (
+    DashboardExporter,
+    TensorBoardBridge,
+    WandBBridge,
+)
+from neurogebra.logging.epoch_summary import EpochStats, EpochSummarizer, EpochSummary
 from neurogebra.logging.exporters import (
-    JSONExporter,
     CSVExporter,
     HTMLExporter,
+    JSONExporter,
     MarkdownExporter,
 )
+from neurogebra.logging.fingerprint import TrainingFingerprint
+from neurogebra.logging.formula_renderer import FormulaRenderer
+from neurogebra.logging.health_checks import SmartHealthChecker
+from neurogebra.logging.health_warnings import (
+    AutoHealthWarnings,
+    HealthWarning,
+    WarningConfig,
+)
+from neurogebra.logging.image_logger import ImageLogger
+from neurogebra.logging.logger import LogEvent, LogLevel, TrainingLogger
+from neurogebra.logging.monitors import (
+    ActivationMonitor,
+    GradientMonitor,
+    PerformanceMonitor,
+    WeightMonitor,
+)
+from neurogebra.logging.terminal_display import TerminalDisplay
+from neurogebra.logging.tiered_storage import TieredStorage
 
 __all__ = [
     # Core

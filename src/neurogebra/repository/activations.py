@@ -5,17 +5,16 @@ Pre-built activation functions commonly used in neural networks.
 """
 
 from neurogebra.core.expression import Expression
-from typing import Dict
 
 
-def get_activations() -> Dict[str, Expression]:
+def get_activations() -> dict[str, Expression]:
     """
     Get dictionary of activation function expressions.
 
     Returns:
         Dictionary mapping names to Expression instances
     """
-    acts: Dict[str, Expression] = {}
+    acts: dict[str, Expression] = {}
 
     # ReLU
     acts["relu"] = Expression(

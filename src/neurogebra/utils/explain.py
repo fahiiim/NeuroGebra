@@ -4,8 +4,8 @@ Explanation engine for Neurogebra.
 Provides detailed, educational explanations of mathematical expressions.
 """
 
-from typing import Optional
 import sympy as sp
+
 from neurogebra.core.expression import Expression
 
 
@@ -80,7 +80,9 @@ class ExpressionExplainer:
             lines.append("**Derivatives:**")
             for var in expression.variables:
                 grad = sp.diff(expression.symbolic_expr, var)
-                lines.append(f"- $\\frac{{\\partial}}{{\\partial {var}}} = {sp.latex(grad)}$")
+                lines.append(
+                    f"- $\\frac{{\\partial}}{{\\partial {var}}} = {sp.latex(grad)}$"
+                )
             lines.append("")
 
         return "\n".join(lines)
