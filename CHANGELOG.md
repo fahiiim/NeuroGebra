@@ -5,6 +5,17 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.1] - 2026-11-21
+
+### Fixed
+
+- **Cross-Platform C-JIT Compilation**:
+  - Resolved macOS Apple Silicon (ARM64) Clang flag error by gating `-mavx2` exclusively to x86_64 architectures.
+  - Added `-dynamiclib` and `.dylib` native shared library handling on Darwin/macOS.
+  - Implemented dynamic runtime toolchain verification in `is_c_available()` to prevent CI and test failures on environments with incomplete C compilers.
+- **CI Matrix Compatibility**:
+  - Aligned Ubuntu Python 3.9 runner to `ubuntu-22.04` to resolve Noble Numbat 24.04 toolcache deprecation in GitHub Actions.
+
 ## [2.6.0] - 2026-11-21
 
 ### Added

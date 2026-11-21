@@ -10,14 +10,18 @@ from __future__ import annotations
 import ctypes
 import hashlib
 import os
+import platform
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import sympy as sp
 from sympy.printing import ccode
+
+_C_AVAILABLE_CACHE: bool | None = None
 
 
 def _get_cache_dir() -> Path:
@@ -37,8 +41,21 @@ def find_c_compiler() -> str | None:
 
 
 def is_c_available() -> bool:
-    """Check if a C/C++ compiler is available for JIT compilation."""
-    return find_c_compiler() is not None
+    """Check if a C/C++ compiler is available and functional for JIT compilation."""
+    global _C_AVAILABLE_CACHE
+    if _C_AVAILABLE_CACHE is not None:
+        return _C_AVAILABLE_CACHE
+    compiler = find_c_compiler()
+    if compiler is None:
+        _C_AVAILABLE_CACHE = False
+        return False
+    try:
+        fn = compile_c("x + 1.0", ["x"])
+        res = fn(np.array([1.0, 2.0], dtype=np.float64))
+        _C_AVAILABLE_CACHE = bool(np.allclose(res, [2.0, 3.0]))
+    except Exception:
+        _C_AVAILABLE_CACHE = False
+    return _C_AVAILABLE_CACHE
 
 
 class CJITFunction:
@@ -221,28 +238,33 @@ def compile_c(
 
     # Compute content hash for disk caching
     cache_dir = _get_cache_dir()
+    machine = platform.machine().lower()
     src_hash = hashlib.sha256(
-        (c_source + opt_level + os.name).encode("utf-8")
+        (c_source + opt_level + os.name + machine).encode("utf-8")
     ).hexdigest()[:16]
 
-    suffix = ".dll" if os.name == "nt" else ".so"
+    if sys.platform == "win32":
+        suffix = ".dll"
+    elif sys.platform == "darwin":
+        suffix = ".dylib"
+    else:
+        suffix = ".so"
+
     dll_path = cache_dir / f"neuro_jit_{src_hash}{suffix}"
     src_path = cache_dir / f"neuro_jit_{src_hash}.c"
 
     if not dll_path.exists():
         src_path.write_text(c_source, encoding="utf-8")
-        compile_cmd = [
-            compiler,
-            opt_level,
-            "-shared",
-            "-mavx2",
-            "-fPIC" if os.name != "nt" else "",
-            str(src_path),
-            "-o",
-            str(dll_path),
-        ]
-        # Remove empty flag strings
-        compile_cmd = [c for c in compile_cmd if c]
+
+        shared_flag = "-dynamiclib" if sys.platform == "darwin" else "-shared"
+        is_x86 = machine in ("x86_64", "amd64", "x64")
+
+        compile_cmd = [compiler, opt_level, shared_flag]
+        if sys.platform != "win32":
+            compile_cmd.append("-fPIC")
+        if is_x86:
+            compile_cmd.append("-mavx2")
+        compile_cmd.extend([str(src_path), "-o", str(dll_path)])
 
         proc = subprocess.run(compile_cmd, capture_output=True, text=True)
         if proc.returncode != 0:

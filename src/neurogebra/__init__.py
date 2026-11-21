@@ -8,7 +8,7 @@ v2.6.0 -- Hardware Acceleration Engine (C-JIT AVX2 & CUDA GPU), real CNN operati
 autograd overhaul, Observatory Pro adaptive diagnostics, and full training transparency.
 """
 
-__version__ = "2.6.0"
+__version__ = "2.6.1"
 __author__ = "Fahim Sarker"
 __email__ = "fahimsarker0805@gmail.com"
 
@@ -38,13 +38,6 @@ from neurogebra.logging.logger import LogEvent, LogLevel, TrainingLogger
 from neurogebra.logging.tiered_storage import TieredStorage
 
 # Acceleration Engine (v2.6.0+)
-from neurogebra.acceleration import (
-    compile_c,
-    compile_cuda,
-    get_acceleration_info,
-    is_c_available,
-    is_cuda_available,
-)
 
 __all__ = [
     # Core
