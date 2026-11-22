@@ -5,6 +5,24 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-11-22
+
+### Added
+- **15 New Built-in Dataset Loaders**: Complete 48-dataset catalog covering Wine, Breast Cancer, Digits, Fashion-MNIST, Spam, Titanic, Credit Default, Mushroom, Adult Income, California Housing, Diabetes, Boston Housing, Auto MPG, Concrete Strength, and Bike Sharing with zero global seed pollution.
+- **Model Checkpointing & Persistence**: Added `Model.load(filepath)` complementing `Model.save()`, supporting weights, layer configurations, and serialization integrity.
+- **Model Batch API**: Added `Model.train_on_batch(X, y)` for step-by-step training.
+- **Full BatchNorm Contract**: Full implementation including learned affine parameters ($\gamma, \beta$), running mean/variance tracking, momentum, $\epsilon$, explicit training/eval mode execution, and exact analytical backward pass.
+- **Export of Framework Bridges**: Public exports of `to_pytorch`, `model_to_pytorch`, `to_tensorflow`, `model_to_tensorflow`, and `to_jax` from `neurogebra.bridges`.
+
+### Changed & Fixed
+- **Loss Reduction & Layer Gradients**: Removed redundant batch averaging in `Dense` and `Conv2D` backward passes, aligning layer gradients exactly with finite differences.
+- **Softmax Vector-Jacobian Product**: Implemented exact analytical VJP $dz = a \odot (g - \sum(g \odot a))$ supporting arbitrary downstream losses and intermediate softmax layers.
+- **GELU Derivative**: Analytical derivative approximation for GELU activation matching forward pass.
+- **Autograd Engine**: Rank-promoted Tensor matrix multiplication (`@`) with NumPy-compatible gradient unbroadcasting across all dimensional permutations; zero-gradient reset on graph reuse.
+- **Hardware Acceleration (C-JIT & CUDA-JIT)**: Added full NumPy broadcasting compatibility, empty array handling, C variable mangling (`__ng_v_k`, `__ng_idx`), baseline CPU compilation fallback, and strict GPU resource cleanup.
+- **Observatory & Logging**: Early-exit guards on fine-grained metrics, production logging configuration preset (`LogLevel.BASIC` + silent console), XSS-safe HTML escaping, and UTF-8 file exporters.
+- **CI & Release Engineering**: Aligned GitHub Actions to `@v4` / `@v5`, added `macos-13` runner support for Python 3.9, and updated security policy in `SECURITY.md`.
+
 ## [2.6.1] - 2026-11-21
 
 ### Fixed

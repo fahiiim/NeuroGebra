@@ -8,7 +8,7 @@ v2.6.0 -- Hardware Acceleration Engine (C-JIT AVX2 & CUDA GPU), real CNN operati
 autograd overhaul, Observatory Pro adaptive diagnostics, and full training transparency.
 """
 
-__version__ = "2.6.1"
+__version__ = "2.7.0"
 __author__ = "Fahim Sarker"
 __email__ = "fahimsarker0805@gmail.com"
 
