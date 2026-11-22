@@ -12,13 +12,13 @@ The model learns the relationship between inputs and outputs.
 
 ```
 Training Data:
-    Input: house_size = 1500 sqft → Output: price = $280,000 ✓
-    Input: house_size = 2000 sqft → Output: price = $350,000 ✓
-    Input: house_size = 800 sqft  → Output: price = $150,000 ✓
+ Input: house_size = 1500 sqft → Output: price = $280,000 [PASS]
+ Input: house_size = 2000 sqft → Output: price = $350,000 [PASS]
+ Input: house_size = 800 sqft → Output: price = $150,000 [PASS]
 
 After Training:
-    Input: house_size = 1800 sqft → Output: price = ???
-    Model predicts: $315,000
+ Input: house_size = 1800 sqft → Output: price = ???
+ Model predicts: $315,000
 ```
 
 ### Two Sub-Types:
@@ -34,8 +34,8 @@ import numpy as np
 
 # REGRESSION: Predict a number
 model = Expression("linear", "m*x + b",
-                   params={"m": 0.0, "b": 0.0},
-                   trainable_params=["m", "b"])
+ params={"m": 0.0, "b": 0.0},
+ trainable_params=["m", "b"])
 
 X = np.array([1, 2, 3, 4, 5], dtype=float)
 y = np.array([2.1, 3.9, 6.1, 7.8, 10.2], dtype=float)
@@ -63,8 +63,8 @@ sigmoid = forge.get("sigmoid")
 
 # Output > 0.5 → Class 1 (spam)
 # Output < 0.5 → Class 0 (not spam)
-print(sigmoid.eval(x=2.0))   # 0.88 → "It's spam"
-print(sigmoid.eval(x=-1.5))  # 0.18 → "Not spam"
+print(sigmoid.eval(x=2.0)) # 0.88 → "It's spam"
+print(sigmoid.eval(x=-1.5)) # 0.18 → "Not spam"
 ```
 
 | Use Cases | Loss Functions | Output |
@@ -81,12 +81,12 @@ print(sigmoid.eval(x=-1.5))  # 0.18 → "Not spam"
 
 ```
 Data (no labels):
-    [1.2, 1.3], [1.1, 1.4], [5.5, 5.6], [5.2, 5.8], [9.0, 9.1]
+ [1.2, 1.3], [1.1, 1.4], [5.5, 5.6], [5.2, 5.8], [9.0, 9.1]
 
 Model finds:
-    Cluster A: [1.2, 1.3], [1.1, 1.4]         (small values)
-    Cluster B: [5.5, 5.6], [5.2, 5.8]         (medium values)
-    Cluster C: [9.0, 9.1]                      (large values)
+ Cluster A: [1.2, 1.3], [1.1, 1.4] (small values)
+ Cluster B: [5.5, 5.6], [5.2, 5.8] (medium values)
+ Cluster C: [9.0, 9.1] (large values)
 ```
 
 | Use Cases | Algorithms |
@@ -124,12 +124,12 @@ and eventually masters the game.
 
 | Type | Has Labels? | Goal | Neurogebra Focus |
 |------|------------|------|-----------------|
-| Supervised | Yes | Predict from labeled data | ✅ Full support |
+| Supervised | Yes | Predict from labeled data | [PASS] Full support |
 | Unsupervised | No | Find patterns | Partial |
 | Reinforcement | Rewards | Maximize reward | Future feature |
 
 !!! info "Neurogebra focuses on Supervised Learning"
-    This is where you'll spend most of your ML journey. Neurogebra excels at making supervised learning **understandable** — you can see every loss function, every gradient, every optimization step.
+ This is where you'll spend most of your ML journey. Neurogebra excels at making supervised learning **understandable** — you can see every loss function, every gradient, every optimization step.
 
 ---
 
@@ -139,19 +139,19 @@ and eventually masters the game.
 What kind of output do you need?
 │
 ├── A number (price, score, amount) → REGRESSION
-│   └── Neurogebra: use MSE/MAE loss, linear output
+│ └── Neurogebra: use MSE/MAE loss, linear output
 │
 ├── A category (yes/no) → BINARY CLASSIFICATION
-│   └── Neurogebra: use binary_crossentropy, sigmoid output
+│ └── Neurogebra: use binary_crossentropy, sigmoid output
 │
 ├── A category (cat/dog/bird) → MULTI-CLASS CLASSIFICATION
-│   └── Neurogebra: use cross_entropy, softmax output
+│ └── Neurogebra: use cross_entropy, softmax output
 │
 ├── Groups in data (no labels) → CLUSTERING
-│   └── Use: K-Means, DBSCAN
+│ └── Use: K-Means, DBSCAN
 │
 └── Sequential decisions → REINFORCEMENT LEARNING
-    └── Use: Q-Learning, Policy Gradient
+ └── Use: Q-Learning, Policy Gradient
 ```
 
 ---
@@ -169,10 +169,10 @@ print(losses)
 
 # Each one explains when to use it
 for name in ["mse", "mae", "binary_crossentropy", "hinge"]:
-    expr = forge.get(name)
-    print(f"\n{name}:")
-    print(f"  {expr.metadata.get('description', '')}")
-    print(f"  Best for: {expr.metadata.get('usage', '')}")
+ expr = forge.get(name)
+ print(f"\n{name}:")
+ print(f" {expr.metadata.get('description', '')}")
+ print(f" Best for: {expr.metadata.get('usage', '')}")
 ```
 
 ---

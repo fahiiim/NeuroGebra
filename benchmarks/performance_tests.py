@@ -168,12 +168,12 @@ def bench_acceleration():
     if is_c_available():
         e.compile("c")
         t_c = benchmark(lambda: e.eval(x=x_np, backend="c"), "    C-JIT (AVX2 SIMD bare-metal)", iterations=20)
-        print(f"    🚀 C-JIT Speedup: {t_np / t_c:.2f}x over NumPy")
+        print(f"     C-JIT Speedup: {t_np / t_c:.2f}x over NumPy")
 
     if is_cuda_available():
         e.compile("cuda")
         t_cu = benchmark(lambda: e.eval(x=x_cu, backend="cuda"), "    CUDA-JIT (NVIDIA RTX 5070 GPU)", iterations=20)
-        print(f"    ⚡ CUDA-JIT Speedup: {t_np / t_cu:.2f}x over NumPy")
+        print(f"     CUDA-JIT Speedup: {t_np / t_cu:.2f}x over NumPy")
 
 
 def main():
@@ -187,7 +187,7 @@ def main():
     bench_training()
     bench_acceleration()
 
-    print("\n✅ Benchmarks complete!")
+    print("\n[PASS] Benchmarks complete!")
 
 
 if __name__ == "__main__":

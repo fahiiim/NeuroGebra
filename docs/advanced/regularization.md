@@ -7,13 +7,13 @@ Regularization prevents **overfitting** — when a model memorizes training data
 ## What is Overfitting?
 
 ```
-Training accuracy: 99%    ← model memorized training data
-Test accuracy:     60%    ← fails on new data
-                          = OVERFITTING
+Training accuracy: 99% ← model memorized training data
+Test accuracy: 60% ← fails on new data
+ = OVERFITTING
 
 Training accuracy: 85%
-Test accuracy:     83%    ← similar performance
-                          = GOOD GENERALIZATION
+Test accuracy: 83% ← similar performance
+ = GOOD GENERALIZATION
 ```
 
 Regularization adds a **penalty** to the loss function that discourages complex models.
@@ -80,9 +80,9 @@ print(elastic.eval(w=0.5, lambda1=0.01, lambda2=0.01))
 
 | Type | Effect on Weights | Feature Selection | Best For |
 |------|------------------|-------------------|----------|
-| **L1 (Lasso)** | Some become 0 | ✅ Yes | Sparse models |
-| **L2 (Ridge)** | All become small | ❌ No | Preventing large weights |
-| **Elastic Net** | Mix of both | ✅ Partial | General use |
+| **L1 (Lasso)** | Some become 0 | [PASS] Yes | Sparse models |
+| **L2 (Ridge)** | All become small | [FAIL] No | Preventing large weights |
+| **Elastic Net** | Mix of both | [PASS] Partial | General use |
 
 ---
 
@@ -99,10 +99,10 @@ forge = MathForge()
 
 # 1. Create model
 model = Expression(
-    "linear_model",
-    "w1*x1 + w2*x2 + w3*x3 + b",
-    params={"w1": 0.5, "w2": 0.5, "w3": 0.5, "b": 0.0},
-    trainable_params=["w1", "w2", "w3", "b"]
+ "linear_model",
+ "w1*x1 + w2*x2 + w3*x3 + b",
+ params={"w1": 0.5, "w2": 0.5, "w3": 0.5, "b": 0.0},
+ trainable_params=["w1", "w2", "w3", "b"]
 )
 
 # 2. Get loss and regularizer
@@ -134,8 +134,8 @@ The $\lambda$ parameter controls how much regularization to apply:
 ```python
 # Experiment with different lambda values
 for lam in [0.0, 0.001, 0.01, 0.1]:
-    penalty = l2.eval(w=0.5, lambda_=lam)
-    print(f"λ={lam:.3f} → L2 penalty = {penalty:.6f}")
+ penalty = l2.eval(w=0.5, lambda_=lam)
+ print(f"λ={lam:.3f} → L2 penalty = {penalty:.6f}")
 ```
 
 **Rule of thumb:** Start with $\lambda = 0.001$ and adjust based on validation performance.
@@ -151,11 +151,11 @@ from neurogebra.builders.model_builder import ModelBuilder
 
 builder = ModelBuilder()
 model = builder.sequential([
-    {"type": "dense", "units": 128, "activation": "relu"},
-    {"type": "dropout", "rate": 0.3},       # 30% of neurons turned off randomly
-    {"type": "dense", "units": 64, "activation": "relu"},
-    {"type": "dropout", "rate": 0.2},       # 20% of neurons turned off
-    {"type": "dense", "units": 10, "activation": "softmax"}
+ {"type": "dense", "units": 128, "activation": "relu"},
+ {"type": "dropout", "rate": 0.3}, # 30% of neurons turned off randomly
+ {"type": "dense", "units": 64, "activation": "relu"},
+ {"type": "dropout", "rate": 0.2}, # 20% of neurons turned off
+ {"type": "dense", "units": 10, "activation": "softmax"}
 ])
 ```
 
@@ -166,10 +166,10 @@ model = builder.sequential([
 ```
 Is your model overfitting?
 ├── YES → Add regularization
-│   ├── Too many features? → Use L1 (Lasso)
-│   ├── Weights too large? → Use L2 (Ridge)
-│   ├── Not sure? → Use Elastic Net or L2
-│   └── Neural network? → Use Dropout + L2
+│ ├── Too many features? → Use L1 (Lasso)
+│ ├── Weights too large? → Use L2 (Ridge)
+│ ├── Not sure? → Use Elastic Net or L2
+│ └── Neural network? → Use Dropout + L2
 └── NO → You might not need regularization
 ```
 

@@ -114,7 +114,7 @@ def main():
             iterations=50 if size <= 100_000 else 10,
         )
 
-    print("\n✅ Comparison complete!")
+    print("\n[PASS] Comparison complete!")
 
 
 if __name__ == "__main__":

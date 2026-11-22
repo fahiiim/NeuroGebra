@@ -24,10 +24,10 @@ builder = ModelBuilder()
 
 # Build a simple classifier
 model = builder.Sequential([
-    builder.Dense(128, activation="relu"),
-    builder.Dropout(0.2),
-    builder.Dense(64, activation="relu"),
-    builder.Dense(10, activation="softmax")
+ builder.Dense(128, activation="relu"),
+ builder.Dropout(0.2),
+ builder.Dense(64, activation="relu"),
+ builder.Dense(10, activation="softmax")
 ])
 
 # See what you built
@@ -55,16 +55,16 @@ layer.explain()
 
 Output of `explain()`:
 ```
-📚 DENSE Layer
-   Fully connected layer - every neuron connects to every neuron in next layer
+ DENSE Layer
+ Fully connected layer - every neuron connects to every neuron in next layer
 
-   Best used for:
-   • Classification
-   • Regression
-   • Final output layer
+ Best used for:
+ • Classification
+ • Regression
+ • Final output layer
 
-   Neurons/Units: 128
-   Activation: relu
+ Neurons/Units: 128
+ Activation: relu
 ```
 
 ### Dropout
@@ -72,7 +72,7 @@ Output of `explain()`:
 Randomly deactivates neurons during training to prevent overfitting.
 
 ```python
-dropout = builder.Dropout(rate=0.2)  # Drop 20% of neurons
+dropout = builder.Dropout(rate=0.2) # Drop 20% of neurons
 dropout.explain()
 ```
 
@@ -122,10 +122,10 @@ Layers stacked one after another:
 ```python
 # Simple classifier
 classifier = builder.Sequential([
-    builder.Dense(128, activation="relu"),
-    builder.Dropout(0.2),
-    builder.Dense(64, activation="relu"),
-    builder.Dense(10, activation="softmax")
+ builder.Dense(128, activation="relu"),
+ builder.Dropout(0.2),
+ builder.Dense(64, activation="relu"),
+ builder.Dense(10, activation="softmax")
 ], name="my_classifier")
 
 classifier.summary()
@@ -144,10 +144,10 @@ model = builder.from_template("simple_classifier")
 model.summary()
 
 # Other templates:
-# - "simple_classifier"  → Basic dense network
-# - "image_classifier"   → CNN for images
-# - "regression"         → For predicting numbers
-# - "binary_classifier"  → For yes/no tasks
+# - "simple_classifier" → Basic dense network
+# - "image_classifier" → CNN for images
+# - "regression" → For predicting numbers
+# - "binary_classifier" → For yes/no tasks
 ```
 
 ---
@@ -209,9 +209,9 @@ ModelBuilder can suggest architectures based on your task:
 ```python
 # Get suggestion for a task
 builder.suggest_architecture(
-    task="classification",
-    input_size=784,
-    output_size=10
+ task="classification",
+ input_size=784,
+ output_size=10
 )
 ```
 
@@ -249,19 +249,19 @@ builder = ModelBuilder()
 # Step 3: Classification (dense layers)
 
 model = builder.Sequential([
-    # Feature extraction
-    builder.Conv2D(32, kernel_size=3, activation="relu"),
-    builder.MaxPooling2D(pool_size=2),
-    builder.Conv2D(64, kernel_size=3, activation="relu"),
-    builder.MaxPooling2D(pool_size=2),
-    
-    # Bridge
-    builder.Flatten(),
-    
-    # Classification
-    builder.Dense(128, activation="relu"),
-    builder.Dropout(0.5),
-    builder.Dense(10, activation="softmax")
+ # Feature extraction
+ builder.Conv2D(32, kernel_size=3, activation="relu"),
+ builder.MaxPooling2D(pool_size=2),
+ builder.Conv2D(64, kernel_size=3, activation="relu"),
+ builder.MaxPooling2D(pool_size=2),
+ 
+ # Bridge
+ builder.Flatten(),
+ 
+ # Classification
+ builder.Dense(128, activation="relu"),
+ builder.Dropout(0.5),
+ builder.Dense(10, activation="softmax")
 ], name="mnist_classifier")
 
 # Understand it

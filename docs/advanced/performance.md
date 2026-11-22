@@ -13,11 +13,11 @@ from neurogebra import MathForge
 forge = MathForge()
 relu = forge.get("relu")
 
-# ❌ SLOW: Python list
+# [FAIL] SLOW: Python list
 x_list = [1, 2, 3, 4, 5]
 result = [relu.eval(x=val) for val in x_list]
 
-# ✅ FAST: NumPy array (vectorized)
+# [PASS] FAST: NumPy array (vectorized)
 x_array = np.array([1, 2, 3, 4, 5])
 result = relu.eval(x=x_array)
 ```
@@ -35,14 +35,14 @@ from neurogebra import Expression
 import numpy as np
 
 model = Expression("quadratic", "a*x**2 + b*x + c",
-    params={"a": 1.0, "b": -2.0, "c": 1.0})
+ params={"a": 1.0, "b": -2.0, "c": 1.0})
 
-# ❌ SLOW: One at a time
+# [FAIL] SLOW: One at a time
 results = []
 for x_val in range(1000):
-    results.append(model.eval(x=x_val))
+ results.append(model.eval(x=x_val))
 
-# ✅ FAST: All at once
+# [PASS] FAST: All at once
 x = np.arange(1000)
 results = model.eval(x=x)
 ```
@@ -59,15 +59,15 @@ from neurogebra import MathForge
 forge = MathForge()
 sigmoid = forge.get("sigmoid")
 
-# ❌ SLOW: Compute gradient each time
+# [FAIL] SLOW: Compute gradient each time
 for x_val in range(100):
-    grad = sigmoid.gradient("x")      # Recalculates symbolic gradient each time
-    result = grad.eval(x=float(x_val))
+ grad = sigmoid.gradient("x") # Recalculates symbolic gradient each time
+ result = grad.eval(x=float(x_val))
 
-# ✅ FAST: Compute gradient once, evaluate many times
-grad = sigmoid.gradient("x")          # Compute once
+# [PASS] FAST: Compute gradient once, evaluate many times
+grad = sigmoid.gradient("x") # Compute once
 x = np.arange(100, dtype=float)
-results = grad.eval(x=x)              # Evaluate all at once
+results = grad.eval(x=x) # Evaluate all at once
 ```
 
 ---
@@ -97,10 +97,10 @@ trainer.fit(X, y, epochs=50, batch_size=128)
 Adam converges faster than SGD in most cases:
 
 ```python
-# ❌ May need 1000 epochs to converge
+# [FAIL] May need 1000 epochs to converge
 trainer = Trainer(model, loss, optimizer="sgd", lr=0.01)
 
-# ✅ Often converges in 100-200 epochs
+# [PASS] Often converges in 100-200 epochs
 trainer = Trainer(model, loss, optimizer="adam", lr=0.001)
 ```
 
@@ -113,17 +113,17 @@ from neurogebra import MathForge
 
 forge = MathForge()
 
-# ❌ Creates new Expression object each time
+# [FAIL] Creates new Expression object each time
 for i in range(100):
-    relu = forge.get("relu")        # Unnecessary repeated lookup
-    result = relu.eval(x=float(i))
+ relu = forge.get("relu") # Unnecessary repeated lookup
+ result = relu.eval(x=float(i))
 
-# ✅ Get once, use many times
+# [PASS] Get once, use many times
 relu = forge.get("relu")
 for i in range(100):
-    result = relu.eval(x=float(i))
+ result = relu.eval(x=float(i))
 
-# ✅✅ Even better: vectorized
+# [PASS][PASS] Even better: vectorized
 relu = forge.get("relu")
 x = np.arange(100, dtype=float)
 results = relu.eval(x=x)
@@ -141,11 +141,11 @@ from neurogebra.core.autograd import Value
 x = Value(2.0)
 
 for epoch in range(1000):
-    y = x**2 + 3*x
-    y.backward()
-    
-    x.data -= 0.01 * x.grad
-    x.grad = 0.0      # ← CRITICAL: prevents gradient accumulation
+ y = x**2 + 3*x
+ y.backward()
+ 
+ x.data -= 0.01 * x.grad
+ x.grad = 0.0 # ← CRITICAL: prevents gradient accumulation
 ```
 
 ---
@@ -175,14 +175,14 @@ print(f"Time: {end - start:.4f} seconds")
 
 | Tip | Impact | Effort |
 |-----|--------|--------|
-| Use NumPy arrays | 🚀🚀🚀 | Low |
-| Batch evaluation | 🚀🚀🚀 | Low |
-| Pre-compute gradients | 🚀🚀 | Low |
-| Use Adam optimizer | 🚀🚀 | Low |
-| Appropriate batch size | 🚀 | Low |
-| Cache expression lookups | 🚀 | Low |
-| Zero gradients | 🚀 (correctness) | Low |
-| Profile bottlenecks | 🚀🚀 | Medium |
+| Use NumPy arrays | | Low |
+| Batch evaluation | | Low |
+| Pre-compute gradients | | Low |
+| Use Adam optimizer | | Low |
+| Appropriate batch size | | Low |
+| Cache expression lookups | | Low |
+| Zero gradients | (correctness) | Low |
+| Profile bottlenecks | | Medium |
 
 ---
 

@@ -6,10 +6,10 @@ def test_dataset_imports():
     """Test that all dataset modules can be imported."""
     try:
         from neurogebra.datasets import Datasets, ExpandedDatasets, CombinedDatasets
-        print("✅ All dataset modules imported successfully")
+        print("[PASS] All dataset modules imported successfully")
         return True
     except ImportError as e:
-        print(f"❌ Import error: {e}")
+        print(f"[FAIL] Import error: {e}")
         return False
 
 
@@ -32,10 +32,10 @@ def test_basic_datasets():
         tests_total += 1
         try:
             (X_train, y_train), (X_test, y_test) = loader()
-            print(f"✅ {name}: {X_train.shape} train, {X_test.shape} test")
+            print(f"[PASS] {name}: {X_train.shape} train, {X_test.shape} test")
             tests_passed += 1
         except Exception as e:
-            print(f"❌ {name} failed: {e}")
+            print(f"[FAIL] {name} failed: {e}")
     
     # Test regression datasets
     regression_tests = [
@@ -50,13 +50,13 @@ def test_basic_datasets():
             result = loader()
             if name == "simple_regression":
                 X, y = result
-                print(f"✅ {name}: X{X.shape}, y{y.shape}")
+                print(f"[PASS] {name}: X{X.shape}, y{y.shape}")
             else:
                 (X_train, y_train), (X_test, y_test) = result
-                print(f"✅ {name}: {X_train.shape} train, {X_test.shape} test")
+                print(f"[PASS] {name}: {X_train.shape} train, {X_test.shape} test")
             tests_passed += 1
         except Exception as e:
-            print(f"❌ {name} failed: {e}")
+            print(f"[FAIL] {name} failed: {e}")
     
     # Test synthetic patterns
     synthetic_tests = [
@@ -69,12 +69,12 @@ def test_basic_datasets():
         tests_total += 1
         try:
             X, y = loader()
-            print(f"✅ {name}: X{X.shape}, y{y.shape}")
+            print(f"[PASS] {name}: X{X.shape}, y{y.shape}")
             tests_passed += 1
         except Exception as e:
-            print(f"❌ {name} failed: {e}")
+            print(f"[FAIL] {name} failed: {e}")
     
-    print(f"\n📊 Basic datasets: {tests_passed}/{tests_total} tests passed")
+    print(f"\n Basic datasets: {tests_passed}/{tests_total} tests passed")
     return tests_passed == tests_total
 
 
@@ -100,15 +100,15 @@ def test_expanded_datasets():
             if isinstance(result, tuple) and len(result) == 2:
                 if isinstance(result[0], tuple):  # (train, test) format
                     (X_train, y_train), (X_test, y_test) = result
-                    print(f"✅ {name}: {X_train.shape} train, {X_test.shape} test")
+                    print(f"[PASS] {name}: {X_train.shape} train, {X_test.shape} test")
                 else:  # (X, y) format
                     X, y = result
-                    print(f"✅ {name}: X{X.shape}, y{y.shape}")
+                    print(f"[PASS] {name}: X{X.shape}, y{y.shape}")
             tests_passed += 1
         except Exception as e:
-            print(f"❌ {name} failed: {e}")
+            print(f"[FAIL] {name} failed: {e}")
     
-    print(f"\n📊 Expanded datasets: {tests_passed}/{tests_total} tests passed")
+    print(f"\n Expanded datasets: {tests_passed}/{tests_total} tests passed")
     return tests_passed == tests_total
 
 
@@ -122,31 +122,31 @@ def test_utility_methods():
     
     try:
         # Test list_all
-        print("\n🔍 Testing list_all():")
+        print("\n Testing list_all():")
         Datasets.list_all()
-        print("✅ list_all() works")
+        print("[PASS] list_all() works")
         
         # Test search
-        print("\n🔍 Testing search():")
+        print("\n Testing search():")
         Datasets.search("classification")
-        print("✅ search() works")
+        print("[PASS] search() works")
         
         # Test get_info
-        print("\n🔍 Testing get_info():")
+        print("\n Testing get_info():")
         Datasets.get_info("iris")
-        print("✅ get_info() works")
+        print("[PASS] get_info() works")
         
         return True
     except Exception as e:
-        print(f"❌ Utility methods failed: {e}")
+        print(f"[FAIL] Utility methods failed: {e}")
         return False
 
 
 def main():
     """Run all tests."""
-    print("\n" + "🧪 "*35)
+    print("\n" + " "*35)
     print("DATASET FUNCTIONALITY TEST SUITE")
-    print("🧪 "*35 + "\n")
+    print(" "*35 + "\n")
     
     all_passed = True
     
@@ -182,9 +182,9 @@ def main():
     # Summary
     print("\n" + "="*70)
     if all_passed:
-        print("✅ ALL TESTS PASSED - 100+ Datasets Working!")
+        print("[PASS] ALL TESTS PASSED - 100+ Datasets Working!")
     else:
-        print("⚠️  SOME TESTS FAILED - Check errors above")
+        print("️  SOME TESTS FAILED - Check errors above")
     print("="*70 + "\n")
 
 

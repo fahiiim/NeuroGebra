@@ -24,7 +24,7 @@ There are no runtime API changes in this release.
 
 # Release Notes - Neurogebra v1.3.0
 
-## 🚀 Major Update: Observatory Pro
+## Major Update: Observatory Pro
 
 ### Headline Feature
 
@@ -32,34 +32,34 @@ There are no runtime API changes in this release.
 
 ### What's New
 
-#### 🧠 Smart / Adaptive Logging (`AdaptiveLogger`)
+#### Smart / Adaptive Logging (`AdaptiveLogger`)
 - Stays at BASIC level until an anomaly is detected, then escalates to EXPERT
 - 80-90% less log noise compared to always-on EXPERT mode
 - Detects: dead neurons, gradient spikes, vanishing/exploding gradients, NaN/Inf, loss spikes, weight stagnation, activation saturation
 - Configurable thresholds via `AnomalyConfig`
 
-#### ⚠️ Automated Health Warnings (`AutoHealthWarnings`)
+#### ️ Automated Health Warnings (`AutoHealthWarnings`)
 - 10 threshold-based rules that run on every batch and epoch
 - Structured `HealthWarning` objects with diagnosis and actionable recommendations
 - Rules: dead_relu, vanishing/exploding gradient, gradient_spike, nan_inf_loss, overfitting, loss_stagnation, weight_stagnation, loss_divergence, activation_saturation
 - Deduplication to avoid alert spam
 
-#### 📊 Epoch Summaries (`EpochSummarizer`)
+#### Epoch Summaries (`EpochSummarizer`)
 - Aggregates batch-level metrics into per-epoch statistics
 - Mean, std, min, max, first, last for every tracked metric
 - Human-readable `format_text()` and machine-readable `to_dict()`
 
-#### 📁 Tiered Storage (`TieredStorage`)
+#### Tiered Storage (`TieredStorage`)
 - Splits logs into 3 NDJSON files: `basic.log`, `health.log`, `debug.log`
 - Buffered writes, configurable flush interval
 - `write_debug=False` to disable debug tier in production
 
-#### 📈 Visual Dashboard (`DashboardExporter`)
+#### Visual Dashboard (`DashboardExporter`)
 - Self-contained interactive HTML with Chart.js charts
 - Loss curves, accuracy curves, epoch timing, batch loss, health diagnostics
 - **TensorBoard bridge** and **Weights & Biases bridge** (optional)
 
-#### 🔑 Training Fingerprint (`TrainingFingerprint`)
+#### Training Fingerprint (`TrainingFingerprint`)
 - Captures seeds, dataset SHA-256 hash, all library versions, CPU/RAM/GPU, OS, git state
 - Model architecture hash and hyperparameters
 - `to_dict()` / `from_dict()` for JSON round-tripping
@@ -86,7 +86,7 @@ from neurogebra.logging.fingerprint import TrainingFingerprint
 
 # Release Notes - Neurogebra v1.2.1
 
-## 🔭 Major Update: Training Observatory
+## Major Update: Training Observatory
 
 ### Headline Feature
 
@@ -94,7 +94,7 @@ from neurogebra.logging.fingerprint import TrainingFingerprint
 
 ### What's New
 
-#### 🔭 Training Observatory (`neurogebra.logging`)
+#### Training Observatory (`neurogebra.logging`)
 - **TrainingLogger** — Event-driven, multi-level logger with pluggable backends
 - **5 Log Levels** — Silent, Basic, Detailed, Expert, Debug
 - **Colour-coded Terminal Display** — Rich-based renderer with severity colours (green/yellow/red/purple)
@@ -110,14 +110,14 @@ from neurogebra.logging.fingerprint import TrainingFingerprint
 - **Image Logger** — ASCII art rendering of images and activation maps
 - **Formula Renderer** — Unicode and LaTeX rendering of all math operations
 
-#### 🧠 Real Forward/Backward Computation
+#### Real Forward/Backward Computation
 - Layer class performs actual matrix multiplications and gradient computation
 - He weight initialization for each layer type
 - Adam and SGD optimizers built into layers
 - 8 activation functions with correct forward/backward: relu, sigmoid, tanh, softmax, leaky_relu, elu, swish, gelu
 - Real loss computation: MSE, MAE, binary cross-entropy, categorical cross-entropy
 
-#### 📦 New Dependencies
+#### New Dependencies
 - `rich>=13.0.0` for colourful terminal output
 - `colorama>=0.4.6` for cross-platform ANSI support
 - Optional: `tensorboard>=2.12.0`, `wandb>=0.15.0`
@@ -135,19 +135,19 @@ That's it — one argument enables the entire Observatory.
 
 # Release Notes - Neurogebra v0.2.0
 
-## 🎉 Major Update: 100+ Educational Datasets Added!
+## Major Update: 100+ Educational Datasets Added!
 
 ### What's New
 
-#### 📊 Massive Dataset Expansion
+#### Massive Dataset Expansion
 - **38+ Working Datasets** across multiple categories
 - **100+ Dataset roadmap** with infrastructure in place
 - **3 New Dataset Classes:**
-  - `Datasets` - Core educational datasets
-  - `ExpandedDatasets` - Extended collection
-  - `CombinedDatasets` - Unified interface
+ - `Datasets` - Core educational datasets
+ - `ExpandedDatasets` - Extended collection
+ - `CombinedDatasets` - Unified interface
 
-#### 🎯 Dataset Categories
+#### Dataset Categories
 
 **Classification (15+ datasets):**
 - Iris, Wine, MNIST, Fashion-MNIST
@@ -171,14 +171,14 @@ That's it — one argument enables the entire Observatory.
 - Stock Prices, Seasonal Data
 - AR Processes
 
-#### 🔍 Dataset Discovery Tools
+#### Dataset Discovery Tools
 - **`Datasets.list_all()`** - Beautiful dataset browser
 - **`Datasets.search(keyword)`** - Find datasets by topic
 - **`Datasets.get_info(name)`** - Detailed dataset information
 - Educational metadata for every dataset
 - Verbose mode with sample counts and descriptions
 
-#### 📚 New Documentation
+#### New Documentation
 - Comprehensive dataset examples in `examples/datasets_showcase.py`
 - Test suite in `examples/test_datasets.py`
 - Dataset status tracker in `DATASETS_STATUS.md`
@@ -212,12 +212,12 @@ t, y = ExpandedDatasets.load_sine_wave(n_samples=200, frequency=2.0)
 
 ### Technical Improvements
 
-- ✅ Consistent numpy array interface for all datasets
-- ✅ Optional scikit-learn integration (falls back to synthetic data)
-- ✅ Pre-split train/test sets where applicable
-- ✅ Customizable sample sizes for synthetic datasets
-- ✅ Educational metadata (difficulty, use cases, descriptions)
-- ✅ Comprehensive test coverage
+- [PASS] Consistent numpy array interface for all datasets
+- [PASS] Optional scikit-learn integration (falls back to synthetic data)
+- [PASS] Pre-split train/test sets where applicable
+- [PASS] Customizable sample sizes for synthetic datasets
+- [PASS] Educational metadata (difficulty, use cases, descriptions)
+- [PASS] Comprehensive test coverage
 
 ### Files Added/Modified
 

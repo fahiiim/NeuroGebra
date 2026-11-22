@@ -397,7 +397,7 @@ _DASHBOARD_TEMPLATE = """<!DOCTYPE html>
     </div>
 
     <div class="card">
-      <h2>⏱️ Epoch Timing</h2>
+      <h2>Epoch Timing</h2>
       <canvas id="timeChart"></canvas>
     </div>
 

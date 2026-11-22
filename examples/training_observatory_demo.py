@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-🔭 Neurogebra Training Observatory — Full Demo
+ Neurogebra Training Observatory — Full Demo
 ================================================
 
 This script demonstrates every feature of the Training Observatory
@@ -92,7 +92,7 @@ def demo_expert():
     X, y = make_dataset()
     history = model.fit(X, y, epochs=8, batch_size=32)
 
-    print("\n📈 Training history keys:", list(history.keys()))
+    print("\n Training history keys:", list(history.keys()))
     print(f"   Final loss: {history['loss'][-1]:.4f}")
     print(f"   Final val_loss: {history['val_loss'][-1]:.4f}")
 
@@ -124,7 +124,7 @@ def demo_exports():
 
     X, y = make_dataset(n=100)
     model.fit(X, y, epochs=4, batch_size=16)
-    print("\n✅ Check ./training_logs/ for exported files.")
+    print("\n[PASS] Check ./training_logs/ for exported files.")
 
 
 # ──────────────────────────────────────────────────────────────────
@@ -176,7 +176,7 @@ def demo_health_checker():
     )
 
     for alert in alerts:
-        icon = {"info": "ℹ️", "warning": "⚠️", "danger": "🔴", "critical": "🚨"}
+        icon = {"info": "ℹ️", "warning": "️", "danger": "", "critical": ""}
         print(f"\n  {icon.get(alert.severity, '•')} [{alert.severity.upper()}] {alert.check_name}")
         print(f"    {alert.message}")
         for rec in alert.recommendations:
@@ -204,7 +204,7 @@ def demo_formula_renderer():
 
 # ──────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
-    print("🔭 Neurogebra Training Observatory — v1.2.1 Feature Demo\n")
+    print(" Neurogebra Training Observatory — v1.2.1 Feature Demo\n")
 
     demo_minimal()
     demo_expert()
@@ -214,5 +214,5 @@ if __name__ == "__main__":
     demo_formula_renderer()
 
     print("\n" + "=" * 70)
-    print("  All demos complete! 🎉")
+    print("  All demos complete! ")
     print("=" * 70)

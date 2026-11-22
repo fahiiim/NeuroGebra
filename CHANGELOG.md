@@ -5,6 +5,14 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2026-11-22
+
+### Changed & Cleaned
+- **Complete Emoji Elimination**: Removed all emojis across the entire repository (documentation, benchmarks, examples, source code, and configuration files), maintaining a clean, professional, enterprise-grade codebase.
+- **CI/CD Matrix Modernization**: Modernized GitHub Actions CI test suite across Linux (Ubuntu 22.04 & latest), Windows, and macOS (Apple Silicon runners) testing Python 3.9, 3.10, 3.11, and 3.12.
+- **Release Automation Hardening**: Added `--skip-existing` protection to PyPI upload workflows to ensure idempotent and reliable publishing.
+- **GitHub Workflow Actions Update**: Upgraded all GitHub Action dependencies to current stable releases.
+
 ## [2.8.0] - 2026-11-22
 
 ### Added
@@ -43,31 +51,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Cross-Platform C-JIT Compilation**:
-  - Resolved macOS Apple Silicon (ARM64) Clang flag error by gating `-mavx2` exclusively to x86_64 architectures.
-  - Added `-dynamiclib` and `.dylib` native shared library handling on Darwin/macOS.
-  - Implemented dynamic runtime toolchain verification in `is_c_available()` to prevent CI and test failures on environments with incomplete C compilers.
+ - Resolved macOS Apple Silicon (ARM64) Clang flag error by gating `-mavx2` exclusively to x86_64 architectures.
+ - Added `-dynamiclib` and `.dylib` native shared library handling on Darwin/macOS.
+ - Implemented dynamic runtime toolchain verification in `is_c_available()` to prevent CI and test failures on environments with incomplete C compilers.
 - **CI Matrix Compatibility**:
-  - Aligned Ubuntu Python 3.9 runner to `ubuntu-22.04` to resolve Noble Numbat 24.04 toolcache deprecation in GitHub Actions.
+ - Aligned Ubuntu Python 3.9 runner to `ubuntu-22.04` to resolve Noble Numbat 24.04 toolcache deprecation in GitHub Actions.
 
 ## [2.6.0] - 2026-11-21
 
 ### Added
 
 - **Hardware Acceleration Engine (`neurogebra.acceleration`)**:
-  - `c_jit`: On-the-fly compilation of SymPy mathematical expressions into native C/C++ shared libraries with Clang/GCC, OpenMP, and AVX2 SIMD vectorization.
-  - `cuda_jit`: Direct generation and NVRTC compilation of fused CUDA kernels running natively on NVIDIA GPUs (RTX 5070, 40-series, 30-series).
-  - Multi-backend evaluation on `Expression`: `expr.compile("c")` and `expr.compile("cuda")`.
-  - Up to 2.04x speedup over NumPy with C-JIT and 4.76x speedup over NumPy on NVIDIA RTX 5070 GPU.
+ - `c_jit`: On-the-fly compilation of SymPy mathematical expressions into native C/C++ shared libraries with Clang/GCC, OpenMP, and AVX2 SIMD vectorization.
+ - `cuda_jit`: Direct generation and NVRTC compilation of fused CUDA kernels running natively on NVIDIA GPUs (RTX 5070, 40-series, 30-series).
+ - Multi-backend evaluation on `Expression`: `expr.compile("c")` and `expr.compile("cuda")`.
+ - Up to 2.04x speedup over NumPy with C-JIT and 4.76x speedup over NumPy on NVIDIA RTX 5070 GPU.
 - **Real Convolutional Neural Network Operations**:
-  - Vectorized 2D spatial convolution (`Conv2D`) forward and backward pass with image sliding window view and tensordot.
-  - Spatial max pooling (`MaxPooling2D`) forward pass and backward pass with spatial boolean max masks.
+ - Vectorized 2D spatial convolution (`Conv2D`) forward and backward pass with image sliding window view and tensordot.
+ - Spatial max pooling (`MaxPooling2D`) forward pass and backward pass with spatial boolean max masks.
 - **Sequential Model Framework Bridges**:
-  - `model.to_pytorch()` converting NeuroGebra `Model` into PyTorch `nn.Sequential` with full layer weight migration.
-  - `model.to_tensorflow()` converting NeuroGebra `Model` into TensorFlow `tf.keras.Sequential`.
+ - `model.to_pytorch()` converting NeuroGebra `Model` into PyTorch `nn.Sequential` with full layer weight migration.
+ - `model.to_tensorflow()` converting NeuroGebra `Model` into TensorFlow `tf.keras.Sequential`.
 - **Autograd Engine Overhaul**:
-  - Gradient unbroadcasting (`_unbroadcast`) in `Tensor` preventing broadcasting shape crashes.
-  - Topological sort reverse-mode execution in `Tensor.backward()`.
-  - Added matrix multiplication (`__matmul__` / `@`), `.T`, `transpose()`, `reshape()`, `relu()`, `sigmoid()`, and `tanh()`.
+ - Gradient unbroadcasting (`_unbroadcast`) in `Tensor` preventing broadcasting shape crashes.
+ - Topological sort reverse-mode execution in `Tensor.backward()`.
+ - Added matrix multiplication (`__matmul__` / `@`), `.T`, `transpose()`, `reshape()`, `relu()`, `sigmoid()`, and `tanh()`.
 
 ### Changed
 
@@ -157,7 +165,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - 2026-02-27
 
-### Added — Observatory Pro 🚀
+### Added — Observatory Pro 
 
 Six major upgrades that turn the Training Observatory from a passive logger into an **active diagnostic engine**.
 
@@ -212,7 +220,7 @@ Six major upgrades that turn the Training Observatory from a passive logger into
 
 ## [1.2.1] - 2026-02-16
 
-### Added — Training Observatory 🔭
+### Added — Training Observatory 
 
 The headline feature of v1.2.1 is the **Training Observatory**: an advanced training logging and visualization system that shows the complete mathematical picture of what happens inside your neural network during training — in real time, in colour, in your terminal.
 
@@ -268,9 +276,9 @@ The headline feature of v1.2.1 is the **Training Observatory**: an advanced trai
 - **Neurogebra Tutorial** (12 pages): MathForge, Expressions, Activations, Losses, Gradients, Composition, Training, Autograd, Tensors, ModelBuilder, NeuroCraft, Datasets
 - **Advanced Topics** (6 pages): Custom Expressions, Framework Bridges, Visualization, Regularization, Optimization, Performance Tips
 - **3 Full Projects with PyTorch side-by-side comparison**:
-  - Project 1: Linear Regression — Neurogebra vs PyTorch
-  - Project 2: Image Classifier — Neurogebra vs PyTorch
-  - Project 3: Neural Network from Scratch — Neurogebra vs PyTorch
+ - Project 1: Linear Regression — Neurogebra vs PyTorch
+ - Project 2: Image Classifier — Neurogebra vs PyTorch
+ - Project 3: Neural Network from Scratch — Neurogebra vs PyTorch
 - **Expanded API Reference** with all repository modules (calculus, statistics, linalg, metrics, transforms, optimization)
 
 ### Changed
@@ -305,22 +313,22 @@ The headline feature of v1.2.1 is the **Training Observatory**: an advanced trai
 
 - **100+ Dataset Collection** with 38+ working datasets across 4 categories
 - **ExpandedDatasets class** with 27 additional dataset loaders:
-  - Classification: Covtype, Letter Recognition, Optical Recognition, Pendigits, Satimage, Segment, Shuttle, Vehicle, Vowel, Connect-4
-  - Regression: Energy Efficiency, Power Plant, Yacht Hydrodynamics, Abalone, Airfoil Self-Noise, Wine Quality Red
-  - Synthetic Patterns: Spirals, Checkerboard, Blobs, Swiss Roll, S-Curve, Half Kernel
-  - Time Series: Sine Wave, Random Walk, Stock Prices, Seasonal Data, AR Process
+ - Classification: Covtype, Letter Recognition, Optical Recognition, Pendigits, Satimage, Segment, Shuttle, Vehicle, Vowel, Connect-4
+ - Regression: Energy Efficiency, Power Plant, Yacht Hydrodynamics, Abalone, Airfoil Self-Noise, Wine Quality Red
+ - Synthetic Patterns: Spirals, Checkerboard, Blobs, Swiss Roll, S-Curve, Half Kernel
+ - Time Series: Sine Wave, Random Walk, Stock Prices, Seasonal Data, AR Process
 - **CombinedDatasets class** unified interface for all datasets
 - **Dataset discovery tools:**
-  - `Datasets.list_all()` - Browse all available datasets with formatted output
-  - `Datasets.search(keyword)` - Search datasets by topic/category
-  - `Datasets.get_info(name)` - Detailed dataset information
+ - `Datasets.list_all()` - Browse all available datasets with formatted output
+ - `Datasets.search(keyword)` - Search datasets by topic/category
+ - `Datasets.get_info(name)` - Detailed dataset information
 - **Educational metadata** for every dataset (difficulty, use cases, descriptions)
 - **Verbose mode** for dataset loaders with sample counts and descriptions
 - **New documentation files:**
-  - `PUBLISHING.md` - Complete guide for publishing to PyPI
-  - `RELEASE_NOTES.md` - Detailed release notes
-  - `DATASETS_STATUS.md` - Implementation tracking
-  - `publish.ps1` - PowerShell publishing script
+ - `PUBLISHING.md` - Complete guide for publishing to PyPI
+ - `RELEASE_NOTES.md` - Detailed release notes
+ - `DATASETS_STATUS.md` - Implementation tracking
+ - `publish.ps1` - PowerShell publishing script
 - **Enhanced MANIFEST.in** to include logo and new documentation
 - **scikit-learn integration** as optional dependency for real-world datasets
 
@@ -353,16 +361,16 @@ The headline feature of v1.2.1 is the **Training Observatory**: an advanced trai
 - **Trainer** with SGD and Adam optimizers
 - **Datasets** module with MNIST, Iris, regression, XOR, moons, circles loaders
 - **Repository of 285 mathematical expressions across 10 modules:**
-  - Activations (15): ReLU, Sigmoid, Tanh, Swish, GELU, Mish, and more
-  - Losses (8): MSE, MAE, Binary Cross-Entropy, Huber, Hinge, and more
-  - Regularizers (20): L1, L2, Elastic Net, SCAD, MCP, Group Lasso, and more
-  - Algebra (48): Polynomials, kernels, distributions, special functions
-  - Calculus (48): Elementary functions, trig, hyperbolic, Taylor series, transforms
-  - Statistics (35): PDFs, CDFs, information theory, Bayesian, regression
-  - Linear Algebra (24): Norms, distances, projections, matrix ops, attention
-  - Optimization (27): SGD, Adam, AdamW, LR schedules, loss landscapes
-  - Metrics (27): Classification, regression, similarity, ranking, model selection
-  - Transforms (33): Normalization, encoding, initialization, signal processing
+ - Activations (15): ReLU, Sigmoid, Tanh, Swish, GELU, Mish, and more
+ - Losses (8): MSE, MAE, Binary Cross-Entropy, Huber, Hinge, and more
+ - Regularizers (20): L1, L2, Elastic Net, SCAD, MCP, Group Lasso, and more
+ - Algebra (48): Polynomials, kernels, distributions, special functions
+ - Calculus (48): Elementary functions, trig, hyperbolic, Taylor series, transforms
+ - Statistics (35): PDFs, CDFs, information theory, Bayesian, regression
+ - Linear Algebra (24): Norms, distances, projections, matrix ops, attention
+ - Optimization (27): SGD, Adam, AdamW, LR schedules, loss landscapes
+ - Metrics (27): Classification, regression, similarity, ranking, model selection
+ - Transforms (33): Normalization, encoding, initialization, signal processing
 - **Search engine** for finding expressions by name, description, or category
 - **Explanation engine** with multiple output formats
 - **Visualization** tools (matplotlib and plotly)

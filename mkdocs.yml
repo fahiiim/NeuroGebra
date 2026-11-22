@@ -5,149 +5,149 @@ repo_url: https://github.com/fahiiim/NeuroGebra
 repo_name: fahiiim/NeuroGebra
 
 theme:
-  name: material
-  palette:
-    - scheme: default
-      primary: deep purple
-      accent: amber
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: deep purple
-      accent: amber
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-  features:
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.expand
-    - navigation.top
-    - navigation.indexes
-    - navigation.footer
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-    - content.code.annotation
-    - content.code.copy
-    - toc.follow
-  icon:
-    repo: fontawesome/brands/github
-  font:
-    text: Inter
-    code: JetBrains Mono
+ name: material
+ palette:
+ - scheme: default
+ primary: deep purple
+ accent: amber
+ toggle:
+ icon: material/brightness-7
+ name: Switch to dark mode
+ - scheme: slate
+ primary: deep purple
+ accent: amber
+ toggle:
+ icon: material/brightness-4
+ name: Switch to light mode
+ features:
+ - navigation.tabs
+ - navigation.tabs.sticky
+ - navigation.sections
+ - navigation.expand
+ - navigation.top
+ - navigation.indexes
+ - navigation.footer
+ - search.suggest
+ - search.highlight
+ - content.tabs.link
+ - content.code.annotation
+ - content.code.copy
+ - toc.follow
+ icon:
+ repo: fontawesome/brands/github
+ font:
+ text: Inter
+ code: JetBrains Mono
 
 plugins:
-  - search
-  - mkdocstrings:
-      handlers:
-        python:
-          options:
-            docstring_style: google
-            show_source: true
-            show_root_heading: true
-            show_category_heading: true
-            members_order: source
+ - search
+ - mkdocstrings:
+ handlers:
+ python:
+ options:
+ docstring_style: google
+ show_source: true
+ show_root_heading: true
+ show_category_heading: true
+ members_order: source
 
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.arithmatex:
-      generic: true
-  - admonition
-  - pymdownx.details
-  - attr_list
-  - md_in_html
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.critic
-  - pymdownx.mark
-  - pymdownx.keys
-  - tables
-  - def_list
-  - footnotes
-  - toc:
-      permalink: true
+ - pymdownx.highlight:
+ anchor_linenums: true
+ line_spans: __span
+ pygments_lang_class: true
+ - pymdownx.inlinehilite
+ - pymdownx.snippets
+ - pymdownx.superfences
+ - pymdownx.tabbed:
+ alternate_style: true
+ - pymdownx.arithmatex:
+ generic: true
+ - admonition
+ - pymdownx.details
+ - attr_list
+ - md_in_html
+ - pymdownx.emoji:
+ emoji_index: !!python/name:material.extensions.emoji.twemoji
+ emoji_generator: !!python/name:material.extensions.emoji.to_svg
+ - pymdownx.critic
+ - pymdownx.mark
+ - pymdownx.keys
+ - tables
+ - def_list
+ - footnotes
+ - toc:
+ permalink: true
 
 nav:
-  - Home: index.md
-  - Quick Start: getting-started.md
+ - Home: index.md
+ - Quick Start: getting-started.md
 
-  - Getting Started:
-      - Installation: getting-started/installation.md
-      - Your First Program: getting-started/first-program.md
-      - How Neurogebra Works: getting-started/how-it-works.md
+ - Getting Started:
+ - Installation: getting-started/installation.md
+ - Your First Program: getting-started/first-program.md
+ - How Neurogebra Works: getting-started/how-it-works.md
 
-  - Python for ML (Refresher):
-      - Python Basics Recap: python-refresher/basics.md
-      - NumPy Essentials: python-refresher/numpy.md
-      - Data Handling with Python: python-refresher/data-handling.md
+ - Python for ML (Refresher):
+ - Python Basics Recap: python-refresher/basics.md
+ - NumPy Essentials: python-refresher/numpy.md
+ - Data Handling with Python: python-refresher/data-handling.md
 
-  - ML Fundamentals:
-      - What is Machine Learning?: ml-fundamentals/what-is-ml.md
-      - Types of ML: ml-fundamentals/types-of-ml.md
-      - The ML Workflow: ml-fundamentals/ml-workflow.md
-      - Math Behind ML: ml-fundamentals/math-behind-ml.md
+ - ML Fundamentals:
+ - What is Machine Learning?: ml-fundamentals/what-is-ml.md
+ - Types of ML: ml-fundamentals/types-of-ml.md
+ - The ML Workflow: ml-fundamentals/ml-workflow.md
+ - Math Behind ML: ml-fundamentals/math-behind-ml.md
 
-  - Tutorials:
-      - Beginner: tutorials/beginner.md
-      - Intermediate: tutorials/intermediate.md
-      - Advanced: tutorials/advanced.md
+ - Tutorials:
+ - Beginner: tutorials/beginner.md
+ - Intermediate: tutorials/intermediate.md
+ - Advanced: tutorials/advanced.md
 
-  - Neurogebra Tutorial:
-      - MathForge — The Core: tutorial/mathforge.md
-      - Expressions — Building Blocks: tutorial/expressions.md
-      - Activation Functions: tutorial/activations.md
-      - Loss Functions: tutorial/losses.md
-      - Gradients & Differentiation: tutorial/gradients.md
-      - Expression Composition: tutorial/composition.md
-      - Training Expressions: tutorial/training.md
-      - Autograd Engine: tutorial/autograd.md
-      - Tensors: tutorial/tensors.md
-      - ModelBuilder: tutorial/model-builder.md
-      - NeuroCraft Interface: tutorial/neurocraft.md
-      - Datasets: tutorial/datasets.md
-      - "🔭 Training Observatory": tutorial/training-observatory.md
+ - Neurogebra Tutorial:
+ - MathForge — The Core: tutorial/mathforge.md
+ - Expressions — Building Blocks: tutorial/expressions.md
+ - Activation Functions: tutorial/activations.md
+ - Loss Functions: tutorial/losses.md
+ - Gradients & Differentiation: tutorial/gradients.md
+ - Expression Composition: tutorial/composition.md
+ - Training Expressions: tutorial/training.md
+ - Autograd Engine: tutorial/autograd.md
+ - Tensors: tutorial/tensors.md
+ - ModelBuilder: tutorial/model-builder.md
+ - NeuroCraft Interface: tutorial/neurocraft.md
+ - Datasets: tutorial/datasets.md
+ - " Training Observatory": tutorial/training-observatory.md
 
-  - Examples:
-      - Custom Activation Functions: examples/custom_activation.md
-      - Custom Loss Functions: examples/custom_loss.md
-      - Training Expressions: examples/training_expressions.md
-      - Real Project Notebooks (Colab): examples/project_notebooks.md
+ - Examples:
+ - Custom Activation Functions: examples/custom_activation.md
+ - Custom Loss Functions: examples/custom_loss.md
+ - Training Expressions: examples/training_expressions.md
+ - Real Project Notebooks (Colab): examples/project_notebooks.md
 
-  - Advanced Topics:
-      - Custom Expressions: advanced/custom-expressions.md
-      - Framework Bridges: advanced/framework-bridges.md
-      - Visualization: advanced/visualization.md
-      - Regularization: advanced/regularization.md
-      - Optimization Algorithms: advanced/optimization.md
-      - Performance Tips: advanced/performance.md
-      - Observatory Deep Dive: advanced/observatory-deep-dive.md
-      - "🚀 Observatory Pro (v1.3.0)": advanced/observatory-pro.md
+ - Advanced Topics:
+ - Custom Expressions: advanced/custom-expressions.md
+ - Framework Bridges: advanced/framework-bridges.md
+ - Visualization: advanced/visualization.md
+ - Regularization: advanced/regularization.md
+ - Optimization Algorithms: advanced/optimization.md
+ - Performance Tips: advanced/performance.md
+ - Observatory Deep Dive: advanced/observatory-deep-dive.md
+ - " Observatory Pro (v1.3.0)": advanced/observatory-pro.md
 
-  - Projects (Neurogebra vs PyTorch):
-      - "Project 1: Linear Regression": projects/project1-linear-regression.md
-      - "Project 2: Image Classifier": projects/project2-image-classifier.md
-      - "Project 3: Neural Network from Scratch": projects/project3-neural-network.md
+ - Projects (Neurogebra vs PyTorch):
+ - "Project 1: Linear Regression": projects/project1-linear-regression.md
+ - "Project 2: Image Classifier": projects/project2-image-classifier.md
+ - "Project 3: Neural Network from Scratch": projects/project3-neural-network.md
 
-  - API Reference: api/reference.md
+ - API Reference: api/reference.md
 
 extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/fahiiim/NeuroGebra
-    - icon: fontawesome/brands/python
-      link: https://pypi.org/project/neurogebra/
+ social:
+ - icon: fontawesome/brands/github
+ link: https://github.com/fahiiim/NeuroGebra
+ - icon: fontawesome/brands/python
+ link: https://pypi.org/project/neurogebra/
 
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+ - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

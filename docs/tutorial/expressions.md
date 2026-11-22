@@ -8,12 +8,12 @@ The `Expression` class is the **fundamental unit** of Neurogebra. Everything in 
 
 An Expression is a **symbolic mathematical formula** that can:
 
-- ✅ **Evaluate** — compute a numerical result
-- ✅ **Differentiate** — compute gradients symbolically
-- ✅ **Explain** — describe itself in plain English
-- ✅ **Compose** — combine with other expressions
-- ✅ **Train** — learn parameters from data
-- ✅ **Visualize** — plot itself
+- [PASS] **Evaluate** — compute a numerical result
+- [PASS] **Differentiate** — compute gradients symbolically
+- [PASS] **Explain** — describe itself in plain English
+- [PASS] **Compose** — combine with other expressions
+- [PASS] **Train** — learn parameters from data
+- [PASS] **Visualize** — plot itself
 
 ---
 
@@ -30,21 +30,21 @@ line = Expression("line", "m*x + b", params={"m": 2.0, "b": 1.0})
 
 # With trainable parameters
 trainable_line = Expression(
-    "trainable_line",
-    "m*x + b",
-    params={"m": 0.0, "b": 0.0},
-    trainable_params=["m", "b"]
+ "trainable_line",
+ "m*x + b",
+ params={"m": 0.0, "b": 0.0},
+ trainable_params=["m", "b"]
 )
 
 # With metadata
 custom = Expression(
-    "my_function",
-    "x * tanh(x)",
-    metadata={
-        "category": "activation",
-        "description": "Custom activation function",
-        "usage": "Experimental hidden layers"
-    }
+ "my_function",
+ "x * tanh(x)",
+ metadata={
+ "category": "activation",
+ "description": "Custom activation function",
+ "usage": "Experimental hidden layers"
+ }
 )
 ```
 
@@ -56,11 +56,11 @@ custom = Expression(
 
 ```python
 expr = Expression("poly", "a*x**2 + b*x + c",
-                  params={"a": 1.0, "b": -2.0, "c": 1.0})
+ params={"a": 1.0, "b": -2.0, "c": 1.0})
 
 # Parameters are substituted automatically
 result = expr.eval(x=3)
-print(result)  # 1*9 + (-2)*3 + 1 = 4.0
+print(result) # 1*9 + (-2)*3 + 1 = 4.0
 ```
 
 ### With NumPy Arrays
@@ -71,7 +71,7 @@ import numpy as np
 square = Expression("square", "x**2")
 x = np.array([1, 2, 3, 4, 5])
 result = square.eval(x=x)
-print(result)  # [ 1  4  9 16 25]
+print(result) # [ 1 4 9 16 25]
 ```
 
 ### Expression with Multiple Variables
@@ -79,7 +79,7 @@ print(result)  # [ 1  4  9 16 25]
 ```python
 loss = Expression("mse", "(y_pred - y_true)**2")
 result = loss.eval(y_pred=3.0, y_true=5.0)
-print(result)  # 4.0
+print(result) # 4.0
 ```
 
 ---
@@ -93,16 +93,16 @@ forge = MathForge()
 sigmoid = forge.get("sigmoid")
 
 # Name
-print(sigmoid.name)             # "sigmoid"
+print(sigmoid.name) # "sigmoid"
 
 # Symbolic formula (SymPy expression)
-print(sigmoid.symbolic_expr)    # 1/(1 + exp(-x))
+print(sigmoid.symbolic_expr) # 1/(1 + exp(-x))
 
 # Variables (free symbols)
-print(sigmoid.variables)        # [x]
+print(sigmoid.variables) # [x]
 
 # Parameters
-print(sigmoid.params)           # {}
+print(sigmoid.params) # {}
 
 # Metadata
 print(sigmoid.metadata)
@@ -142,17 +142,17 @@ a = Expression("a", "x**2")
 b = Expression("b", "x + 1")
 
 # Addition
-c = a + b           # x² + x + 1
+c = a + b # x² + x + 1
 
-# Subtraction  
-d = a - b           # x² - x - 1
+# Subtraction 
+d = a - b # x² - x - 1
 
 # Multiplication
-e = a * b           # x² * (x + 1) = x³ + x²
+e = a * b # x² * (x + 1) = x³ + x²
 
 # Scalar multiplication
-f = 2 * a           # 2x²
-g = a * 0.5         # 0.5x²
+f = 2 * a # 2x²
+g = a * 0.5 # 0.5x²
 ```
 
 ---
@@ -167,7 +167,7 @@ clone = original.clone()
 
 # Modifying clone doesn't affect original
 clone.params["new_param"] = 42
-print("new_param" in original.params)  # False
+print("new_param" in original.params) # False
 ```
 
 ---
@@ -182,7 +182,7 @@ relu = forge.get("relu")
 # These are equivalent:
 result1 = relu.eval(x=5)
 result2 = relu(5)
-print(result1, result2)  # 5, 5
+print(result1, result2) # 5, 5
 ```
 
 ---
@@ -195,13 +195,13 @@ import numpy as np
 
 # === Create Custom Expression ===
 gaussian = Expression(
-    "gaussian",
-    "exp(-x**2 / (2 * sigma**2))",
-    params={"sigma": 1.0},
-    metadata={
-        "category": "statistics",
-        "description": "Gaussian (bell curve) function"
-    }
+ "gaussian",
+ "exp(-x**2 / (2 * sigma**2))",
+ params={"sigma": 1.0},
+ metadata={
+ "category": "statistics",
+ "description": "Gaussian (bell curve) function"
+ }
 )
 
 # === Evaluate ===
@@ -209,18 +209,18 @@ x = np.linspace(-3, 3, 7)
 y = gaussian.eval(x=x)
 print("Gaussian values:")
 for xi, yi in zip(x, y):
-    print(f"  x={xi:+.1f}  →  f(x)={yi:.4f}")
+ print(f" x={xi:+.1f} → f(x)={yi:.4f}")
 
 # === Gradient ===
 grad = gaussian.gradient("x")
 print(f"\nGradient formula: {grad.symbolic_expr}")
 
 # === Change parameter ===
-gaussian.params["sigma"] = 0.5  # Narrower bell curve
+gaussian.params["sigma"] = 0.5 # Narrower bell curve
 y_narrow = gaussian.eval(x=x)
 print("\nNarrower Gaussian:")
 for xi, yi in zip(x, y_narrow):
-    print(f"  x={xi:+.1f}  →  f(x)={yi:.4f}")
+ print(f" x={xi:+.1f} → f(x)={yi:.4f}")
 ```
 
 ---

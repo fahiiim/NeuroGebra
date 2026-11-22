@@ -8,21 +8,21 @@ pip install --upgrade build twine
 ```
 
 2. **Create PyPI account:**
-   - Go to https://pypi.org/account/register/
-   - Verify your email
-   - (Optional) Set up 2FA for security
+ - Go to https://pypi.org/account/register/
+ - Verify your email
+ - (Optional) Set up 2FA for security
 
 3. **Create API Token:**
-   - Go to https://pypi.org/manage/account/token/
-   - Create token with scope "Entire account"
-   - Save the token securely (starts with `pypi-`)
+ - Go to https://pypi.org/manage/account/token/
+ - Create token with scope "Entire account"
+ - Save the token securely (starts with `pypi-`)
 
 ## Step-by-Step Publishing Process
 
 ### 1. Update Version Number
 Edit `pyproject.toml` and increment the version:
 ```toml
-version = "0.2.0"  # or whatever the next version should be
+version = "0.2.0" # or whatever the next version should be
 ```
 
 ### 2. Clean Previous Builds
@@ -88,7 +88,7 @@ python -m build
 # Upload
 python -m twine upload dist/*
 
-Write-Host "✅ Published successfully!" -ForegroundColor Green
+Write-Host "[PASS] Published successfully!" -ForegroundColor Green
 Write-Host "Check: https://pypi.org/project/neurogebra/" -ForegroundColor Cyan
 ```
 
@@ -110,7 +110,7 @@ python -m build
 # Upload
 python -m twine upload dist/*
 
-echo "✅ Published successfully!"
+echo "[PASS] Published successfully!"
 echo "Check: https://pypi.org/project/neurogebra/"
 ```
 
@@ -129,14 +129,14 @@ git push origin v0.2.0
 ```
 
 2. **Create GitHub Release:**
-   - Go to: https://github.com/fahiiim/NeuroGebra/releases/new
-   - Select the tag you just created
-   - Add release notes describing new features
-   - Publish release
+ - Go to: https://github.com/fahiiim/NeuroGebra/releases/new
+ - Select the tag you just created
+ - Add release notes describing new features
+ - Publish release
 
 3. **Update Documentation:**
-   - If you have ReadTheDocs, trigger a rebuild
-   - Update examples and tutorials as needed
+ - If you have ReadTheDocs, trigger a rebuild
+ - Update examples and tutorials as needed
 
 ## Troubleshooting
 
@@ -174,7 +174,7 @@ After publishing, verify:
 ```bash
 # Install in clean environment
 python -m venv test_env
-source test_env/bin/activate  # or test_env\Scripts\activate on Windows
+source test_env/bin/activate # or test_env\Scripts\activate on Windows
 pip install neurogebra
 
 # Test imports
@@ -194,29 +194,29 @@ Create `.github/workflows/publish.yml`:
 name: Publish to PyPI
 
 on:
-  release:
-    types: [published]
+ release:
+ types: [published]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v6
-    - name: Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: '3.11'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build twine
-    - name: Build package
-      run: python -m build
-    - name: Publish to PyPI
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      run: twine upload dist/*
+ deploy:
+ runs-on: ubuntu-latest
+ steps:
+ - uses: actions/checkout@v6
+ - name: Set up Python
+ uses: actions/setup-python@v6
+ with:
+ python-version: '3.11'
+ - name: Install dependencies
+ run: |
+ python -m pip install --upgrade pip
+ pip install build twine
+ - name: Build package
+ run: python -m build
+ - name: Publish to PyPI
+ env:
+ TWINE_USERNAME: __token__
+ TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+ run: twine upload dist/*
 ```
 
 Store your PyPI token in GitHub Secrets as `PYPI_TOKEN`.

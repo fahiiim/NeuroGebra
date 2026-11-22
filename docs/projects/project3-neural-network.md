@@ -4,12 +4,12 @@ Build a **complete neural network from scratch** to solve a real classification 
 
 ---
 
-## 🎯 Goal
+## Goal
 
 Create a neural network that classifies points into spiral categories — a problem that **cannot** be solved with linear models.
 
 ```
-Input:  (x, y) coordinate on a 2D plane
+Input: (x, y) coordinate on a 2D plane
 Output: Which spiral (0, 1, or 2) the point belongs to
 ```
 
@@ -24,24 +24,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def generate_spirals(n_points=100, n_classes=3, noise=0.1):
-    """Generate spiral dataset — a classic non-linear classification problem."""
-    X = np.zeros((n_points * n_classes, 2))
-    y = np.zeros(n_points * n_classes, dtype=int)
-    
-    for class_idx in range(n_classes):
-        start = n_points * class_idx
-        end = n_points * (class_idx + 1)
-        
-        r = np.linspace(0.0, 1.0, n_points)
-        theta = np.linspace(
-            class_idx * 4, (class_idx + 1) * 4, n_points
-        ) + np.random.randn(n_points) * noise
-        
-        X[start:end, 0] = r * np.sin(theta)
-        X[start:end, 1] = r * np.cos(theta)
-        y[start:end] = class_idx
-    
-    return X, y
+ """Generate spiral dataset — a classic non-linear classification problem."""
+ X = np.zeros((n_points * n_classes, 2))
+ y = np.zeros(n_points * n_classes, dtype=int)
+ 
+ for class_idx in range(n_classes):
+ start = n_points * class_idx
+ end = n_points * (class_idx + 1)
+ 
+ r = np.linspace(0.0, 1.0, n_points)
+ theta = np.linspace(
+ class_idx * 4, (class_idx + 1) * 4, n_points
+ ) + np.random.randn(n_points) * noise
+ 
+ X[start:end, 0] = r * np.sin(theta)
+ X[start:end, 1] = r * np.cos(theta)
+ y[start:end] = class_idx
+ 
+ return X, y
 
 # Generate data
 np.random.seed(42)
@@ -57,9 +57,9 @@ y_train, y_test = y[indices[:split]], y[indices[split:]]
 plt.figure(figsize=(8, 8))
 colors = ['#FF6B6B', '#4ECDC4', '#45B7D1']
 for i in range(3):
-    mask = y_train == i
-    plt.scatter(X_train[mask, 0], X_train[mask, 1], 
-               c=colors[i], label=f'Class {i}', alpha=0.7, s=30)
+ mask = y_train == i
+ plt.scatter(X_train[mask, 0], X_train[mask, 1], 
+ c=colors[i], label=f'Class {i}', alpha=0.7, s=30)
 plt.title("Spiral Dataset — Can Your Neural Network Solve This?", fontsize=14)
 plt.xlabel("x₁")
 plt.ylabel("x₂")
@@ -69,15 +69,15 @@ plt.axis('equal')
 plt.show()
 
 print(f"Training: {len(X_train)} samples")
-print(f"Testing:  {len(X_test)} samples")
-print(f"Classes:  3 spirals")
+print(f"Testing: {len(X_test)} samples")
+print(f"Classes: 3 spirals")
 print(f"Features: 2 (x, y coordinates)")
 ```
 
 !!! info "Why Spirals?"
-    A linear model draws straight lines to separate classes. Spirals are **intertwined** — 
-    you need a neural network with non-linear activations to separate them. This proves 
-    your network actually works!
+ A linear model draws straight lines to separate classes. Spirals are **intertwined** — 
+ you need a neural network with non-linear activations to separate them. This proves 
+ your network actually works!
 
 ---
 
@@ -92,82 +92,82 @@ import random
 random.seed(42)
 
 class Neuron:
-    """A single neuron: computes w·x + b, then applies activation."""
-    
-    def __init__(self, n_inputs, activation='relu'):
-        # Xavier initialization for better training
-        limit = (6 / (n_inputs + 1)) ** 0.5
-        self.w = [Value(random.uniform(-limit, limit)) for _ in range(n_inputs)]
-        self.b = Value(0.0)
-        self.activation = activation
-    
-    def __call__(self, x):
-        # Linear: w·x + b
-        raw = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)
-        
-        # Activation
-        if self.activation == 'relu':
-            return raw.relu()
-        elif self.activation == 'tanh':
-            return raw.tanh()
-        elif self.activation == 'linear':
-            return raw
-        return raw.relu()
-    
-    def parameters(self):
-        return self.w + [self.b]
+ """A single neuron: computes w·x + b, then applies activation."""
+ 
+ def __init__(self, n_inputs, activation='relu'):
+ # Xavier initialization for better training
+ limit = (6 / (n_inputs + 1)) ** 0.5
+ self.w = [Value(random.uniform(-limit, limit)) for _ in range(n_inputs)]
+ self.b = Value(0.0)
+ self.activation = activation
+ 
+ def __call__(self, x):
+ # Linear: w·x + b
+ raw = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)
+ 
+ # Activation
+ if self.activation == 'relu':
+ return raw.relu()
+ elif self.activation == 'tanh':
+ return raw.tanh()
+ elif self.activation == 'linear':
+ return raw
+ return raw.relu()
+ 
+ def parameters(self):
+ return self.w + [self.b]
 
 
 class Layer:
-    """A layer of neurons."""
-    
-    def __init__(self, n_inputs, n_outputs, activation='relu'):
-        self.neurons = [Neuron(n_inputs, activation) for _ in range(n_outputs)]
-    
-    def __call__(self, x):
-        return [neuron(x) for neuron in self.neurons]
-    
-    def parameters(self):
-        return [p for neuron in self.neurons for p in neuron.parameters()]
+ """A layer of neurons."""
+ 
+ def __init__(self, n_inputs, n_outputs, activation='relu'):
+ self.neurons = [Neuron(n_inputs, activation) for _ in range(n_outputs)]
+ 
+ def __call__(self, x):
+ return [neuron(x) for neuron in self.neurons]
+ 
+ def parameters(self):
+ return [p for neuron in self.neurons for p in neuron.parameters()]
 
 
 class NeuralNetwork:
-    """Complete neural network with multiple layers."""
-    
-    def __init__(self, layer_sizes, activations=None):
-        """
-        Args:
-            layer_sizes: [input_size, hidden1, hidden2, ..., output_size]
-            activations: activation for each layer (default: relu, linear for last)
-        """
-        if activations is None:
-            activations = ['relu'] * (len(layer_sizes) - 2) + ['linear']
-        
-        self.layers = []
-        for i in range(len(layer_sizes) - 1):
-            self.layers.append(
-                Layer(layer_sizes[i], layer_sizes[i+1], activations[i])
-            )
-        
-        n_params = len(self.parameters())
-        print(f"Neural Network created:")
-        print(f"  Architecture: {' → '.join(map(str, layer_sizes))}")
-        print(f"  Activations:  {activations}")
-        print(f"  Parameters:   {n_params:,}")
-    
-    def __call__(self, x):
-        for layer in self.layers:
-            x = layer(x)
-        return x
-    
-    def parameters(self):
-        return [p for layer in self.layers for p in layer.parameters()]
+ """Complete neural network with multiple layers."""
+ 
+ def __init__(self, layer_sizes, activations=None):
+ """
+ Args:
+ layer_sizes: [input_size, hidden1, hidden2, ..., output_size]
+ activations: activation for each layer (default: relu, linear for last)
+ """
+ if activations is None:
+ activations = ['relu'] * (len(layer_sizes) - 2) + ['linear']
+ 
+ self.layers = []
+ for i in range(len(layer_sizes) - 1):
+ self.layers.append(
+ Layer(layer_sizes[i], layer_sizes[i+1], activations[i])
+ )
+ 
+ n_params = len(self.parameters())
+ print(f"Neural Network created:")
+ print(f" Architecture: {' → '.join(map(str, layer_sizes))}")
+ print(f" Activations: {activations}")
+ print(f" Parameters: {n_params:,}")
+ 
+ def __call__(self, x):
+ for layer in self.layers:
+ x = layer(x)
+ return x
+ 
+ def parameters(self):
+ return [p for layer in self.layers for p in layer.parameters()]
 
 
 # Create neural network: 2 inputs → 16 hidden → 16 hidden → 3 outputs
 nn_neuro = NeuralNetwork(
-    layer_sizes=[2, 16, 16, 3],
-    activations=['relu', 'relu', 'linear']
+ layer_sizes=[2, 16, 16, 3],
+ activations=['relu', 'relu', 'linear']
 )
 ```
 
@@ -181,98 +181,98 @@ import torch.optim as optim
 torch.manual_seed(42)
 
 class SpiralNet(nn.Module):
-    """Neural network for spiral classification."""
-    
-    def __init__(self):
-        super().__init__()
-        self.network = nn.Sequential(
-            nn.Linear(2, 16),
-            nn.ReLU(),
-            nn.Linear(16, 16),
-            nn.ReLU(),
-            nn.Linear(16, 3)
-        )
-    
-    def forward(self, x):
-        return self.network(x)
+ """Neural network for spiral classification."""
+ 
+ def __init__(self):
+ super().__init__()
+ self.network = nn.Sequential(
+ nn.Linear(2, 16),
+ nn.ReLU(),
+ nn.Linear(16, 16),
+ nn.ReLU(),
+ nn.Linear(16, 3)
+ )
+ 
+ def forward(self, x):
+ return self.network(x)
 
 nn_torch = SpiralNet()
 total_params = sum(p.numel() for p in nn_torch.parameters())
 print(f"\nPyTorch Neural Network:")
-print(f"  Architecture: 2 → 16 → 16 → 3")
-print(f"  Parameters:   {total_params:,}")
+print(f" Architecture: 2 → 16 → 16 → 3")
+print(f" Parameters: {total_params:,}")
 ```
 
 !!! note "Architecture Comparison"
-    Both networks have the same structure: **2 → 16 → 16 → 3**.  
-    Neurogebra: ~35 lines to define (you understand every line).  
-    PyTorch: ~15 lines (uses pre-built components).
+ Both networks have the same structure: **2 → 16 → 16 → 3**. 
+ Neurogebra: ~35 lines to define (you understand every line). 
+ PyTorch: ~15 lines (uses pre-built components).
 
 ---
 
 ## Step 3: Implement Softmax & Cross-Entropy Loss
 
 === "Neurogebra"
-    ```python
-    def softmax_cross_entropy(scores, target):
-        """
-        Compute softmax probabilities and cross-entropy loss.
-        
-        This is EXACTLY what PyTorch's CrossEntropyLoss does internally,
-        but here you can see every step!
-        
-        Steps:
-        1. Find max score (for numerical stability)
-        2. Compute exp(score - max) for each class
-        3. Normalize to get probabilities (softmax)
-        4. Loss = -log(probability of correct class)
-        """
-        # Step 1: Numerical stability — subtract max
-        max_score = max(s.data for s in scores)
-        
-        # Step 2: Compute exponentials
-        exp_scores = [(s - Value(max_score)).exp() for s in scores]
-        
-        # Step 3: Softmax — normalize to probabilities
-        sum_exp = sum(exp_scores)
-        probabilities = [e / sum_exp for e in exp_scores]
-        
-        # Step 4: Cross-entropy loss
-        # -log(P(correct class))
-        loss = -(probabilities[target].log())
-        
-        return loss, probabilities
-    
-    # Example: verify it works
-    dummy_scores = [Value(2.0), Value(1.0), Value(0.1)]  # Raw scores for 3 classes
-    loss, probs = softmax_cross_entropy(dummy_scores, target=0)  # Target = class 0
-    
-    print("=== Softmax + Cross-Entropy Demo ===")
-    print(f"Raw scores: [{', '.join(f'{s.data:.1f}' for s in dummy_scores)}]")
-    print(f"Probabilities: [{', '.join(f'{p.data:.3f}' for p in probs)}]")
-    print(f"Sum of probs: {sum(p.data for p in probs):.3f} (should be 1.0)")
-    print(f"Loss (target=class 0): {loss.data:.4f}")
-    print(f"(Lower loss = higher confidence in correct class)")
-    ```
+ ```python
+ def softmax_cross_entropy(scores, target):
+ """
+ Compute softmax probabilities and cross-entropy loss.
+ 
+ This is EXACTLY what PyTorch's CrossEntropyLoss does internally,
+ but here you can see every step!
+ 
+ Steps:
+ 1. Find max score (for numerical stability)
+ 2. Compute exp(score - max) for each class
+ 3. Normalize to get probabilities (softmax)
+ 4. Loss = -log(probability of correct class)
+ """
+ # Step 1: Numerical stability — subtract max
+ max_score = max(s.data for s in scores)
+ 
+ # Step 2: Compute exponentials
+ exp_scores = [(s - Value(max_score)).exp() for s in scores]
+ 
+ # Step 3: Softmax — normalize to probabilities
+ sum_exp = sum(exp_scores)
+ probabilities = [e / sum_exp for e in exp_scores]
+ 
+ # Step 4: Cross-entropy loss
+ # -log(P(correct class))
+ loss = -(probabilities[target].log())
+ 
+ return loss, probabilities
+ 
+ # Example: verify it works
+ dummy_scores = [Value(2.0), Value(1.0), Value(0.1)] # Raw scores for 3 classes
+ loss, probs = softmax_cross_entropy(dummy_scores, target=0) # Target = class 0
+ 
+ print("=== Softmax + Cross-Entropy Demo ===")
+ print(f"Raw scores: [{', '.join(f'{s.data:.1f}' for s in dummy_scores)}]")
+ print(f"Probabilities: [{', '.join(f'{p.data:.3f}' for p in probs)}]")
+ print(f"Sum of probs: {sum(p.data for p in probs):.3f} (should be 1.0)")
+ print(f"Loss (target=class 0): {loss.data:.4f}")
+ print(f"(Lower loss = higher confidence in correct class)")
+ ```
 
 === "PyTorch"
-    ```python
-    # PyTorch does this in ONE line:
-    criterion = nn.CrossEntropyLoss()
-    
-    # That single line contains all the softmax + cross-entropy math!
-    # Convenient, but you don't see the internals.
-    
-    # Demo:
-    dummy_scores = torch.tensor([[2.0, 1.0, 0.1]])
-    dummy_target = torch.tensor([0])
-    loss = criterion(dummy_scores, dummy_target)
-    
-    probs = torch.softmax(dummy_scores, dim=1)
-    print(f"Raw scores:    {dummy_scores.numpy()}")
-    print(f"Probabilities: {probs.numpy()}")
-    print(f"Loss:          {loss.item():.4f}")
-    ```
+ ```python
+ # PyTorch does this in ONE line:
+ criterion = nn.CrossEntropyLoss()
+ 
+ # That single line contains all the softmax + cross-entropy math!
+ # Convenient, but you don't see the internals.
+ 
+ # Demo:
+ dummy_scores = torch.tensor([[2.0, 1.0, 0.1]])
+ dummy_target = torch.tensor([0])
+ loss = criterion(dummy_scores, dummy_target)
+ 
+ probs = torch.softmax(dummy_scores, dim=1)
+ print(f"Raw scores: {dummy_scores.numpy()}")
+ print(f"Probabilities: {probs.numpy()}")
+ print(f"Loss: {loss.item():.4f}")
+ ```
 
 ---
 
@@ -294,62 +294,62 @@ print("Training Neurogebra Neural Network...")
 print("=" * 50)
 
 for epoch in range(epochs):
-    # Shuffle training data
-    perm = np.random.permutation(len(X_train))
-    
-    epoch_loss = 0.0
-    correct = 0
-    total = 0
-    
-    # Mini-batch training
-    for start in range(0, len(X_train), batch_size):
-        batch_idx = perm[start:start + batch_size]
-        batch_loss = Value(0.0)
-        
-        for idx in batch_idx:
-            # Convert input to Value objects
-            x_input = [Value(float(X_train[idx, 0])),
-                       Value(float(X_train[idx, 1]))]
-            target = int(y_train[idx])
-            
-            # Forward pass — compute scores
-            scores = nn_neuro(x_input)
-            
-            # Compute loss
-            loss, probs = softmax_cross_entropy(scores, target)
-            batch_loss = batch_loss + loss
-            
-            # Track accuracy
-            predicted = max(range(3), key=lambda i: scores[i].data)
-            correct += (predicted == target)
-            total += 1
-        
-        # Average batch loss
-        batch_loss = batch_loss / len(batch_idx)
-        
-        # ==============================
-        # BACKWARD PASS — The Magic Part
-        # ==============================
-        
-        # 1. Zero all gradients
-        for p in nn_neuro.parameters():
-            p.grad = 0.0
-        
-        # 2. Backpropagate — compute dLoss/dParam for every parameter
-        batch_loss.backward()
-        
-        # 3. Update every parameter: param = param - lr * gradient
-        for p in nn_neuro.parameters():
-            p.data -= learning_rate * p.grad
-        
-        epoch_loss += batch_loss.data
-    
-    accuracy = correct / total
-    neuro_history["loss"].append(epoch_loss)
-    neuro_history["accuracy"].append(accuracy)
-    
-    if epoch % 5 == 0 or epoch == epochs - 1:
-        print(f"  Epoch {epoch:>3d}/{epochs}: Loss = {epoch_loss:.4f}, Accuracy = {accuracy:.1%}")
+ # Shuffle training data
+ perm = np.random.permutation(len(X_train))
+ 
+ epoch_loss = 0.0
+ correct = 0
+ total = 0
+ 
+ # Mini-batch training
+ for start in range(0, len(X_train), batch_size):
+ batch_idx = perm[start:start + batch_size]
+ batch_loss = Value(0.0)
+ 
+ for idx in batch_idx:
+ # Convert input to Value objects
+ x_input = [Value(float(X_train[idx, 0])),
+ Value(float(X_train[idx, 1]))]
+ target = int(y_train[idx])
+ 
+ # Forward pass — compute scores
+ scores = nn_neuro(x_input)
+ 
+ # Compute loss
+ loss, probs = softmax_cross_entropy(scores, target)
+ batch_loss = batch_loss + loss
+ 
+ # Track accuracy
+ predicted = max(range(3), key=lambda i: scores[i].data)
+ correct += (predicted == target)
+ total += 1
+ 
+ # Average batch loss
+ batch_loss = batch_loss / len(batch_idx)
+ 
+ # ==============================
+ # BACKWARD PASS — The Magic Part
+ # ==============================
+ 
+ # 1. Zero all gradients
+ for p in nn_neuro.parameters():
+ p.grad = 0.0
+ 
+ # 2. Backpropagate — compute dLoss/dParam for every parameter
+ batch_loss.backward()
+ 
+ # 3. Update every parameter: param = param - lr * gradient
+ for p in nn_neuro.parameters():
+ p.data -= learning_rate * p.grad
+ 
+ epoch_loss += batch_loss.data
+ 
+ accuracy = correct / total
+ neuro_history["loss"].append(epoch_loss)
+ neuro_history["accuracy"].append(accuracy)
+ 
+ if epoch % 5 == 0 or epoch == epochs - 1:
+ print(f" Epoch {epoch:>3d}/{epochs}: Loss = {epoch_loss:.4f}, Accuracy = {accuracy:.1%}")
 
 print(f"\nFinal Training Accuracy: {neuro_history['accuracy'][-1]:.1%}")
 ```
@@ -373,36 +373,36 @@ print("Training PyTorch Neural Network...")
 print("=" * 50)
 
 for epoch in range(epochs):
-    perm = torch.randperm(len(X_train_t))
-    
-    epoch_loss = 0.0
-    correct = 0
-    total = 0
-    
-    for start in range(0, len(X_train_t), batch_size):
-        X_batch = X_train_t[perm[start:start + batch_size]]
-        y_batch = y_train_t[perm[start:start + batch_size]]
-        
-        # Forward pass
-        outputs = nn_torch(X_batch)
-        loss = criterion(outputs, y_batch)
-        
-        # Backward pass
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        
-        epoch_loss += loss.item()
-        _, predicted = torch.max(outputs, 1)
-        correct += (predicted == y_batch).sum().item()
-        total += y_batch.size(0)
-    
-    accuracy = correct / total
-    torch_history["loss"].append(epoch_loss)
-    torch_history["accuracy"].append(accuracy)
-    
-    if epoch % 5 == 0 or epoch == epochs - 1:
-        print(f"  Epoch {epoch:>3d}/{epochs}: Loss = {epoch_loss:.4f}, Accuracy = {accuracy:.1%}")
+ perm = torch.randperm(len(X_train_t))
+ 
+ epoch_loss = 0.0
+ correct = 0
+ total = 0
+ 
+ for start in range(0, len(X_train_t), batch_size):
+ X_batch = X_train_t[perm[start:start + batch_size]]
+ y_batch = y_train_t[perm[start:start + batch_size]]
+ 
+ # Forward pass
+ outputs = nn_torch(X_batch)
+ loss = criterion(outputs, y_batch)
+ 
+ # Backward pass
+ optimizer.zero_grad()
+ loss.backward()
+ optimizer.step()
+ 
+ epoch_loss += loss.item()
+ _, predicted = torch.max(outputs, 1)
+ correct += (predicted == y_batch).sum().item()
+ total += y_batch.size(0)
+ 
+ accuracy = correct / total
+ torch_history["loss"].append(epoch_loss)
+ torch_history["accuracy"].append(accuracy)
+ 
+ if epoch % 5 == 0 or epoch == epochs - 1:
+ print(f" Epoch {epoch:>3d}/{epochs}: Loss = {epoch_loss:.4f}, Accuracy = {accuracy:.1%}")
 
 print(f"\nFinal Training Accuracy: {torch_history['accuracy'][-1]:.1%}")
 ```
@@ -442,36 +442,36 @@ plt.show()
 ## Step 6: Evaluate on Test Data
 
 === "Neurogebra"
-    ```python
-    # Neurogebra test evaluation
-    neuro_correct = 0
-    neuro_predictions = []
-    
-    for i in range(len(X_test)):
-        x_input = [Value(float(X_test[i, 0])), Value(float(X_test[i, 1]))]
-        scores = nn_neuro(x_input)
-        predicted = max(range(3), key=lambda j: scores[j].data)
-        neuro_predictions.append(predicted)
-        neuro_correct += (predicted == y_test[i])
-    
-    neuro_test_acc = neuro_correct / len(X_test)
-    print(f"Neurogebra Test Accuracy: {neuro_test_acc:.1%}")
-    ```
+ ```python
+ # Neurogebra test evaluation
+ neuro_correct = 0
+ neuro_predictions = []
+ 
+ for i in range(len(X_test)):
+ x_input = [Value(float(X_test[i, 0])), Value(float(X_test[i, 1]))]
+ scores = nn_neuro(x_input)
+ predicted = max(range(3), key=lambda j: scores[j].data)
+ neuro_predictions.append(predicted)
+ neuro_correct += (predicted == y_test[i])
+ 
+ neuro_test_acc = neuro_correct / len(X_test)
+ print(f"Neurogebra Test Accuracy: {neuro_test_acc:.1%}")
+ ```
 
 === "PyTorch"
-    ```python
-    # PyTorch test evaluation
-    X_test_t = torch.tensor(X_test, dtype=torch.float32)
-    y_test_t = torch.tensor(y_test, dtype=torch.long)
-    
-    with torch.no_grad():
-        outputs = nn_torch(X_test_t)
-        _, torch_predictions = torch.max(outputs, 1)
-    
-    torch_test_acc = (torch_predictions == y_test_t).float().mean().item()
-    torch_predictions = torch_predictions.numpy()
-    print(f"PyTorch Test Accuracy: {torch_test_acc:.1%}")
-    ```
+ ```python
+ # PyTorch test evaluation
+ X_test_t = torch.tensor(X_test, dtype=torch.float32)
+ y_test_t = torch.tensor(y_test, dtype=torch.long)
+ 
+ with torch.no_grad():
+ outputs = nn_torch(X_test_t)
+ _, torch_predictions = torch.max(outputs, 1)
+ 
+ torch_test_acc = (torch_predictions == y_test_t).float().mean().item()
+ torch_predictions = torch_predictions.numpy()
+ print(f"PyTorch Test Accuracy: {torch_test_acc:.1%}")
+ ```
 
 ---
 
@@ -481,57 +481,57 @@ This is the most satisfying visualization — see how the network **learned to s
 
 ```python
 def plot_decision_boundary(predict_fn, X, y, title, ax):
-    """Plot the decision boundary of a classifier."""
-    h = 0.02  # Step size
-    x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-    y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-    
-    xx, yy = np.meshgrid(
-        np.arange(x_min, x_max, h),
-        np.arange(y_min, y_max, h)
-    )
-    
-    # Predict on grid
-    grid_points = np.c_[xx.ravel(), yy.ravel()]
-    Z = np.array([predict_fn(p) for p in grid_points])
-    Z = Z.reshape(xx.shape)
-    
-    # Plot
-    ax.contourf(xx, yy, Z, alpha=0.3, cmap='RdYlBu')
-    
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1']
-    for i in range(3):
-        mask = y == i
-        ax.scatter(X[mask, 0], X[mask, 1], c=colors[i], 
-                  label=f'Class {i}', edgecolors='k', linewidth=0.5, s=30)
-    
-    ax.set_title(title, fontsize=13, fontweight='bold')
-    ax.legend(loc='upper right')
-    ax.set_xlabel("x₁")
-    ax.set_ylabel("x₂")
+ """Plot the decision boundary of a classifier."""
+ h = 0.02 # Step size
+ x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
+ y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
+ 
+ xx, yy = np.meshgrid(
+ np.arange(x_min, x_max, h),
+ np.arange(y_min, y_max, h)
+ )
+ 
+ # Predict on grid
+ grid_points = np.c_[xx.ravel(), yy.ravel()]
+ Z = np.array([predict_fn(p) for p in grid_points])
+ Z = Z.reshape(xx.shape)
+ 
+ # Plot
+ ax.contourf(xx, yy, Z, alpha=0.3, cmap='RdYlBu')
+ 
+ colors = ['#FF6B6B', '#4ECDC4', '#45B7D1']
+ for i in range(3):
+ mask = y == i
+ ax.scatter(X[mask, 0], X[mask, 1], c=colors[i], 
+ label=f'Class {i}', edgecolors='k', linewidth=0.5, s=30)
+ 
+ ax.set_title(title, fontsize=13, fontweight='bold')
+ ax.legend(loc='upper right')
+ ax.set_xlabel("x₁")
+ ax.set_ylabel("x₂")
 
 # Prediction functions
 def neuro_predict(point):
-    x = [Value(float(point[0])), Value(float(point[1]))]
-    scores = nn_neuro(x)
-    return max(range(3), key=lambda i: scores[i].data)
+ x = [Value(float(point[0])), Value(float(point[1]))]
+ scores = nn_neuro(x)
+ return max(range(3), key=lambda i: scores[i].data)
 
 def torch_predict(point):
-    x = torch.tensor(point, dtype=torch.float32).unsqueeze(0)
-    with torch.no_grad():
-        scores = nn_torch(x)
-    return torch.argmax(scores).item()
+ x = torch.tensor(point, dtype=torch.float32).unsqueeze(0)
+ with torch.no_grad():
+ scores = nn_torch(x)
+ return torch.argmax(scores).item()
 
 # Plot both decision boundaries
 fig, axes = plt.subplots(1, 2, figsize=(16, 7))
 
 plot_decision_boundary(neuro_predict, X_test, y_test, 
-                       f"Neurogebra (Acc: {neuro_test_acc:.0%})", axes[0])
+ f"Neurogebra (Acc: {neuro_test_acc:.0%})", axes[0])
 plot_decision_boundary(torch_predict, X_test, y_test,
-                       f"PyTorch (Acc: {torch_test_acc:.0%})", axes[1])
+ f"PyTorch (Acc: {torch_test_acc:.0%})", axes[1])
 
 plt.suptitle("Decision Boundaries — Neural Network Learned to Separate Spirals!", 
-             fontsize=15, fontweight='bold')
+ fontsize=15, fontweight='bold')
 plt.tight_layout()
 plt.show()
 ```
@@ -553,14 +553,14 @@ print("=" * 60)
 
 # 1. Layer-by-layer parameter statistics
 for i, layer in enumerate(nn_neuro.layers):
-    weights = [p.data for neuron in layer.neurons for p in neuron.w]
-    biases = [neuron.b.data for neuron in layer.neurons]
-    
-    print(f"\nLayer {i+1}:")
-    print(f"  Neurons:      {len(layer.neurons)}")
-    print(f"  Weights:      mean={np.mean(weights):.4f}, std={np.std(weights):.4f}")
-    print(f"  Weight range: [{min(weights):.4f}, {max(weights):.4f}]")
-    print(f"  Biases:       mean={np.mean(biases):.4f}, std={np.std(biases):.4f}")
+ weights = [p.data for neuron in layer.neurons for p in neuron.w]
+ biases = [neuron.b.data for neuron in layer.neurons]
+ 
+ print(f"\nLayer {i+1}:")
+ print(f" Neurons: {len(layer.neurons)}")
+ print(f" Weights: mean={np.mean(weights):.4f}, std={np.std(weights):.4f}")
+ print(f" Weight range: [{min(weights):.4f}, {max(weights):.4f}]")
+ print(f" Biases: mean={np.mean(biases):.4f}, std={np.std(biases):.4f}")
 
 # 2. Understanding with MathForge
 print("\n" + "=" * 60)
@@ -568,17 +568,17 @@ print("THE MATH BEHIND YOUR NETWORK")
 print("=" * 60)
 
 relu = forge.get("relu")
-print(f"\nReLU activation:     {relu.symbolic_expr}")
-print(f"ReLU gradient:       {relu.gradient('x').symbolic_expr}")
-print(f"ReLU at x=2:         {relu.eval(x=2.0)}")
-print(f"ReLU at x=-2:        {relu.eval(x=-2.0)}")
-print(f"ReLU grad at x=2:    {relu.gradient('x').eval(x=2.0)}")
-print(f"ReLU grad at x=-2:   {relu.gradient('x').eval(x=-2.0)}")
+print(f"\nReLU activation: {relu.symbolic_expr}")
+print(f"ReLU gradient: {relu.gradient('x').symbolic_expr}")
+print(f"ReLU at x=2: {relu.eval(x=2.0)}")
+print(f"ReLU at x=-2: {relu.eval(x=-2.0)}")
+print(f"ReLU grad at x=2: {relu.gradient('x').eval(x=2.0)}")
+print(f"ReLU grad at x=-2: {relu.gradient('x').eval(x=-2.0)}")
 
 print(f"\nEach neuron computes:")
-print(f"  output = ReLU(w₁·x₁ + w₂·x₂ + b)")
-print(f"  = ReLU(weighted_sum + bias)")
-print(f"  = max(0, weighted_sum + bias)")
+print(f" output = ReLU(w₁·x₁ + w₂·x₂ + b)")
+print(f" = ReLU(weighted_sum + bias)")
+print(f" = max(0, weighted_sum + bias)")
 
 print(f"\nThe final layer computes 3 scores (one per class).")
 print(f"Softmax converts scores to probabilities.")
@@ -597,21 +597,21 @@ y_range = np.arange(-1.5, 1.5, h)
 xx, yy = np.meshgrid(x_range, y_range)
 
 for idx, ax in enumerate(axes.flat[:min(8, len(nn_neuro.layers[0].neurons))]):
-    neuron = nn_neuro.layers[0].neurons[idx]
-    
-    # Compute activation for each point
-    Z = np.zeros_like(xx)
-    for i in range(len(x_range)):
-        for j in range(len(y_range)):
-            x_val = Value(float(xx[j, i]))
-            y_val = Value(float(yy[j, i]))
-            result = neuron([x_val, y_val])
-            Z[j, i] = result.data
-    
-    im = ax.contourf(xx, yy, Z, levels=20, cmap='viridis')
-    ax.set_title(f"Neuron {idx+1}")
-    ax.set_xlabel("x₁")
-    ax.set_ylabel("x₂")
+ neuron = nn_neuro.layers[0].neurons[idx]
+ 
+ # Compute activation for each point
+ Z = np.zeros_like(xx)
+ for i in range(len(x_range)):
+ for j in range(len(y_range)):
+ x_val = Value(float(xx[j, i]))
+ y_val = Value(float(yy[j, i]))
+ result = neuron([x_val, y_val])
+ Z[j, i] = result.data
+ 
+ im = ax.contourf(xx, yy, Z, levels=20, cmap='viridis')
+ ax.set_title(f"Neuron {idx+1}")
+ ax.set_xlabel("x₁")
+ ax.set_ylabel("x₂")
 
 plt.suptitle("What Each Neuron in Layer 1 Responds To", fontsize=14, fontweight='bold')
 plt.tight_layout()
@@ -619,10 +619,10 @@ plt.show()
 ```
 
 !!! tip "Educational Insight"
-    Each neuron learns a **different linear boundary** (a line in 2D space). The ReLU 
-    activation makes it respond only on one side of that line. By combining many such 
-    neurons across multiple layers, the network can carve out **complex curved boundaries** 
-    — which is how it separates the spirals!
+ Each neuron learns a **different linear boundary** (a line in 2D space). The ReLU 
+ activation makes it respond only on one side of that line. By combining many such 
+ neurons across multiple layers, the network can carve out **complex curved boundaries** 
+ — which is how it separates the spirals!
 
 ---
 
@@ -642,24 +642,24 @@ plt.show()
 
 | What You Understand | Neurogebra | PyTorch |
 |---------------------|------------|---------|
-| How neurons compute outputs | ✅ You wrote it | ⚠️ Hidden in `nn.Linear` |
-| How gradients flow backward | ✅ You see `.backward()` flow | ⚠️ Happens inside autograd |
-| How softmax works | ✅ You implemented it | ⚠️ Inside `CrossEntropyLoss` |
-| How weights get updated | ✅ `p.data -= lr * p.grad` | ⚠️ Inside `optimizer.step()` |
-| How decision boundaries form | ✅ You can inspect neurons | ⚠️ Requires extra tools |
+| How neurons compute outputs | [PASS] You wrote it | ️ Hidden in `nn.Linear` |
+| How gradients flow backward | [PASS] You see `.backward()` flow | ️ Happens inside autograd |
+| How softmax works | [PASS] You implemented it | ️ Inside `CrossEntropyLoss` |
+| How weights get updated | [PASS] `p.data -= lr * p.grad` | ️ Inside `optimizer.step()` |
+| How decision boundaries form | [PASS] You can inspect neurons | ️ Requires extra tools |
 
 ### When to Use Each
 
 | Scenario | Use Neurogebra | Use PyTorch |
 |----------|---------------|-------------|
-| Learning ML concepts | ✅ | |
-| Understanding backprop | ✅ | |
-| Course assignments | ✅ | |
-| Research prototyping | ✅ | ✅ |
-| Production ML systems | | ✅ |
-| Large-scale training | | ✅ |
-| GPU acceleration | | ✅ |
-| Pre-trained models | | ✅ |
+| Learning ML concepts | [PASS] | |
+| Understanding backprop | [PASS] | |
+| Course assignments | [PASS] | |
+| Research prototyping | [PASS] | [PASS] |
+| Production ML systems | | [PASS] |
+| Large-scale training | | [PASS] |
+| GPU acceleration | | [PASS] |
+| Pre-trained models | | [PASS] |
 
 ---
 
@@ -677,7 +677,7 @@ plt.show()
 
 ---
 
-## Congratulations! 🎉
+## Congratulations! 
 
 You've completed all three projects! You now understand:
 
@@ -689,13 +689,13 @@ You've completed all three projects! You now understand:
 
 ```
 You are here ──────────────────────────────►
-                                             
-Neurogebra (understanding)      PyTorch (production)
-├── ✅ Expressions              ├── torchvision
-├── ✅ Autograd                 ├── DataLoader
-├── ✅ Training                 ├── GPU training
-├── ✅ Neural Networks          ├── Pre-trained models
-└── ✅ Loss & Optimization      └── Deployment
+ 
+Neurogebra (understanding) PyTorch (production)
+├── [PASS] Expressions ├── torchvision
+├── [PASS] Autograd ├── DataLoader
+├── [PASS] Training ├── GPU training
+├── [PASS] Neural Networks ├── Pre-trained models
+└── [PASS] Loss & Optimization └── Deployment
 ```
 
 You have a **solid foundation**. Whether you continue with Neurogebra for deeper understanding 

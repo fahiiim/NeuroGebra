@@ -38,9 +38,9 @@ for method_name in essential_methods:
     if match:
         method_code = match.group(1).strip()
         methods_code.append(f"\n    {method_code}\n")
-        print(f"✓ Found {method_name}")
+        print(f"[PASS] Found {method_name}")
     else:
-        print(f"✗ Could not find {method_name}")
+        print(f"[FAIL] Could not find {method_name}")
 
 # Read current loaders.py
 with open('src/neurogebra/datasets/loaders.py', 'r', encoding='utf-8') as f:
@@ -63,5 +63,5 @@ else:
     with open('src/neurogebra/datasets/loaders.py', 'w', encoding='utf-8') as f:
         f.write(new_content)
     
-    print(f"\n✅ Added {len(methods_code)} methods to loaders.py")
-    print("📝 File updated successfully!")
+    print(f"\n[PASS] Added {len(methods_code)} methods to loaders.py")
+    print(" File updated successfully!")
