@@ -27,7 +27,7 @@
     
     
       
-        <title>🚀 Observatory Pro (v1.3.0) - Neurogebra — Learn ML from Scratch</title>
+        <title>Observatory Pro (v1.3.0) - Neurogebra — Learn ML from Scratch</title>
       
     
     
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              🚀 Observatory Pro (v1.3.0)
+              Observatory Pro (v1.3.0)
             
           </span>
         </div>
@@ -1631,7 +1631,7 @@
   <span class="md-ellipsis">
     
   
-    🔭 Training Observatory
+    Training Observatory
   
 
     
@@ -2129,7 +2129,7 @@
   <span class="md-ellipsis">
     
   
-    🚀 Observatory Pro (v1.3.0)
+    Observatory Pro (v1.3.0)
   
 
     
@@ -2147,7 +2147,7 @@
   <span class="md-ellipsis">
     
   
-    🚀 Observatory Pro (v1.3.0)
+    Observatory Pro (v1.3.0)
   
 
     
@@ -4571,9 +4571,9 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Wrap it in the adaptive logger</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">adaptive</span> <span class="o">=</span> <span class="n">AdaptiveLogger</span><span class="p">(</span><span class="n">base_logger</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">AnomalyConfig</span><span class="p">(</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">zeros_pct_threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>      <span class="c1"># trigger on &gt;50% dead neurons</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">gradient_spike_factor</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>     <span class="c1"># trigger on 5× gradient spike</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">escalation_cooldown</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>        <span class="c1"># stay escalated for 10 events</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a> <span class="n">zeros_pct_threshold</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="c1"># trigger on &gt;50% dead neurons</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a> <span class="n">gradient_spike_factor</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="c1"># trigger on 5× gradient spike</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a> <span class="n">escalation_cooldown</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="c1"># stay escalated for 10 events</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">))</span>
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Use adaptive as a drop-in replacement</span>
@@ -4591,11 +4591,11 @@
 </span></code></pre></div>
 <h3 id="customising-thresholds">Customising Thresholds<a class="headerlink" href="#customising-thresholds" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">config</span> <span class="o">=</span> <span class="n">AnomalyConfig</span><span class="p">(</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">zeros_pct_threshold</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>          <span class="c1"># more sensitive dead neuron detection</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">gradient_spike_factor</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>         <span class="c1"># more sensitive spike detection</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">loss_spike_pct</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>               <span class="c1"># trigger on 30% loss increase</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">weight_stagnation_window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>       <span class="c1"># look at 10 consecutive updates</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">escalation_cooldown</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>            <span class="c1"># stay in detail mode longer</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a> <span class="n">zeros_pct_threshold</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="c1"># more sensitive dead neuron detection</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a> <span class="n">gradient_spike_factor</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="c1"># more sensitive spike detection</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a> <span class="n">loss_spike_pct</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="c1"># trigger on 30% loss increase</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a> <span class="n">weight_stagnation_window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="c1"># look at 10 consecutive updates</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a> <span class="n">escalation_cooldown</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="c1"># stay in detail mode longer</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">)</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">adaptive</span> <span class="o">=</span> <span class="n">AdaptiveLogger</span><span class="p">(</span><span class="n">base_logger</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
 </span></code></pre></div>
@@ -4679,50 +4679,50 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.logging.health_warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoHealthWarnings</span><span class="p">,</span> <span class="n">WarningConfig</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">warnings_engine</span> <span class="o">=</span> <span class="n">AutoHealthWarnings</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">WarningConfig</span><span class="p">(</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">dead_relu_zeros_pct</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">overfit_patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">overfit_ratio</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a> <span class="n">dead_relu_zeros_pct</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a> <span class="n">overfit_patience</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a> <span class="n">overfit_ratio</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">))</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Call during training</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batches</span><span class="p">):</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="c1"># ... forward/backward ...</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a> <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batches</span><span class="p">):</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a> <span class="c1"># ... forward/backward ...</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="c1"># Check batch-level health</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="n">batch_alerts</span> <span class="o">=</span> <span class="n">warnings_engine</span><span class="o">.</span><span class="n">check_batch</span><span class="p">(</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>            <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>            <span class="n">batch</span><span class="o">=</span><span class="n">batch_idx</span><span class="p">,</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>            <span class="n">loss</span><span class="o">=</span><span class="n">current_loss</span><span class="p">,</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>            <span class="n">gradient_norms</span><span class="o">=</span><span class="p">{</span><span class="s2">"dense_0"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"dense_1"</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">},</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>            <span class="n">activation_stats</span><span class="o">=</span><span class="p">{</span><span class="s2">"dense_0"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"zeros_pct"</span><span class="p">:</span> <span class="mf">62.0</span><span class="p">,</span> <span class="s2">"activation_type"</span><span class="p">:</span> <span class="s2">"relu"</span><span class="p">}},</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="p">)</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="k">for</span> <span class="n">alert</span> <span class="ow">in</span> <span class="n">batch_alerts</span><span class="p">:</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  ⚠️ [</span><span class="si">{</span><span class="n">alert</span><span class="o">.</span><span class="n">severity</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">alert</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a> <span class="c1"># Check batch-level health</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a> <span class="n">batch_alerts</span> <span class="o">=</span> <span class="n">warnings_engine</span><span class="o">.</span><span class="n">check_batch</span><span class="p">(</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a> <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a> <span class="n">batch</span><span class="o">=</span><span class="n">batch_idx</span><span class="p">,</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a> <span class="n">loss</span><span class="o">=</span><span class="n">current_loss</span><span class="p">,</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a> <span class="n">gradient_norms</span><span class="o">=</span><span class="p">{</span><span class="s2">"dense_0"</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span> <span class="s2">"dense_1"</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">},</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a> <span class="n">activation_stats</span><span class="o">=</span><span class="p">{</span><span class="s2">"dense_0"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"zeros_pct"</span><span class="p">:</span> <span class="mf">62.0</span><span class="p">,</span> <span class="s2">"activation_type"</span><span class="p">:</span> <span class="s2">"relu"</span><span class="p">}},</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a> <span class="p">)</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a> <span class="k">for</span> <span class="n">alert</span> <span class="ow">in</span> <span class="n">batch_alerts</span><span class="p">:</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">" ️ [</span><span class="si">{</span><span class="n">alert</span><span class="o">.</span><span class="n">severity</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">alert</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>    <span class="c1"># Check epoch-level health</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    <span class="n">epoch_alerts</span> <span class="o">=</span> <span class="n">warnings_engine</span><span class="o">.</span><span class="n">check_epoch</span><span class="p">(</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>        <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>        <span class="n">train_loss</span><span class="o">=</span><span class="n">train_loss</span><span class="p">,</span>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>        <span class="n">val_loss</span><span class="o">=</span><span class="n">val_loss</span><span class="p">,</span>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    <span class="p">)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a> <span class="c1"># Check epoch-level health</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a> <span class="n">epoch_alerts</span> <span class="o">=</span> <span class="n">warnings_engine</span><span class="o">.</span><span class="n">check_epoch</span><span class="p">(</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a> <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a> <span class="n">train_loss</span><span class="o">=</span><span class="n">train_loss</span><span class="p">,</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a> <span class="n">val_loss</span><span class="o">=</span><span class="n">val_loss</span><span class="p">,</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a> <span class="p">)</span>
 </span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
 </span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="c1"># Get summary</span>
 </span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="nb">print</span><span class="p">(</span><span class="n">warnings_engine</span><span class="o">.</span><span class="n">get_summary</span><span class="p">())</span>
 </span></code></pre></div>
 <p>Each <code>HealthWarning</code> contains:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">HealthWarning</span><span class="p">(</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">rule_name</span><span class="o">=</span><span class="s2">"dead_relu"</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">message</span><span class="o">=</span><span class="s2">"Possible dying ReLU in 'dense_0' (62.0% zeros)"</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">diagnosis</span><span class="o">=</span><span class="s2">"Neurons producing zero outputs will receive zero gradients and never recover."</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">recommendations</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="s2">"Use LeakyReLU(negative_slope=0.01) instead of ReLU"</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="s2">"Lower the learning rate"</span><span class="p">,</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="s2">"Use He initialisation"</span><span class="p">,</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="p">],</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">layer_name</span><span class="o">=</span><span class="s2">"dense_0"</span><span class="p">,</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">epoch</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a> <span class="n">rule_name</span><span class="o">=</span><span class="s2">"dead_relu"</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a> <span class="n">severity</span><span class="o">=</span><span class="s2">"warning"</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a> <span class="n">message</span><span class="o">=</span><span class="s2">"Possible dying ReLU in 'dense_0' (62.0% zeros)"</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a> <span class="n">diagnosis</span><span class="o">=</span><span class="s2">"Neurons producing zero outputs will receive zero gradients and never recover."</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a> <span class="n">recommendations</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a> <span class="s2">"Use LeakyReLU(negative_slope=0.01) instead of ReLU"</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a> <span class="s2">"Lower the learning rate"</span><span class="p">,</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a> <span class="s2">"Use He initialisation"</span><span class="p">,</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a> <span class="p">],</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a> <span class="n">layer_name</span><span class="o">=</span><span class="s2">"dense_0"</span><span class="p">,</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a> <span class="n">epoch</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="p">)</span>
 </span></code></pre></div>
 <hr />
@@ -4734,30 +4734,30 @@
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">summarizer</span> <span class="o">=</span> <span class="n">EpochSummarizer</span><span class="p">()</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">for</span> <span class="n">batch_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_batches</span><span class="p">):</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="n">summarizer</span><span class="o">.</span><span class="n">record_batch</span><span class="p">(</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>            <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>            <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"loss"</span><span class="p">:</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">batch_acc</span><span class="p">},</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>            <span class="n">gradient_norms</span><span class="o">=</span><span class="p">{</span><span class="s2">"dense_0"</span><span class="p">:</span> <span class="n">grad_norm_0</span><span class="p">,</span> <span class="s2">"dense_1"</span><span class="p">:</span> <span class="n">grad_norm_1</span><span class="p">},</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a> <span class="k">for</span> <span class="n">batch_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_batches</span><span class="p">):</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a> <span class="n">summarizer</span><span class="o">.</span><span class="n">record_batch</span><span class="p">(</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a> <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a> <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"loss"</span><span class="p">:</span> <span class="n">batch_loss</span><span class="p">,</span> <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">batch_acc</span><span class="p">},</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a> <span class="n">gradient_norms</span><span class="o">=</span><span class="p">{</span><span class="s2">"dense_0"</span><span class="p">:</span> <span class="n">grad_norm_0</span><span class="p">,</span> <span class="s2">"dense_1"</span><span class="p">:</span> <span class="n">grad_norm_1</span><span class="p">},</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a> <span class="p">)</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">finalize_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">format_text</span><span class="p">())</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a> <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">finalize_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a> <span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">format_text</span><span class="p">())</span>
 </span></code></pre></div>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>══ Epoch 5 Summary (32 batches) ══
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  Metrics:
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    loss                  mean=0.342100  std=0.015200  min=0.310000  max=0.380000
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    accuracy              mean=0.891200  std=0.008500  min=0.870000  max=0.910000
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  Gradient Norms:
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    dense_0               mean=5.23e-02  std=1.12e-02  min=3.10e-02  max=8.40e-02
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    dense_1               mean=2.10e-02  std=5.30e-03  min=1.20e-02  max=3.50e-02
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a> Metrics:
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a> loss mean=0.342100 std=0.015200 min=0.310000 max=0.380000
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a> accuracy mean=0.891200 std=0.008500 min=0.870000 max=0.910000
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a> Gradient Norms:
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a> dense_0 mean=5.23e-02 std=1.12e-02 min=3.10e-02 max=8.40e-02
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a> dense_1 mean=2.10e-02 std=5.30e-03 min=1.20e-02 max=3.50e-02
 </span></code></pre></div>
 <h3 id="programmatic-access">Programmatic Access<a class="headerlink" href="#programmatic-access" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Get structured data</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">d</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"metrics"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">][</span><span class="s2">"mean"</span><span class="p">])</span>   <span class="c1"># 0.3421</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"metrics"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">][</span><span class="s2">"std"</span><span class="p">])</span>    <span class="c1"># 0.0152</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"metrics"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">][</span><span class="s2">"mean"</span><span class="p">])</span> <span class="c1"># 0.3421</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"metrics"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">][</span><span class="s2">"std"</span><span class="p">])</span> <span class="c1"># 0.0152</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Get all epoch summaries</span>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">all_summaries</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">get_all_summaries</span><span class="p">()</span>
@@ -4796,9 +4796,9 @@
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.logging.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">TrainingLogger</span><span class="p">,</span> <span class="n">LogLevel</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">storage</span> <span class="o">=</span> <span class="n">TieredStorage</span><span class="p">(</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">base_dir</span><span class="o">=</span><span class="s2">"./training_logs"</span><span class="p">,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">write_debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>       <span class="c1"># set False in production to save I/O</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">buffer_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>          <span class="c1"># flush every 50 events</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a> <span class="n">base_dir</span><span class="o">=</span><span class="s2">"./training_logs"</span><span class="p">,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a> <span class="n">write_debug</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># set False in production to save I/O</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="c1"># flush every 50 events</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">)</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
 </span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">TrainingLogger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">LogLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">)</span>
@@ -4806,15 +4806,15 @@
 </span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># ... train as normal ...</span>
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="n">storage</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>    <span class="c1"># final flush</span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="n">storage</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>    <span class="c1"># cleanup</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="n">storage</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span> <span class="c1"># final flush</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="n">storage</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># cleanup</span>
 </span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
 </span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="c1"># Check what was written</span>
 </span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">storage</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
 </span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="c1"># {'basic': {'events': 42, 'size_bytes': 8192},</span>
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="c1">#  'health': {'events': 3, 'size_bytes': 1024},</span>
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="c1">#  'debug': {'events': 12500, 'size_bytes': 2097152},</span>
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="c1">#  'total_events': 12545}</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="c1"># 'health': {'events': 3, 'size_bytes': 1024},</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="c1"># 'debug': {'events': 12500, 'size_bytes': 2097152},</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="c1"># 'total_events': 12545}</span>
 </span></code></pre></div>
 <h3 id="reading-logs">Reading Logs<a class="headerlink" href="#reading-logs" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Easy to grep through specific tiers</span>
@@ -4835,11 +4835,11 @@
 <p>The <code>DashboardExporter</code> generates a <strong>self-contained interactive HTML dashboard</strong> with Chart.js charts.</p>
 <h3 id="charts-included">Charts Included<a class="headerlink" href="#charts-included" title="Permanent link">&para;</a></h3>
 <ul>
-<li>📉 Loss curves (train + validation)</li>
-<li>📈 Accuracy curves (train + validation)</li>
-<li>⏱️ Epoch timing bar chart</li>
-<li>📊 Raw batch-level loss curve</li>
-<li>🩺 Health diagnostics timeline</li>
+<li>Loss curves (train + validation)</li>
+<li>Accuracy curves (train + validation)</li>
+<li>️ Epoch timing bar chart</li>
+<li>Raw batch-level loss curve</li>
+<li>Health diagnostics timeline</li>
 </ul>
 <h3 id="usage_4">Usage<a class="headerlink" href="#usage_4" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.logging.dashboard</span><span class="w"> </span><span class="kn">import</span> <span class="n">DashboardExporter</span>
@@ -4851,7 +4851,7 @@
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># ... train as normal ...</span>
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">dashboard</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>  <span class="c1"># generates the interactive HTML file</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="n">dashboard</span><span class="o">.</span><span class="n">save</span><span class="p">()</span> <span class="c1"># generates the interactive HTML file</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1"># Open training_logs/dashboard.html in any browser</span>
 </span></code></pre></div>
 <h3 id="tensorboard-integration">TensorBoard Integration<a class="headerlink" href="#tensorboard-integration" title="Permanent link">&para;</a></h3>
@@ -4859,23 +4859,23 @@
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">tb</span> <span class="o">=</span> <span class="n">TensorBoardBridge</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s2">"./tb_logs"</span><span class="p">)</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">if</span> <span class="n">tb</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">add_backend</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="c1"># ... after training ...</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">tb</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="c1"># Then: tensorboard --logdir=./tb_logs</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a> <span class="n">logger</span><span class="o">.</span><span class="n">add_backend</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a> <span class="c1"># ... after training ...</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a> <span class="n">tb</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a> <span class="c1"># Then: tensorboard --logdir=./tb_logs</span>
 </span></code></pre></div>
 <h3 id="weights-biases-integration">Weights &amp; Biases Integration<a class="headerlink" href="#weights-biases-integration" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.logging.dashboard</span><span class="w"> </span><span class="kn">import</span> <span class="n">WandBBridge</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">wandb_bridge</span> <span class="o">=</span> <span class="n">WandBBridge</span><span class="p">(</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">project</span><span class="o">=</span><span class="s2">"my_experiment"</span><span class="p">,</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">run_name</span><span class="o">=</span><span class="s2">"experiment_001"</span><span class="p">,</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">"epochs"</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a> <span class="n">project</span><span class="o">=</span><span class="s2">"my_experiment"</span><span class="p">,</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a> <span class="n">run_name</span><span class="o">=</span><span class="s2">"experiment_001"</span><span class="p">,</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a> <span class="n">config</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">"epochs"</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
 </span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p">)</span>
 </span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="k">if</span> <span class="n">wandb_bridge</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    <span class="n">logger</span><span class="o">.</span><span class="n">add_backend</span><span class="p">(</span><span class="n">wandb_bridge</span><span class="p">)</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>    <span class="c1"># ... after training ...</span>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="n">wandb_bridge</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a> <span class="n">logger</span><span class="o">.</span><span class="n">add_backend</span><span class="p">(</span><span class="n">wandb_bridge</span><span class="p">)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a> <span class="c1"># ... after training ...</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a> <span class="n">wandb_bridge</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></code></pre></div>
 <hr />
 <h2 id="6-training-fingerprint-reproducibility-block">6. Training Fingerprint / Reproducibility Block<a class="headerlink" href="#6-training-fingerprint-reproducibility-block" title="Permanent link">&para;</a></h2>
@@ -4928,10 +4928,10 @@
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">fingerprint</span> <span class="o">=</span> <span class="n">TrainingFingerprint</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">model_info</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"my_model"</span><span class="p">,</span> <span class="s2">"layers"</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]},</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="n">hyperparameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">"batch_size"</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">"epochs"</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">dataset</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span>        <span class="c1"># auto-hashed</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a> <span class="n">model_info</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"my_model"</span><span class="p">,</span> <span class="s2">"layers"</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]},</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a> <span class="n">hyperparameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">"batch_size"</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">"epochs"</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a> <span class="n">dataset</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="c1"># auto-hashed</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
 </span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p">)</span>
 </span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
 </span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># Pretty-print</span>
@@ -4939,32 +4939,32 @@
 </span></code></pre></div>
 <h3 id="output_1">Output<a class="headerlink" href="#output_1" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>╔══ Training Fingerprint ══╗
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  Run ID:       a1b2c3d4e5f6
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  Timestamp:    2026-02-27 14:30:00
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  Seed:         42
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  Dataset Hash: 8f14e45fceea167a
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  Dataset:      (10000, 784) (float64)
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  Neurogebra:   1.3.0
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>  Python:       3.11.5
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>  NumPy:        1.26.0
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  CPU:          AMD64 Family (8 cores)
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>  RAM:          16.0 GB
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>  GPU:          NVIDIA GeForce RTX 3060
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>  OS:           Windows 10
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>  Git:          main@a1b2c3d4 (dirty)
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>  Model Hash:   f47ac10b58cc
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>  Hyperparams:  {'lr': 0.01, 'batch_size': 32, 'epochs': 50}
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a> Run ID: a1b2c3d4e5f6
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a> Timestamp: 2026-02-27 14:30:00
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a> Seed: 42
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a> Dataset Hash: 8f14e45fceea167a
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a> Dataset: (10000, 784) (float64)
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a> Neurogebra: 1.3.0
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a> Python: 3.11.5
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a> NumPy: 1.26.0
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a> CPU: AMD64 Family (8 cores)
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a> RAM: 16.0 GB
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a> GPU: NVIDIA GeForce RTX 3060
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a> OS: Windows 10
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a> Git: main@a1b2c3d4 (dirty)
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a> Model Hash: f47ac10b58cc
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a> Hyperparams: {'lr': 0.01, 'batch_size': 32, 'epochs': 50}
 </span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>╚═════════════════════════╝
 </span></code></pre></div>
 <h3 id="serialisation">Serialisation<a class="headerlink" href="#serialisation" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Save to JSON</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"fingerprint.json"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">fingerprint</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a> <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">fingerprint</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># Load back</span>
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"fingerprint.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>    <span class="n">fp2</span> <span class="o">=</span> <span class="n">TrainingFingerprint</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a> <span class="n">fp2</span> <span class="o">=</span> <span class="n">TrainingFingerprint</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
 </span></code></pre></div>
 <hr />
 <h2 id="full-integration-example">Full Integration Example<a class="headerlink" href="#full-integration-example" title="Permanent link">&para;</a></h2>
@@ -4982,44 +4982,44 @@
 </span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="c1"># 1. Build model</span>
 </span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="n">builder</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">()</span>
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="n">model</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">),</span>
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"tanh"</span><span class="p">),</span>
-</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"sigmoid"</span><span class="p">),</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a> <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">),</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a> <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"tanh"</span><span class="p">),</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a> <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"sigmoid"</span><span class="p">),</span>
 </span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">"my_model"</span><span class="p">)</span>
 </span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>
 </span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="c1"># 2. Create logging pipeline</span>
 </span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="n">base_logger</span> <span class="o">=</span> <span class="n">TrainingLogger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">LogLevel</span><span class="o">.</span><span class="n">EXPERT</span><span class="p">)</span>
-</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="n">adaptive</span> <span class="o">=</span> <span class="n">AdaptiveLogger</span><span class="p">(</span><span class="n">base_logger</span><span class="p">)</span>              <span class="c1"># Smart filtering</span>
-</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="n">storage</span> <span class="o">=</span> <span class="n">TieredStorage</span><span class="p">(</span><span class="n">base_dir</span><span class="o">=</span><span class="s2">"./logs"</span><span class="p">)</span>           <span class="c1"># Tiered files</span>
-</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="n">dashboard</span> <span class="o">=</span> <span class="n">DashboardExporter</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"./logs/dash.html"</span><span class="p">)</span>  <span class="c1"># Visual dashboard</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="n">adaptive</span> <span class="o">=</span> <span class="n">AdaptiveLogger</span><span class="p">(</span><span class="n">base_logger</span><span class="p">)</span> <span class="c1"># Smart filtering</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="n">storage</span> <span class="o">=</span> <span class="n">TieredStorage</span><span class="p">(</span><span class="n">base_dir</span><span class="o">=</span><span class="s2">"./logs"</span><span class="p">)</span> <span class="c1"># Tiered files</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="n">dashboard</span> <span class="o">=</span> <span class="n">DashboardExporter</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"./logs/dash.html"</span><span class="p">)</span> <span class="c1"># Visual dashboard</span>
 </span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a><span class="n">base_logger</span><span class="o">.</span><span class="n">add_backend</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
 </span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a><span class="n">base_logger</span><span class="o">.</span><span class="n">add_backend</span><span class="p">(</span><span class="n">dashboard</span><span class="p">)</span>
 </span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>
-</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a><span class="n">warnings</span> <span class="o">=</span> <span class="n">AutoHealthWarnings</span><span class="p">()</span>                      <span class="c1"># Auto health rules</span>
-</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a><span class="n">summarizer</span> <span class="o">=</span> <span class="n">EpochSummarizer</span><span class="p">()</span>                       <span class="c1"># Epoch aggregation</span>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a><span class="n">warnings</span> <span class="o">=</span> <span class="n">AutoHealthWarnings</span><span class="p">()</span> <span class="c1"># Auto health rules</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a><span class="n">summarizer</span> <span class="o">=</span> <span class="n">EpochSummarizer</span><span class="p">()</span> <span class="c1"># Epoch aggregation</span>
 </span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>
 </span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a><span class="c1"># 3. Capture fingerprint</span>
 </span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="n">fp</span> <span class="o">=</span> <span class="n">TrainingFingerprint</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span>
-</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a>    <span class="n">model_info</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"my_model"</span><span class="p">,</span> <span class="s2">"layers"</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
-</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a>    <span class="n">hyperparameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">"batch_size"</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">"epochs"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
-</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a>    <span class="n">dataset</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span>
-</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a>    <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a> <span class="n">model_info</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"my_model"</span><span class="p">,</span> <span class="s2">"layers"</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a> <span class="n">hyperparameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s2">"batch_size"</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span> <span class="s2">"epochs"</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a> <span class="n">dataset</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span>
+</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a> <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
 </span><span id="__span-16-36"><a id="__codelineno-16-36" name="__codelineno-16-36" href="#__codelineno-16-36"></a><span class="p">)</span>
 </span><span id="__span-16-37"><a id="__codelineno-16-37" name="__codelineno-16-37" href="#__codelineno-16-37"></a><span class="nb">print</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">format_text</span><span class="p">())</span>
 </span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38" href="#__codelineno-16-38"></a>
 </span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39" href="#__codelineno-16-39"></a><span class="c1"># 4. Train with full diagnostics</span>
 </span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40" href="#__codelineno-16-40"></a><span class="n">adaptive</span><span class="o">.</span><span class="n">on_train_start</span><span class="p">(</span><span class="n">total_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">model_info</span><span class="o">=</span><span class="n">fp</span><span class="o">.</span><span class="n">model_info</span><span class="p">)</span>
 </span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41" href="#__codelineno-16-41"></a><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
-</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42" href="#__codelineno-16-42"></a>    <span class="n">adaptive</span><span class="o">.</span><span class="n">on_epoch_start</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
-</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43" href="#__codelineno-16-43"></a>    <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_batches</span><span class="p">):</span>
-</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44" href="#__codelineno-16-44"></a>        <span class="c1"># ... training step ...</span>
-</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45" href="#__codelineno-16-45"></a>        <span class="n">summarizer</span><span class="o">.</span><span class="n">record_batch</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">})</span>
-</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46" href="#__codelineno-16-46"></a>        <span class="n">warnings</span><span class="o">.</span><span class="n">check_batch</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="n">batch</span><span class="p">)</span>
+</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42" href="#__codelineno-16-42"></a> <span class="n">adaptive</span><span class="o">.</span><span class="n">on_epoch_start</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43" href="#__codelineno-16-43"></a> <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_batches</span><span class="p">):</span>
+</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44" href="#__codelineno-16-44"></a> <span class="c1"># ... training step ...</span>
+</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45" href="#__codelineno-16-45"></a> <span class="n">summarizer</span><span class="o">.</span><span class="n">record_batch</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">})</span>
+</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46" href="#__codelineno-16-46"></a> <span class="n">warnings</span><span class="o">.</span><span class="n">check_batch</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="n">batch</span><span class="p">)</span>
 </span><span id="__span-16-47"><a id="__codelineno-16-47" name="__codelineno-16-47" href="#__codelineno-16-47"></a>
-</span><span id="__span-16-48"><a id="__codelineno-16-48" name="__codelineno-16-48" href="#__codelineno-16-48"></a>    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">finalize_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
-</span><span id="__span-16-49"><a id="__codelineno-16-49" name="__codelineno-16-49" href="#__codelineno-16-49"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">format_text</span><span class="p">())</span>
-</span><span id="__span-16-50"><a id="__codelineno-16-50" name="__codelineno-16-50" href="#__codelineno-16-50"></a>    <span class="n">warnings</span><span class="o">.</span><span class="n">check_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">train_loss</span><span class="o">=</span><span class="n">train_loss</span><span class="p">,</span> <span class="n">val_loss</span><span class="o">=</span><span class="n">val_loss</span><span class="p">)</span>
-</span><span id="__span-16-51"><a id="__codelineno-16-51" name="__codelineno-16-51" href="#__codelineno-16-51"></a>    <span class="n">adaptive</span><span class="o">.</span><span class="n">on_epoch_end</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"loss"</span><span class="p">:</span> <span class="n">train_loss</span><span class="p">})</span>
+</span><span id="__span-16-48"><a id="__codelineno-16-48" name="__codelineno-16-48" href="#__codelineno-16-48"></a> <span class="n">summary</span> <span class="o">=</span> <span class="n">summarizer</span><span class="o">.</span><span class="n">finalize_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+</span><span id="__span-16-49"><a id="__codelineno-16-49" name="__codelineno-16-49" href="#__codelineno-16-49"></a> <span class="nb">print</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">format_text</span><span class="p">())</span>
+</span><span id="__span-16-50"><a id="__codelineno-16-50" name="__codelineno-16-50" href="#__codelineno-16-50"></a> <span class="n">warnings</span><span class="o">.</span><span class="n">check_epoch</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">train_loss</span><span class="o">=</span><span class="n">train_loss</span><span class="p">,</span> <span class="n">val_loss</span><span class="o">=</span><span class="n">val_loss</span><span class="p">)</span>
+</span><span id="__span-16-51"><a id="__codelineno-16-51" name="__codelineno-16-51" href="#__codelineno-16-51"></a> <span class="n">adaptive</span><span class="o">.</span><span class="n">on_epoch_end</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"loss"</span><span class="p">:</span> <span class="n">train_loss</span><span class="p">})</span>
 </span><span id="__span-16-52"><a id="__codelineno-16-52" name="__codelineno-16-52" href="#__codelineno-16-52"></a>
 </span><span id="__span-16-53"><a id="__codelineno-16-53" name="__codelineno-16-53" href="#__codelineno-16-53"></a><span class="n">adaptive</span><span class="o">.</span><span class="n">on_train_end</span><span class="p">()</span>
 </span><span id="__span-16-54"><a id="__codelineno-16-54" name="__codelineno-16-54" href="#__codelineno-16-54"></a>
@@ -5981,7 +5981,9 @@ events when the adaptive logger un-mutes them.</p>
 
     </div>
 
-</div><h3 id="anomalyconfig"><code>AnomalyConfig</code><a class="headerlink" href="#anomalyconfig" title="Permanent link">&para;</a></h3>
+</div><p>options:
+ show_source: true</p>
+<h3 id="anomalyconfig"><code>AnomalyConfig</code><a class="headerlink" href="#anomalyconfig" title="Permanent link">&para;</a></h3>
 
 
 <div class="doc doc-object doc-class">
