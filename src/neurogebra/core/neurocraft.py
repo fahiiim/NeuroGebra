@@ -47,7 +47,7 @@ class NeuroCraft:
 
     def _show_welcome(self):
         """Show welcome message for beginners."""
-        print("🎓 Welcome to Neurogebra!")
+        print("Welcome to Neurogebra.")
         print("   Type craft.tutorial() to start learning")
         print("   Type craft.search('activation') to explore")
 
@@ -160,7 +160,7 @@ class NeuroCraft:
 
     def _display_search_results(self, results: list[tuple]):
         """Display search results with formatting."""
-        print(f"\n📚 Found {len(results)} expressions:\n")
+        print(f"\n Found {len(results)} expressions:\n")
 
         for name, expr in results[:10]:
             category = expr.metadata.get("category", "general")

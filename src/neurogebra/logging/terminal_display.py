@@ -68,10 +68,10 @@ _SEVERITY_STYLES = {
 
 _SEVERITY_ICONS = {
     "info": "ℹ️ ",
-    "success": "✅",
-    "warning": "⚠️ ",
-    "danger": "🔴",
-    "critical": "🚨",
+    "success": "[PASS]",
+    "warning": "[WARN]",
+    "danger": "[FAIL]",
+    "critical": "[CRITICAL]",
 }
 
 
@@ -303,7 +303,7 @@ class TerminalDisplay:
         delta = new - old
         sty = "green" if abs(delta) > 1e-8 else "dim"
         self.console.print(
-            f"    ⚡ {param}: {old:.6f} → [{sty}]{new:.6f}[/]  (Δ={delta:+.2e})"
+            f"     {param}: {old:.6f} → [{sty}]{new:.6f}[/]  (Δ={delta:+.2e})"
         )
 
     def handle_health_check(self, event: LogEvent) -> None:
@@ -318,7 +318,7 @@ class TerminalDisplay:
 
         self.console.print(text)
         for rec in recs:
-            self.console.print(f"      💡 {rec}", style="dim")
+            self.console.print(f"       {rec}", style="dim")
 
     def handle_batch_end(self, event: LogEvent) -> None:
         d = event.data

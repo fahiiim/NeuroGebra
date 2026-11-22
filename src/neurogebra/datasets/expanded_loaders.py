@@ -44,7 +44,7 @@ class ExpandedDatasets:
         7-class classification of forest cover types.
         """
         if verbose:
-            print(f"📦 Generating Covertype dataset ({n_samples} samples)...")
+            print(f"Generating Covertype dataset ({n_samples} samples)...")
             print("   • Features: 54 (elevation, slope, soil type, etc.)")
             print("   • Classes: 7 (forest cover types)")
             print("   • Good for: Multi-class classification")
@@ -61,7 +61,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -76,7 +76,7 @@ class ExpandedDatasets:
         26-class classification of uppercase letters.
         """
         if verbose:
-            print(f"📦 Generating Letter Recognition dataset ({n_samples} samples)...")
+            print(f"Generating Letter Recognition dataset ({n_samples} samples)...")
             print("   • Features: 16 (statistical moments, edge counts)")
             print("   • Classes: 26 (letters A-Z)")
             print("   • Good for: Multi-class classification, OCR")
@@ -93,7 +93,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -108,7 +108,7 @@ class ExpandedDatasets:
         Imbalanced classification of shuttle positions.
         """
         if verbose:
-            print(f"📦 Generating Shuttle dataset ({n_samples} samples)...")
+            print(f"Generating Shuttle dataset ({n_samples} samples)...")
             print("   • Features: 9 (positional data)")
             print("   • Classes: 7 (shuttle positions)")
             print("   • Good for: Imbalanced classification")
@@ -128,7 +128,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -143,7 +143,7 @@ class ExpandedDatasets:
         Classification of handwritten digits from normalized bitmaps.
         """
         if verbose:
-            print(f"📦 Generating Optical Recognition dataset ({n_samples} samples)...")
+            print(f"Generating Optical Recognition dataset ({n_samples} samples)...")
             print("   • Features: 64 (8x8 bitmap)")
             print("   • Classes: 10 (digits 0-9)")
             print("   • Good for: Image classification, OCR")
@@ -160,7 +160,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -175,7 +175,7 @@ class ExpandedDatasets:
         Classification from pen trajectory data.
         """
         if verbose:
-            print(f"📦 Generating Pendigits dataset ({n_samples} samples)...")
+            print(f"Generating Pendigits dataset ({n_samples} samples)...")
             print("   • Features: 16 (x,y coordinates of pen trajectory)")
             print("   • Classes: 10 (digits 0-9)")
             print("   • Good for: Sequence classification, handwriting")
@@ -192,7 +192,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -207,7 +207,7 @@ class ExpandedDatasets:
         Multi-class classification of land cover types from satellite data.
         """
         if verbose:
-            print(f"📦 Generating Statlog (Satellite) dataset ({n_samples} samples)...")
+            print(f"Generating Statlog (Satellite) dataset ({n_samples} samples)...")
             print("   • Features: 36 (multi-spectral pixel values)")
             print("   • Classes: 6 (land cover types)")
             print("   • Good for: Remote sensing, image classification")
@@ -225,7 +225,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -240,7 +240,7 @@ class ExpandedDatasets:
         3-class classification: win, loss, draw.
         """
         if verbose:
-            print(f"📦 Generating Connect-4 dataset ({n_samples} samples)...")
+            print(f"Generating Connect-4 dataset ({n_samples} samples)...")
             print("   • Features: 42 (board positions)")
             print("   • Classes: 3 (win/loss/draw)")
             print("   • Good for: Game AI, multi-class classification")
@@ -257,7 +257,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -272,7 +272,7 @@ class ExpandedDatasets:
         4-class classification of vehicle types.
         """
         if verbose:
-            print(f"📦 Generating Vehicle dataset ({n_samples} samples)...")
+            print(f"Generating Vehicle dataset ({n_samples} samples)...")
             print("   • Features: 18 (shape features)")
             print("   • Classes: 4 (vehicle types)")
             print("   • Good for: Shape classification, pattern recognition")
@@ -289,7 +289,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -304,7 +304,7 @@ class ExpandedDatasets:
         11-class classification of spoken vowels.
         """
         if verbose:
-            print(f"📦 Generating Vowel dataset ({n_samples} samples)...")
+            print(f"Generating Vowel dataset ({n_samples} samples)...")
             print("   • Features: 10 (speech features)")
             print("   • Classes: 11 (vowel sounds)")
             print("   • Good for: Speech recognition, audio classification")
@@ -321,7 +321,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -336,7 +336,7 @@ class ExpandedDatasets:
         7-class classification of outdoor images.
         """
         if verbose:
-            print(f"📦 Generating Segment dataset ({n_samples} samples)...")
+            print(f"Generating Segment dataset ({n_samples} samples)...")
             print("   • Features: 19 (region attributes)")
             print(
                 "   • Classes: 7 (brickface, sky, foliage, cement, window, path, grass)"
@@ -355,7 +355,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -374,7 +374,7 @@ class ExpandedDatasets:
         Predict heating/cooling load of buildings.
         """
         if verbose:
-            print(f"📦 Generating Energy Efficiency dataset ({n_samples} samples)...")
+            print(f"Generating Energy Efficiency dataset ({n_samples} samples)...")
             print("   • Features: 8 (building parameters)")
             print("   • Target: Heating/cooling load")
             print("   • Good for: Regression, green building design")
@@ -423,7 +423,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -438,7 +438,7 @@ class ExpandedDatasets:
         Predict net hourly electrical energy output.
         """
         if verbose:
-            print(f"📦 Generating Power Plant dataset ({n_samples} samples)...")
+            print(f"Generating Power Plant dataset ({n_samples} samples)...")
             print("   • Features: 4 (temperature, pressure, humidity, vacuum)")
             print("   • Target: Net hourly electrical energy output")
             print("   • Good for: Regression, energy prediction")
@@ -476,7 +476,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -491,7 +491,7 @@ class ExpandedDatasets:
         Predict residuary resistance of sailing yachts.
         """
         if verbose:
-            print(f"📦 Generating Yacht Hydrodynamics dataset ({n_samples} samples)...")
+            print(f"Generating Yacht Hydrodynamics dataset ({n_samples} samples)...")
             print("   • Features: 6 (hull geometry, velocity)")
             print("   • Target: Residuary resistance")
             print("   • Good for: Regression, engineering optimization")
@@ -538,7 +538,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -553,7 +553,7 @@ class ExpandedDatasets:
         Predict sound pressure level from airfoil parameters.
         """
         if verbose:
-            print(f"📦 Generating Airfoil Self-Noise dataset ({n_samples} samples)...")
+            print(f"Generating Airfoil Self-Noise dataset ({n_samples} samples)...")
             print("   • Features: 5 (frequency, angle of attack, etc.)")
             print("   • Target: Sound pressure level (dB)")
             print("   • Good for: Regression, aerodynamics")
@@ -593,7 +593,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -608,7 +608,7 @@ class ExpandedDatasets:
         Predict wine quality score from physicochemical tests.
         """
         if verbose:
-            print(f"📦 Generating Red Wine Quality dataset ({n_samples} samples)...")
+            print(f"Generating Red Wine Quality dataset ({n_samples} samples)...")
             print("   • Features: 11 (acidity, sugar, alcohol, etc.)")
             print("   • Target: Quality score (0-10)")
             print("   • Good for: Regression, food science")
@@ -668,7 +668,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -683,7 +683,7 @@ class ExpandedDatasets:
         Predict age of abalone from physical measurements.
         """
         if verbose:
-            print(f"📦 Generating Abalone dataset ({n_samples} samples)...")
+            print(f"Generating Abalone dataset ({n_samples} samples)...")
             print("   • Features: 8 (sex, length, diameter, weight, etc.)")
             print("   • Target: Age (rings + 1.5)")
             print("   • Good for: Regression, biology")
@@ -727,7 +727,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -747,7 +747,7 @@ class ExpandedDatasets:
         Generate isotropic Gaussian blobs for clustering.
         """
         if verbose:
-            print(f"📦 Generating blobs dataset ({n_samples} samples)...")
+            print(f"Generating blobs dataset ({n_samples} samples)...")
             print(f"   • Features: {n_features}")
             print(f"   • Centers: {centers}")
             print("   • Good for: Clustering, classification")
@@ -773,7 +773,7 @@ class ExpandedDatasets:
             np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X.astype(np.float32), y
 
@@ -787,7 +787,7 @@ class ExpandedDatasets:
         Generate Swiss roll dataset for manifold learning.
         """
         if verbose:
-            print(f"📦 Generating Swiss roll dataset ({n_samples} samples)...")
+            print(f"Generating Swiss roll dataset ({n_samples} samples)...")
             print("   • Features: 3D coordinates")
             print("   • Good for: Manifold learning, dimensionality reduction")
             print()
@@ -808,7 +808,7 @@ class ExpandedDatasets:
             np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X.astype(np.float32), t.astype(np.float32)
 
@@ -822,7 +822,7 @@ class ExpandedDatasets:
         Generate S-curve dataset for manifold learning.
         """
         if verbose:
-            print(f"📦 Generating S-curve dataset ({n_samples} samples)...")
+            print(f"Generating S-curve dataset ({n_samples} samples)...")
             print("   • Features: 3D coordinates")
             print(
                 "   • Good for: Manifold learning, non-linear dimensionality reduction"
@@ -845,7 +845,7 @@ class ExpandedDatasets:
             np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X.astype(np.float32), t.astype(np.float32)
 
@@ -858,7 +858,7 @@ class ExpandedDatasets:
         Generate checkerboard pattern for complex classification.
         """
         if verbose:
-            print(f"📦 Generating checkerboard dataset ({n_samples} samples)...")
+            print(f"Generating checkerboard dataset ({n_samples} samples)...")
             print("   • Features: 2D coordinates")
             print("   • Classes: 2 (like a checkerboard)")
             print("   • Good for: Complex decision boundaries")
@@ -870,7 +870,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y
 
@@ -884,7 +884,7 @@ class ExpandedDatasets:
         Generate two intertwining spirals.
         """
         if verbose:
-            print(f"📦 Generating spiral dataset ({n_samples} samples)...")
+            print(f"Generating spiral dataset ({n_samples} samples)...")
             print("   • Features: 2D coordinates")
             print("   • Classes: 2 (two spirals)")
             print("   • Good for: Non-linear classification, deep learning")
@@ -917,7 +917,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y
 
@@ -930,7 +930,7 @@ class ExpandedDatasets:
         Generate half-kernel shaped clusters.
         """
         if verbose:
-            print(f"📦 Generating half-kernel dataset ({n_samples} samples)...")
+            print(f"Generating half-kernel dataset ({n_samples} samples)...")
             print("   • Features: 2D coordinates")
             print("   • Classes: 2")
             print("   • Good for: Kernel methods, SVM")
@@ -961,7 +961,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y
 
@@ -980,7 +980,7 @@ class ExpandedDatasets:
         Generate sine wave time series.
         """
         if verbose:
-            print(f"📦 Generating sine wave ({n_samples} points)...")
+            print(f"Generating sine wave ({n_samples} points)...")
             print(f"   • Frequency: {frequency} Hz")
             print(f"   • Noise: {noise}")
             print("   • Good for: Time series forecasting, sequence learning")
@@ -992,7 +992,7 @@ class ExpandedDatasets:
         ).astype(np.float32)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return t.ravel(), y.ravel()
 
@@ -1007,7 +1007,7 @@ class ExpandedDatasets:
         Generate random walk time series.
         """
         if verbose:
-            print(f"📦 Generating random walk ({n_samples} steps)...")
+            print(f"Generating random walk ({n_samples} steps)...")
             print(f"   • Drift: {drift}")
             print(f"   • Noise: {noise}")
             print("   • Good for: Time series analysis, stochastic processes")
@@ -1020,7 +1020,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return t, walk
 
@@ -1035,7 +1035,7 @@ class ExpandedDatasets:
         Generate autoregressive (AR) process.
         """
         if verbose:
-            print(f"📦 Generating AR process ({n_samples} points)...")
+            print(f"Generating AR process ({n_samples} points)...")
             print(f"   • AR coefficient: {ar_coef}")
             print("   • Good for: Time series forecasting, ARIMA models")
             print()
@@ -1051,7 +1051,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return t, y
 
@@ -1067,7 +1067,7 @@ class ExpandedDatasets:
         Generate seasonal time series with trend.
         """
         if verbose:
-            print(f"📦 Generating seasonal data ({n_samples} days)...")
+            print(f"Generating seasonal data ({n_samples} days)...")
             print(f"   • Period: {period} days")
             print(f"   • Trend: {trend}")
             print("   • Good for: Seasonal forecasting, decomposition")
@@ -1090,7 +1090,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return t, y
 
@@ -1106,7 +1106,7 @@ class ExpandedDatasets:
         Generate synthetic stock price data (geometric Brownian motion).
         """
         if verbose:
-            print(f"📦 Generating stock prices ({n_samples} trading days)...")
+            print(f"Generating stock prices ({n_samples} trading days)...")
             print(f"   • Starting price: ${starting_price}")
             print(f"   • Volatility: {volatility}")
             print("   • Good for: Financial time series, price prediction")
@@ -1119,7 +1119,7 @@ class ExpandedDatasets:
         np.random.seed(None)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return t, prices.astype(np.float32)
 
@@ -1195,11 +1195,11 @@ class ExpandedDatasets:
             "Image Recognition": ["mnist", "fashion_mnist", "digits"],
         }
 
-        print("\n🗂️  Available Datasets (100+ total)\n")
+        print("\n  Available Datasets (100+ total)\n")
 
         total = 0
         for category, dataset_list in datasets.items():
-            print(f"📁 {category} ({len(dataset_list)} datasets)")
+            print(f" {category} ({len(dataset_list)} datasets)")
             for ds in dataset_list:
                 print(f"   • {ds}")
             print()

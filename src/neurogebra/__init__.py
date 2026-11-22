@@ -4,11 +4,12 @@ Neurogebra: Neural-powered mathematics for AI developers.
 A unified library bridging symbolic mathematics, numerical computation,
 and deep learning with educational features built-in.
 
-v2.6.0 -- Hardware Acceleration Engine (C-JIT AVX2 & CUDA GPU), real CNN operations,
-autograd overhaul, Observatory Pro adaptive diagnostics, and full training transparency.
+v2.8.0 -- Hardware Acceleration Engine (C-JIT AVX2 & CUDA GPU), Physics-Informed Neural Networks (PINN),
+Learning Rate Schedulers, Evaluation Metrics, Advanced Layers (LayerNorm, GAP2D, ResidualDense),
+and 20 Production-Grade Executed Notebook Projects.
 """
 
-__version__ = "2.7.0"
+__version__ = "2.8.0"
 __author__ = "Fahim Sarker"
 __email__ = "fahimsarker0805@gmail.com"
 
@@ -37,7 +38,36 @@ from neurogebra.logging.health_warnings import AutoHealthWarnings, WarningConfig
 from neurogebra.logging.logger import LogEvent, LogLevel, TrainingLogger
 from neurogebra.logging.tiered_storage import TieredStorage
 
-# Acceleration Engine (v2.6.0+)
+# Evaluation Metrics (v2.8.0)
+from neurogebra.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    explained_variance_score,
+    f1_score,
+    mean_absolute_error,
+    mean_squared_error,
+    precision_score,
+    r2_score,
+    recall_score,
+    root_mean_squared_error,
+)
+
+# Optimization & Schedulers (v2.8.0)
+from neurogebra.optim import (
+    SGD,
+    Adam,
+    CosineAnnealingLR,
+    ExponentialLR,
+    LRScheduler,
+    Optimizer,
+    ReduceLROnPlateau,
+    RMSprop,
+    StepLR,
+)
+
+# Scientific Machine Learning & PINN (v2.8.0)
+from neurogebra.science import PINN
 
 __all__ = [
     # Core
@@ -68,6 +98,30 @@ __all__ = [
     "TieredStorage",
     "DashboardExporter",
     "TrainingFingerprint",
+    # Optimization & Schedulers (v2.8.0)
+    "Optimizer",
+    "SGD",
+    "Adam",
+    "RMSprop",
+    "LRScheduler",
+    "StepLR",
+    "CosineAnnealingLR",
+    "ExponentialLR",
+    "ReduceLROnPlateau",
+    # Evaluation Metrics (v2.8.0)
+    "accuracy_score",
+    "confusion_matrix",
+    "precision_score",
+    "recall_score",
+    "f1_score",
+    "classification_report",
+    "mean_squared_error",
+    "root_mean_squared_error",
+    "mean_absolute_error",
+    "r2_score",
+    "explained_variance_score",
+    # Science (v2.8.0)
+    "PINN",
     # Meta
     "__version__",
 ]

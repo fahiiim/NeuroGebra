@@ -97,6 +97,11 @@ class Layer:
         "flatten": "Converts multi-dimensional data to 1D for dense layers",
         "maxpool2d": ("Reduces image size by taking maximum values in regions"),
         "batchnorm": ("Normalizes activations in a layer to stabilize training"),
+        "layernorm": ("Normalizes activations across features for each sample"),
+        "global_avgpool2d": ("Averages spatial dimensions into a single feature vector"),
+        "residual_dense": (
+            "Dense layer with a residual skip connection to avoid gradient vanishing"
+        ),
     }
 
     _USE_CASES = {
@@ -110,6 +115,17 @@ class Layer:
         "flatten": ["Bridging conv layers to dense layers"],
         "maxpool2d": ["Downsampling images", "Reducing computation"],
         "batchnorm": ["Faster training", "Reducing internal covariate shift"],
+        "layernorm": ["Transformers", "Recurrent networks", "Feature normalization"],
+        "global_avgpool2d": [
+            "Modern CNN backbones",
+            "Dimension reduction",
+            "Preventing overfitting",
+        ],
+        "residual_dense": [
+            "Deep MLPs",
+            "ResNets",
+            "Complex tabular/scientific problems",
+        ],
     }
 
     def __init__(
@@ -170,6 +186,21 @@ class Layer:
         self._m_beta: np.ndarray | None = None
         self._v_beta: np.ndarray | None = None
 
+        # ResidualDense state
+        self.weights2: np.ndarray | None = None
+        self.bias2: np.ndarray | None = None
+        self.weights_skip: np.ndarray | None = None
+        self.grad_weights2: np.ndarray | None = None
+        self.grad_bias2: np.ndarray | None = None
+        self.grad_weights_skip: np.ndarray | None = None
+        self._last_h1: np.ndarray | None = None
+        self._m_w2: np.ndarray | None = None
+        self._v_w2: np.ndarray | None = None
+        self._m_b2: np.ndarray | None = None
+        self._v_b2: np.ndarray | None = None
+        self._m_wskip: np.ndarray | None = None
+        self._v_wskip: np.ndarray | None = None
+
     # ------------------------------------------------------------------
     # Initialisation (He / Xavier)
     # ------------------------------------------------------------------
@@ -204,19 +235,52 @@ class Layer:
             self._v_gamma = np.zeros_like(self.gamma)
             self._m_beta = np.zeros_like(self.beta)
             self._v_beta = np.zeros_like(self.beta)
+        elif self.layer_type == "layernorm":
+            dim = self.units or input_dim
+            self.gamma = np.ones(dim, dtype=np.float64)
+            self.beta = np.zeros(dim, dtype=np.float64)
+            self._m_gamma = np.zeros_like(self.gamma)
+            self._v_gamma = np.zeros_like(self.gamma)
+            self._m_beta = np.zeros_like(self.beta)
+            self._v_beta = np.zeros_like(self.beta)
+        elif self.layer_type == "residual_dense" and self.units is not None:
+            scale1 = np.sqrt(2.0 / input_dim)
+            self.weights = np.random.randn(input_dim, self.units) * scale1
+            self.bias = np.zeros(self.units)
+            scale2 = np.sqrt(2.0 / self.units)
+            self.weights2 = np.random.randn(self.units, self.units) * scale2
+            self.bias2 = np.zeros(self.units)
+            if input_dim != self.units:
+                scale_skip = np.sqrt(2.0 / input_dim)
+                self.weights_skip = (
+                    np.random.randn(input_dim, self.units) * scale_skip
+                )
+                self._m_wskip = np.zeros_like(self.weights_skip)
+                self._v_wskip = np.zeros_like(self.weights_skip)
+            self._m_w = np.zeros_like(self.weights)
+            self._v_w = np.zeros_like(self.weights)
+            self._m_b = np.zeros_like(self.bias)
+            self._v_b = np.zeros_like(self.bias)
+            self._m_w2 = np.zeros_like(self.weights2)
+            self._v_w2 = np.zeros_like(self.weights2)
+            self._m_b2 = np.zeros_like(self.bias2)
+            self._v_b2 = np.zeros_like(self.bias2)
         self._initialised = True
 
     @property
     def n_params(self) -> int:
         total = 0
-        if self.weights is not None:
-            total += self.weights.size
-        if self.bias is not None:
-            total += self.bias.size
-        if self.gamma is not None:
-            total += self.gamma.size
-        if self.beta is not None:
-            total += self.beta.size
+        for arr in (
+            self.weights,
+            self.bias,
+            self.gamma,
+            self.beta,
+            self.weights2,
+            self.bias2,
+            self.weights_skip,
+        ):
+            if arr is not None:
+                total += arr.size
         return total
 
     # ------------------------------------------------------------------
@@ -322,6 +386,46 @@ class Layer:
                 self._last_output = out
                 return out
 
+        if self.layer_type == "layernorm":
+            if not self._initialised:
+                dim = self.units or x.shape[-1]
+                self._init_params(input_dim=dim)
+            self._last_input = x
+            mean = np.mean(x, axis=-1, keepdims=True)
+            var = np.var(x, axis=-1, keepdims=True)
+            x_norm = (x - mean) / np.sqrt(var + self.eps)
+            self._last_x_norm = x_norm
+            self._last_var = var
+            self._last_mean = mean
+            out = self.gamma * x_norm + self.beta
+            self._last_output = out
+            return out
+
+        if self.layer_type == "global_avgpool2d":
+            if x.ndim == 3:
+                x = x[..., np.newaxis]
+            self._last_input = x
+            out = np.mean(x, axis=(1, 2))
+            self._last_output = out
+            return out
+
+        if self.layer_type == "residual_dense":
+            if not self._initialised:
+                self._init_params(x.shape[-1])
+            self._last_input = x
+            z1 = x @ self.weights + self.bias
+            h1 = _apply_activation(z1, self.activation)
+            z2 = h1 @ self.weights2 + self.bias2
+            if self.weights_skip is not None:
+                shortcut = x @ self.weights_skip
+            else:
+                shortcut = x
+            out = z2 + shortcut
+            self._last_z = z1
+            self._last_h1 = h1
+            self._last_output = out
+            return out
+
         # Passthrough for unknown layer
         return x
 
@@ -425,6 +529,53 @@ class Layer:
             )
             return grad_input
 
+        if self.layer_type == "layernorm":
+            axes = tuple(range(grad_output.ndim - 1))
+            self.grad_beta = np.sum(grad_output, axis=axes)
+            self.grad_gamma = np.sum(grad_output * self._last_x_norm, axis=axes)
+            D = grad_output.shape[-1]
+            inv_std = 1.0 / np.sqrt(self._last_var + self.eps)
+            sum_dy = np.sum(grad_output, axis=-1, keepdims=True)
+            sum_dy_xnorm = np.sum(
+                grad_output * self._last_x_norm, axis=-1, keepdims=True
+            )
+            grad_input = (self.gamma * inv_std / D) * (
+                D * grad_output - sum_dy - self._last_x_norm * sum_dy_xnorm
+            )
+            return grad_input
+
+        if self.layer_type == "global_avgpool2d":
+            N, H, W, C = self._last_input.shape
+            spatial_size = H * W
+            grad_expanded = grad_output[:, np.newaxis, np.newaxis, :]
+            grad_input = np.broadcast_to(
+                grad_expanded / spatial_size, (N, H, W, C)
+            ).copy()
+            if self._last_input.ndim == 3 and grad_input.shape[-1] == 1:
+                grad_input = grad_input.squeeze(-1)
+            return grad_input
+
+        if self.layer_type == "residual_dense":
+            dz2 = grad_output
+            self.grad_weights2 = self._last_h1.T @ dz2
+            self.grad_bias2 = np.sum(dz2, axis=0)
+
+            dh1 = dz2 @ self.weights2.T
+            da1 = _activation_derivative(self._last_z, self._last_h1, self.activation)
+            dz1 = dh1 * da1
+
+            self.grad_weights = self._last_input.T @ dz1
+            self.grad_bias = np.sum(dz1, axis=0)
+
+            dx_main = dz1 @ self.weights.T
+            if self.weights_skip is not None:
+                self.grad_weights_skip = self._last_input.T @ grad_output
+                dx_skip = grad_output @ self.weights_skip.T
+            else:
+                dx_skip = grad_output
+
+            return dx_main + dx_skip
+
         return grad_output
 
     # ------------------------------------------------------------------
@@ -441,7 +592,7 @@ class Layer:
         eps: float = 1e-8,
     ) -> None:
         """Apply gradient update to weights and bias."""
-        if self.layer_type == "batchnorm":
+        if self.layer_type in ("batchnorm", "layernorm"):
             if self.gamma is not None and self.grad_gamma is not None:
                 if optimizer == "sgd":
                     self.gamma -= lr * self.grad_gamma
@@ -466,7 +617,13 @@ class Layer:
         if optimizer == "sgd":
             self.weights -= lr * self.grad_weights
             self.bias -= lr * self.grad_bias
+            if self.weights2 is not None and self.grad_weights2 is not None:
+                self.weights2 -= lr * self.grad_weights2
+                self.bias2 -= lr * self.grad_bias2
+            if self.weights_skip is not None and self.grad_weights_skip is not None:
+                self.weights_skip -= lr * self.grad_weights_skip
         elif optimizer == "adam":
+            # Update W1 & b1
             self._m_w = beta1 * self._m_w + (1 - beta1) * self.grad_weights
             self._v_w = beta2 * self._v_w + (1 - beta2) * self.grad_weights**2
             m_hat_w = self._m_w / (1 - beta1**t)
@@ -479,13 +636,40 @@ class Layer:
             v_hat_b = self._v_b / (1 - beta2**t)
             self.bias -= lr * m_hat_b / (np.sqrt(v_hat_b) + eps)
 
+            # Update W2 & b2 for residual_dense
+            if self.weights2 is not None and self.grad_weights2 is not None:
+                self._m_w2 = beta1 * self._m_w2 + (1 - beta1) * self.grad_weights2
+                self._v_w2 = beta2 * self._v_w2 + (1 - beta2) * (self.grad_weights2**2)
+                m_hat_w2 = self._m_w2 / (1 - beta1**t)
+                v_hat_w2 = self._v_w2 / (1 - beta2**t)
+                self.weights2 -= lr * m_hat_w2 / (np.sqrt(v_hat_w2) + eps)
+
+                self._m_b2 = beta1 * self._m_b2 + (1 - beta1) * self.grad_bias2
+                self._v_b2 = beta2 * self._v_b2 + (1 - beta2) * (self.grad_bias2**2)
+                m_hat_b2 = self._m_b2 / (1 - beta1**t)
+                v_hat_b2 = self._v_b2 / (1 - beta2**t)
+                self.bias2 -= lr * m_hat_b2 / (np.sqrt(v_hat_b2) + eps)
+
+            # Update W_skip if present
+            if self.weights_skip is not None and self.grad_weights_skip is not None:
+                self._m_wskip = (
+                    beta1 * self._m_wskip + (1 - beta1) * self.grad_weights_skip
+                )
+                self._v_wskip = (
+                    beta2 * self._v_wskip + (1 - beta2) * (self.grad_weights_skip**2)
+                )
+                m_hat_wskip = self._m_wskip / (1 - beta1**t)
+                v_hat_wskip = self._v_wskip / (1 - beta2**t)
+                self.weights_skip -= lr * m_hat_wskip / (np.sqrt(v_hat_wskip) + eps)
+
     def zero_grad(self) -> None:
         self.grad_weights = None
         self.grad_bias = None
         self.grad_gamma = None
         self.grad_beta = None
-        self.grad_weights = None
-        self.grad_bias = None
+        self.grad_weights2 = None
+        self.grad_bias2 = None
+        self.grad_weights_skip = None
 
     # ------------------------------------------------------------------
     # Educational
@@ -493,7 +677,7 @@ class Layer:
 
     def explain(self):
         """Explain what this layer does in plain language."""
-        print(f"\n📚 {self.layer_type.upper()} Layer")
+        print(f"\n {self.layer_type.upper()} Layer")
         print(f"   {self.description}")
         print("\n   Best used for:")
         for use_case in self.best_for:
@@ -739,6 +923,40 @@ class ModelBuilder:
         """Create a flatten layer."""
         return Layer("flatten")
 
+    def LayerNorm(self, eps: float = 1e-5) -> Layer:
+        """
+        Create a layer normalization layer.
+
+        Args:
+            eps: Small epsilon for numerical stability.
+
+        Returns:
+            Layer instance
+        """
+        return Layer("layernorm", eps=eps)
+
+    def GlobalAveragePooling2D(self) -> Layer:
+        """
+        Create a global average pooling 2D layer.
+
+        Returns:
+            Layer instance
+        """
+        return Layer("global_avgpool2d")
+
+    def ResidualDense(self, units: int, activation: str = "relu") -> Layer:
+        """
+        Create a dense layer with a residual skip connection.
+
+        Args:
+            units: Number of hidden units.
+            activation: Activation function name.
+
+        Returns:
+            Layer instance
+        """
+        return Layer("residual_dense", units=units, activation=activation)
+
     # ---- Model construction ----
 
     def Sequential(self, layers: list[Layer], name: str | None = None) -> Model:
@@ -820,10 +1038,10 @@ class ModelBuilder:
 
     def list_templates(self):
         """Show all available model templates with descriptions."""
-        print("\n🏗️  Available Model Templates:\n")
+        print("\n  Available Model Templates:\n")
 
         for name, template in self._templates.items():
-            print(f"  📦 {name}")
+            print(f"   {name}")
             print(f"     {template['description']}")
             print(f"     Good for: {', '.join(template['good_for'])}")
             print()
@@ -850,7 +1068,7 @@ class ModelBuilder:
             ...     output_size=10
             ... )
         """
-        print(f"\n💡 Architecture Suggestions for {task}:\n")
+        print(f"\n Architecture Suggestions for {task}:\n")
 
         if task in ("classification", "image_classification"):
             if len(input_shape) == 3:
@@ -895,7 +1113,7 @@ class ModelBuilder:
             print("   4. Dense(1) + Sigmoid")
             print("\n   Use: builder.from_template('binary_classifier')")
 
-        print("\n   💡 Tip: Start with these suggestions, then experiment!")
+        print("\n    Tip: Start with these suggestions, then experiment!")
 
 
 class Model:
@@ -912,11 +1130,11 @@ class Model:
 
     def __init__(
         self,
-        layers: list[Layer],
+        layers: list[Layer] | None = None,
         name: str | None = None,
         craft=None,
     ):
-        self.layers = layers
+        self.layers = list(layers) if layers is not None else []
         self.name = name or "UntitledModel"
         self.craft = craft
         self.template_info: dict | None = None
@@ -940,6 +1158,19 @@ class Model:
             "val_loss": [],
             "val_accuracy": [],
         }
+
+    def add(self, layer: Layer) -> Model:
+        """
+        Add a layer to the model.
+
+        Args:
+            layer: Layer instance to append.
+
+        Returns:
+            self for method chaining.
+        """
+        self.layers.append(layer)
+        return self
 
     def _get_craft(self):
         if self.craft is None:
@@ -1175,13 +1406,13 @@ class Model:
         print(f"{'=' * 60}\n")
 
         if educational and self.template_info:
-            print("  📚 About this architecture:")
+            print("   About this architecture:")
             print(f"     {self.template_info['description']}")
             print(f"     Good for: {', '.join(self.template_info['good_for'])}")
             print()
 
     def explain_architecture(self):
-        print(f"\n🎓 Understanding Your Model: {self.name}\n")
+        print(f"\n Understanding Your Model: {self.name}\n")
         for i, layer in enumerate(self.layers, 1):
             print(f"{'=' * 60}")
             print(f"Layer {i}: {layer.layer_type.upper()}")
@@ -1215,11 +1446,21 @@ class Model:
             log_level: Observatory log level ('silent','basic','detailed','expert','debug').
             log_config: A ``LogConfig`` instance for full control.
         """
-        print("\n⚙️  Compiling model...")
+        print("\nCompiling model...")
 
         self.loss_name = loss
-        self.optimizer = optimizer
-        self.learning_rate = learning_rate
+        if hasattr(optimizer, "learning_rate"):
+            self._optimizer_obj = optimizer
+            self.optimizer = optimizer.__class__.__name__.lower()
+            self.learning_rate = float(optimizer.learning_rate)
+        elif hasattr(optimizer, "lr"):
+            self._optimizer_obj = optimizer
+            self.optimizer = optimizer.__class__.__name__.lower()
+            self.learning_rate = float(optimizer.lr)
+        else:
+            self._optimizer_obj = None
+            self.optimizer = str(optimizer).lower()
+            self.learning_rate = learning_rate
         self.metrics = metrics or ["accuracy"]
 
         try:
@@ -1282,7 +1523,7 @@ class Model:
             print(f"   Observatory: level={self._log_config.level.name}")
 
         self.is_compiled = True
-        print("   ✅ Model compiled successfully!\n")
+        print("   Model compiled successfully.\n")
 
     def fit(
         self,
@@ -1293,6 +1534,7 @@ class Model:
         validation_split: float = 0.2,
         verbose: bool = True,
         visualize: bool = False,
+        lr_scheduler: Any | None = None,
     ) -> dict[str, list[float]]:
         """
         Train the model on data.
@@ -1311,10 +1553,17 @@ class Model:
 
         # If Observatory is active, use real training loop
         if self._logger:
-            return self._real_fit(X, y, epochs, batch_size, validation_split)
+            return self._real_fit(
+                X,
+                y,
+                epochs,
+                batch_size,
+                validation_split,
+                lr_scheduler=lr_scheduler,
+            )
 
         # Otherwise use educational trainer (backward compat)
-        print(f"\n🚀 Training {self.name}...\n")
+        print(f"\n Training {self.name}...\n")
         print(f"   Training samples: {len(X)}")
         print(f"   Epochs: {epochs}")
         print(f"   Batch size: {batch_size}\n")
@@ -1334,7 +1583,7 @@ class Model:
             validation_split=validation_split,
         )
         self.history = history
-        print("\n✅ Training complete!")
+        print("\n[OK] Training complete!")
         print(f"   Final loss: {history['loss'][-1]:.4f}")
         if history.get("accuracy"):
             print(f"   Final accuracy: {history['accuracy'][-1]:.4f}")
@@ -1344,7 +1593,15 @@ class Model:
     # Real training loop with Observatory
     # ------------------------------------------------------------------
 
-    def _real_fit(self, X, y, epochs, batch_size, validation_split):
+    def _real_fit(
+        self,
+        X,
+        y,
+        epochs,
+        batch_size,
+        validation_split,
+        lr_scheduler=None,
+    ):
         from neurogebra.logging.formula_renderer import FormulaRenderer
         from neurogebra.logging.health_checks import SmartHealthChecker
         from neurogebra.logging.image_logger import ImageLogger
@@ -1481,6 +1738,21 @@ class Model:
             self.history["val_loss"].append(val_loss)
             self.history["val_accuracy"].append(val_acc)
 
+            # Step learning rate scheduler if attached
+            if lr_scheduler is not None and hasattr(lr_scheduler, "step"):
+                try:
+                    import inspect
+
+                    sig = inspect.signature(lr_scheduler.step)
+                    if len(sig.parameters) > 0 and "metric" in sig.parameters:
+                        new_lr = lr_scheduler.step(metric=avg_loss)
+                    else:
+                        new_lr = lr_scheduler.step()
+                    if new_lr is not None:
+                        self.learning_rate = float(new_lr)
+                except Exception:
+                    pass
+
             self._logger.on_epoch_end(
                 epoch,
                 metrics={
@@ -1576,7 +1848,7 @@ class Model:
         predictions = self.predict(X)
         loss, _ = self._compute_loss(predictions, y, self.loss_name or "mse")
         acc = self._compute_accuracy(predictions, y)
-        print(f"\n📊 Evaluation — loss: {loss:.4f}, accuracy: {acc:.4f}")
+        print(f"\n Evaluation — loss: {loss:.4f}, accuracy: {acc:.4f}")
         return {"loss": loss, "accuracy": acc}
 
     def save(self, filepath: str):
@@ -1609,7 +1881,7 @@ class Model:
                 },
                 f,
             )
-        print(f"💾 Model saved to {filepath}")
+        print(f"Model saved to {filepath}")
 
     @classmethod
     def load(cls, filepath: str) -> Model:

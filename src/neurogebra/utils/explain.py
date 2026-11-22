@@ -67,13 +67,13 @@ class ExpressionExplainer:
             if "pros" in expression.metadata:
                 lines.append("**Advantages:**")
                 for pro in expression.metadata["pros"]:
-                    lines.append(f"- ✅ {pro}")
+                    lines.append(f"- [OK] {pro}")
                 lines.append("")
 
             if "cons" in expression.metadata:
                 lines.append("**Disadvantages:**")
                 for con in expression.metadata["cons"]:
-                    lines.append(f"- ⚠️ {con}")
+                    lines.append(f"- [WARNING] {con}")
                 lines.append("")
 
         if level == "advanced":

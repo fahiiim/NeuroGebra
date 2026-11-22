@@ -5,6 +5,21 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2026-11-22
+
+### Added
+- **20 Executed GPU Notebook Projects**: Completely authored and executed 20 production-grade Jupyter notebooks in `examples/projects/` on NVIDIA GeForce RTX 5070 GPU, featuring live stdout training logs, stored cell execution counts, and embedded high-resolution Matplotlib figures.
+- **Physics-Informed Neural Networks (`neurogebra.science.PINN`)**: Added deep scientific machine learning solver enforcing ordinary and partial differential equation residuals (Harmonic Oscillator, Burgers' equation, Heat equation) with collocation point sampling and joint data-physics optimization.
+- **Dynamic Learning Rate Schedulers (`neurogebra.optim`)**: Added `LRScheduler` base class, `StepLR`, `CosineAnnealingLR`, `ExponentialLR`, and `ReduceLROnPlateau` with full integration into `ModelBuilder.fit()`.
+- **First-Class Optimizers (`neurogebra.optim`)**: Standalone `SGD`, `Adam`, and `RMSprop` optimizer classes with momentum, weight decay, and velocity state buffers.
+- **Evaluation Metrics (`neurogebra.metrics`)**: Zero-dependency pure Python/NumPy evaluation tools including `accuracy_score`, `confusion_matrix`, `precision_score`, `recall_score`, `f1_score`, `classification_report`, `r2_score`, `mean_squared_error`, `root_mean_squared_error`, `mean_absolute_error`, and `explained_variance_score`.
+- **Modern Neural Network Layers**: Added `LayerNorm`, `GlobalAveragePooling2D`, and `ResidualDense` (skip-connection residual blocks) to `ModelBuilder`.
+- **Model Construction Chaining**: Added `Model.add(layer)` method for intuitive layer stacking.
+
+### Changed & Cleaned
+- **Complete Emoji Removal**: Safely eliminated all emojis across the entire codebase (logs, docstrings, interactive CLI displays, print statements) and documentation (`README.md`), establishing a sleek, professional enterprise aesthetic.
+- **Self-Contained Data Loaders in Projects**: Replaced fragile external dataset downloaders with NeuroGebra's robust built-in loaders (`load_fashion_mnist`, `load_mnist`, `load_california_housing`, `load_spam`, `load_digits`), ensuring 100% offline reproducibility.
+
 ## [2.7.0] - 2026-11-22
 
 ### Added

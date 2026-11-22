@@ -30,17 +30,17 @@ class TutorialSystem:
     def show_menu(self):
         """Show the tutorial menu."""
         print("\n" + "=" * 60)
-        print("🎓 Neurogebra Interactive Tutorials")
+        print(" Neurogebra Interactive Tutorials")
         print("=" * 60 + "\n")
 
         print("Available tutorials:\n")
-        print("1. 📚 basics          - Neural Network Basics (15 min)")
+        print("1.  basics          - Neural Network Basics (15 min)")
         print("   Learn what neural networks are and how they work\n")
-        print("2. 🏗️  first_model     - Build Your First Model (20 min)")
+        print("2.   first_model     - Build Your First Model (20 min)")
         print("   Step-by-step guide to creating a classifier\n")
-        print("3. ⚡ activations      - Understanding Activations (15 min)")
+        print("3.  activations      - Understanding Activations (15 min)")
         print("   Explore different activation functions\n")
-        print("4. 🎯 training        - Training Models (25 min)")
+        print("4.  training        - Training Models (25 min)")
         print("   Learn how to train and evaluate models\n")
 
         print("=" * 60)
@@ -56,7 +56,7 @@ class TutorialSystem:
                    'activations', 'training')
         """
         if topic not in self.tutorials:
-            print(f"❌ Tutorial '{topic}' not found")
+            print(f"[ERROR] Tutorial '{topic}' not found")
             self.show_menu()
             return
 
@@ -70,7 +70,7 @@ class BasicsTutorial:
     def run(self):
         """Run the basics tutorial."""
         print("\n" + "=" * 60)
-        print("📚 Neural Network Basics - Interactive Tutorial")
+        print(" Neural Network Basics - Interactive Tutorial")
         print("=" * 60 + "\n")
 
         self._step1_intro()
@@ -78,7 +78,7 @@ class BasicsTutorial:
         self._step3_layers()
         self._step4_example()
 
-        print("\n✅ Tutorial complete! You're ready to build models.")
+        print("\n[OK] Tutorial complete! You're ready to build models.")
         print("   Next: Try craft.tutorial('first_model')\n")
 
     def _step1_intro(self):
@@ -88,11 +88,11 @@ class BasicsTutorial:
         print("-" * 60 + "\n")
 
         print("A neural network is like a team of workers:\n")
-        print("  🧠 Input Layer:   Receives the data")
+        print("   Input Layer:   Receives the data")
         print("         ↓")
-        print("  🧠 Hidden Layers: Process and find patterns")
+        print("   Hidden Layers: Process and find patterns")
         print("         ↓")
-        print("  🧠 Output Layer:  Makes final prediction")
+        print("   Output Layer:  Makes final prediction")
         print()
         print("Each 'worker' (neuron) does a simple job:")
         print("  1. Takes inputs")
@@ -178,7 +178,7 @@ class FirstModelTutorial:
     def run(self):
         """Run the first model tutorial."""
         print("\n" + "=" * 60)
-        print("🏗️  Build Your First Model - Interactive Tutorial")
+        print("  Build Your First Model - Interactive Tutorial")
         print("=" * 60 + "\n")
 
         print("In this tutorial, you'll learn the steps to build a classifier!\n")
@@ -188,7 +188,7 @@ class FirstModelTutorial:
         self._step3_compile()
         self._step4_train()
 
-        print("\n✅ Congratulations! You've learned the model-building workflow!")
+        print("\n[OK] Congratulations! You've learned the model-building workflow!")
         print("   Next: Experiment with different architectures\n")
 
     def _step1_problem(self):
@@ -278,14 +278,14 @@ class ActivationsTutorial:
     def run(self):
         """Run the activations tutorial."""
         print("\n" + "=" * 60)
-        print("⚡ Understanding Activation Functions")
+        print(" Understanding Activation Functions")
         print("=" * 60 + "\n")
 
         self._step1_what()
         self._step2_common()
         self._step3_choosing()
 
-        print("\n✅ Tutorial complete!")
+        print("\n[OK] Tutorial complete!")
         print("   Try: craft.compare(['relu', 'sigmoid', 'tanh'])")
         print()
 
@@ -334,7 +334,7 @@ class ActivationsTutorial:
         print("  Better ReLU   → Try GELU or Swish")
         print("  RNN/LSTM      → Tanh")
         print()
-        print("  💡 When in doubt, use ReLU for hidden layers!")
+        print("   When in doubt, use ReLU for hidden layers!")
         print()
 
 
@@ -344,7 +344,7 @@ class TrainingTutorial:
     def run(self):
         """Run the training tutorial."""
         print("\n" + "=" * 60)
-        print("🎯 Training Models - Interactive Tutorial")
+        print(" Training Models - Interactive Tutorial")
         print("=" * 60 + "\n")
 
         self._step1_overview()
@@ -353,7 +353,7 @@ class TrainingTutorial:
         self._step4_hyperparams()
         self._step5_evaluation()
 
-        print("\n✅ Tutorial complete! You understand model training.")
+        print("\n[OK] Tutorial complete! You understand model training.")
         print("   Try building and training a model now!\n")
 
     def _step1_overview(self):
@@ -408,7 +408,7 @@ class TrainingTutorial:
         print("  RMSprop")
         print("    → Good for RNNs and non-stationary problems")
         print()
-        print("  💡 Start with Adam, learning_rate=0.001")
+        print("   Start with Adam, learning_rate=0.001")
         print()
 
     def _step4_hyperparams(self):
@@ -441,11 +441,11 @@ class TrainingTutorial:
         print("  >>> results = model.evaluate(X_test, y_test)")
         print()
         print("Watch for:")
-        print("  ✅ Training loss decreasing steadily")
-        print("  ✅ Validation loss following training loss")
-        print("  ⚠️  Val loss much higher → OVERFITTING")
-        print("  ⚠️  Both losses high    → UNDERFITTING")
+        print("  [OK] Training loss decreasing steadily")
+        print("  [OK] Validation loss following training loss")
+        print("  [WARNING]  Val loss much higher → OVERFITTING")
+        print("  [WARNING]  Both losses high    → UNDERFITTING")
         print()
-        print("  💡 If overfitting: add dropout, get more data")
-        print("  💡 If underfitting: bigger model, train longer")
+        print("   If overfitting: add dropout, get more data")
+        print("   If underfitting: bigger model, train longer")
         print()

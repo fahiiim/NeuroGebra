@@ -365,7 +365,7 @@ _DASHBOARD_TEMPLATE = """<!DOCTYPE html>
 </style></head><body>
 
 <div class="header">
-  <h1>🔬 Neurogebra Training Dashboard</h1>
+  <h1>Neurogebra Training Dashboard</h1>
   <p>Generated: {timestamp}</p>
 </div>
 
@@ -387,12 +387,12 @@ _DASHBOARD_TEMPLATE = """<!DOCTYPE html>
   <div class="grid">
 
     <div class="card">
-      <h2>📉 Loss Curves</h2>
+      <h2>Loss Curves</h2>
       <canvas id="lossChart"></canvas>
     </div>
 
     <div class="card">
-      <h2>📈 Accuracy Curves</h2>
+      <h2>Accuracy Curves</h2>
       <canvas id="accChart"></canvas>
     </div>
 
@@ -402,7 +402,7 @@ _DASHBOARD_TEMPLATE = """<!DOCTYPE html>
     </div>
 
     <div class="card">
-      <h2>📊 Batch Loss (raw)</h2>
+      <h2>Batch Loss (raw)</h2>
       <canvas id="batchLossChart"></canvas>
     </div>
 
@@ -410,7 +410,7 @@ _DASHBOARD_TEMPLATE = """<!DOCTYPE html>
 
   <!-- Health diagnostics -->
   <div class="card wide" style="margin-top: 20px;">
-    <h2>🩺 Health Diagnostics</h2>
+    <h2>Health Diagnostics</h2>
     <table>
       <tr><th>Epoch</th><th>Severity</th><th>Message</th><th>Recommendations</th></tr>
       {health_rows}
@@ -419,7 +419,7 @@ _DASHBOARD_TEMPLATE = """<!DOCTYPE html>
 
   <!-- Model info -->
   <div class="card wide" style="margin-top: 20px;">
-    <h2>🧠 Model Info</h2>
+    <h2> Model Info</h2>
     <pre>{model_info}</pre>
   </div>
 

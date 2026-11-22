@@ -249,7 +249,12 @@ def compile_cuda(
 
     if arch is None:
         major, minor = get_cuda_compute_capability()
-        arch = f"compute_{major}{minor}" if major > 0 else "compute_80"
+        if major >= 9:
+            arch = "compute_90"
+        elif major > 0:
+            arch = f"compute_{major}{minor}"
+        else:
+            arch = "compute_80"
 
     if isinstance(expr, str):
         sym_expr = sp.sympify(expr)

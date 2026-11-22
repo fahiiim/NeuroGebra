@@ -180,7 +180,7 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
   .metric .value {{ font-size: 2em; font-weight: bold; color: #58a6ff; }}
   .metric .label {{ color: #8b949e; }}
 </style></head><body>
-<h1>🔬 Neurogebra Training Observatory Report</h1>
+<h1>Neurogebra Training Observatory Report</h1>
 <p style="color:#8b949e">Generated: {timestamp}</p>
 
 <div class="card">
@@ -266,15 +266,15 @@ class MarkdownExporter:
         for e in self._events:
             if e.event_type == "health_check":
                 icon = {
-                    "danger": "🔴",
-                    "warning": "⚠️",
-                    "critical": "🚨",
-                    "success": "✅",
+                    "danger": "[FAIL]",
+                    "warning": "[WARN]",
+                    "critical": "[CRITICAL]",
+                    "success": "[PASS]",
                     "info": "ℹ️",
                 }.get(e.severity, "")
                 lines.append(f"- {icon} **{e.severity.upper()}**: {e.message}")
                 for rec in e.data.get("recommendations", []):
-                    lines.append(f"  - 💡 {rec}")
+                    lines.append(f"  -  {rec}")
 
         with open(self.path, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))

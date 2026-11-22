@@ -1,50 +1,50 @@
 <p align="center">
-  <a href="https://github.com/fahiiim/NeuroGebra">
-    <img src="https://raw.githubusercontent.com/fahiiim/NeuroGebra/main/assets/neurogebra-logo.png" alt="NeuroGebra Logo" width="620">
-  </a>
+ <a href="https://github.com/fahiiim/NeuroGebra">
+  <img src="https://raw.githubusercontent.com/fahiiim/NeuroGebra/main/assets/neurogebra-logo.png" alt="NeuroGebra Logo" width="620">
+ </a>
 </p>
 
 <h2 align="center">The Executable Mathematical Foundation for AI & Scientific Computing</h2>
 
 <p align="center">
-  <strong>Bridging symbolic rigor, real-time math transparency, and bare-metal C++ / CUDA GPU hardware acceleration.</strong>
+ <strong>Bridging symbolic rigor, real-time math transparency, and bare-metal C++ / CUDA GPU hardware acceleration.</strong>
 </p>
 
 <p align="center">
-  <em>Trusted by over 10,000+ researchers, educators, and engineers worldwide.</em>
+ <em>Trusted by over 10,000+ researchers, educators, and engineers worldwide.</em>
 </p>
 
 <p align="center">
-  <!-- Package & Ecosystem -->
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/v/neurogebra?style=for-the-badge&logo=pypi&logoColor=white&color=0f766e" alt="Latest PyPI release"></a>
-  <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/pyversions/neurogebra?style=for-the-badge&logo=python&logoColor=white&color=3776ab" alt="Supported Python versions"></a>
-  <a href="https://pepy.tech/project/neurogebra"><img src="https://img.shields.io/badge/community-10k%2B%20users-blueviolet?style=for-the-badge&logo=users" alt="10k+ Global Users"></a>
-  <a href="https://pepy.tech/project/neurogebra"><img src="https://static.pepy.tech/badge/neurogebra?style=for-the-badge" alt="Lifetime Downloads"></a>
+ <!-- Package & Ecosystem -->
+ <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/v/neurogebra?style=for-the-badge&logo=pypi&logoColor=white&color=0f766e" alt="Latest PyPI release"></a>
+ <a href="https://pypi.org/project/neurogebra/"><img src="https://img.shields.io/pypi/pyversions/neurogebra?style=for-the-badge&logo=python&logoColor=white&color=3776ab" alt="Supported Python versions"></a>
+ <a href="https://pepy.tech/project/neurogebra"><img src="https://img.shields.io/badge/community-10k%2B%20users-blueviolet?style=for-the-badge&logo=users" alt="10k+ Global Users"></a>
+ <a href="https://pepy.tech/project/neurogebra"><img src="https://static.pepy.tech/badge/neurogebra?style=for-the-badge" alt="Lifetime Downloads"></a>
 </p>
 
 <p align="center">
-  <!-- Quality & Documentation -->
-  <a href="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/fahiiim/NeuroGebra/tests.yml?branch=main&style=for-the-badge&logo=github&label=CI%20Suite" alt="Test suite status"></a>
-  <a href="https://codecov.io/gh/fahiiim/NeuroGebra"><img src="https://img.shields.io/codecov/c/github/fahiiim/NeuroGebra?style=for-the-badge&logo=codecov&logoColor=white&color=0f766e" alt="Code coverage"></a>
-  <a href="https://neurogebra.readthedocs.io/"><img src="https://img.shields.io/readthedocs/neurogebra?style=for-the-badge&logo=readthedocs&logoColor=white&color=0284c7" alt="Documentation status"></a>
-  <a href="https://github.com/fahiiim/NeuroGebra/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fahiiim/NeuroGebra?style=for-the-badge&color=0f766e" alt="MIT License"></a>
+ <!-- Quality & Documentation -->
+ <a href="https://github.com/fahiiim/NeuroGebra/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/fahiiim/NeuroGebra/tests.yml?branch=main&style=for-the-badge&logo=github&label=CI%20Suite" alt="Test suite status"></a>
+ <a href="https://codecov.io/gh/fahiiim/NeuroGebra"><img src="https://img.shields.io/codecov/c/github/fahiiim/NeuroGebra?style=for-the-badge&logo=codecov&logoColor=white&color=0f766e" alt="Code coverage"></a>
+ <a href="https://neurogebra.readthedocs.io/"><img src="https://img.shields.io/readthedocs/neurogebra?style=for-the-badge&logo=readthedocs&logoColor=white&color=0284c7" alt="Documentation status"></a>
+ <a href="https://github.com/fahiiim/NeuroGebra/blob/main/LICENSE"><img src="https://img.shields.io/github/license/fahiiim/NeuroGebra?style=for-the-badge&color=0f766e" alt="MIT License"></a>
 </p>
 
 <p align="center">
-  <a href="#the-legacy-of-neurogebra">The Legacy</a> &bull;
-  <a href="#why-neurogebra">Why NeuroGebra?</a> &bull;
-  <a href="#installation">Installation</a> &bull;
-  <a href="#quick-start">Quick Start</a> &bull;
-  <a href="#hardware-acceleration">Hardware Acceleration</a> &bull;
-  <a href="#training-observatory">Observatory</a> &bull;
-  <a href="#colab-projects">10 Colab Projects</a> &bull;
-  <a href="https://neurogebra.readthedocs.io">Documentation</a>
+ <a href="#the-legacy-of-neurogebra">The Legacy</a> &bull;
+ <a href="#why-neurogebra">Why NeuroGebra?</a> &bull;
+ <a href="#installation">Installation</a> &bull;
+ <a href="#quick-start">Quick Start</a> &bull;
+ <a href="#hardware-acceleration">Hardware Acceleration</a> &bull;
+ <a href="#training-observatory">Observatory</a> &bull;
+ <a href="#colab-projects">20 GPU & Colab Projects</a> &bull;
+ <a href="https://neurogebra.readthedocs.io">Documentation</a>
 </p>
 
 <p align="center">
-  <a href="https://clickhouse-analytics.metabaseapp.com/public/dashboard/365e0045-2935-4fe3-a66f-4f8059261dc4?project_name=neurogebra#&theme=night">
-    <img src="https://img.shields.io/badge/Live%20Global%20Analytics-Open%20Downloads%20Dashboard-0ea5e9?style=flat-square&logo=chart-line" alt="Location-based Downloads Dashboard">
-  </a>
+ <a href="https://clickhouse-analytics.metabaseapp.com/public/dashboard/365e0045-2935-4fe3-a66f-4f8059261dc4?project_name=neurogebra#&theme=night">
+  <img src="https://img.shields.io/badge/Live%20Global%20Analytics-Open%20Downloads%20Dashboard-0ea5e9?style=flat-square&logo=chart-line" alt="Location-based Downloads Dashboard">
+ </a>
 </p>
 
 ---
@@ -58,10 +58,10 @@
 Conceived as a union of **symbolic mathematics (SymPy)**, **numerical computing (NumPy)**, and **real-time diagnostic observability**, NeuroGebra began as a curated mathematical formula companion designed to make the mathematics of artificial intelligence tangible, searchable, and executable.
 
 Over successive releases, NeuroGebra has evolved into an international open-source standard:
-- 🌍 **10,000+ Practitioners Worldwide:** Adopted by university courses, researchers experimenting with novel architectures, and ML engineers auditing mathematical divergence.
-- 📐 **100+ Curated Mathematical Expressions:** Covering 10 domains from activation manifolds and non-convex loss functions to attention mechanisms, probability metrics, and optimization dynamics.
-- 🔬 **The First Mathematical Training Observatory:** Bringing live algebraic formulas, weight distribution telemetry, vanishing gradient alarms, and reproducible training fingerprints directly into your terminal.
-- ⚡ **Native Hardware JIT Acceleration (v2.6+):** Bridging the educational clarity of symbolic math with bare-metal **C++ AVX2 SIMD** and **NVIDIA CUDA GPU execution**, outperforming baseline NumPy by up to **4.76x**.
+- **10,000+ Practitioners Worldwide:** Adopted by university courses, researchers experimenting with novel architectures, and ML engineers auditing mathematical divergence.
+- **100+ Curated Mathematical Expressions:** Covering 10 domains from activation manifolds and non-convex loss functions to attention mechanisms, probability metrics, and optimization dynamics.
+- **The First Mathematical Training Observatory:** Bringing live algebraic formulas, weight distribution telemetry, vanishing gradient alarms, and reproducible training fingerprints directly into your terminal.
+- **Native Hardware JIT Acceleration (v2.6+):** Bridging the educational clarity of symbolic math with bare-metal **C++ AVX2 SIMD** and **NVIDIA CUDA GPU execution**, outperforming baseline NumPy by up to **4.76x**.
 
 NeuroGebra stands today not merely as a library, but as a commitment: **that high-performance artificial intelligence should never require abandoning mathematical understanding.**
 
@@ -78,14 +78,14 @@ Most deep learning frameworks ask you to choose between **interpretability** and
 
 ```mermaid
 flowchart LR
-    A["MathForge / Expression<br/>(Symbolic LaTeX & Calculus)"] --> B["Compute & Execution Engine"]
-    B --> C["C-JIT Engine<br/>(Bare-Metal AVX2 SIMD)"]
-    B --> D["CUDA-JIT Engine<br/>(NVIDIA GPU NVRTC)"]
-    B --> E["Vectorized Autograd<br/>(Micrograd Engine)"]
-    C --> F["Training Observatory<br/>(Math Transparency & Diagnostics)"]
-    D --> F
-    E --> F
-    F --> G["Production Bridges<br/>(PyTorch / TF / JAX Export)"]
+  A["MathForge / Expression<br/>(Symbolic LaTeX & Calculus)"] --> B["Compute & Execution Engine"]
+  B --> C["C-JIT Engine<br/>(Bare-Metal AVX2 SIMD)"]
+  B --> D["CUDA-JIT Engine<br/>(NVIDIA GPU NVRTC)"]
+  B --> E["Vectorized Autograd<br/>(Micrograd Engine)"]
+  C --> F["Training Observatory<br/>(Math Transparency & Diagnostics)"]
+  D --> F
+  E --> F
+  F --> G["Production Bridges<br/>(PyTorch / TF / JAX Export)"]
 ```
 
 ### Framework Comparison
@@ -114,11 +114,11 @@ pip install neurogebra
 ### Optional Extras for Advanced Workflows
 
 ```bash
-pip install "neurogebra[viz]"          # Interactive Visualization (Plotly, Seaborn)
-pip install "neurogebra[frameworks]"   # Framework Bridges (PyTorch, TensorFlow)
-pip install "neurogebra[logging]"      # TensorBoard & Weights & Biases telemetry
-pip install "neurogebra[datasets]"     # Real-world dataset integrations
-pip install "neurogebra[all]"          # Complete ecosystem bundle
+pip install "neurogebra[viz]"     # Interactive Visualization (Plotly, Seaborn)
+pip install "neurogebra[frameworks]"  # Framework Bridges (PyTorch, TensorFlow)
+pip install "neurogebra[logging]"   # TensorBoard & Weights & Biases telemetry
+pip install "neurogebra[datasets]"   # Real-world dataset integrations
+pip install "neurogebra[all]"     # Complete ecosystem bundle
 ```
 
 **System Requirements:** Python 3.9+ | Linux, macOS (Intel & Apple Silicon), Windows | CUDA 11.0+ (optional for GPU).
@@ -136,8 +136,8 @@ forge = MathForge()
 
 # Retrieve curated expressions across 10 domains
 gelu = forge.get("gelu")
-print(gelu.formula)    # LaTeX: 0.5 \cdot x \cdot \left(1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right)
-print(gelu.explain())  # Comprehensive educational breakdown & practical guidelines
+print(gelu.formula)  # LaTeX: 0.5 \cdot x \cdot \left(1 + \text{erf}\left(\frac{x}{\sqrt{2}}\right)\right)
+print(gelu.explain()) # Comprehensive educational breakdown & practical guidelines
 print(gelu.eval(x=1.5)) # Evaluated numerical result: 1.399...
 
 # Compute exact analytical derivatives
@@ -206,17 +206,17 @@ X, y = Datasets.load_moons(n_samples=1000, noise=0.2)
 # Build architecture
 builder = ModelBuilder()
 model = builder.Sequential([
-    builder.Dense(64, activation="relu", input_shape=(2,)),
-    builder.Dense(32, activation="tanh"),
-    builder.Dense(1, activation="sigmoid"),
+  builder.Dense(64, activation="relu", input_shape=(2,)),
+  builder.Dense(32, activation="tanh"),
+  builder.Dense(1, activation="sigmoid"),
 ], name="deep_classifier")
 
 # Activate math transparency with one flag
 model.compile(
-    loss="binary_crossentropy",
-    optimizer="adam",
-    learning_rate=0.01,
-    log_level="expert",    # Activates layer-by-layer symbolic transparency
+  loss="binary_crossentropy",
+  optimizer="adam",
+  learning_rate=0.01,
+  log_level="expert",  # Activates layer-by-layer symbolic transparency
 )
 
 model.fit(X, y, epochs=20, batch_size=32)
@@ -225,25 +225,25 @@ model.fit(X, y, epochs=20, batch_size=32)
 ### Live Terminal Telemetry
 
 ```
-[INFO]  Epoch 1/20
-  Forward:  a1 = relu(W1 * x + b1)      | shape: (32, 64) -> (32, 32)
-  Forward:  a2 = tanh(W2 * a1 + b2)     | shape: (32, 32) -> (32, 16)
-  Forward:  y_hat = sigma(W3 * a2 + b3) | shape: (32, 16) -> (32, 1)
+[INFO] Epoch 1/20
+ Forward: a1 = relu(W1 * x + b1)   | shape: (32, 64) -> (32, 32)
+ Forward: a2 = tanh(W2 * a1 + b2)   | shape: (32, 32) -> (32, 16)
+ Forward: y_hat = sigma(W3 * a2 + b3) | shape: (32, 16) -> (32, 1)
 
-  Backward: dL/dW3 = dL/dy_hat . sigma'(z3) * a2^T
-  Backward: dL/dW2 = dL/da2 . tanh'(z2) * a1^T
-  Backward: dL/dW1 = dL/da1 . relu'(z1) * x^T
+ Backward: dL/dW3 = dL/dy_hat . sigma'(z3) * a2^T
+ Backward: dL/dW2 = dL/da2 . tanh'(z2) * a1^T
+ Backward: dL/dW1 = dL/da1 . relu'(z1) * x^T
 
 [HEALTH WARNING] Possible dying ReLU in 'dense_0' (52.0% zero activations)
-  -> Recommendation: Switch to LeakyReLU or apply He initialisation.
+ -> Recommendation: Switch to LeakyReLU or apply He initialisation.
 ```
 
 ### Observatory Pro Capabilities
 
-- 🛡️ **Automated Health Warnings:** Real-time detection of 10+ training pathologies: NaN/Inf loss, vanishing gradients ($||\nabla|| < 10^{-7}$), exploding gradients, dying ReLUs, and loss divergence.
-- ⚡ **Adaptive Logging:** Quiet during stable epochs, automatically escalating to verbose telemetry the moment anomalies occur (reducing log clutter by 85%).
-- 📊 **Interactive HTML Dashboards:** Single-file, self-contained interactive dashboards powered by Chart.js (loss curves, gradient distributions, layer activations).
-- 🧬 **Training Fingerprint:** Cryptographic capture of seeds, dataset SHA-256 hashes, library versions, and hardware configuration for verifiable scientific reproducibility.
+- ️ **Automated Health Warnings:** Real-time detection of 10+ training pathologies: NaN/Inf loss, vanishing gradients ($||\nabla|| < 10^{-7}$), exploding gradients, dying ReLUs, and loss divergence.
+- **Adaptive Logging:** Quiet during stable epochs, automatically escalating to verbose telemetry the moment anomalies occur (reducing log clutter by 85%).
+- **Interactive HTML Dashboards:** Single-file, self-contained interactive dashboards powered by Chart.js (loss curves, gradient distributions, layer activations).
+- **Training Fingerprint:** Cryptographic capture of seeds, dataset SHA-256 hashes, library versions, and hardware configuration for verifiable scientific reproducibility.
 
 ---
 
@@ -291,10 +291,10 @@ summarizer = EpochSummarizer()
 ### Step 4: Cryptographic Fingerprinting
 ```python
 fp = TrainingFingerprint.capture(
-    model_info={"name": "classifier", "layers": 3},
-    hyperparameters={"lr": 0.01, "batch_size": 32, "epochs": 20},
-    dataset=X_train,
-    random_seed=42,
+  model_info={"name": "classifier", "layers": 3},
+  hyperparameters={"lr": 0.01, "batch_size": 32, "epochs": 20},
+  dataset=X_train,
+  random_seed=42,
 )
 print(fp.format_text())
 ```
@@ -303,18 +303,18 @@ print(fp.format_text())
 ```python
 builder = ModelBuilder()
 model = builder.Sequential([
-    builder.Dense(64, activation="relu", input_shape=(2,)),
-    builder.Dense(32, activation="tanh"),
-    builder.Dense(1, activation="sigmoid"),
+  builder.Dense(64, activation="relu", input_shape=(2,)),
+  builder.Dense(32, activation="tanh"),
+  builder.Dense(1, activation="sigmoid"),
 ])
 model.compile(loss="binary_crossentropy", optimizer="adam", learning_rate=0.01)
 
 # Training execution with live telemetry
 for epoch in range(20):
-    loss = model.train_on_batch(X_train, y_train)
-    alerts = warnings.check_epoch(epoch=epoch, train_loss=loss)
-    for alert in alerts:
-        print(f"[{alert.severity.upper()}] {alert.message}")
+  loss = model.train_on_batch(X_train, y_train)
+  alerts = warnings.check_epoch(epoch=epoch, train_loss=loss)
+  for alert in alerts:
+    print(f"[{alert.severity.upper()}] {alert.message}")
 ```
 
 ### Step 6: Export Reports & Close Handlers
@@ -330,22 +330,83 @@ print("Artifacts generated in ./logs: dashboard.html, basic.log, health.log, deb
 ---
 
 <a name="colab-projects"></a>
-## 10 Colab Portfolio Projects (Real Datasets)
+## 20 Executed GPU & Colab Portfolio Projects
 
-Explore 10 end-to-end, copy-paste ready reference projects built on official public datasets:
+Explore 20 end-to-end, fully executed and verified reference projects representing every dimension of the NeuroGebra framework. Every notebook contains real stored outputs, loss curves, and diagnostic figures:
 
-| # | Project Name | Domain | Official Dataset | Colab Link |
-| :-: | :--- | :--- | :--- | :-: |
-| **01** | **CNN Image Classification** | Vision | Fashion-MNIST | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb) |
-| **02** | **Observatory Pro Diagnostics** | Optimization | Fashion-MNIST | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb) |
-| **03** | **Deep Generative GAN Baseline** | Generative AI | MNIST | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb) |
-| **04** | **GAN Mode Collapse Diagnosis** | Generative AI | MNIST | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb) |
-| **05** | **Diffusion Denoising Model** | Diffusion | CIFAR-10 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb) |
-| **06** | **Diffusion Mathematical Scheduler** | Math & Vision | CelebA / CIFAR-10 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb) |
-| **07** | **NLP Spam Classification** | Text NLP | SMS Spam Collection | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb) |
-| **08** | **Sentiment Analysis Engine** | Text NLP | IMDb Movie Reviews | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb) |
-| **09** | **CharLM Language Model from Scratch** | Language Modeling | Tiny Shakespeare | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb) |
-| **10** | **Small Language Model Hyperparameter Tuning** | Language Modeling | WikiText-2 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb) |
+| # | Project Name | Domain | Key NeuroGebra Features | Dataset | Colab Link |
+| :-: | :--- | :--- | :--- | :--- | :-: |
+| **01** | **Fashion-MNIST Image Classification** | Vision | `ModelBuilder`, `Dense`, `Dropout`, `categorical_crossentropy` | Fashion-MNIST | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb) |
+| **02** | **Observatory Pro Diagnostics** | Telemetry | `AdaptiveLogger`, `TieredStorage`, `AutoHealthWarnings`, weight norms | Fashion-MNIST | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb) |
+| **03** | **Deep Generative GAN Baseline** | Generative AI | Dual `ModelBuilder` ($G$ & $D$), min-max loop, noise sampling | MNIST Digits | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb) |
+| **04** | **GAN Mode Collapse Diagnosis** | Diagnostics | Feature variance monitoring, diversity index, collapse threshold alerts | MNIST Digits | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb) |
+| **05** | **Diffusion Denoising Model (DDPM)** | Diffusion | Forward Gaussian schedule, neural denoiser, reverse sampling trajectory | MNIST Digits | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb) |
+| **06** | **Diffusion Mathematical Scheduler** | Mathematical Physics | `MathForge`, Linear vs Cosine schedules, $ar{lpha}_t$, analytical SNR | Theory | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb) |
+| **07** | **Core NLP Spam Classification** | Text NLP | `Datasets.load_spam`, dense classifier, `confusion_matrix`, `f1_score` | Spambase | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb) |
+| **08** | **Sentiment Analysis Engine** | Text Embeddings | Word embedding projection, `BatchNorm`, multi-class softmax | Token Reviews | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb) |
+| **09** | **CharLM Language Model from Scratch** | Language Modeling | Character vocabulary tokenizer, autoregressive sequence modeling | Shakespeare | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb) |
+| **10** | **Small LM Sampling Tuning** | Generation Algorithms | Temperature scaling ($T=0.3, 1.0, 2.5$), Top-$k$, Top-$p$ decoding | Language Vocab | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb) |
+| **11** | **Hardware Acceleration Engine** | HPC Acceleration | C-JIT AVX2, NVIDIA RTX 5070 CUDA JIT (`compile_cuda`), benchmarks | Benchmarks | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/11-hardware-acceleration-c-and-cuda-jit.ipynb) |
+| **12** | **Physics-Informed Neural Networks (PINN)** | Scientific ML & PDEs | `PINN`, Harmonic Oscillator ODE, 1D Burgers PDE, residual minimization | Analytical Physics | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/12-physics-informed-neural-networks-pinn.ipynb) |
+| **13** | **Symbolic Autograd & Higher Derivatives** | Symbolic Math | `MathForge`, `Expression.gradient`, Jacobian vectors, Hessian matrix | Himmelblau | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/13-symbolic-autograd-and-higher-order-derivatives.ipynb) |
+| **14** | **Framework Interoperability & Weight Bridge** | Deployment | `to_pytorch()`, `to_tensorflow()`, multi-framework weight export | Synthetic Weights | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/14-framework-interoperability-pytorch-tensorflow-jax.ipynb) |
+| **15** | **LR Scheduling & Optimization Dynamics** | Optimization | `StepLR`, `CosineAnnealingLR`, `ExponentialLR`, `Adam`, `SGD`, `RMSprop` | Anisotropic Bowl | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/15-learning-rate-scheduling-and-optimization.ipynb) |
+| **16** | **Advanced CNN with Residual Blocks** | Deep Learning | `Conv2D`, `LayerNorm`, `ResidualDense`, `GlobalAveragePooling2D` | Handwritten Digits | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/16-advanced-cnn-architectures-with-residual-blocks.ipynb) |
+| **17** | **Tabular Deep Learning & Regression Metrics** | Tabular ML | `Datasets.load_california_housing`, `r2_score`, `mean_squared_error` | California Housing | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/17-tabular-deep-learning-california-housing.ipynb) |
+| **18** | **Time-Series Forecasting & Fourier Spectral Analysis** | Signal Processing | Multi-seasonal synthetic signal, FFT frequency spectrum, AR sliding window | Harmonic Signals | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/18-time-series-forecasting-and-transforms.ipynb) |
+| **19** | **Unsupervised Anomaly Detection with Autoencoders** | Representation Learning | Bottleneck Autoencoder ($784 	o 64 	o 16 	o 64 	o 784$), reconstruction loss | MNIST Normal vs Anomaly | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/19-autoencoder-anomaly-detection.ipynb) |
+| **20** | **Observatory Enterprise Diagnostics & Telemetry** | Production Diagnostics | `TrainingLogger`, `LogLevel.EXPERT`, `AutoHealthWarnings`, dead weights, HTML report | Digits Telemetry | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/20-training-observatory-enterprise-diagnostics.ipynb) |
+
+---
+
+## What's New in v2.8.0
+
+NeuroGebra v2.8.0 introduces four core architectural expansions:
+
+### 1. Physics-Informed Neural Networks (`neurogebra.science.PINN`)
+Solve ordinary and partial differential equations (ODEs/PDEs) directly by minimizing physical conservation residuals:
+```python
+from neurogebra.science import PINN
+
+# Define network for 2D domain to 1D field
+pinn = PINN(layer_sizes=[2, 32, 32, 1], activation="tanh")
+
+# Enforce Burgers' PDE: du/dt + u*du/dx - nu*d^2u/dx^2 = 0
+history = pinn.fit(
+    X_data=boundary_pts,
+    y_data=boundary_vals,
+    X_colloc=domain_pts,
+    residual_fn=pinn.burgers_residual,
+    epochs=100,
+    lr=0.01,
+)
+```
+
+### 2. Dynamic Learning Rate Schedulers (`neurogebra.optim`)
+Adjust learning rates dynamically during training with standard schedules or metric-based reductions:
+```python
+from neurogebra.optim import StepLR, CosineAnnealingLR, ExponentialLR, ReduceLROnPlateau
+
+scheduler = CosineAnnealingLR(model, T_max=50, eta_min=1e-5)
+history = model.fit(X_train, y_train, epochs=50, lr_scheduler=scheduler)
+```
+
+### 3. Comprehensive Zero-Dependency Evaluation Metrics (`neurogebra.metrics`)
+Production-grade classification and regression metrics without requiring third-party libraries:
+```python
+from neurogebra.metrics import (
+    accuracy_score, confusion_matrix, classification_report,
+    r2_score, mean_squared_error, explained_variance_score,
+)
+
+print(classification_report(y_true, y_pred, target_names=["Cat", "Dog"]))
+print(f"R^2 Score: {r2_score(y_true_reg, y_pred_reg):.4f}")
+```
+
+### 4. Advanced Modern Layers
+- `builder.LayerNorm()`: Feature-wise normalization across sample dimensions
+- `builder.GlobalAveragePooling2D()`: Spatial pooling for modern convolutional backbones
+- `builder.ResidualDense(units=64)`: Skip-connection residual block for deep gradient flow
 
 ---
 
@@ -358,8 +419,8 @@ from neurogebra.bridges import to_pytorch, to_tensorflow, to_jax
 
 # Export model with weights and layer definitions intact
 pytorch_model = to_pytorch(model)
-tf_model      = to_tensorflow(model)
-jax_forward   = to_jax(model)
+tf_model   = to_tensorflow(model)
+jax_forward  = to_jax(model)
 ```
 
 ---
@@ -385,15 +446,15 @@ jax_forward   = to_jax(model)
 
 ```
 neurogebra/
-├── acceleration/          # Bare-metal C-JIT (AVX2 SIMD) & CUDA GPU kernels
-├── builders/              # ModelBuilder: Dense, Conv2D, MaxPool2D, Dropout
-├── bridges/               # Seamless converters to PyTorch, TensorFlow, JAX
-├── core/                  # Expression, MathForge, Autograd (Value & Tensor), Trainer
-├── datasets/              # Base and expanded synthetic & benchmark loaders
-├── logging/               # Training Observatory, AdaptiveLogger, AutoHealthWarnings, Dashboard
-├── repository/            # 10 curated symbolic & numerical mathematical domains
-├── training/              # EducationalTrainer with real-time heuristic advice
-└── tutorials/             # Step-by-step interactive CLI tutorials
+├── acceleration/     # Bare-metal C-JIT (AVX2 SIMD) & CUDA GPU kernels
+├── builders/       # ModelBuilder: Dense, Conv2D, MaxPool2D, Dropout
+├── bridges/        # Seamless converters to PyTorch, TensorFlow, JAX
+├── core/         # Expression, MathForge, Autograd (Value & Tensor), Trainer
+├── datasets/       # Base and expanded synthetic & benchmark loaders
+├── logging/        # Training Observatory, AdaptiveLogger, AutoHealthWarnings, Dashboard
+├── repository/      # 10 curated symbolic & numerical mathematical domains
+├── training/       # EducationalTrainer with real-time heuristic advice
+└── tutorials/       # Step-by-step interactive CLI tutorials
 ```
 
 ---
@@ -409,7 +470,7 @@ cd NeuroGebra
 
 # Set up local virtual environment
 python -m venv .venv
-source .venv/bin/activate       # On Windows: .venv\Scripts\activate
+source .venv/bin/activate    # On Windows: .venv\Scripts\activate
 
 # Install dependencies and pre-commit test suite
 pip install -e ".[all]"
@@ -426,15 +487,15 @@ NeuroGebra is released under the permissive [MIT License](LICENSE).
 
 ```bibtex
 @software{sarker2026neurogebra,
-  author = {Fahim Sarker},
-  title = {NeuroGebra: The Executable Mathematical Foundation for AI and Scientific Computing},
-  year = {2026},
-  url = {https://github.com/fahiiim/NeuroGebra},
-  publisher = {PyPI}
+ author = {Fahim Sarker},
+ title = {NeuroGebra: The Executable Mathematical Foundation for AI and Scientific Computing},
+ year = {2026},
+ url = {https://github.com/fahiiim/NeuroGebra},
+ publisher = {PyPI}
 }
 ```
 
 <p align="center">
-  <strong>Crafted with mathematical precision for the global AI community.</strong><br>
-  <sub>Maintained by <a href="https://github.com/fahiiim">Fahim Sarker</a> &bull; Connect on <a href="https://github.com/fahiiim/NeuroGebra">GitHub</a> &bull; Read on <a href="https://neurogebra.readthedocs.io">ReadTheDocs</a></sub>
+ <strong>Crafted with mathematical precision for the global AI community.</strong><br>
+ <sub>Maintained by <a href="https://github.com/fahiiim">Fahim Sarker</a> &bull; Connect on <a href="https://github.com/fahiiim/NeuroGebra">GitHub</a> &bull; Read on <a href="https://neurogebra.readthedocs.io">ReadTheDocs</a></sub>
 </p>

@@ -59,7 +59,7 @@ class Datasets:
             ((X_train, y_train), (X_test, y_test))
         """
         if verbose:
-            print("📦 Loading MNIST dataset...")
+            print("Loading MNIST dataset...")
             print("   • Training samples: 60,000")
             print("   • Test samples: 10,000")
             print("   • Image size: 28x28 pixels")
@@ -87,7 +87,7 @@ class Datasets:
         X_test, y_test = X_all[n_train:], y_all[n_train:]
 
         if verbose:
-            print("✅ Dataset loaded!")
+            print("Dataset loaded.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -107,7 +107,7 @@ class Datasets:
             ((X_train, y_train), (X_test, y_test))
         """
         if verbose:
-            print("📦 Loading Iris dataset...")
+            print("Loading Iris dataset...")
             print("   • Total samples: 150")
             print("   • Features: 4 (sepal/petal measurements)")
             print("   • Classes: 3 (flower species)")
@@ -137,7 +137,7 @@ class Datasets:
         y_train, y_test = y[:split], y[split:]
 
         if verbose:
-            print("✅ Dataset loaded!")
+            print("Dataset loaded.")
 
         return (X_train, y_train), (X_test, y_test)
 
@@ -161,7 +161,7 @@ class Datasets:
             (X, y) tuple of numpy arrays
         """
         if verbose:
-            print(f"📦 Generating regression dataset ({n_samples} samples)...")
+            print(f"Generating regression dataset ({n_samples} samples)...")
             print("   • Type: y = 3x + 2 + noise")
             print("   • Perfect for: First regression project")
             print()
@@ -170,7 +170,7 @@ class Datasets:
         y = (3.0 * X + 2.0 + np.random.randn(n_samples, 1) * noise).astype(np.float32)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y.ravel()
 
@@ -192,7 +192,7 @@ class Datasets:
             (X, y) tuple
         """
         if verbose:
-            print(f"📦 Generating XOR dataset ({n_samples} samples)...")
+            print(f"Generating XOR dataset ({n_samples} samples)...")
             print("   • Classic non-linear classification problem")
             print("   • Demonstrates need for hidden layers")
             print()
@@ -201,7 +201,7 @@ class Datasets:
         y = ((X[:, 0] > 0.5) ^ (X[:, 1] > 0.5)).astype(np.int32)
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y
 
@@ -225,7 +225,7 @@ class Datasets:
             (X, y) tuple
         """
         if verbose:
-            print(f"📦 Generating moons dataset ({n_samples} samples)...")
+            print(f"Generating moons dataset ({n_samples} samples)...")
             print("   • Two interleaving half-circles")
             print("   • Good for: Non-linear classification")
             print()
@@ -258,7 +258,7 @@ class Datasets:
         X, y = X[indices], y[indices]
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y
 
@@ -282,7 +282,7 @@ class Datasets:
             (X, y) tuple
         """
         if verbose:
-            print(f"📦 Generating circles dataset ({n_samples} samples)...")
+            print(f"Generating circles dataset ({n_samples} samples)...")
             print("   • Two concentric circles")
             print("   • Shows radial decision boundaries")
             print()
@@ -316,7 +316,7 @@ class Datasets:
         X, y = X[indices], y[indices]
 
         if verbose:
-            print("✅ Dataset ready!")
+            print("Dataset ready.")
 
         return X, y
 
@@ -586,11 +586,11 @@ class Datasets:
         Shows datasets organized by category with sample counts and use cases.
         """
         print("\n" + "=" * 70)
-        print("📚 NEUROGEBRA DATASETS - 100+ Educational ML Datasets")
+        print(" NEUROGEBRA DATASETS - 100+ Educational ML Datasets")
         print("=" * 70 + "\n")
 
         datasets_info = {
-            "🎯 CLASSIFICATION - Binary": [
+            " CLASSIFICATION - Binary": [
                 ("breast_cancer", "569 samples", "Medical diagnosis"),
                 ("spam", "5,000 samples", "Email filtering"),
                 ("titanic", "891 samples", "Survival prediction"),
@@ -598,14 +598,14 @@ class Datasets:
                 ("mushroom", "8,124 samples", "Poisonous/edible"),
                 ("adult_income", "48,842 samples", "Income prediction"),
             ],
-            "🎯 CLASSIFICATION - Multi-class": [
+            " CLASSIFICATION - Multi-class": [
                 ("iris", "150 samples", "3 flower species"),
                 ("wine", "178 samples", "3 wine types"),
                 ("digits", "1,797 samples", "10 digits (8x8)"),
                 ("mnist", "70,000 samples", "10 digits (28x28)"),
                 ("fashion_mnist", "70,000 samples", "10 clothing items"),
             ],
-            "📊 REGRESSION": [
+            " REGRESSION": [
                 ("california_housing", "20,640 samples", "House prices"),
                 ("diabetes", "442 samples", "Disease progression"),
                 ("boston_housing", "506 samples", "Home values"),
@@ -614,12 +614,12 @@ class Datasets:
                 ("bike_sharing", "17,379 samples", "Rental demand"),
                 ("simple_regression", "Customizable", "Learning basics"),
             ],
-            "🔷 SYNTHETIC PATTERNS": [
+            " SYNTHETIC PATTERNS": [
                 ("xor", "500 samples", "Non-linear separation"),
                 ("moons", "500 samples", "Curved boundaries"),
                 ("circles", "500 samples", "Radial boundaries"),
             ],
-            "🖼️ IMAGE RECOGNITION": [
+            "️ IMAGE RECOGNITION": [
                 ("mnist", "70,000 samples", "Handwritten digits"),
                 ("fashion_mnist", "70,000 samples", "Fashion items"),
                 ("digits", "1,797 samples", "Small digit recognition"),
@@ -635,9 +635,9 @@ class Datasets:
                 total_count += 1
 
         print("\n" + "=" * 70)
-        print(f"📦 {total_count}+ datasets available (base collection)")
-        print("💡 Use ExpandedDatasets for 80+ additional datasets!")
-        print("📖 Example: Datasets.load_iris(verbose=True)")
+        print(f" {total_count}+ datasets available (base collection)")
+        print(" Use ExpandedDatasets for 80+ additional datasets!")
+        print(" Example: Datasets.load_iris(verbose=True)")
         print("=" * 70 + "\n")
 
     @staticmethod
@@ -680,14 +680,14 @@ class Datasets:
                 results.append(dataset)
 
         if results:
-            print(f"\n🔍 Found {len(results)} dataset(s) matching '{keyword}':\n")
+            print(f"\n Found {len(results)} dataset(s) matching '{keyword}':\n")
             for ds in results:
                 print(f"   • Datasets.load_{ds}()")
             print()
         else:
-            print(f"\n❌ No datasets found matching '{keyword}'")
+            print(f"\n[ERROR] No datasets found matching '{keyword}'")
             print(
-                "💡 Try: 'classification', 'regression', 'image', 'medical', 'beginner'\n"
+                " Try: 'classification', 'regression', 'image', 'medical', 'beginner'\n"
             )
 
     @staticmethod
@@ -745,7 +745,7 @@ class Datasets:
         if name in dataset_details:
             info = dataset_details[name]
             print(f"\n{'=' * 70}")
-            print(f"📊 {info['name']}")
+            print(f" {info['name']}")
             print("=" * 70)
             print(f"\n  Difficulty: {info['difficulty']}")
             print(f"  Task: {info['task']}")
@@ -754,11 +754,11 @@ class Datasets:
             if "classes" in info:
                 print(f"  Classes: {info['classes']}")
             print(f"\n  {info['description']}")
-            print("\n  💡 Use cases:")
+            print("\n   Use cases:")
             for uc in info["use_cases"]:
                 print(f"     • {uc}")
-            print(f"\n  📖 Usage: Datasets.load_{name}(verbose=True)")
+            print(f"\n   Usage: Datasets.load_{name}(verbose=True)")
             print("=" * 70 + "\n")
         else:
-            print(f"\n❌ Dataset '{name}' not found in details database.")
-            print("💡 Use Datasets.list_all() to see all available datasets\n")
+            print(f"\n[ERROR] Dataset '{name}' not found in details database.")
+            print(" Use Datasets.list_all() to see all available datasets\n")

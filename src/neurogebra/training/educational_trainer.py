@@ -73,7 +73,7 @@ class EducationalTrainer:
             self._fig, self._axes = plt.subplots(1, 2, figsize=(12, 4))
             plt.ion()
         except ImportError:
-            print("⚠️  Matplotlib not installed. Visualization disabled.")
+            print("Warning: Matplotlib not installed. Visualization disabled.")
             self.visualize = False
 
     def train(
@@ -153,18 +153,18 @@ class EducationalTrainer:
     def _explain_training_start(self, epochs: int, n_train: int, n_val: int):
         """Explain what training will do."""
         print("\n" + "=" * 60)
-        print("📖 What's about to happen:")
+        print("Execution plan:")
         print("=" * 60)
-        print(f"\n1️⃣  The model will see {n_train} training examples")
+        print(f"\n1.  The model will see {n_train} training examples")
         print("    It learns patterns by adjusting its weights")
         print()
-        print(f"2️⃣  This process repeats {epochs} times (epochs)")
+        print(f"2.  This process repeats {epochs} times (epochs)")
         print("    Each time, the model gets better at predictions")
         print()
-        print(f"3️⃣  After each epoch, we test on {n_val} validation examples")
+        print(f"3.  After each epoch, we test on {n_val} validation examples")
         print("    This tells us if the model is learning or just memorizing")
         print()
-        print("Let's begin! 🚀\n")
+        print("Let's begin.\n")
         print("=" * 60 + "\n")
 
     def _train_epoch(
@@ -308,19 +308,19 @@ class EducationalTrainer:
 
             if recent_val > recent_train * 1.5:
                 print(
-                    "\n  ⚠️  Warning: Validation loss is much higher than training loss"
+                    "\n  Warning: Validation loss is much higher than training loss"
                 )
                 print("     This might indicate OVERFITTING")
-                print("     💡 Try: Add dropout, reduce model size, or get more data\n")
+                print("      Try: Add dropout, reduce model size, or get more data\n")
 
         # Check for high loss
         if train_loss > 2.0 and epoch > 10:
-            print("\n  ⚠️  Loss is still high after many epochs")
-            print("     💡 Try: Decrease learning rate or check your data\n")
+            print("\n  [WARNING]  Loss is still high after many epochs")
+            print("      Try: Decrease learning rate or check your data\n")
 
         # Congratulate on good progress
         if train_loss < 0.3 and not self._congratulated:
-            print("\n  🎉 Great! Your model is learning well!")
+            print("\n   Great! Your model is learning well!")
             print("     Loss is decreasing nicely\n")
             self._congratulated = True
 
