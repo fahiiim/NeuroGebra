@@ -157,6 +157,11 @@ class Value:
 
         build_topo(self)
 
+        # Reset intermediate nodes before backpropagation to prevent stale gradient accumulation on reused graphs
+        for node in topo:
+            if node is not self:
+                node.grad = 0.0
+
         # Backpropagate
         self.grad = 1.0
         for node in reversed(topo):
@@ -275,17 +280,23 @@ class Tensor:
 
     def transpose(self, *axes) -> "Tensor":
         """Permute tensor axes."""
-        out = Tensor(
-            np.transpose(self.data, *axes if axes else None),
-            requires_grad=self.requires_grad,
-        )
+        if len(axes) == 0:
+            ax = None
+        elif len(axes) == 1 and isinstance(axes[0], (tuple, list)):
+            ax = tuple(axes[0])
+        elif len(axes) == 1 and axes[0] is None:
+            ax = None
+        else:
+            ax = tuple(axes)
+
+        out_data = np.transpose(self.data, ax)
+        out = Tensor(out_data, requires_grad=self.requires_grad)
         out._prev = {self}
 
         def _grad_fn(grad):
             if self.requires_grad:
-                if axes:
-                    # Invert permutation
-                    inv_axes = np.argsort(axes)
+                if ax is not None:
+                    inv_axes = tuple(np.argsort(ax))
                     g = np.transpose(grad, inv_axes)
                 else:
                     g = grad.T
@@ -329,6 +340,11 @@ class Tensor:
                 topo.append(t)
 
         build_topo(self)
+
+        # Reset intermediate gradients on non-leaf nodes before backprop
+        for node in topo:
+            if node is not self:
+                node.grad = None
 
         if gradient is None:
             self.grad = np.ones_like(self.data)
@@ -486,18 +502,55 @@ class Tensor:
         out._prev = {self, other}
 
         def _grad_fn(gradient):
+            a_ndim = self.data.ndim
+            b_ndim = other.data.ndim
+
+            if a_ndim == 1 and b_ndim == 1:
+                if self.requires_grad:
+                    g_self = gradient * other.data
+                    self.grad = g_self if self.grad is None else self.grad + g_self
+                if other.requires_grad:
+                    g_other = gradient * self.data
+                    other.grad = g_other if other.grad is None else other.grad + g_other
+                return
+
+            if a_ndim == 1:
+                # self is (K,), other is (..., K, N)
+                a_mat = self.data[np.newaxis, :]
+                g_out_mat = gradient[..., np.newaxis, :]
+                if self.requires_grad:
+                    g_self = g_out_mat @ other.data.swapaxes(-1, -2)
+                    g_self = _unbroadcast(g_self.squeeze(-2), self.shape)
+                    self.grad = g_self if self.grad is None else self.grad + g_self
+                if other.requires_grad:
+                    g_other = a_mat.swapaxes(-1, -2) @ g_out_mat
+                    g_other = _unbroadcast(g_other, other.shape)
+                    other.grad = g_other if other.grad is None else other.grad + g_other
+                return
+
+            if b_ndim == 1:
+                # self is (..., M, K), other is (K,)
+                b_mat = other.data[:, np.newaxis]
+                g_out_mat = gradient[..., :, np.newaxis]
+                if self.requires_grad:
+                    g_self = g_out_mat @ b_mat.swapaxes(-1, -2)
+                    g_self = _unbroadcast(g_self, self.shape)
+                    self.grad = g_self if self.grad is None else self.grad + g_self
+                if other.requires_grad:
+                    g_other = self.data.swapaxes(-1, -2) @ g_out_mat
+                    g_other = _unbroadcast(g_other.squeeze(-1), other.shape)
+                    other.grad = g_other if other.grad is None else other.grad + g_other
+                return
+
+            # Both >= 2D
             if self.requires_grad:
-                g_self = (
-                    gradient @ other.data.swapaxes(-1, -2)
-                    if other.data.ndim > 1
-                    else np.outer(gradient, other.data)
+                g_self = _unbroadcast(
+                    gradient @ other.data.swapaxes(-1, -2), self.shape
                 )
                 self.grad = g_self if self.grad is None else self.grad + g_self
             if other.requires_grad:
-                g_other = (
-                    self.data.swapaxes(-1, -2) @ gradient
-                    if self.data.ndim > 1
-                    else np.outer(self.data, gradient)
+                g_other = _unbroadcast(
+                    self.data.swapaxes(-1, -2) @ gradient, other.shape
                 )
                 other.grad = g_other if other.grad is None else other.grad + g_other
 
@@ -527,13 +580,17 @@ class Tensor:
 
         def _grad_fn(gradient):
             if self.requires_grad:
-                g_self = _unbroadcast(
-                    gradient * power * (self.data ** (power - 1)), self.shape
-                )
+                if power == 0:
+                    g_self = np.zeros_like(self.data)
+                elif power == 1:
+                    g_self = _unbroadcast(gradient, self.shape)
+                else:
+                    g_self = _unbroadcast(
+                        gradient * power * (self.data ** (power - 1)), self.shape
+                    )
                 self.grad = g_self if self.grad is None else self.grad + g_self
 
         out._grad_fn = _grad_fn
-        return out
         return out
 
     def __repr__(self):

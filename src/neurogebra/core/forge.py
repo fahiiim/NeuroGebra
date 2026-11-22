@@ -20,6 +20,27 @@ from neurogebra.repository import (
     transforms,
 )
 
+_GLOBAL_REPOSITORY: Optional[dict[str, Expression]] = None
+
+
+def get_global_repository() -> dict[str, Expression]:
+    """Get lazily-loaded and cached global repository of pre-built expressions."""
+    global _GLOBAL_REPOSITORY
+    if _GLOBAL_REPOSITORY is None:
+        repo: dict[str, Expression] = {}
+        repo.update(activations.get_activations())
+        repo.update(losses.get_losses())
+        repo.update(regularizers.get_regularizers())
+        repo.update(algebra.get_algebra_expressions())
+        repo.update(calculus.get_calculus_expressions())
+        repo.update(statistics.get_statistics_expressions())
+        repo.update(linalg.get_linalg_expressions())
+        repo.update(optimization.get_optimization_expressions())
+        repo.update(metrics.get_metrics_expressions())
+        repo.update(transforms.get_transforms_expressions())
+        _GLOBAL_REPOSITORY = repo
+    return _GLOBAL_REPOSITORY
+
 
 class MathForge:
     """
@@ -41,40 +62,11 @@ class MathForge:
 
     def __init__(self):
         """Initialize MathForge with expression repository."""
-        self._repository: dict[str, Expression] = {}
-        self._load_repository()
+        self._repository: dict[str, Expression] = get_global_repository().copy()
 
     def _load_repository(self):
         """Load all expressions from repository modules."""
-        # Load activations
-        self._repository.update(activations.get_activations())
-
-        # Load losses
-        self._repository.update(losses.get_losses())
-
-        # Load regularizers
-        self._repository.update(regularizers.get_regularizers())
-
-        # Load algebra
-        self._repository.update(algebra.get_algebra_expressions())
-
-        # Load calculus
-        self._repository.update(calculus.get_calculus_expressions())
-
-        # Load statistics
-        self._repository.update(statistics.get_statistics_expressions())
-
-        # Load linear algebra
-        self._repository.update(linalg.get_linalg_expressions())
-
-        # Load optimization
-        self._repository.update(optimization.get_optimization_expressions())
-
-        # Load metrics
-        self._repository.update(metrics.get_metrics_expressions())
-
-        # Load transforms
-        self._repository.update(transforms.get_transforms_expressions())
+        self._repository = get_global_repository().copy()
 
     def get(
         self,

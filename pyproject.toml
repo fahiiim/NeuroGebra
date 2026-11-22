@@ -77,16 +77,21 @@ fast = [
 frameworks = [
     "torch>=2.0.0",
     "tensorflow>=2.12.0",
+    "jax>=0.4.0",
+    "jaxlib>=0.4.0",
 ]
 logging = [
     "tensorboard>=2.12.0",
     "wandb>=0.15.0",
 ]
+cuda = [
+    "cuda-python>=12.0.0",
+]
 datasets = [
     "scikit-learn>=1.0.0",
 ]
 all = [
-    "neurogebra[dev,docs,viz,fast,frameworks,datasets]",
+    "neurogebra[dev,docs,viz,frameworks,logging,cuda,datasets]",
 ]
 
 [project.urls]

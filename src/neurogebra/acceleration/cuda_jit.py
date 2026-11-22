@@ -42,10 +42,15 @@ try:
                     driver.CUdevice_attribute.CU_DEVICE_ATTRIBUTE_COMPUTE_CAPABILITY_MINOR,
                     dev,
                 )
-                _CUDA_AVAILABLE = True
-                _CUDA_INITIALIZED = True
-                _CUDA_DEVICE_NAME = dev_name
-                _CUDA_COMPUTE_CAP = (major, minor)
+                # Verify NVRTC is actually working and can compile/destroy a test program
+                test_cu = b'extern "C" __global__ void test_k() {}\n'
+                err, test_prog = nvrtc.nvrtcCreateProgram(test_cu, b"test.cu", 0, [], [])
+                if err.value == 0:
+                    nvrtc.nvrtcDestroyProgram(test_prog)
+                    _CUDA_AVAILABLE = True
+                    _CUDA_INITIALIZED = True
+                    _CUDA_DEVICE_NAME = dev_name
+                    _CUDA_COMPUTE_CAP = (major, minor)
 except Exception:
     _CUDA_AVAILABLE = False
 
@@ -106,46 +111,59 @@ class CUDAJITFunction:
 
         # Convert args to numpy float32 arrays (standard GPU precision)
         np_args: list[np.ndarray] = []
-        max_len = 1
-        has_array = False
+        is_all_scalar = True
 
         for a in args:
             if isinstance(a, np.ndarray):
-                arr = np.ascontiguousarray(a, dtype=np.float32)
-                if arr.size > 1:
-                    has_array = True
-                    max_len = max(max_len, arr.size)
+                arr = np.asanyarray(a, dtype=np.float32)
+                if arr.ndim > 0:
+                    is_all_scalar = False
                 np_args.append(arr)
             elif isinstance(a, (int, float, np.floating, np.integer)):
-                arr = np.array([float(a)], dtype=np.float32)
-                np_args.append(arr)
+                np_args.append(np.array(float(a), dtype=np.float32))
             else:
-                arr = np.ascontiguousarray(np.array(a, dtype=np.float32))
-                if arr.size > 1:
-                    has_array = True
-                    max_len = max(max_len, arr.size)
+                arr = np.asanyarray(a, dtype=np.float32)
+                if arr.ndim > 0:
+                    is_all_scalar = False
                 np_args.append(arr)
+
+        # Standard NumPy broadcasting
+        broadcasted = np.broadcast_arrays(*np_args)
+        broadcast_shape = broadcasted[0].shape
+        total_len = broadcasted[0].size
+
+        # Handle empty inputs gracefully without GPU kernel launch
+        if total_len == 0:
+            return np.empty(broadcast_shape, dtype=np.float32)
+
+        b_contiguous = [np.ascontiguousarray(b, dtype=np.float32) for b in broadcasted]
 
         # Push context
         driver.cuCtxPushCurrent(self.ctx)
+        d_inputs = []
+        d_out = None
         try:
-            d_inputs = []
-            for arr in np_args:
+            for arr in b_contiguous:
                 err, d_ptr = driver.cuMemAlloc(arr.nbytes)
-                driver.cuMemcpyHtoD(d_ptr, arr.ctypes.data, arr.nbytes)
+                if err.value != 0:
+                    raise RuntimeError(f"cuMemAlloc failed: {err}")
                 d_inputs.append(d_ptr)
+                err = driver.cuMemcpyHtoD(d_ptr, arr.ctypes.data, arr.nbytes)
+                if hasattr(err, "value") and err.value != 0:
+                    raise RuntimeError(f"cuMemcpyHtoD failed: {err}")
 
-            out_bytes = max_len * 4  # float32 = 4 bytes
+            out_bytes = total_len * 4  # float32 = 4 bytes
             err, d_out = driver.cuMemAlloc(out_bytes)
+            if err.value != 0:
+                raise RuntimeError(f"cuMemAlloc failed: {err}")
 
             # Build argument pointers
-            # Kernel signature: evaluate_kernel(d_v0, s0, d_v1, s1, ..., d_out, n)
             ctypes_ptrs = []
             c_vars = []
 
-            for i, arr in enumerate(np_args):
+            for i, _arr in enumerate(b_contiguous):
                 d_val = ctypes.c_uint64(int(d_inputs[i]))
-                s_val = ctypes.c_int(1 if arr.size == max_len else 0)
+                s_val = ctypes.c_int(1)
                 c_vars.extend([d_val, s_val])
                 ctypes_ptrs.extend(
                     [
@@ -155,7 +173,7 @@ class CUDAJITFunction:
                 )
 
             d_out_val = ctypes.c_uint64(int(d_out))
-            n_val = ctypes.c_int(max_len)
+            n_val = ctypes.c_int(total_len)
             c_vars.extend([d_out_val, n_val])
             ctypes_ptrs.extend(
                 [
@@ -169,7 +187,7 @@ class CUDAJITFunction:
             )
 
             threads_per_block = 256
-            blocks = (max_len + threads_per_block - 1) // threads_per_block
+            blocks = (total_len + threads_per_block - 1) // threads_per_block
 
             (launch_err,) = driver.cuLaunchKernel(
                 self.kernel,
@@ -187,30 +205,31 @@ class CUDAJITFunction:
             if launch_err.value != 0:
                 raise RuntimeError(f"CUDA kernel launch failed: {launch_err}")
 
-            out = np.empty(max_len, dtype=np.float32)
+            out = np.empty(total_len, dtype=np.float32)
             driver.cuMemcpyDtoH(out.ctypes.data, d_out, out_bytes)
-
-            for d_ptr in d_inputs:
-                driver.cuMemFree(d_ptr)
-            driver.cuMemFree(d_out)
-
         finally:
+            for d_ptr in d_inputs:
+                try:
+                    driver.cuMemFree(d_ptr)
+                except Exception:
+                    pass
+            if d_out is not None:
+                try:
+                    driver.cuMemFree(d_out)
+                except Exception:
+                    pass
             driver.cuCtxPopCurrent()
 
-        if not has_array and max_len == 1:
+        if is_all_scalar and broadcast_shape == ():
             return float(out[0])
 
-        for a in args:
-            if isinstance(a, np.ndarray) and a.size == max_len:
-                return out.reshape(a.shape)
-
-        return out
+        return out.reshape(broadcast_shape)
 
 
 def compile_cuda(
     expr: str | sp.Expr,
     variables: list[str | sp.Symbol],
-    arch: str = "compute_80",
+    arch: str | None = None,
 ) -> CUDAJITFunction:
     """
     Compile a symbolic mathematical expression to an optimized CUDA kernel via NVRTC.
@@ -218,7 +237,7 @@ def compile_cuda(
     Args:
         expr: SymPy expression or mathematical string
         variables: List of variable symbols or names
-        arch: Target GPU architecture (default compute_80)
+        arch: Target GPU architecture (defaults to active GPU capability or compute_80)
 
     Returns:
         CUDAJITFunction ready to run on the GPU.
@@ -228,6 +247,10 @@ def compile_cuda(
             "CUDA is not available on this machine. Ensure an NVIDIA GPU and driver are installed."
         )
 
+    if arch is None:
+        major, minor = get_cuda_compute_capability()
+        arch = f"compute_{major}{minor}" if major > 0 else "compute_80"
+
     if isinstance(expr, str):
         sym_expr = sp.sympify(expr)
     else:
@@ -236,27 +259,30 @@ def compile_cuda(
     var_symbols = [sp.Symbol(v) if isinstance(v, str) else v for v in variables]
     var_names = [v.name for v in var_symbols]
 
-    # Convert SymPy expression to C math code
-    c_math = ccode(sym_expr)
+    # Mangle symbols to prevent collisions in CUDA kernel
+    sym_map = {v: sp.Symbol(f"__ng_v_{k}") for k, v in enumerate(var_symbols)}
+    mangled_expr = sym_expr.subs(sym_map)
+    c_math = ccode(mangled_expr)
 
     # Build CUDA C source
-    # Arguments: const float* v0, int s0, const float* v1, int s1, ..., float* out, int n
     params_sig = []
-    for name in var_names:
-        params_sig.append(f"const float* _ptr_{name}, int _stride_{name}")
-    params_sig.append("float* out, int n")
+    for k in range(len(var_names)):
+        params_sig.append(f"const float* __ng_ptr_{k}, int __ng_stride_{k}")
+    params_sig.append("float* out, int __ng_n")
     sig_str = ", ".join(params_sig)
 
     cu_lines = [
         f'extern "C" __global__ void evaluate_kernel({sig_str}) {{',
-        "    int idx = blockDim.x * blockIdx.x + threadIdx.x;",
-        "    if (idx < n) {",
+        "    int __ng_idx = blockDim.x * blockIdx.x + threadIdx.x;",
+        "    if (__ng_idx < __ng_n) {",
     ]
 
-    for name in var_names:
-        cu_lines.append(f"        float {name} = _ptr_{name}[idx * _stride_{name}];")
+    for k in range(len(var_names)):
+        cu_lines.append(
+            f"        float __ng_v_{k} = __ng_ptr_{k}[__ng_idx * __ng_stride_{k}];"
+        )
 
-    cu_lines.append(f"        out[idx] = {c_math};")
+    cu_lines.append(f"        out[__ng_idx] = {c_math};")
     cu_lines.append("    }")
     cu_lines.append("}")
     cu_source = "\n".join(cu_lines)
@@ -268,16 +294,19 @@ def compile_cuda(
     if err.value != 0:
         raise RuntimeError(f"nvrtcCreateProgram failed: {err}")
 
-    opts = [f"--gpu-architecture={arch}".encode()]
-    (comp_err,) = nvrtc.nvrtcCompileProgram(prog, len(opts), opts)
-    if comp_err.value != 0:
-        err, log_size = nvrtc.nvrtcGetProgramLogSize(prog)
-        log = b" " * log_size
-        nvrtc.nvrtcGetProgramLog(prog, log)
-        raise RuntimeError(f"NVRTC compilation failed:\n{log.decode('utf-8')}")
+    try:
+        opts = [f"--gpu-architecture={arch}".encode()]
+        (comp_err,) = nvrtc.nvrtcCompileProgram(prog, len(opts), opts)
+        if comp_err.value != 0:
+            err, log_size = nvrtc.nvrtcGetProgramLogSize(prog)
+            log = b" " * log_size
+            nvrtc.nvrtcGetProgramLog(prog, log)
+            raise RuntimeError(f"NVRTC compilation failed:\n{log.decode('utf-8')}")
 
-    err, size = nvrtc.nvrtcGetPTXSize(prog)
-    ptx = bytearray(size)
-    (err,) = nvrtc.nvrtcGetPTX(prog, ptx)
+        err, size = nvrtc.nvrtcGetPTXSize(prog)
+        ptx = bytearray(size)
+        (err,) = nvrtc.nvrtcGetPTX(prog, ptx)
+    finally:
+        nvrtc.nvrtcDestroyProgram(prog)
 
     return CUDAJITFunction(bytes(ptx), "evaluate_kernel", var_names)

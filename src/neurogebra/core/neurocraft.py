@@ -8,18 +8,7 @@ operations used in machine learning and deep learning.
 from typing import Any, Optional
 
 from neurogebra.core.expression import Expression
-from neurogebra.repository import (
-    activations,
-    algebra,
-    calculus,
-    linalg,
-    losses,
-    metrics,
-    optimization,
-    regularizers,
-    statistics,
-    transforms,
-)
+from neurogebra.core.forge import get_global_repository
 
 
 class NeuroCraft:
@@ -47,24 +36,14 @@ class NeuroCraft:
             educational_mode: Enable educational features (explanations, tips)
         """
         self.educational_mode = educational_mode
-        self._repository: dict[str, Expression] = {}
-        self._load_repository()
+        self._repository: dict[str, Expression] = get_global_repository().copy()
 
         if educational_mode:
             self._show_welcome()
 
     def _load_repository(self):
         """Load all expressions from repository modules."""
-        self._repository.update(activations.get_activations())
-        self._repository.update(losses.get_losses())
-        self._repository.update(regularizers.get_regularizers())
-        self._repository.update(algebra.get_algebra_expressions())
-        self._repository.update(calculus.get_calculus_expressions())
-        self._repository.update(statistics.get_statistics_expressions())
-        self._repository.update(linalg.get_linalg_expressions())
-        self._repository.update(optimization.get_optimization_expressions())
-        self._repository.update(metrics.get_metrics_expressions())
-        self._repository.update(transforms.get_transforms_expressions())
+        self._repository = get_global_repository().copy()
 
     def _show_welcome(self):
         """Show welcome message for beginners."""

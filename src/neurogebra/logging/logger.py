@@ -104,6 +104,10 @@ class TrainingLogger:
         self.current_epoch: int = 0
         self.current_batch: int = 0
 
+    def is_enabled_for(self, level: LogLevel) -> bool:
+        """Return whether an event at this log level should be processed."""
+        return self.level >= level
+
     # ------------------------------------------------------------------
     # Backend management
     # ------------------------------------------------------------------
@@ -270,6 +274,8 @@ class TrainingLogger:
         formula: str = "",
         **extra,
     ) -> None:
+        if not self.is_enabled_for(LogLevel.EXPERT):
+            return
         self._emit(
             LogEvent(
                 event_type=self.LAYER_FORWARD,
@@ -302,6 +308,8 @@ class TrainingLogger:
         formula: str = "",
         **extra,
     ) -> None:
+        if not self.is_enabled_for(LogLevel.EXPERT):
+            return
         self._emit(
             LogEvent(
                 event_type=self.LAYER_BACKWARD,
@@ -319,6 +327,8 @@ class TrainingLogger:
         )
 
     def on_gradient_computed(self, param_name: str, gradient: float, **extra) -> None:
+        if not self.is_enabled_for(LogLevel.EXPERT):
+            return
         sev = "info"
         if abs(gradient) < 1e-7:
             sev = "danger"
@@ -336,6 +346,8 @@ class TrainingLogger:
     def on_weight_updated(
         self, param_name: str, old_value: float, new_value: float, **extra
     ) -> None:
+        if not self.is_enabled_for(LogLevel.EXPERT):
+            return
         self._emit(
             LogEvent(
                 event_type=self.WEIGHT_UPDATED,

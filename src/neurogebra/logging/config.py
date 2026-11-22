@@ -109,9 +109,9 @@ class LogConfig:
 
     @classmethod
     def production(cls) -> LogConfig:
-        """Silent console, export to JSON only."""
+        """Silent console, basic log level, export to JSON only."""
         return cls(
-            level=LogLevel.SILENT,
+            level=LogLevel.BASIC,
             export_formats=["json"],
             layout_mode="compact",
         )

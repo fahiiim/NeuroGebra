@@ -25,6 +25,7 @@ Usage::
 
 from __future__ import annotations
 
+import html as html_lib
 import json
 import os
 import time
@@ -138,15 +139,20 @@ class DashboardExporter:
             }.get(sev, "#95a5a6")
             recs = h.get("recommendations", [])
             rec_html = (
-                "<ul>" + "".join(f"<li>{r}</li>" for r in recs) + "</ul>"
+                "<ul>"
+                + "".join(
+                    f"<li>{html_lib.escape(str(r))}</li>" for r in recs
+                )
+                + "</ul>"
                 if recs
                 else ""
             )
+            safe_msg = html_lib.escape(str(h.get("message", "")))
             health_rows += (
                 f'<tr style="border-left:4px solid {colour}">'
                 f"<td>E{h.get('epoch', '?')}</td>"
-                f"<td><span class='badge' style='background:{colour}'>{sev.upper()}</span></td>"
-                f"<td>{h['message']}</td>"
+                f"<td><span class='badge' style='background:{colour}'>{html_lib.escape(str(sev.upper()))}</span></td>"
+                f"<td>{safe_msg}</td>"
                 f"<td>{rec_html}</td></tr>\n"
             )
 

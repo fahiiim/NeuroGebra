@@ -35,9 +35,17 @@ def model_to_tensorflow(model):
     for layer in model.layers:
         ltype = layer.layer_type.lower()
         if ltype == "dense":
-            tf_layers.append(
-                tf.keras.layers.Dense(layer.units, activation=layer.activation)
+            in_dim = layer.weights.shape[0] if layer.weights is not None else None
+            keras_dense = tf.keras.layers.Dense(
+                layer.units, activation=layer.activation
             )
+            if in_dim is not None:
+                keras_dense.build((None, in_dim))
+                weights_to_set = [layer.weights]
+                if layer.bias is not None:
+                    weights_to_set.append(layer.bias)
+                keras_dense.set_weights(weights_to_set)
+            tf_layers.append(keras_dense)
         elif ltype == "dropout":
             tf_layers.append(tf.keras.layers.Dropout(layer.params.get("rate", 0.2)))
         elif ltype == "flatten":
@@ -45,13 +53,23 @@ def model_to_tensorflow(model):
         elif ltype == "batchnorm":
             tf_layers.append(tf.keras.layers.BatchNormalization())
         elif ltype == "conv2d":
-            tf_layers.append(
-                tf.keras.layers.Conv2D(
-                    layer.units or 32,
-                    kernel_size=layer.params.get("kernel_size", 3),
-                    activation=layer.activation,
-                )
+            padding = str(layer.params.get("padding", "valid")).lower()
+            k = layer.params.get("kernel_size", 3)
+            c_out = layer.units or 32
+            keras_conv = tf.keras.layers.Conv2D(
+                c_out,
+                kernel_size=k,
+                padding=padding,
+                activation=layer.activation,
             )
+            if layer.weights is not None:
+                in_c = layer.weights.shape[2]
+                keras_conv.build((None, None, None, in_c))
+                weights_to_set = [layer.weights]
+                if layer.bias is not None:
+                    weights_to_set.append(layer.bias)
+                keras_conv.set_weights(weights_to_set)
+            tf_layers.append(keras_conv)
         elif ltype == "maxpool2d":
             tf_layers.append(
                 tf.keras.layers.MaxPooling2D(pool_size=layer.params.get("pool_size", 2))

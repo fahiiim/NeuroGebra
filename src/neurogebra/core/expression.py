@@ -68,8 +68,20 @@ class Expression:
     def _compile_numerical(self):
         """Compile symbolic expression to numerical function."""
         if self.variables:
+            import scipy.special as sc
+
+            custom_funcs = {
+                "gamma_func": sc.gamma,
+                "polygamma": sc.polygamma,
+                "digamma": sc.digamma,
+                "erf": sc.erf,
+                "erfc": sc.erfc,
+                "probit": sc.ndtri,
+            }
             self._numerical_func = lambdify(
-                self.variables, self.symbolic_expr, modules=["numpy"]
+                self.variables,
+                self.symbolic_expr,
+                modules=[custom_funcs, "scipy", "numpy"],
             )
         else:
             # Constant expression
@@ -157,11 +169,19 @@ class Expression:
                     ordered_args.append(args[pos_idx])
                     pos_idx += 1
                 else:
-                    ordered_args.append(0.0)
+                    raise ValueError(
+                        f"Missing required variable '{name}' for expression '{self.name}'"
+                    )
             else:
-                ordered_args.append(0.0)
+                raise ValueError(
+                    f"Missing required variable '{name}' for expression '{self.name}'"
+                )
 
         chosen_backend = backend.lower() if backend else self._preferred_backend
+        if chosen_backend not in ("numpy", "c", "cuda", "auto"):
+            raise ValueError(
+                f"Unknown backend '{chosen_backend}'. Supported: 'numpy', 'c', 'cuda'"
+            )
 
         # Dispatch to backend
         if chosen_backend == "c":
@@ -216,33 +236,59 @@ class Expression:
             metadata={"parent": self.name, "gradient_var": str(var)},
         )
 
-    def compose(self, other: "Expression") -> "Expression":
+    def compose(
+        self, other: "Expression", var: Optional[Union[str, Symbol]] = None
+    ) -> "Expression":
         """
         Compose two expressions: self(other(x)).
 
         Args:
             other: Expression to compose with
+            var: Variable in self to substitute other into. If None, chooses the
+                 first input variable not present in params or trainable_params.
 
         Returns:
             New composed Expression
         """
-        # Simple composition: self(other)
+        import copy
+
         if not self.variables:
+            new_params = copy.deepcopy(self.params)
+            new_params.update(copy.deepcopy(other.params))
+            new_trainable = list(
+                dict.fromkeys(self.trainable_params + other.trainable_params)
+            )
             return Expression(
                 name=f"{self.name}∘{other.name}",
                 symbolic_expr=self.symbolic_expr,
-                params={**self.params, **other.params},
+                params=new_params,
+                trainable_params=new_trainable,
                 metadata={"composition": [self.name, other.name]},
             )
 
-        composed_expr = self.symbolic_expr.subs(
-            {self.variables[0]: other.symbolic_expr}
+        if var is not None:
+            target_var = Symbol(var) if isinstance(var, str) else var
+        else:
+            candidates = [
+                s
+                for s in self.variables
+                if s.name not in self.params and s.name not in self.trainable_params
+            ]
+            target_var = candidates[0] if candidates else self.variables[0]
+
+        composed_expr = self.symbolic_expr.subs({target_var: other.symbolic_expr})
+
+        new_params = copy.deepcopy(self.params)
+        new_params.update(copy.deepcopy(other.params))
+        new_trainable = list(
+            dict.fromkeys(self.trainable_params + other.trainable_params)
         )
 
         return Expression(
             name=f"{self.name}∘{other.name}",
             symbolic_expr=composed_expr,
-            params={**self.params, **other.params},
+            params=new_params,
+            trainable_params=new_trainable,
             metadata={"composition": [self.name, other.name]},
         )
 
@@ -253,12 +299,14 @@ class Expression:
         Returns:
             New Expression with copied attributes
         """
+        import copy
+
         return Expression(
             name=self.name,
             symbolic_expr=self.symbolic_expr,
-            params=self.params.copy(),
-            trainable_params=self.trainable_params.copy(),
-            metadata=self.metadata.copy(),
+            params=copy.deepcopy(self.params),
+            trainable_params=copy.deepcopy(self.trainable_params),
+            metadata=copy.deepcopy(self.metadata),
         )
 
     def visualize(
@@ -287,88 +335,154 @@ class Expression:
 
     def __add__(self, other):
         """Add two expressions."""
+        import copy
+
         if isinstance(other, Expression):
             new_expr = self.symbolic_expr + other.symbolic_expr
             new_name = f"({self.name}+{other.name})"
-            new_params = {**self.params, **other.params}
+            new_params = copy.deepcopy(self.params)
+            new_params.update(copy.deepcopy(other.params))
+            new_trainable = list(
+                dict.fromkeys(self.trainable_params + other.trainable_params)
+            )
         else:
             new_expr = self.symbolic_expr + other
             new_name = f"({self.name}+{other})"
-            new_params = self.params.copy()
+            new_params = copy.deepcopy(self.params)
+            new_trainable = copy.deepcopy(self.trainable_params)
 
-        return Expression(new_name, new_expr, new_params)
+        return Expression(
+            new_name, new_expr, new_params, trainable_params=new_trainable
+        )
 
     def __radd__(self, other):
         """Right addition."""
+        import copy
+
         if isinstance(other, (int, float)):
             new_expr = other + self.symbolic_expr
             new_name = f"({other}+{self.name})"
-            return Expression(new_name, new_expr, self.params.copy())
+            return Expression(
+                new_name,
+                new_expr,
+                copy.deepcopy(self.params),
+                trainable_params=copy.deepcopy(self.trainable_params),
+            )
         return NotImplemented
 
     def __sub__(self, other):
         """Subtract two expressions."""
+        import copy
+
         if isinstance(other, Expression):
             new_expr = self.symbolic_expr - other.symbolic_expr
             new_name = f"({self.name}-{other.name})"
-            new_params = {**self.params, **other.params}
+            new_params = copy.deepcopy(self.params)
+            new_params.update(copy.deepcopy(other.params))
+            new_trainable = list(
+                dict.fromkeys(self.trainable_params + other.trainable_params)
+            )
         else:
             new_expr = self.symbolic_expr - other
             new_name = f"({self.name}-{other})"
-            new_params = self.params.copy()
+            new_params = copy.deepcopy(self.params)
+            new_trainable = copy.deepcopy(self.trainable_params)
 
-        return Expression(new_name, new_expr, new_params)
+        return Expression(
+            new_name, new_expr, new_params, trainable_params=new_trainable
+        )
 
     def __mul__(self, other):
         """Multiply two expressions."""
+        import copy
+
         if isinstance(other, Expression):
             new_expr = self.symbolic_expr * other.symbolic_expr
             new_name = f"({self.name}*{other.name})"
-            new_params = {**self.params, **other.params}
+            new_params = copy.deepcopy(self.params)
+            new_params.update(copy.deepcopy(other.params))
+            new_trainable = list(
+                dict.fromkeys(self.trainable_params + other.trainable_params)
+            )
         else:
             new_expr = self.symbolic_expr * other
             new_name = f"({self.name}*{other})"
-            new_params = self.params.copy()
+            new_params = copy.deepcopy(self.params)
+            new_trainable = copy.deepcopy(self.trainable_params)
 
-        return Expression(new_name, new_expr, new_params)
+        return Expression(
+            new_name, new_expr, new_params, trainable_params=new_trainable
+        )
 
     def __rmul__(self, other):
         """Right multiplication."""
+        import copy
+
         if isinstance(other, (int, float)):
             new_expr = other * self.symbolic_expr
             new_name = f"({other}*{self.name})"
-            return Expression(new_name, new_expr, self.params.copy())
+            return Expression(
+                new_name,
+                new_expr,
+                copy.deepcopy(self.params),
+                trainable_params=copy.deepcopy(self.trainable_params),
+            )
         return NotImplemented
 
     def __truediv__(self, other):
         """Divide two expressions."""
+        import copy
+
         if isinstance(other, Expression):
             new_expr = self.symbolic_expr / other.symbolic_expr
             new_name = f"({self.name}/{other.name})"
-            new_params = {**self.params, **other.params}
+            new_params = copy.deepcopy(self.params)
+            new_params.update(copy.deepcopy(other.params))
+            new_trainable = list(
+                dict.fromkeys(self.trainable_params + other.trainable_params)
+            )
         else:
             new_expr = self.symbolic_expr / other
             new_name = f"({self.name}/{other})"
-            new_params = self.params.copy()
+            new_params = copy.deepcopy(self.params)
+            new_trainable = copy.deepcopy(self.trainable_params)
 
-        return Expression(new_name, new_expr, new_params)
+        return Expression(
+            new_name, new_expr, new_params, trainable_params=new_trainable
+        )
 
     def __pow__(self, other):
         """Power of expression."""
+        import copy
+
         if isinstance(other, Expression):
             new_expr = self.symbolic_expr**other.symbolic_expr
             new_name = f"({self.name}**{other.name})"
-            new_params = {**self.params, **other.params}
+            new_params = copy.deepcopy(self.params)
+            new_params.update(copy.deepcopy(other.params))
+            new_trainable = list(
+                dict.fromkeys(self.trainable_params + other.trainable_params)
+            )
         else:
             new_expr = self.symbolic_expr**other
             new_name = f"({self.name}**{other})"
-            new_params = self.params.copy()
+            new_params = copy.deepcopy(self.params)
+            new_trainable = copy.deepcopy(self.trainable_params)
 
-        return Expression(new_name, new_expr, new_params)
+        return Expression(
+            new_name, new_expr, new_params, trainable_params=new_trainable
+        )
 
     def __neg__(self):
         """Negate expression."""
-        return Expression(f"(-{self.name})", -self.symbolic_expr, self.params.copy())
+        import copy
+
+        return Expression(
+            f"(-{self.name})",
+            -self.symbolic_expr,
+            copy.deepcopy(self.params),
+            trainable_params=copy.deepcopy(self.trainable_params),
+        )
 
     def __repr__(self):
         return f"Expression('{self.name}': {self.symbolic_expr})"

@@ -9,6 +9,7 @@ the accumulated data to disk.
 from __future__ import annotations
 
 import csv
+import html as html_lib
 import json
 import os
 import time
@@ -46,7 +47,7 @@ class JSONExporter:
 
     def save(self) -> str:
         os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
-        with open(self.path, "w") as f:
+        with open(self.path, "w", encoding="utf-8") as f:
             json.dump({"events": self._events, "exported_at": time.time()}, f, indent=2)
         return self.path
 
@@ -81,7 +82,7 @@ class CSVExporter:
             for k in r:
                 if k not in fieldnames:
                     fieldnames.append(k)
-        with open(self.path, "w", newline="") as f:
+        with open(self.path, "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
             writer.writeheader()
             writer.writerows(self._rows)
@@ -130,14 +131,19 @@ class HTMLExporter:
                 }.get(sev, "#95a5a6")
                 recs = e.data.get("recommendations", [])
                 rec_html = (
-                    "<ul>" + "".join(f"<li>{r}</li>" for r in recs) + "</ul>"
+                    "<ul>"
+                    + "".join(
+                        f"<li>{html_lib.escape(str(r))}</li>" for r in recs
+                    )
+                    + "</ul>"
                     if recs
                     else ""
                 )
+                safe_msg = html_lib.escape(str(e.message))
                 health_rows += (
                     f'<tr style="border-left:4px solid {colour}">'
-                    f"<td>{sev.upper()}</td>"
-                    f"<td>{e.message}</td>"
+                    f"<td>{html_lib.escape(str(sev.upper()))}</td>"
+                    f"<td>{safe_msg}</td>"
                     f"<td>{rec_html}</td></tr>\n"
                 )
 
@@ -153,7 +159,7 @@ class HTMLExporter:
             timestamp=time.strftime("%Y-%m-%d %H:%M:%S"),
         )
 
-        with open(self.path, "w") as f:
+        with open(self.path, "w", encoding="utf-8") as f:
             f.write(html)
         return self.path
 
@@ -270,7 +276,7 @@ class MarkdownExporter:
                 for rec in e.data.get("recommendations", []):
                     lines.append(f"  - 💡 {rec}")
 
-        with open(self.path, "w") as f:
+        with open(self.path, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
         return self.path
 

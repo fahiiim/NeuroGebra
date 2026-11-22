@@ -77,7 +77,9 @@ def model_to_pytorch(model) -> "nn.Module":
             c_in = layer.weights.shape[2] if layer.weights is not None else 1
             c_out = layer.units or 32
             padding = (
-                1 if str(layer.params.get("padding", "valid")).lower() == "same" else 0
+                k // 2
+                if str(layer.params.get("padding", "valid")).lower() == "same"
+                else 0
             )
             conv = nn.Conv2d(c_in, c_out, kernel_size=k, padding=padding)
             if layer.weights is not None:
@@ -95,7 +97,9 @@ def model_to_pytorch(model) -> "nn.Module":
             p = layer.params.get("pool_size", 2)
             modules.append(nn.MaxPool2d(kernel_size=p))
 
-    return nn.Sequential(*modules)
+    seq = nn.Sequential(*modules)
+    seq.eval()
+    return seq
 
 
 def to_pytorch(obj: Any) -> "nn.Module":

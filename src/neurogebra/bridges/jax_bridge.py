@@ -50,6 +50,13 @@ def to_jax(expression: Expression) -> Callable:
     """
     check_jax()
 
+    if hasattr(expression, "layers"):
+        raise TypeError(
+            "to_jax converts mathematical Expression objects to JAX functions. "
+            "Model conversion to JAX/Flax neural modules is not currently supported; "
+            "use to_pytorch or to_tensorflow for neural network models."
+        )
+
     runtime_vars = [
         str(var) for var in expression.variables if str(var) not in expression.params
     ]

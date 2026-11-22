@@ -9,7 +9,7 @@ import time
 import numpy as np
 
 from neurogebra import Expression, MathForge
-from neurogebra.core.autograd import Value, Tensor
+from neurogebra.core.autograd import Tensor, Value
 from neurogebra.core.trainer import Trainer
 
 
@@ -100,8 +100,8 @@ def bench_autograd():
     benchmark(forward_backward_chain, "  Value 10-layer chain", iterations=200)
 
     def tensor_ops():
-        a = Tensor(np.random.randn(1000))
-        b = Tensor(np.random.randn(1000))
+        a = Tensor(np.random.randn(1000), requires_grad=True)
+        b = Tensor(np.random.randn(1000), requires_grad=True)
         c = a * b + a
         loss = c.mean()
         loss.backward()
@@ -142,7 +142,11 @@ def bench_training():
 
 def bench_acceleration():
     """Benchmark C-JIT and CUDA-JIT hardware acceleration."""
-    from neurogebra.acceleration import get_acceleration_info, is_c_available, is_cuda_available
+    from neurogebra.acceleration import (
+        get_acceleration_info,
+        is_c_available,
+        is_cuda_available,
+    )
 
     print("\n" + "=" * 60)
     print("Benchmark: Hardware Acceleration (C-JIT & CUDA RTX 5070)")

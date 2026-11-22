@@ -92,29 +92,25 @@ class CJITFunction:
                 f"Expected {self.num_vars} arguments for variables {self.var_names}, got {len(args)}"
             )
 
-        # Convert args to numpy float64 arrays
+        # Convert args to numpy arrays or scalars
         np_args: list[np.ndarray] = []
-        max_len = 1
-        has_array = False
+        is_all_scalar = True
 
         for a in args:
             if isinstance(a, np.ndarray):
-                arr = np.ascontiguousarray(a, dtype=np.float64)
-                if arr.size > 1:
-                    has_array = True
-                    max_len = max(max_len, arr.size)
+                arr = np.asanyarray(a, dtype=np.float64)
+                if arr.ndim > 0:
+                    is_all_scalar = False
                 np_args.append(arr)
             elif isinstance(a, (int, float, np.floating, np.integer)):
-                arr = np.array([float(a)], dtype=np.float64)
-                np_args.append(arr)
+                np_args.append(np.array(float(a), dtype=np.float64))
             else:
-                arr = np.ascontiguousarray(np.array(a, dtype=np.float64))
-                if arr.size > 1:
-                    has_array = True
-                    max_len = max(max_len, arr.size)
+                arr = np.asanyarray(a, dtype=np.float64)
+                if arr.ndim > 0:
+                    is_all_scalar = False
                 np_args.append(arr)
 
-        if not has_array and max_len == 1:
+        if is_all_scalar:
             # All scalar inputs
             in_ptrs_arr = (ctypes.c_void_p * self.num_vars)()
             in_strides_arr = (ctypes.c_int * self.num_vars)()
@@ -131,29 +127,33 @@ class CJITFunction:
             )
             return float(out_val[0])
 
-        # Allocate output buffer
-        out = np.empty(max_len, dtype=np.float64)
+        # NumPy standard broadcasting across all inputs
+        broadcasted = np.broadcast_arrays(*np_args)
+        broadcast_shape = broadcasted[0].shape
+        total_len = broadcasted[0].size
+
+        # Handle empty inputs gracefully without native kernel launch
+        if total_len == 0:
+            return np.empty(broadcast_shape, dtype=np.float64)
+
+        b_contiguous = [np.ascontiguousarray(b, dtype=np.float64) for b in broadcasted]
+        out = np.empty(total_len, dtype=np.float64)
 
         in_ptrs_arr = (ctypes.c_void_p * self.num_vars)()
         in_strides_arr = (ctypes.c_int * self.num_vars)()
 
-        for i, arr in enumerate(np_args):
+        for i, arr in enumerate(b_contiguous):
             in_ptrs_arr[i] = arr.ctypes.data
-            in_strides_arr[i] = 1 if arr.size == max_len else 0
+            in_strides_arr[i] = 1
 
         self._c_func(
             in_ptrs_arr,
             in_strides_arr,
             out.ctypes.data_as(ctypes.POINTER(ctypes.c_double)),
-            max_len,
+            total_len,
         )
 
-        # Match primary array shape if available
-        for a in args:
-            if isinstance(a, np.ndarray) and a.size == max_len:
-                return out.reshape(a.shape)
-
-        return out
+        return out.reshape(broadcast_shape)
 
 
 def compile_c(
@@ -186,10 +186,12 @@ def compile_c(
     var_symbols = [sp.Symbol(v) if isinstance(v, str) else v for v in variables]
     var_names = [v.name for v in var_symbols]
 
-    # Generate C math body
-    c_math = ccode(sym_expr)
+    # Mangle symbols to prevent collisions with C keywords, loop indices, or names like 'i', 'n'
+    sym_map = {v: sp.Symbol(f"__ng_v_{k}") for k, v in enumerate(var_symbols)}
+    mangled_expr = sym_expr.subs(sym_map)
+    c_math = ccode(mangled_expr)
 
-    # Build C source
+    # Build C source with robust symbol mangling
     source_lines = [
         "#include <math.h>",
         "#include <stdlib.h>",
@@ -208,24 +210,26 @@ def compile_c(
         "    const double** in_ptrs,",
         "    const int* in_strides,",
         "    double* out,",
-        "    int n",
+        "    int __ng_n",
         ") {",
     ]
 
-    # Declare pointer aliases
-    for i, name in enumerate(var_names):
-        source_lines.append(f"    const double* _ptr_{name} = in_ptrs[{i}];")
-        source_lines.append(f"    int _stride_{name} = in_strides[{i}];")
+    # Declare pointer aliases with mangled names
+    for k in range(len(var_names)):
+        source_lines.append(f"    const double* __ng_ptr_{k} = in_ptrs[{k}];")
+        source_lines.append(f"    int __ng_stride_{k} = in_strides[{k}];")
 
     source_lines.append("")
     source_lines.append("    #pragma clang loop vectorize(enable)")
     source_lines.append("    #pragma omp simd")
-    source_lines.append("    for (int i = 0; i < n; ++i) {")
+    source_lines.append("    for (int __ng_idx = 0; __ng_idx < __ng_n; ++__ng_idx) {")
 
-    for name in var_names:
-        source_lines.append(f"        double {name} = _ptr_{name}[i * _stride_{name}];")
+    for k in range(len(var_names)):
+        source_lines.append(
+            f"        double __ng_v_{k} = __ng_ptr_{k}[__ng_idx * __ng_stride_{k}];"
+        )
 
-    source_lines.append(f"        out[i] = {c_math};")
+    source_lines.append(f"        out[__ng_idx] = {c_math};")
     source_lines.append("    }")
     source_lines.append("}")
     source_lines.append("")
@@ -259,17 +263,36 @@ def compile_c(
         shared_flag = "-dynamiclib" if sys.platform == "darwin" else "-shared"
         is_x86 = machine in ("x86_64", "amd64", "x64")
 
-        compile_cmd = [compiler, opt_level, shared_flag]
+        base_cmd = [compiler, opt_level, shared_flag]
         if sys.platform != "win32":
-            compile_cmd.append("-fPIC")
-        if is_x86:
-            compile_cmd.append("-mavx2")
-        compile_cmd.extend([str(src_path), "-o", str(dll_path)])
+            base_cmd.append("-fPIC")
 
-        proc = subprocess.run(compile_cmd, capture_output=True, text=True)
-        if proc.returncode != 0:
+        # Try AVX2 if on x86, but fall back gracefully to baseline CPU if unsupported
+        cmd_candidates = []
+        if is_x86 and sys.platform != "darwin":
+            cmd_candidates.append(
+                base_cmd + ["-mavx2", str(src_path), "-o", str(dll_path)]
+            )
+        cmd_candidates.append(base_cmd + [str(src_path), "-o", str(dll_path)])
+
+        last_error = ""
+        success = False
+        for compile_cmd in cmd_candidates:
+            try:
+                proc = subprocess.run(
+                    compile_cmd, capture_output=True, text=True, timeout=30
+                )
+                if proc.returncode == 0:
+                    success = True
+                    break
+                else:
+                    last_error = proc.stderr
+            except Exception as e:
+                last_error = str(e)
+
+        if not success:
             raise RuntimeError(
-                f"Failed to compile C-JIT kernel: {proc.stderr}\nSource was:\n{c_source}"
+                f"Failed to compile C-JIT kernel: {last_error}\nSource was:\n{c_source}"
             )
 
     return CJITFunction(dll_path, "evaluate_expr", var_names)

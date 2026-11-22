@@ -42,7 +42,7 @@ def _apply_activation(z: np.ndarray, name: str | None) -> np.ndarray:
         return z * sig
     if name == "gelu":
         return 0.5 * z * (1 + np.tanh(np.sqrt(2 / np.pi) * (z + 0.044715 * z**3)))
-    return z  # fallback
+    raise ValueError(f"Unsupported activation: '{name}'")
 
 
 def _activation_derivative(
@@ -64,8 +64,12 @@ def _activation_derivative(
     if name == "swish":
         sig = 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
         return sig + z * sig * (1 - sig)
-    # fallback
-    return np.ones_like(z)
+    if name == "gelu":
+        u = np.sqrt(2.0 / np.pi) * (z + 0.044715 * z**3)
+        tanh_u = np.tanh(u)
+        du_dz = np.sqrt(2.0 / np.pi) * (1.0 + 3.0 * 0.044715 * z**2)
+        return 0.5 * (1.0 + tanh_u) + 0.5 * z * (1.0 - tanh_u**2) * du_dz
+    raise ValueError(f"Unsupported activation derivative: '{name}'")
 
 
 class Layer:
@@ -147,12 +151,24 @@ class Layer:
         # Gradient accumulators
         self.grad_weights: np.ndarray | None = None
         self.grad_bias: np.ndarray | None = None
+        self.gamma: np.ndarray | None = None
+        self.beta: np.ndarray | None = None
+        self.grad_gamma: np.ndarray | None = None
+        self.grad_beta: np.ndarray | None = None
+        self.running_mean: np.ndarray | None = None
+        self.running_var: np.ndarray | None = None
+        self.momentum: float = float(kwargs.get("momentum", 0.9))
+        self.eps: float = float(kwargs.get("eps", 1e-5))
 
         # Adam state
         self._m_w: np.ndarray | None = None
         self._v_w: np.ndarray | None = None
         self._m_b: np.ndarray | None = None
         self._v_b: np.ndarray | None = None
+        self._m_gamma: np.ndarray | None = None
+        self._v_gamma: np.ndarray | None = None
+        self._m_beta: np.ndarray | None = None
+        self._v_beta: np.ndarray | None = None
 
     # ------------------------------------------------------------------
     # Initialisation (He / Xavier)
@@ -178,6 +194,16 @@ class Layer:
             self._v_w = np.zeros_like(self.weights)
             self._m_b = np.zeros_like(self.bias)
             self._v_b = np.zeros_like(self.bias)
+        elif self.layer_type == "batchnorm":
+            dim = self.units or input_dim
+            self.gamma = np.ones(dim, dtype=np.float64)
+            self.beta = np.zeros(dim, dtype=np.float64)
+            self.running_mean = np.zeros(dim, dtype=np.float64)
+            self.running_var = np.ones(dim, dtype=np.float64)
+            self._m_gamma = np.zeros_like(self.gamma)
+            self._v_gamma = np.zeros_like(self.gamma)
+            self._m_beta = np.zeros_like(self.beta)
+            self._v_beta = np.zeros_like(self.beta)
         self._initialised = True
 
     @property
@@ -187,6 +213,10 @@ class Layer:
             total += self.weights.size
         if self.bias is not None:
             total += self.bias.size
+        if self.gamma is not None:
+            total += self.gamma.size
+        if self.beta is not None:
+            total += self.beta.size
         return total
 
     # ------------------------------------------------------------------
@@ -261,12 +291,38 @@ class Layer:
             return x.reshape(x.shape[0], -1) if x.ndim > 2 else x
 
         if self.layer_type == "batchnorm":
+            if not self._initialised:
+                dim = self.units or x.shape[-1]
+                self._init_params(input_dim=dim)
             self._last_input = x
-            mean = x.mean(axis=0)
-            var = x.var(axis=0) + 1e-5
-            return (x - mean) / np.sqrt(var)
+            axes = tuple(range(x.ndim - 1))
+            if training:
+                mean = np.mean(x, axis=axes, keepdims=True)
+                var = np.var(x, axis=axes, keepdims=True)
+                x_norm = (x - mean) / np.sqrt(var + self.eps)
 
-        # Passthrough for unsupported layers
+                batch_mean = np.mean(x, axis=axes)
+                batch_var = np.var(x, axis=axes)
+                self.running_mean = (
+                    self.momentum * self.running_mean + (1 - self.momentum) * batch_mean
+                )
+                self.running_var = (
+                    self.momentum * self.running_var + (1 - self.momentum) * batch_var
+                )
+
+                self._last_x_norm = x_norm
+                self._last_var = var
+                self._last_mean = mean
+                out = self.gamma * x_norm + self.beta
+                self._last_output = out
+                return out
+            else:
+                x_norm = (x - self.running_mean) / np.sqrt(self.running_var + self.eps)
+                out = self.gamma * x_norm + self.beta
+                self._last_output = out
+                return out
+
+        # Passthrough for unknown layer
         return x
 
     # ------------------------------------------------------------------
@@ -276,20 +332,21 @@ class Layer:
     def backward(self, grad_output: np.ndarray) -> np.ndarray:
         """Compute gradients and return gradient for previous layer."""
         if self.layer_type == "dense":
-            # Activation derivative
-            da = _activation_derivative(
-                self._last_z, self._last_output, self.activation
-            )
-
-            # For softmax + cross entropy the gradient is already pre-combined
+            # For softmax activation, use the exact vector-Jacobian product:
+            # dz = a * (grad_output - sum(grad_output * a, axis=-1, keepdims=True))
             if self.activation == "softmax":
-                dz = grad_output
+                a = self._last_output
+                dz = a * (grad_output - np.sum(grad_output * a, axis=-1, keepdims=True))
             else:
+                da = _activation_derivative(
+                    self._last_z, self._last_output, self.activation
+                )
                 dz = grad_output * da
 
-            # Gradients
-            self.grad_weights = self._last_input.T @ dz / dz.shape[0]
-            self.grad_bias = np.mean(dz, axis=0)
+            # Gradients: the upstream gradient is already normalized by loss reduction.
+            # Do NOT divide by dz.shape[0] again (avoids double batch averaging).
+            self.grad_weights = self._last_input.T @ dz
+            self.grad_bias = np.sum(dz, axis=0)
 
             # Gradient for previous layer
             grad_input = dz @ self.weights.T
@@ -302,11 +359,11 @@ class Layer:
             dz = grad_output * da
             N, H_out, W_out, F = dz.shape
             k = self.params.get("kernel_size", 3)
-            self.grad_bias = np.sum(dz, axis=(0, 1, 2)) / N
+            self.grad_bias = np.sum(dz, axis=(0, 1, 2))
             gw = np.tensordot(
                 self._last_windows, dz, axes=([0, 1, 2], [0, 1, 2])
             ).transpose(1, 2, 0, 3)
-            self.grad_weights = gw / N
+            self.grad_weights = gw
 
             x_pad = self._last_padded
             grad_x_pad = np.zeros_like(x_pad)
@@ -353,6 +410,21 @@ class Layer:
                 return grad_output.reshape(self._last_input.shape)
             return grad_output
 
+        if self.layer_type == "batchnorm":
+            axes = tuple(range(grad_output.ndim - 1))
+            self.grad_beta = np.sum(grad_output, axis=axes)
+            self.grad_gamma = np.sum(grad_output * self._last_x_norm, axis=axes)
+            M = np.prod([grad_output.shape[i] for i in axes])
+            inv_std = 1.0 / np.sqrt(self._last_var + self.eps)
+            sum_dy = np.sum(grad_output, axis=axes, keepdims=True)
+            sum_dy_xnorm = np.sum(
+                grad_output * self._last_x_norm, axis=axes, keepdims=True
+            )
+            grad_input = (self.gamma * inv_std / M) * (
+                M * grad_output - sum_dy - self._last_x_norm * sum_dy_xnorm
+            )
+            return grad_input
+
         return grad_output
 
     # ------------------------------------------------------------------
@@ -369,6 +441,25 @@ class Layer:
         eps: float = 1e-8,
     ) -> None:
         """Apply gradient update to weights and bias."""
+        if self.layer_type == "batchnorm":
+            if self.gamma is not None and self.grad_gamma is not None:
+                if optimizer == "sgd":
+                    self.gamma -= lr * self.grad_gamma
+                    self.beta -= lr * self.grad_beta
+                elif optimizer == "adam":
+                    self._m_gamma = beta1 * self._m_gamma + (1 - beta1) * self.grad_gamma
+                    self._v_gamma = beta2 * self._v_gamma + (1 - beta2) * self.grad_gamma**2
+                    m_hat_g = self._m_gamma / (1 - beta1**t)
+                    v_hat_g = self._v_gamma / (1 - beta2**t)
+                    self.gamma -= lr * m_hat_g / (np.sqrt(v_hat_g) + eps)
+
+                    self._m_beta = beta1 * self._m_beta + (1 - beta1) * self.grad_beta
+                    self._v_beta = beta2 * self._v_beta + (1 - beta2) * self.grad_beta**2
+                    m_hat_b = self._m_beta / (1 - beta1**t)
+                    v_hat_b = self._v_beta / (1 - beta2**t)
+                    self.beta -= lr * m_hat_b / (np.sqrt(v_hat_b) + eps)
+            return
+
         if self.weights is None or self.grad_weights is None:
             return
 
@@ -389,6 +480,10 @@ class Layer:
             self.bias -= lr * m_hat_b / (np.sqrt(v_hat_b) + eps)
 
     def zero_grad(self) -> None:
+        self.grad_weights = None
+        self.grad_bias = None
+        self.grad_gamma = None
+        self.grad_beta = None
         self.grad_weights = None
         self.grad_bias = None
 
@@ -943,64 +1038,93 @@ class Model:
         eps = 1e-12
         n = predictions.shape[0]
 
-        # Ensure targets can broadcast with predictions
-        try:
-            t = targets.reshape(predictions.shape)
-        except ValueError:
-            # Shape mismatch — flatten both for a best-effort comparison
-            p_flat = predictions.ravel()[: targets.ravel().size]
-            t_flat = targets.ravel()[: p_flat.size]
-            diff = p_flat - t_flat
-            loss = float(np.mean(diff**2))
-            grad = np.zeros_like(predictions)
+        if loss_name in ("cross_entropy", "categorical_crossentropy"):
+            # Handle both sparse labels and one-hot targets
+            if targets.ndim == 1 or (targets.ndim == 2 and targets.shape[1] == 1):
+                targets_idx = targets.ravel().astype(int)
+                num_classes = predictions.shape[-1]
+                if np.any(targets_idx < 0) or np.any(targets_idx >= num_classes):
+                    raise ValueError(
+                        f"Target class index out of bounds [0, {num_classes - 1}]"
+                    )
+                one_hot = np.zeros_like(predictions)
+                one_hot[np.arange(n), targets_idx] = 1.0
+            elif targets.shape == predictions.shape:
+                one_hot = targets.astype(predictions.dtype)
+            else:
+                raise ValueError(
+                    f"Target shape {targets.shape} incompatible with predictions shape {predictions.shape} for {loss_name}"
+                )
+
+            p = np.clip(predictions, eps, 1.0)
+            loss = -float(np.mean(np.sum(one_hot * np.log(p), axis=-1)))
+            # True gradient w.r.t. predictions: -one_hot / (p * n)
+            # When passed into softmax backward, a * (g - sum(g*a)) simplifies analytically to (p - one_hot) / n.
+            grad = -one_hot / (p * n)
             return loss, grad
+
+        # For regression & binary cross-entropy, align targets shape
+        if targets.shape != predictions.shape:
+            if targets.size == predictions.size:
+                t = targets.reshape(predictions.shape)
+            elif (
+                predictions.ndim == 2
+                and predictions.shape[-1] > 1
+                and (targets.ndim == 1 or (targets.ndim == 2 and targets.shape[1] == 1))
+            ):
+                # Integer class labels passed with multi-class output (e.g. MSE on class labels)
+                targets_idx = targets.ravel().astype(int)
+                num_classes = predictions.shape[-1]
+                t = np.zeros_like(predictions)
+                if np.all((targets_idx >= 0) & (targets_idx < num_classes)):
+                    t[np.arange(n), targets_idx] = 1.0
+                else:
+                    raise ValueError(
+                        f"Target class index out of bounds [0, {num_classes - 1}]"
+                    )
+            else:
+                raise ValueError(
+                    f"Target shape {targets.shape} incompatible with predictions shape {predictions.shape} for {loss_name}"
+                )
+        else:
+            t = targets
 
         if loss_name in ("mse", "mean_squared_error"):
             diff = predictions - t
             loss = float(np.mean(diff**2))
-            grad = 2 * diff / n
+            grad = 2.0 * diff / predictions.size
             return loss, grad
 
         if loss_name in ("mae", "mean_absolute_error"):
             diff = predictions - t
             loss = float(np.mean(np.abs(diff)))
-            grad = np.sign(diff) / n
+            grad = np.sign(diff) / predictions.size
             return loss, grad
 
         if loss_name == "binary_crossentropy":
             p = np.clip(predictions, eps, 1 - eps)
             loss = -float(np.mean(t * np.log(p) + (1 - t) * np.log(1 - p)))
-            grad = (-t / p + (1 - t) / (1 - p)) / n
+            grad = (-t / p + (1 - t) / (1 - p)) / predictions.size
             return loss, grad
 
-        if loss_name in ("cross_entropy", "categorical_crossentropy"):
-            p = np.clip(predictions, eps, 1.0)
-            if targets.ndim == 1:
-                # Sparse labels → convert to one-hot
-                one_hot = np.zeros_like(p)
-                one_hot[np.arange(n), targets.astype(int)] = 1.0
-            else:
-                one_hot = t
-            loss = -float(np.mean(np.sum(one_hot * np.log(p), axis=-1)))
-            grad = (p - one_hot) / n
-            return loss, grad
-
-        # Default: MSE
-        diff = predictions - t
-        loss = float(np.mean(diff**2))
-        grad = 2 * diff / n
-        return loss, grad
+        raise ValueError(f"Unsupported loss function: '{loss_name}'")
 
     @staticmethod
     def _compute_accuracy(predictions: np.ndarray, targets: np.ndarray) -> float:
+        if targets.ndim > 1 and targets.shape[-1] > 1:
+            true_labels = np.argmax(targets, axis=-1)
+        else:
+            true_labels = targets.ravel().astype(int)
+
         if predictions.ndim > 1 and predictions.shape[-1] > 1:
             pred_labels = np.argmax(predictions, axis=-1)
         else:
             pred_labels = (predictions.ravel() > 0.5).astype(int)
-        true_labels = targets.ravel().astype(int)
-        return float(
-            np.mean(pred_labels[: len(true_labels)] == true_labels[: len(pred_labels)])
-        )
+
+        if len(pred_labels) == 0 or len(true_labels) == 0:
+            return 0.0
+        n = min(len(pred_labels), len(true_labels))
+        return float(np.mean(pred_labels[:n] == true_labels[:n]))
 
     # ------------------------------------------------------------------
     # Model info dict (for logger)
@@ -1240,9 +1364,16 @@ class Model:
         img_logger = ImageLogger()
 
         # Split
-        split_idx = int(len(X) * (1 - validation_split))
-        X_train, X_val = X[:split_idx], X[split_idx:]
-        y_train, y_val = y[:split_idx], y[split_idx:]
+        if validation_split > 0 and len(X) > 1:
+            split_idx = int(len(X) * (1 - validation_split))
+            split_idx = max(1, min(split_idx, len(X) - 1))
+            X_train, X_val = X[:split_idx], X[split_idx:]
+            y_train, y_val = y[:split_idx], y[split_idx:]
+        else:
+            X_train = X
+            X_val = np.empty((0, *X.shape[1:]), dtype=X.dtype)
+            y_train = y
+            y_val = np.empty((0, *y.shape[1:]), dtype=y.dtype)
 
         self._logger.on_train_start(
             model_info=self._model_info(),
@@ -1286,9 +1417,8 @@ class Model:
             epoch_losses = []
             epoch_accs = []
 
-            n_batches = max(1, len(X_train) // batch_size)
-            for b in range(n_batches):
-                s = b * batch_size
+            batch_starts = list(range(0, len(X_train), batch_size))
+            for b, s in enumerate(batch_starts):
                 e = min(s + batch_size, len(X_train))
                 xb, yb = Xs[s:e], ys[s:e]
 
@@ -1332,9 +1462,13 @@ class Model:
                 )
 
             # Validation
-            val_preds = self._real_forward(X_val, training=False)
-            val_loss, _ = self._compute_loss(val_preds, y_val, self.loss_name or "mse")
-            val_acc = self._compute_accuracy(val_preds, y_val)
+            if len(X_val) > 0:
+                val_preds = self._real_forward(X_val, training=False)
+                val_loss, _ = self._compute_loss(val_preds, y_val, self.loss_name or "mse")
+                val_acc = self._compute_accuracy(val_preds, y_val)
+            else:
+                val_loss = 0.0
+                val_acc = 0.0
 
             epoch_time = time.time() - epoch_t0
             perf_mon.record_epoch_time(epoch_time)
@@ -1409,6 +1543,33 @@ class Model:
         X = np.asarray(X, dtype=np.float64)
         return self._real_forward(X, training=False)
 
+    def train_on_batch(self, X: np.ndarray, y: np.ndarray) -> float:
+        """
+        Execute a single forward, backward, and optimization step on a single batch.
+
+        Args:
+            X: Input batch features
+            y: Target batch labels/values
+
+        Returns:
+            Scalar loss for the batch
+        """
+        X = np.asarray(X, dtype=np.float64)
+        y = np.asarray(y, dtype=np.float64)
+        if not hasattr(self, "_step_counter"):
+            self._step_counter = 1
+
+        preds = self._real_forward(X, training=True)
+        loss, grad = self._compute_loss(preds, y, self.loss_name or "mse")
+        self._real_backward(grad)
+        self._update_params(t=self._step_counter)
+        self._step_counter += 1
+
+        for layer in self.layers:
+            layer.zero_grad()
+
+        return float(loss)
+
     def evaluate(self, X: np.ndarray, y: np.ndarray) -> dict[str, float]:
         X = np.asarray(X, dtype=np.float64)
         y = np.asarray(y, dtype=np.float64)
@@ -1419,6 +1580,7 @@ class Model:
         return {"loss": loss, "accuracy": acc}
 
     def save(self, filepath: str):
+        """Save model architecture and trained weights to file."""
         import pickle
 
         with open(filepath, "wb") as f:
@@ -1433,6 +1595,10 @@ class Model:
                             "params": layer.params,
                             "weights": layer.weights,
                             "bias": layer.bias,
+                            "gamma": getattr(layer, "gamma", None),
+                            "beta": getattr(layer, "beta", None),
+                            "running_mean": getattr(layer, "running_mean", None),
+                            "running_var": getattr(layer, "running_var", None),
                         }
                         for layer in self.layers
                     ],
@@ -1444,6 +1610,45 @@ class Model:
                 f,
             )
         print(f"💾 Model saved to {filepath}")
+
+    @classmethod
+    def load(cls, filepath: str) -> Model:
+        """Load a saved model from file."""
+        import pickle
+
+        with open(filepath, "rb") as f:
+            data = pickle.load(f)
+
+        layers = []
+        for l_info in data["layers"]:
+            layer = Layer(
+                layer_type=l_info["type"],
+                units=l_info["units"],
+                activation=l_info["activation"],
+                **l_info.get("params", {}),
+            )
+            layer.weights = l_info.get("weights")
+            layer.bias = l_info.get("bias")
+            if l_info.get("gamma") is not None:
+                layer.gamma = l_info["gamma"]
+            if l_info.get("beta") is not None:
+                layer.beta = l_info["beta"]
+            if l_info.get("running_mean") is not None:
+                layer.running_mean = l_info["running_mean"]
+            if l_info.get("running_var") is not None:
+                layer.running_var = l_info["running_var"]
+            layer._initialised = True
+            layers.append(layer)
+
+        model = cls(layers=layers, name=data.get("name", "loaded_model"))
+        model.loss_name = data.get("loss_name")
+        model.optimizer = data.get("optimizer", "adam")
+        model.learning_rate = data.get("learning_rate", 0.001)
+        model.history = data.get(
+            "history", {"loss": [], "accuracy": [], "val_loss": [], "val_accuracy": []}
+        )
+        model.is_compiled = True
+        return model
 
     def plot_history(self):
         from neurogebra.viz.plotting import plot_training_history

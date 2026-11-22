@@ -32,6 +32,7 @@ class EducationalTrainer:
         verbose: bool = True,
         visualize: bool = False,
         explain_steps: bool = True,
+        simulate: bool = False,
     ):
         """
         Initialize trainer.
@@ -41,11 +42,13 @@ class EducationalTrainer:
             verbose: Print progress after each epoch
             visualize: Show live matplotlib plots
             explain_steps: Explain what's happening (beginner mode)
+            simulate: Explicitly enable simulation mode for mock/stub models
         """
         self.model = model
         self.verbose = verbose
         self.visualize = visualize
         self.explain_steps = explain_steps
+        self.simulate = simulate
 
         self.history: dict[str, list[float]] = {
             "loss": [],
@@ -77,9 +80,9 @@ class EducationalTrainer:
         self,
         X: np.ndarray,
         y: np.ndarray,
-        epochs: int,
-        batch_size: int,
-        validation_split: float,
+        epochs: int = 10,
+        batch_size: int = 32,
+        validation_split: float = 0.2,
     ) -> dict[str, list[float]]:
         """
         Train the model with educational features.
@@ -181,7 +184,6 @@ class EducationalTrainer:
         if n_samples == 0:
             return 0.0, 0.0
 
-        n_batches = max(1, n_samples // batch_size)
         batch_losses = []
         batch_accs = []
 
@@ -195,8 +197,7 @@ class EducationalTrainer:
             self.model, "_compute_loss"
         ):
             loss_name = getattr(self.model, "loss_name", None) or "mse"
-            for batch_idx in range(n_batches):
-                start_idx = batch_idx * batch_size
+            for start_idx in range(0, n_samples, batch_size):
                 end_idx = min(start_idx + batch_size, n_samples)
 
                 X_batch = X_shuffled[start_idx:end_idx]
@@ -221,7 +222,15 @@ class EducationalTrainer:
             avg_acc = float(np.mean(batch_accs)) if batch_accs else 0.0
             return avg_loss, avg_acc
 
-        # Fallback for standalone/mocked model objects without real forward/backward
+        if not self.simulate:
+            raise TypeError(
+                "Model does not implement required '_real_forward' and '_compute_loss' methods. "
+                "For simulated educational demonstrations on mock/stub objects, pass simulate=True."
+            )
+
+        # Explicitly marked simulated demonstration fallback
+        self.history["is_simulated"] = True
+        n_batches = max(1, (n_samples + batch_size - 1) // batch_size)
         for _batch_idx in range(n_batches):
             base_loss = 2.0 * np.exp(-epoch * 0.15) + 0.05
             noise = np.random.uniform(-0.1, 0.1)
@@ -250,7 +259,13 @@ class EducationalTrainer:
             val_acc = self.model._compute_accuracy(val_preds, y_val)
             return float(val_loss), float(val_acc)
 
-        # Fallback for standalone/mocked model objects
+        if not self.simulate:
+            raise TypeError(
+                "Model does not implement required '_real_forward' and '_compute_loss' methods. "
+                "For simulated educational demonstrations on mock/stub objects, pass simulate=True."
+            )
+
+        # Fallback for standalone/mocked model objects with simulate=True
         base_loss = 2.2 * np.exp(-epoch * 0.12) + 0.08
         noise = np.random.uniform(-0.15, 0.15)
         val_loss = float(max(0.02, base_loss + noise))

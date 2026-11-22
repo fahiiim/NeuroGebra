@@ -131,7 +131,10 @@ class Trainer:
             preds = self.expression.eval(x=X)
             preds_arr = np.asarray(preds, dtype=np.float64)
             if preds_arr.shape == () and len(X) > 0:
-                return np.full_like(X, float(preds_arr), dtype=np.float64)
+                return np.full(len(X), float(preds_arr), dtype=np.float64)
+            # If 2D with single column and inputs are 1D, flatten to 1D
+            if preds_arr.ndim == 2 and preds_arr.shape[1] == 1:
+                preds_arr = preds_arr.ravel()
             return preds_arr
         except Exception:
             # Fallback to sample-by-sample evaluation if expression requires scalar inputs
@@ -143,13 +146,21 @@ class Trainer:
         self, predictions: np.ndarray, targets: np.ndarray, loss_fn: str
     ) -> float:
         """Compute loss value."""
+        p = np.asarray(predictions, dtype=np.float64)
+        t = np.asarray(targets, dtype=np.float64)
+        if p.shape != t.shape:
+            if p.size == t.size:
+                p = p.reshape(t.shape)
+            else:
+                raise ValueError(f"Shape mismatch: predictions {p.shape} vs targets {t.shape}")
+
         if loss_fn == "mse":
-            return float(np.mean((predictions - targets) ** 2))
+            return float(np.mean((p - t) ** 2))
         elif loss_fn == "mae":
-            return float(np.mean(np.abs(predictions - targets)))
+            return float(np.mean(np.abs(p - t)))
         elif loss_fn == "huber":
             delta = 1.0
-            diff = np.abs(predictions - targets)
+            diff = np.abs(p - t)
             return float(
                 np.mean(
                     np.where(
@@ -171,7 +182,14 @@ class Trainer:
             self._t += 1
 
         preds = self._forward(X)
+        y = np.asarray(y, dtype=np.float64)
+        if preds.shape != y.shape and preds.size == y.size:
+            preds = preds.reshape(y.shape)
         n = len(X)
+
+        # Phase 1: Compute gradients for all trainable parameters from snapshot
+        gradients = {}
+        original_params = self.expression.params.copy()
 
         for param_name in self.expression.trainable_params:
             if param_name not in self.expression.params:
@@ -185,6 +203,8 @@ class Trainer:
                 df_dp = np.asarray(df_dp, dtype=np.float64)
                 if df_dp.shape == () and n > 0:
                     df_dp = np.full_like(preds, float(df_dp), dtype=np.float64)
+                elif df_dp.shape != preds.shape and df_dp.size == preds.size:
+                    df_dp = df_dp.reshape(preds.shape)
 
                 if loss_fn == "mse":
                     dL_df = 2.0 * (preds - y) / n
@@ -205,21 +225,28 @@ class Trainer:
             # Fallback to central finite differences if analytical gradient not computed
             if gradient is None or not np.isfinite(gradient):
                 epsilon = 1e-5
-                original_value = self.expression.params[param_name]
+                original_value = original_params[param_name]
 
-                self.expression.params[param_name] = original_value + epsilon
-                pred_plus = self._forward(X)
-                loss_plus = self._compute_loss(pred_plus, y, loss_fn)
+                try:
+                    self.expression.params[param_name] = original_value + epsilon
+                    pred_plus = self._forward(X)
+                    loss_plus = self._compute_loss(pred_plus, y, loss_fn)
 
-                self.expression.params[param_name] = original_value - epsilon
-                pred_minus = self._forward(X)
-                loss_minus = self._compute_loss(pred_minus, y, loss_fn)
+                    self.expression.params[param_name] = original_value - epsilon
+                    pred_minus = self._forward(X)
+                    loss_minus = self._compute_loss(pred_minus, y, loss_fn)
 
-                self.expression.params[param_name] = original_value
-                gradient = (loss_plus - loss_minus) / (2 * epsilon)
+                    gradient = (loss_plus - loss_minus) / (2 * epsilon)
+                finally:
+                    self.expression.params[param_name] = original_value
 
-            # Update parameter based on optimizer
-            original_value = self.expression.params[param_name]
+            gradients[param_name] = gradient
+
+        # Phase 2: Simultaneous parameter update
+        for param_name, gradient in gradients.items():
+            if gradient is None or not np.isfinite(gradient):
+                continue
+            original_value = original_params[param_name]
             if self.optimizer == "adam":
                 self._adam_update(param_name, gradient)
             else:
