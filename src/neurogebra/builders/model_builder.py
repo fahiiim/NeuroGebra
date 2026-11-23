@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import copy
 import time
-from typing import Any
+from typing import Any, Optional
 
 import numpy as np
 
@@ -89,11 +89,11 @@ class LayerParam:
         setattr(self._layer, self._data_attr, value)
 
     @property
-    def grad(self) -> np.ndarray | None:
+    def grad(self) -> Optional[np.ndarray]:
         return getattr(self._layer, self._grad_attr)
 
     @grad.setter
-    def grad(self, value: np.ndarray | None) -> None:
+    def grad(self, value: Optional[np.ndarray]) -> None:
         setattr(self._layer, self._grad_attr, value)
 
 
@@ -1271,7 +1271,7 @@ class Model:
         self.optimizer: str | None = None
         self.learning_rate: float = 0.001
         self.metrics: list[str] = []
-        self._optimizer_obj: Any | None = None
+        self._optimizer_obj: Optional[Any] = None
         self._step_counter: int = 0
 
         # Training Observatory

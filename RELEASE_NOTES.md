@@ -1,3 +1,16 @@
+# Release Notes - Neurogebra v2.8.3
+
+## Python 3.9 Compatibility Hardening across Cross-Platform CI
+
+Neurogebra v2.8.3 delivers compatibility hardening for Python 3.9 environments across Linux (Ubuntu 22.04), Windows, and macOS runners, resolving an import-time `TypeError` caused by PEP 604 runtime union expressions (`|`) in type annotations.
+
+### Key Fixes
+- Added `from __future__ import annotations` to `educational_trainer.py`, `pytorch_bridge.py`, and `tensorflow_bridge.py`.
+- Replaced PEP 604 runtime union expressions (`Any | None`, `np.ndarray | None`) with `typing.Optional` and `typing.Dict` across `EducationalTrainer`, framework bridges, and `ModelBuilder`.
+- 100% matrix test pass across Python 3.9, 3.10, 3.11, and 3.12 on Linux, Windows, and macOS.
+
+---
+
 # Release Notes - Neurogebra v2.8.2
 
 ## Rich LaTeX Mathematical Expressions & Mathematical Hardening (V01-V20)

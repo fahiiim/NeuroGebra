@@ -4,7 +4,9 @@ PyTorch bridge for Neurogebra expressions.
 Converts Neurogebra expressions to PyTorch-compatible modules.
 """
 
-from typing import Any
+from __future__ import annotations
+
+from typing import Any, Optional
 
 import numpy as np
 import sympy as sp
@@ -38,11 +40,11 @@ class PyTorchResidualDense(nn.Module if TORCH_AVAILABLE else object):
         in_features: int,
         units: int,
         activation: str = "relu",
-        weights: np.ndarray | None = None,
-        bias: np.ndarray | None = None,
-        weights2: np.ndarray | None = None,
-        bias2: np.ndarray | None = None,
-        weights_skip: np.ndarray | None = None,
+        weights: Optional[np.ndarray] = None,
+        bias: Optional[np.ndarray] = None,
+        weights2: Optional[np.ndarray] = None,
+        bias2: Optional[np.ndarray] = None,
+        weights_skip: Optional[np.ndarray] = None,
     ):
         super().__init__()
         self.fc1 = nn.Linear(in_features, units)
