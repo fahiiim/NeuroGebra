@@ -13,8 +13,8 @@ This file tracks current publishing readiness without conflicting historical not
 
 | Platform | Current State | Notes |
 |---|---|---|
-| GitHub | `v2.8.2` pending | Formal release with LaTeX formatting, V01-V20 mathematical hardening, zero emojis. |
-| PyPI | `2.8.2` pending | Wheel and source distribution ready for PyPI upload. |
+| GitHub | `v2.8.2` published | Formal release with LaTeX formatting, V01-V20 mathematical hardening, zero emojis. |
+| PyPI | `2.8.2` published | Wheel and source distribution available on PyPI at https://pypi.org/project/neurogebra/2.8.2/ |
 | Read the Docs | Configured | Use `.readthedocs.yaml` as the single source of truth. |
 
 ## Pre-Release Gate (Current)
