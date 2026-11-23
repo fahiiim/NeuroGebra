@@ -4,12 +4,12 @@ Neurogebra: Neural-powered mathematics for AI developers.
 A unified library bridging symbolic mathematics, numerical computation,
 and deep learning with educational features built-in.
 
-v2.8.1 -- Hardware Acceleration Engine (C-JIT AVX2 & CUDA GPU), Physics-Informed Neural Networks (PINN),
-Learning Rate Schedulers, Evaluation Metrics, Advanced Layers (LayerNorm, GAP2D, ResidualDense),
-and 20 Production-Grade Executed Notebook Projects.
+v2.8.2 -- Rich LaTeX Expression Rendering, Hardware Acceleration Engine (C-JIT AVX2 & CUDA GPU),
+Physics-Informed Neural Networks (PINN), Learning Rate Schedulers, Evaluation Metrics,
+Advanced Layers (LayerNorm, GAP2D, ResidualDense), and 20 Production-Grade Executed Notebook Projects.
 """
 
-__version__ = "2.8.1"
+__version__ = "2.8.2"
 __author__ = "Fahim Sarker"
 __email__ = "fahimsarker0805@gmail.com"
 

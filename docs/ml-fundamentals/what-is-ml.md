@@ -73,8 +73,8 @@ The examples the model learns from.
 
 ```python
 # Example: House data
-sizes =    [800,  1200, 1500, 2000, 2500]
-prices =   [150k, 220k, 280k, 350k, 430k]
+sizes =    [800,     1200,    1500,    2000,    2500]
+prices =   [150_000, 220_000, 280_000, 350_000, 430_000]
 ```
 
 ### 2. Model

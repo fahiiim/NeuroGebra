@@ -1,3 +1,34 @@
+# Release Notes - Neurogebra v2.8.2
+
+## Rich LaTeX Mathematical Expressions & Mathematical Hardening (V01-V20)
+
+Neurogebra v2.8.2 brings rich LaTeX expression formatting for interactive environments, notebook visualization upgrades, and critical mathematical and architectural enhancements addressing findings V01 through V20 from the expert mathematical review.
+
+### Headline Additions & Enhancements
+
+#### Rich LaTeX Representation (`neurogebra.core.expression.Expression`)
+- Integrated `_repr_latex_()`, `latex()`, and `to_latex()` onto `Expression`, enabling native mathematical rendering in Jupyter notebooks, IPython shells, and documentation.
+- Executed and upgraded `examples/projects/13-symbolic-autograd-and-higher-order-derivatives.ipynb` with interactive LaTeX displays (`display(Math(...))` and `text/latex` MIME outputs) for objective formulas, gradient vectors, and Hessian matrices.
+
+#### Mathematical Correctness & Algorithmic Hardening (Audit Findings V01-V20)
+- **Optimizer Integration (V01)**: `Model.compile` natively accepts standalone `Optimizer` instances (`RMSprop`, `Adam`, `SGD`) and `"rmsprop"` string, stepping weights via `LayerParam` wrappers (.data, .grad).
+- **Learning Rate Schedulers (V02)**: Guaranteed scheduler stepping across all training pathways including `EducationalTrainer`.
+- **Exact LayerNorm Backward VJP (V03)**: Exact analytical vector-jacobian product with feature-scaled upstream gradient $g = \text{grad\_output} \times \gamma$, verified by finite difference perturbation.
+- **PINN Bias Gradients (V04)**: Loss backpropagation differentiates both weights and biases across all model layers.
+- **Save/Load State Serialization (V05)**: Full serialization of `ResidualDense`, `LayerNorm`, running statistics, and optimizer moments.
+- **Macro F1 Metric (V06)**: Accurately computes per-class F1 prior to unweighted averaging.
+- **Autograd Graph Accumulation (V07 & V08)**: Preserves leaf gradient accumulation across multiple backward passes while resetting intermediate nodes; supports negative axes in `Tensor.transpose`.
+- **Softmax Underflow Stability (V09)**: Prevents zero gradients and numerical overflow under extreme negative logits.
+- **Adam Step Counter (V10)**: Persisted across sequential `train_on_batch()` and `fit()` calls.
+- **Sample Weighted Aggregation (V11)**: Weights batch metrics by actual sample count for uneven batch sizes.
+- **Metric Input Validation (V12)**: Standardized shape checks and 1D/2D alignment across all metrics.
+- **Conv2D Asymmetric Padding (V13)**: Exact asymmetric same-padding for even convolutional kernels.
+- **Framework Bridges (V14)**: Added support for `LayerNorm`, `GlobalAveragePooling2D`, and `ResidualDense` modules in PyTorch and TensorFlow bridges.
+- **Formula Numerical Stability (V15)**: Handled extreme inputs for Softplus and Box-Cox transforms ($\lambda \to 0 \implies \ln(x)$).
+- **Security & Hygiene (V16-V20)**: HTML-escaped dashboard metadata, verified code snippets via AST parsing, accurately documented dataset provenance, and eliminated all emoji characters across the entire codebase.
+
+---
+
 # Release Notes - Neurogebra v2.5.11
 
 ## Branding and project presentation
@@ -38,7 +69,7 @@ There are no runtime API changes in this release.
 - Detects: dead neurons, gradient spikes, vanishing/exploding gradients, NaN/Inf, loss spikes, weight stagnation, activation saturation
 - Configurable thresholds via `AnomalyConfig`
 
-#### ️ Automated Health Warnings (`AutoHealthWarnings`)
+####  Automated Health Warnings (`AutoHealthWarnings`)
 - 10 threshold-based rules that run on every batch and epoch
 - Structured `HealthWarning` objects with diagnosis and actionable recommendations
 - Rules: dead_relu, vanishing/exploding gradient, gradient_spike, nan_inf_loss, overfitting, loss_stagnation, weight_stagnation, loss_divergence, activation_saturation

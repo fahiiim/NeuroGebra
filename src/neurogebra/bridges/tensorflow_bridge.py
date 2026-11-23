@@ -28,6 +28,63 @@ def check_tensorflow():
         )
 
 
+class KerasResidualDense(tf.keras.layers.Layer if TF_AVAILABLE else object):
+    """TensorFlow/Keras implementation of NeuroGebra ResidualDense layer."""
+
+    def __init__(
+        self,
+        units: int,
+        activation: str = "relu",
+        weights: np.ndarray | None = None,
+        bias: np.ndarray | None = None,
+        weights2: np.ndarray | None = None,
+        bias2: np.ndarray | None = None,
+        weights_skip: np.ndarray | None = None,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+        self.units = units
+        self.activation_name = (activation or "").lower()
+        self._preset_w = weights
+        self._preset_b = bias
+        self._preset_w2 = weights2
+        self._preset_b2 = bias2
+        self._preset_wskip = weights_skip
+
+    def build(self, input_shape):
+        in_dim = int(input_shape[-1])
+        w1_init = tf.constant_initializer(self._preset_w) if self._preset_w is not None else "glorot_uniform"
+        b1_init = tf.constant_initializer(self._preset_b) if self._preset_b is not None else "zeros"
+        self.w1 = self.add_weight("w1", shape=(in_dim, self.units), initializer=w1_init)
+        self.b1 = self.add_weight("b1", shape=(self.units,), initializer=b1_init)
+
+        w2_init = tf.constant_initializer(self._preset_w2) if self._preset_w2 is not None else "glorot_uniform"
+        b2_init = tf.constant_initializer(self._preset_b2) if self._preset_b2 is not None else "zeros"
+        self.w2 = self.add_weight("w2", shape=(self.units, self.units), initializer=w2_init)
+        self.b2 = self.add_weight("b2", shape=(self.units,), initializer=b2_init)
+
+        if self._preset_wskip is not None or in_dim != self.units:
+            wskip_init = tf.constant_initializer(self._preset_wskip) if self._preset_wskip is not None else "glorot_uniform"
+            self.w_skip = self.add_weight("w_skip", shape=(in_dim, self.units), initializer=wskip_init)
+        else:
+            self.w_skip = None
+        super().build(input_shape)
+
+    def call(self, inputs):
+        h = tf.matmul(inputs, self.w1) + self.b1
+        if self.activation_name == "relu":
+            h = tf.nn.relu(h)
+        elif self.activation_name == "sigmoid":
+            h = tf.nn.sigmoid(h)
+        elif self.activation_name == "tanh":
+            h = tf.nn.tanh(h)
+        elif self.activation_name == "gelu":
+            h = tf.nn.gelu(h)
+        out = tf.matmul(h, self.w2) + self.b2
+        skip = tf.matmul(inputs, self.w_skip) if self.w_skip is not None else inputs
+        return out + skip
+
+
 def model_to_tensorflow(model):
     """Convert a Neurogebra Model to a TensorFlow/Keras Sequential model."""
     check_tensorflow()
@@ -73,6 +130,34 @@ def model_to_tensorflow(model):
         elif ltype == "maxpool2d":
             tf_layers.append(
                 tf.keras.layers.MaxPooling2D(pool_size=layer.params.get("pool_size", 2))
+            )
+        elif ltype == "layernorm":
+            eps = float(layer.params.get("eps", 1e-5))
+            keras_ln = tf.keras.layers.LayerNormalization(epsilon=eps)
+            if getattr(layer, "gamma", None) is not None and getattr(layer, "beta", None) is not None:
+                keras_ln.build((None, len(layer.gamma)))
+                keras_ln.set_weights([layer.gamma, layer.beta])
+            tf_layers.append(keras_ln)
+        elif ltype == "global_avgpool2d":
+            tf_layers.append(tf.keras.layers.GlobalAveragePooling2D())
+        elif ltype == "residual_dense":
+            in_dim = layer.weights.shape[0] if layer.weights is not None else layer.units
+            out_dim = layer.units or in_dim
+            res_layer = KerasResidualDense(
+                units=out_dim,
+                activation=layer.activation or "relu",
+                weights=layer.weights,
+                bias=layer.bias,
+                weights2=getattr(layer, "weights2", None),
+                bias2=getattr(layer, "bias2", None),
+                weights_skip=getattr(layer, "weights_skip", None),
+            )
+            if in_dim is not None:
+                res_layer.build((None, in_dim))
+            tf_layers.append(res_layer)
+        else:
+            raise NotImplementedError(
+                f"TensorFlow bridge does not support layer type '{layer.layer_type}'"
             )
     return tf.keras.Sequential(tf_layers)
 

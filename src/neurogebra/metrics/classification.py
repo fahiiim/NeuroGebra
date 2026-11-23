@@ -14,6 +14,8 @@ def _to_labels(y: np.ndarray) -> np.ndarray:
         if y.shape[1] > 1:
             return np.argmax(y, axis=1)
         return (y > 0.5).astype(np.int64).flatten()
+    if np.issubdtype(y.dtype, np.floating) and np.all((y >= 0.0) & (y <= 1.0)):
+        return (y >= 0.5).astype(np.int64)
     return y.astype(np.int64)
 
 
@@ -30,6 +32,10 @@ def accuracy_score(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """
     yt = _to_labels(y_true)
     yp = _to_labels(y_pred)
+    if len(yt) != len(yp):
+        raise ValueError(
+            f"Found input variables with inconsistent numbers of samples: [{len(yt)}, {len(yp)}]"
+        )
     if len(yt) == 0:
         return 0.0
     return float(np.mean(yt == yp))
@@ -120,12 +126,50 @@ def f1_score(
     average: str = "macro",
     zero_division: float = 0.0,
 ) -> float:
-    """Compute F1 score (harmonic mean of precision and recall)."""
-    p = precision_score(y_true, y_pred, average=average, zero_division=zero_division)
-    r = recall_score(y_true, y_pred, average=average, zero_division=zero_division)
-    if p + r == 0:
-        return zero_division
-    return 2.0 * (p * r) / (p + r)
+    """Compute F1 score."""
+    if average not in ("macro", "micro", "weighted"):
+        raise ValueError(
+            f"Unsupported average mode '{average}'. Supported: 'macro', 'micro', 'weighted'."
+        )
+    cm = confusion_matrix(y_true, y_pred)
+    tp = np.diag(cm).astype(np.float64)
+    pred_sum = np.sum(cm, axis=0).astype(np.float64)
+    true_sum = np.sum(cm, axis=1).astype(np.float64)
+
+    if average == "micro":
+        total_tp = float(np.sum(tp))
+        total_pred = float(np.sum(pred_sum))
+        total_true = float(np.sum(true_sum))
+        p = total_tp / total_pred if total_pred > 0 else zero_division
+        r = total_tp / total_true if total_true > 0 else zero_division
+        return (2.0 * p * r / (p + r)) if (p + r) > 0 else zero_division
+
+    precisions = np.divide(
+        tp,
+        pred_sum,
+        out=np.full_like(tp, zero_division),
+        where=pred_sum != 0,
+    )
+    recalls = np.divide(
+        tp,
+        true_sum,
+        out=np.full_like(tp, zero_division),
+        where=true_sum != 0,
+    )
+    pr_sum = precisions + recalls
+    f1s = np.divide(
+        2.0 * precisions * recalls,
+        pr_sum,
+        out=np.full_like(tp, zero_division),
+        where=pr_sum != 0,
+    )
+
+    if average == "macro":
+        return float(np.mean(f1s))
+    elif average == "weighted":
+        weights = true_sum / np.sum(true_sum) if np.sum(true_sum) > 0 else np.zeros_like(true_sum)
+        return float(np.sum(f1s * weights))
+    return float(np.mean(f1s))
 
 
 def classification_report(

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "neurogebra"
-version = "2.8.1"
+version = "2.8.2"
 description = "The executable mathematical formula companion for AI and Data Science"
 readme = "README.md"
 requires-python = ">=3.9"

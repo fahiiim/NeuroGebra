@@ -9,10 +9,10 @@ Optimizers control **how** your model updates its weights during training. Choos
 Training = finding the weights that minimize the loss function.
 
 ```
-Current weights → Compute loss → Compute gradients → Update weights
- ↑ |
- └──────────────────────────────────────────────────────────┘
- 
+Current weights →  Compute loss  →  Compute gradients  →  Update weights
+      ↑                                                          |
+      └──────────────────────────────────────────────────────────┘
+      
 The OPTIMIZER decides how to use the gradients to update weights.
 ```
 
@@ -34,7 +34,7 @@ import numpy as np
 forge = MathForge()
 
 model = Expression("linear", "w*x + b",
- params={"w": 0.0, "b": 0.0}, trainable_params=["w", "b"])
+    params={"w": 0.0, "b": 0.0}, trainable_params=["w", "b"])
 loss = forge.get("mse")
 
 # SGD optimizer
@@ -144,27 +144,27 @@ For understanding, you can implement optimization manually:
 from neurogebra.core.autograd import Value
 import numpy as np
 
-# Simple optimization: find x that minimizes x^2 - 4x + 4 (answer: x=2)
-x = Value(0.0) # Start at x=0
+# Simple optimization: find x that minimizes x^2 - 4x + 4  (answer: x=2)
+x = Value(0.0)  # Start at x=0
 lr = 0.1
 
 for epoch in range(50):
- # Forward pass
- loss = x**2 - 4*x + 4
- 
- # Backward pass
- loss.backward()
- 
- # Update
- x.data -= lr * x.grad
- 
- # Zero gradients
- x.grad = 0.0
- 
- if epoch % 10 == 0:
- print(f"Epoch {epoch}: x = {x.data:.4f}, loss = {loss.data:.4f}")
+    # Forward pass
+    loss = x**2 - 4*x + 4
+    
+    # Backward pass
+    loss.backward()
+    
+    # Update
+    x.data -= lr * x.grad
+    
+    # Zero gradients
+    x.grad = 0.0
+    
+    if epoch % 10 == 0:
+        print(f"Epoch {epoch}: x = {x.data:.4f}, loss = {loss.data:.4f}")
 
-print(f"\nOptimal x = {x.data:.4f}") # Should be ≈ 2.0
+print(f"\nOptimal x = {x.data:.4f}")  # Should be ≈ 2.0
 ```
 
 ---

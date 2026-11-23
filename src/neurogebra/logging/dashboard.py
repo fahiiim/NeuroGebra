@@ -185,7 +185,7 @@ class DashboardExporter:
             grad_layers=json.dumps(grad_layers),
             grad_matrix=json.dumps(grad_matrix),
             health_rows=health_rows,
-            model_info=json.dumps(model_info, indent=2, default=str),
+            model_info=html_lib.escape(json.dumps(model_info, indent=2, default=str)),
         )
 
         with open(self.path, "w", encoding="utf-8") as f:

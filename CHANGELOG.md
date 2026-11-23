@@ -5,6 +5,30 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2] - 2026-11-23
+
+### Added
+- **Rich LaTeX Mathematical Expression Rendering**: Added `_repr_latex_()`, `latex()`, and `to_latex()` methods to `neurogebra.core.expression.Expression` with full support for Jupyter notebook rich display outputs (`display(Math(...))` and `text/latex` MIME representation).
+- **Execution & LaTeX Display in Project 13**: Updated `examples/projects/13-symbolic-autograd-and-higher-order-derivatives.ipynb` with rich LaTeX outputs for objective functions, analytical gradient vectors, and Hessian matrices.
+
+### Fixed & Hardened (Expert Mathematical Audit Findings V01-V20)
+- **V01 (Optimizer Stepping)**: Model optimizer stepping now supports standalone optimizer objects (`RMSprop`, `Adam`, `SGD`) via `LayerParam` references (.data, .grad) and added `"rmsprop"` string support.
+- **V02 (LR Scheduler Stepping)**: Learning rate schedulers are stepped reliably at the end of each epoch across all training paths including `EducationalTrainer`.
+- **V03 (LayerNorm Analytical Backward VJP)**: Exact analytical vector-jacobian product for LayerNorm with feature-scaled upstream gradient $g = \text{grad\_output} \times \gamma$ inside normalization sums, validated via finite differences.
+- **V04 (PINN Multi-Parameter Residual Gradients)**: Physics-informed loss backpropagation differentiates both weights and biases across all layers.
+- **V05 (Serialization & Moment Persistence)**: Complete state dictionary serialization in `Model.save()` and `Model.load()` covering `ResidualDense`, `LayerNorm`, running statistics, and optimizer moments.
+- **V06 (Macro F1 Metric)**: Corrected macro F1 metric calculation to compute per-class F1 before unweighted mean averaging.
+- **V07 (Autograd Graph Accumulation)**: Non-leaf graph nodes reset during autograd traversal while leaf tensor gradients accumulate properly across backward calls.
+- **V08 (Tensor Transpose Negative Axes)**: Negative axes normalized before inverse permutation calculation.
+- **V09 (Softmax Gradient Underflow Stability)**: Added underflow mask safeguarding against extreme negative logits and infinite cross-entropy gradients.
+- **V10 (Adam Step Counter Persistence)**: Step counter tracked across `train_on_batch()` and `fit()` cycles.
+- **V11 (Sample Weighted Aggregation)**: Batch metrics weighted by actual batch sample sizes during epoch loss/metric aggregation.
+- **V12 (Metric Input Validation)**: Automatic 1D/2D shape alignment and length validation across all classification and regression metrics.
+- **V13 (Conv2D Asymmetric Padding)**: Asymmetric same-padding for even convolutional kernels ($k-1$ total pad).
+- **V14 (Bridge Validation)**: Deep learning framework bridges support modern layers (`LayerNorm`, `GlobalAveragePooling2D`, `ResidualDense`) and fail closed with `NotImplementedError` for unsupported structures.
+- **V15 (Formula Numerical Stability)**: Softplus and Box-Cox numerical evaluations guarded against overflow and division by zero ($\lambda \to 0 \implies \ln(x)$).
+- **V16-V20 (Provenances, AST Checks, Dashboard XSS & Security)**: Accurately documented dataset distributions, validated Python documentation snippets via AST, HTML-escaped dashboard metadata, and removed emojis across all repository files.
+
 ## [2.8.1] - 2026-11-22
 
 ### Changed & Cleaned

@@ -4,7 +4,7 @@ Built-in datasets for learning and experimentation.
 Provides easy-to-load datasets with educational metadata
 so beginners can start training models immediately.
 
-Over 100 datasets organized by category:
+Curated collection organized by category:
 - Classification (binary & multi-class)
 - Regression
 - Clustering
@@ -12,6 +12,9 @@ Over 100 datasets organized by category:
 - Text/NLP
 - Image Recognition
 - Synthetic patterns
+
+Note: Methods provide curated synthetic/mathematical distributions for offline
+learning and benchmark experimentation, and integrate with scikit-learn when available.
 """
 
 import importlib.util
@@ -619,7 +622,7 @@ class Datasets:
                 ("moons", "500 samples", "Curved boundaries"),
                 ("circles", "500 samples", "Radial boundaries"),
             ],
-            "️ IMAGE RECOGNITION": [
+            " IMAGE RECOGNITION": [
                 ("mnist", "70,000 samples", "Handwritten digits"),
                 ("fashion_mnist", "70,000 samples", "Fashion items"),
                 ("digits", "1,797 samples", "Small digit recognition"),
@@ -705,7 +708,7 @@ class Datasets:
                 "features": 4,
                 "classes": 3,
                 "task": "Multi-class classification",
-                "difficulty": "⭐ Beginner",
+                "difficulty": "* Beginner",
                 "description": "Classic dataset for learning classification. Predict flower species from petal/sepal measurements.",
                 "use_cases": [
                     "First ML project",
@@ -718,7 +721,7 @@ class Datasets:
                 "samples": 20640,
                 "features": 8,
                 "task": "Regression",
-                "difficulty": "⭐⭐ Intermediate",
+                "difficulty": "** Intermediate",
                 "description": "Predict median house values in California districts based on location and demographics.",
                 "use_cases": [
                     "Regression practice",
@@ -732,7 +735,7 @@ class Datasets:
                 "features": 30,
                 "classes": 2,
                 "task": "Binary classification",
-                "difficulty": "⭐⭐ Intermediate",
+                "difficulty": "** Intermediate",
                 "description": "Diagnose breast cancer (malignant/benign) from cell nucleus measurements.",
                 "use_cases": [
                     "Medical ML",

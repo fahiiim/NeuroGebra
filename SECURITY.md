@@ -4,11 +4,12 @@
 
 Security updates and critical bug fixes are provided for the following versions:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 2.6.x   | :white_check_mark: |
-| 2.5.x   | :white_check_mark: |
-| < 2.5   | :x:                |
+| Version | Supported |
+| ------- | --------- |
+| 2.8.x   | Yes       |
+| 2.7.x   | Yes       |
+| 2.6.x   | Yes       |
+| < 2.6   | No        |
 
 ## Reporting a Vulnerability
 

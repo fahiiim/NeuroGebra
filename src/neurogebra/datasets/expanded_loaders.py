@@ -1,5 +1,5 @@
 """
-Expanded dataset loaders - 100+ classic and traditional datasets.
+Expanded dataset loaders - classic and educational benchmark datasets.
 
 This module contains comprehensive dataset loaders for educational purposes.
 """
@@ -17,16 +17,19 @@ SKLEARN_AVAILABLE = importlib.util.find_spec("sklearn") is not None
 
 class ExpandedDatasets:
     """
-    Extended collection of 100+ dataset loaders.
+    Curated collection of benchmark and educational dataset loaders.
 
     Categories:
-    - Classification (Binary & Multi-class): 25+ datasets
-    - Regression: 25+ datasets
-    - Clustering: 15+ datasets
-    - Time Series: 15+ datasets
-    - Image Recognition: 10+ datasets
-    - Text/NLP: 10+ datasets
-    - Synthetic Patterns: 20+ datasets
+    - Classification (Binary & Multi-class)
+    - Regression
+    - Clustering
+    - Time Series
+    - Image Recognition
+    - Text/NLP
+    - Synthetic Patterns
+
+    Note: Methods provide curated synthetic/mathematical distributions for offline
+    experimentation and use scikit-learn when available.
     """
 
     # ============================================

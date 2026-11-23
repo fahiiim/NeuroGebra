@@ -240,7 +240,7 @@ model.fit(X, y, epochs=20, batch_size=32)
 
 ### Observatory Pro Capabilities
 
-- ️ **Automated Health Warnings:** Real-time detection of 10+ training pathologies: NaN/Inf loss, vanishing gradients ($||\nabla|| < 10^{-7}$), exploding gradients, dying ReLUs, and loss divergence.
+-  **Automated Health Warnings:** Real-time detection of 10+ training pathologies: NaN/Inf loss, vanishing gradients ($||\nabla|| < 10^{-7}$), exploding gradients, dying ReLUs, and loss divergence.
 - **Adaptive Logging:** Quiet during stable epochs, automatically escalating to verbose telemetry the moment anomalies occur (reducing log clutter by 85%).
 - **Interactive HTML Dashboards:** Single-file, self-contained interactive dashboards powered by Chart.js (loss curves, gradient distributions, layer activations).
 - **Training Fingerprint:** Cryptographic capture of seeds, dataset SHA-256 hashes, library versions, and hardware configuration for verifiable scientific reproducibility.

@@ -8,9 +8,9 @@ Neurogebra can convert expressions to **PyTorch**, **TensorFlow**, and **JAX** s
 
 ```
 Design in Neurogebra (readable, educational)
- ↓
+    ↓
 Convert to PyTorch/TF/JAX (fast, production-ready)
- ↓
+    ↓
 Deploy in production
 ```
 
@@ -71,9 +71,9 @@ mish_module = to_pytorch(mish)
 import torch.nn as nn
 
 model = nn.Sequential(
- nn.Linear(784, 128),
- mish_module, # Your Neurogebra expression!
- nn.Linear(128, 10),
+    nn.Linear(784, 128),
+    mish_module,               # Your Neurogebra expression!
+    nn.Linear(128, 10),
 )
 ```
 
@@ -135,12 +135,12 @@ forge = MathForge()
 # 1. DESIGN: Explore and understand
 relu = forge.get("relu")
 print(relu.explain())
-print(relu.symbolic_expr) # Max(0, x)
+print(relu.symbolic_expr)  # Max(0, x)
 
 # 2. EXPERIMENT: Try different options
 for act_name in ["relu", "swish", "gelu"]:
- act = forge.get(act_name)
- print(f"{act_name}(1.0) = {act.eval(x=1.0):.4f}")
+    act = forge.get(act_name)
+    print(f"{act_name}(1.0) = {act.eval(x=1.0):.4f}")
 
 # 3. CHOOSE: Pick the best one
 chosen = forge.get("swish")

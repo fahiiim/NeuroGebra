@@ -176,7 +176,7 @@ def demo_health_checker():
     )
 
     for alert in alerts:
-        icon = {"info": "ℹ️", "warning": "️", "danger": "", "critical": ""}
+        icon = {"info": "ℹ", "warning": "", "danger": "", "critical": ""}
         print(f"\n  {icon.get(alert.severity, '•')} [{alert.severity.upper()}] {alert.check_name}")
         print(f"    {alert.message}")
         for rec in alert.recommendations:

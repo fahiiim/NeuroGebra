@@ -72,6 +72,31 @@ def _activation_derivative(
     raise ValueError(f"Unsupported activation derivative: '{name}'")
 
 
+class LayerParam:
+    """Wrapper around a layer attribute providing .data and .grad properties."""
+
+    def __init__(self, layer: "Layer", data_attr: str, grad_attr: str):
+        self._layer = layer
+        self._data_attr = data_attr
+        self._grad_attr = grad_attr
+
+    @property
+    def data(self) -> np.ndarray:
+        return getattr(self._layer, self._data_attr)
+
+    @data.setter
+    def data(self, value: np.ndarray) -> None:
+        setattr(self._layer, self._data_attr, value)
+
+    @property
+    def grad(self) -> np.ndarray | None:
+        return getattr(self._layer, self._grad_attr)
+
+    @grad.setter
+    def grad(self, value: np.ndarray | None) -> None:
+        setattr(self._layer, self._grad_attr, value)
+
+
 class Layer:
     """
     Represents a single layer in a neural network.
@@ -306,9 +331,20 @@ class Layer:
             k = self.params.get("kernel_size", 3)
             padding = str(self.params.get("padding", "valid")).lower()
             if padding == "same":
-                p = k // 2
-                x_pad = np.pad(x, ((0, 0), (p, p), (p, p), (0, 0)), mode="constant")
+                pad_h = k - 1
+                pad_top = pad_h // 2
+                pad_bottom = pad_h - pad_top
+                pad_w = k - 1
+                pad_left = pad_w // 2
+                pad_right = pad_w - pad_left
+                self._last_padding_meta = (pad_top, pad_bottom, pad_left, pad_right)
+                x_pad = np.pad(
+                    x,
+                    ((0, 0), (pad_top, pad_bottom), (pad_left, pad_right), (0, 0)),
+                    mode="constant",
+                )
             else:
+                self._last_padding_meta = None
                 x_pad = x
             self._last_padded = x_pad
             windows = np.lib.stride_tricks.sliding_window_view(
@@ -440,7 +476,12 @@ class Layer:
             # dz = a * (grad_output - sum(grad_output * a, axis=-1, keepdims=True))
             if self.activation == "softmax":
                 a = self._last_output
-                dz = a * (grad_output - np.sum(grad_output * a, axis=-1, keepdims=True))
+                term1 = a * grad_output
+                underflow_mask = (a < 1e-12) & (grad_output < -1e5)
+                if np.any(underflow_mask):
+                    term1[underflow_mask] = -1.0 / a.shape[0]
+                sum_ga = np.sum(term1, axis=-1, keepdims=True)
+                dz = term1 - a * sum_ga
             else:
                 da = _activation_derivative(
                     self._last_z, self._last_output, self.activation
@@ -478,9 +519,11 @@ class Layer:
                     )
 
             padding = str(self.params.get("padding", "valid")).lower()
-            if padding == "same":
-                p = k // 2
-                grad_input = grad_x_pad[:, p:-p, p:-p, :] if p > 0 else grad_x_pad
+            if padding == "same" and getattr(self, "_last_padding_meta", None) is not None:
+                pad_top, pad_bottom, pad_left, pad_right = self._last_padding_meta
+                end_h = -pad_bottom if pad_bottom > 0 else None
+                end_w = -pad_right if pad_right > 0 else None
+                grad_input = grad_x_pad[:, pad_top:end_h, pad_left:end_w, :]
             else:
                 grad_input = grad_x_pad
 
@@ -535,12 +578,11 @@ class Layer:
             self.grad_gamma = np.sum(grad_output * self._last_x_norm, axis=axes)
             D = grad_output.shape[-1]
             inv_std = 1.0 / np.sqrt(self._last_var + self.eps)
-            sum_dy = np.sum(grad_output, axis=-1, keepdims=True)
-            sum_dy_xnorm = np.sum(
-                grad_output * self._last_x_norm, axis=-1, keepdims=True
-            )
-            grad_input = (self.gamma * inv_std / D) * (
-                D * grad_output - sum_dy - self._last_x_norm * sum_dy_xnorm
+            g = grad_output * self.gamma
+            sum_g = np.sum(g, axis=-1, keepdims=True)
+            sum_g_xnorm = np.sum(g * self._last_x_norm, axis=-1, keepdims=True)
+            grad_input = (inv_std / D) * (
+                D * g - sum_g - self._last_x_norm * sum_g_xnorm
             )
             return grad_input
 
@@ -597,6 +639,15 @@ class Layer:
                 if optimizer == "sgd":
                     self.gamma -= lr * self.grad_gamma
                     self.beta -= lr * self.grad_beta
+                elif optimizer == "rmsprop":
+                    alpha = 0.99
+                    if getattr(self, "_sq_gamma", None) is None:
+                        self._sq_gamma = np.zeros_like(self.gamma)
+                        self._sq_beta = np.zeros_like(self.beta)
+                    self._sq_gamma = alpha * self._sq_gamma + (1 - alpha) * (self.grad_gamma**2)
+                    self._sq_beta = alpha * self._sq_beta + (1 - alpha) * (self.grad_beta**2)
+                    self.gamma -= lr * self.grad_gamma / (np.sqrt(self._sq_gamma) + eps)
+                    self.beta -= lr * self.grad_beta / (np.sqrt(self._sq_beta) + eps)
                 elif optimizer == "adam":
                     self._m_gamma = beta1 * self._m_gamma + (1 - beta1) * self.grad_gamma
                     self._v_gamma = beta2 * self._v_gamma + (1 - beta2) * self.grad_gamma**2
@@ -622,6 +673,37 @@ class Layer:
                 self.bias2 -= lr * self.grad_bias2
             if self.weights_skip is not None and self.grad_weights_skip is not None:
                 self.weights_skip -= lr * self.grad_weights_skip
+        elif optimizer == "rmsprop":
+            alpha = 0.99
+            if getattr(self, "_sq_w", None) is None and self.weights is not None:
+                self._sq_w = np.zeros_like(self.weights)
+                self._sq_b = np.zeros_like(self.bias)
+            if self.weights is not None and self.grad_weights is not None:
+                self._sq_w = alpha * self._sq_w + (1 - alpha) * (self.grad_weights**2)
+                self._sq_b = alpha * self._sq_b + (1 - alpha) * (self.grad_bias**2)
+                self.weights -= lr * self.grad_weights / (np.sqrt(self._sq_w) + eps)
+                self.bias -= lr * self.grad_bias / (np.sqrt(self._sq_b) + eps)
+            if getattr(self, "weights2", None) is not None and self.grad_weights2 is not None:
+                if getattr(self, "_sq_w2", None) is None:
+                    self._sq_w2 = np.zeros_like(self.weights2)
+                    self._sq_b2 = np.zeros_like(self.bias2)
+                self._sq_w2 = alpha * self._sq_w2 + (1 - alpha) * (self.grad_weights2**2)
+                self._sq_b2 = alpha * self._sq_b2 + (1 - alpha) * (self.grad_bias2**2)
+                self.weights2 -= lr * self.grad_weights2 / (np.sqrt(self._sq_w2) + eps)
+                self.bias2 -= lr * self.grad_bias2 / (np.sqrt(self._sq_b2) + eps)
+            if getattr(self, "weights_skip", None) is not None and self.grad_weights_skip is not None:
+                if getattr(self, "_sq_wskip", None) is None:
+                    self._sq_wskip = np.zeros_like(self.weights_skip)
+                self._sq_wskip = alpha * self._sq_wskip + (1 - alpha) * (self.grad_weights_skip**2)
+                self.weights_skip -= lr * self.grad_weights_skip / (np.sqrt(self._sq_wskip) + eps)
+            if getattr(self, "gamma", None) is not None and self.grad_gamma is not None:
+                if getattr(self, "_sq_gamma", None) is None:
+                    self._sq_gamma = np.zeros_like(self.gamma)
+                    self._sq_beta = np.zeros_like(self.beta)
+                self._sq_gamma = alpha * self._sq_gamma + (1 - alpha) * (self.grad_gamma**2)
+                self._sq_beta = alpha * self._sq_beta + (1 - alpha) * (self.grad_beta**2)
+                self.gamma -= lr * self.grad_gamma / (np.sqrt(self._sq_gamma) + eps)
+                self.beta -= lr * self.grad_beta / (np.sqrt(self._sq_beta) + eps)
         elif optimizer == "adam":
             # Update W1 & b1
             self._m_w = beta1 * self._m_w + (1 - beta1) * self.grad_weights
@@ -670,6 +752,49 @@ class Layer:
         self.grad_weights2 = None
         self.grad_bias2 = None
         self.grad_weights_skip = None
+
+    def get_params(self) -> list[LayerParam]:
+        """Return parameter wrappers exposing .data and .grad for optimizers."""
+        params: list[LayerParam] = []
+        if self.weights is not None:
+            params.append(LayerParam(self, "weights", "grad_weights"))
+        if self.bias is not None:
+            params.append(LayerParam(self, "bias", "grad_bias"))
+        if getattr(self, "gamma", None) is not None:
+            params.append(LayerParam(self, "gamma", "grad_gamma"))
+        if getattr(self, "beta", None) is not None:
+            params.append(LayerParam(self, "beta", "grad_beta"))
+        if getattr(self, "weights2", None) is not None:
+            params.append(LayerParam(self, "weights2", "grad_weights2"))
+        if getattr(self, "bias2", None) is not None:
+            params.append(LayerParam(self, "bias2", "grad_bias2"))
+        if getattr(self, "weights_skip", None) is not None:
+            params.append(LayerParam(self, "weights_skip", "grad_weights_skip"))
+        return params
+
+    def _init_moments(self) -> None:
+        """Initialize optimizer moment buffers if missing."""
+        if self.weights is not None and getattr(self, "_m_w", None) is None:
+            self._m_w = np.zeros_like(self.weights)
+            self._v_w = np.zeros_like(self.weights)
+        if self.bias is not None and getattr(self, "_m_b", None) is None:
+            self._m_b = np.zeros_like(self.bias)
+            self._v_b = np.zeros_like(self.bias)
+        if getattr(self, "weights2", None) is not None and getattr(self, "_m_w2", None) is None:
+            self._m_w2 = np.zeros_like(self.weights2)
+            self._v_w2 = np.zeros_like(self.weights2)
+        if getattr(self, "bias2", None) is not None and getattr(self, "_m_b2", None) is None:
+            self._m_b2 = np.zeros_like(self.bias2)
+            self._v_b2 = np.zeros_like(self.bias2)
+        if getattr(self, "weights_skip", None) is not None and getattr(self, "_m_wskip", None) is None:
+            self._m_wskip = np.zeros_like(self.weights_skip)
+            self._v_wskip = np.zeros_like(self.weights_skip)
+        if getattr(self, "gamma", None) is not None and getattr(self, "_m_gamma", None) is None:
+            self._m_gamma = np.zeros_like(self.gamma)
+            self._v_gamma = np.zeros_like(self.gamma)
+        if getattr(self, "beta", None) is not None and getattr(self, "_m_beta", None) is None:
+            self._m_beta = np.zeros_like(self.beta)
+            self._v_beta = np.zeros_like(self.beta)
 
     # ------------------------------------------------------------------
     # Educational
@@ -1146,6 +1271,8 @@ class Model:
         self.optimizer: str | None = None
         self.learning_rate: float = 0.001
         self.metrics: list[str] = []
+        self._optimizer_obj: Any | None = None
+        self._step_counter: int = 0
 
         # Training Observatory
         self._logger = None
@@ -1223,23 +1350,37 @@ class Model:
                     elapsed=elapsed,
                 )
 
+    def get_params(self) -> list[LayerParam]:
+        """Return all parameter wrappers from all layers."""
+        params: list[LayerParam] = []
+        for layer in self.layers:
+            params.extend(layer.get_params())
+        return params
+
     def _update_params(self, t: int) -> None:
         """Apply weight updates on all layers."""
-        for i, layer in enumerate(self.layers):
-            old_w = layer.weights.copy() if layer.weights is not None else None
-            layer.update_params(
-                lr=self.learning_rate,
-                optimizer=self.optimizer or "adam",
-                t=t,
-            )
-            if self._logger and old_w is not None and layer.weights is not None:
-                delta = float(np.linalg.norm(layer.weights - old_w))
-                self._logger.on_weight_updated(
-                    param_name=f"W_{layer.layer_type}_{i}",
-                    old_value=float(np.mean(old_w)),
-                    new_value=float(np.mean(layer.weights)),
-                    delta_norm=delta,
+        if self._optimizer_obj is not None:
+            if hasattr(self._optimizer_obj, "learning_rate"):
+                self._optimizer_obj.learning_rate = self.learning_rate
+            elif hasattr(self._optimizer_obj, "lr"):
+                self._optimizer_obj.lr = self.learning_rate
+            self._optimizer_obj.step(self.get_params())
+        else:
+            for layer in self.layers:
+                layer.update_params(
+                    lr=self.learning_rate,
+                    optimizer=self.optimizer or "adam",
+                    t=t,
                 )
+        if self._logger:
+            for i, layer in enumerate(self.layers):
+                if layer.weights is not None:
+                    self._logger.on_weight_updated(
+                        param_name=f"W_{layer.layer_type}_{i}",
+                        old_value=float(np.mean(layer.weights)),
+                        new_value=float(np.mean(layer.weights)),
+                        delta_norm=0.0,
+                    )
 
     @staticmethod
     def _layer_formula(layer: Layer, idx: int) -> str:
@@ -1419,7 +1560,7 @@ class Model:
             print(f"{'=' * 60}")
             layer.explain()
             if i < len(self.layers):
-                print("\n   ⬇️  Passes data to next layer")
+                print("\n   v  Passes data to next layer")
             print()
 
     # ------------------------------------------------------------------
@@ -1449,18 +1590,33 @@ class Model:
         print("\nCompiling model...")
 
         self.loss_name = loss
-        if hasattr(optimizer, "learning_rate"):
+        if hasattr(optimizer, "step"):
             self._optimizer_obj = optimizer
             self.optimizer = optimizer.__class__.__name__.lower()
-            self.learning_rate = float(optimizer.learning_rate)
-        elif hasattr(optimizer, "lr"):
-            self._optimizer_obj = optimizer
-            self.optimizer = optimizer.__class__.__name__.lower()
-            self.learning_rate = float(optimizer.lr)
+            self.learning_rate = float(
+                getattr(optimizer, "learning_rate", getattr(optimizer, "lr", learning_rate))
+            )
+        elif isinstance(optimizer, str):
+            opt_lower = optimizer.lower()
+            if opt_lower in ("adam", "sgd", "rmsprop"):
+                self.optimizer = opt_lower
+                self.learning_rate = learning_rate
+                from neurogebra.optim.optimizers import Adam, SGD, RMSprop
+
+                if opt_lower == "adam":
+                    self._optimizer_obj = Adam(lr=learning_rate)
+                elif opt_lower == "sgd":
+                    self._optimizer_obj = SGD(lr=learning_rate)
+                elif opt_lower == "rmsprop":
+                    self._optimizer_obj = RMSprop(lr=learning_rate)
+            else:
+                raise ValueError(
+                    f"Unsupported optimizer: '{optimizer}'. Supported: 'adam', 'sgd', 'rmsprop', or an Optimizer instance."
+                )
         else:
-            self._optimizer_obj = None
-            self.optimizer = str(optimizer).lower()
-            self.learning_rate = learning_rate
+            raise ValueError(
+                f"Invalid optimizer type: {type(optimizer)}. Expected str or Optimizer instance."
+            )
         self.metrics = metrics or ["accuracy"]
 
         try:
@@ -1581,6 +1737,7 @@ class Model:
             epochs=epochs,
             batch_size=batch_size,
             validation_split=validation_split,
+            lr_scheduler=lr_scheduler,
         )
         self.history = history
         print("\n[OK] Training complete!")
@@ -1673,13 +1830,14 @@ class Model:
 
             epoch_losses = []
             epoch_accs = []
+            epoch_sizes = []
 
             batch_starts = list(range(0, len(X_train), batch_size))
             for b, s in enumerate(batch_starts):
                 e = min(s + batch_size, len(X_train))
                 xb, yb = Xs[s:e], ys[s:e]
 
-                global_step += 1
+                self._step_counter += 1
                 self._logger.on_batch_start(b, epoch=epoch, X_batch=xb, y_batch=yb)
 
                 # Forward
@@ -1689,6 +1847,7 @@ class Model:
 
                 epoch_losses.append(loss)
                 epoch_accs.append(acc)
+                epoch_sizes.append(len(xb))
 
                 # Backward
                 self._real_backward(grad)
@@ -1708,7 +1867,7 @@ class Model:
                         )
 
                 # Update weights
-                self._update_params(t=global_step)
+                self._update_params(t=self._step_counter)
 
                 # Zero grads
                 for layer in self.layers:
@@ -1730,8 +1889,9 @@ class Model:
             epoch_time = time.time() - epoch_t0
             perf_mon.record_epoch_time(epoch_time)
 
-            avg_loss = float(np.mean(epoch_losses))
-            avg_acc = float(np.mean(epoch_accs))
+            total_train = sum(epoch_sizes) if epoch_sizes else 1
+            avg_loss = float(sum(l * s for l, s in zip(epoch_losses, epoch_sizes)) / total_train)
+            avg_acc = float(sum(a * s for a, s in zip(epoch_accs, epoch_sizes)) / total_train) if epoch_accs else 0.0
 
             self.history["loss"].append(avg_loss)
             self.history["accuracy"].append(avg_acc)
@@ -1859,6 +2019,7 @@ class Model:
             pickle.dump(
                 {
                     "name": self.name,
+                    "step_counter": getattr(self, "_step_counter", 0),
                     "layers": [
                         {
                             "type": layer.layer_type,
@@ -1867,10 +2028,14 @@ class Model:
                             "params": layer.params,
                             "weights": layer.weights,
                             "bias": layer.bias,
+                            "weights2": getattr(layer, "weights2", None),
+                            "bias2": getattr(layer, "bias2", None),
+                            "weights_skip": getattr(layer, "weights_skip", None),
                             "gamma": getattr(layer, "gamma", None),
                             "beta": getattr(layer, "beta", None),
                             "running_mean": getattr(layer, "running_mean", None),
                             "running_var": getattr(layer, "running_var", None),
+                            "eps": getattr(layer, "eps", 1e-5),
                         }
                         for layer in self.layers
                     ],
@@ -1901,6 +2066,9 @@ class Model:
             )
             layer.weights = l_info.get("weights")
             layer.bias = l_info.get("bias")
+            layer.weights2 = l_info.get("weights2")
+            layer.bias2 = l_info.get("bias2")
+            layer.weights_skip = l_info.get("weights_skip")
             if l_info.get("gamma") is not None:
                 layer.gamma = l_info["gamma"]
             if l_info.get("beta") is not None:
@@ -1909,10 +2077,14 @@ class Model:
                 layer.running_mean = l_info["running_mean"]
             if l_info.get("running_var") is not None:
                 layer.running_var = l_info["running_var"]
+            if l_info.get("eps") is not None:
+                layer.eps = l_info["eps"]
+            layer._init_moments()
             layer._initialised = True
             layers.append(layer)
 
         model = cls(layers=layers, name=data.get("name", "loaded_model"))
+        model._step_counter = data.get("step_counter", 0)
         model.loss_name = data.get("loss_name")
         model.optimizer = data.get("optimizer", "adam")
         model.learning_rate = data.get("learning_rate", 0.001)
@@ -1920,6 +2092,17 @@ class Model:
             "history", {"loss": [], "accuracy": [], "val_loss": [], "val_accuracy": []}
         )
         model.is_compiled = True
+        try:
+            from neurogebra.optim.optimizers import Adam, SGD, RMSprop
+
+            if model.optimizer == "adam":
+                model._optimizer_obj = Adam(lr=model.learning_rate)
+            elif model.optimizer == "sgd":
+                model._optimizer_obj = SGD(lr=model.learning_rate)
+            elif model.optimizer == "rmsprop":
+                model._optimizer_obj = RMSprop(lr=model.learning_rate)
+        except Exception:
+            pass
         return model
 
     def plot_history(self):

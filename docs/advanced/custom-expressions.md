@@ -25,8 +25,8 @@ from neurogebra import Expression
 # Simple: just name and formula
 my_func = Expression("my_square", "x**2 + 1")
 
-print(my_func.eval(x=3)) # 10.0
-print(my_func.gradient("x").eval(x=3)) # 6.0
+print(my_func.eval(x=3))          # 10.0
+print(my_func.gradient("x").eval(x=3))  # 6.0
 ```
 
 ### With Parameters
@@ -34,14 +34,14 @@ print(my_func.gradient("x").eval(x=3)) # 6.0
 ```python
 # Parametric expression
 gaussian = Expression(
- "gaussian",
- "A * exp(-(x - mu)**2 / (2 * sigma**2))",
- params={"A": 1.0, "mu": 0.0, "sigma": 1.0}
+    "gaussian",
+    "A * exp(-(x - mu)**2 / (2 * sigma**2))",
+    params={"A": 1.0, "mu": 0.0, "sigma": 1.0}
 )
 
-print(gaussian.eval(x=0)) # 1.0 (peak at mu=0)
-print(gaussian.eval(x=1)) # ≈ 0.607
-print(gaussian.eval(x=-1)) # ≈ 0.607
+print(gaussian.eval(x=0))    # 1.0 (peak at mu=0)
+print(gaussian.eval(x=1))    # ≈ 0.607
+print(gaussian.eval(x=-1))   # ≈ 0.607
 ```
 
 ### With Trainable Parameters
@@ -49,14 +49,14 @@ print(gaussian.eval(x=-1)) # ≈ 0.607
 ```python
 # Parameters that can be learned from data
 learnable = Expression(
- "adaptive_relu",
- "Max(alpha * x, x)",
- params={"alpha": 0.01},
- trainable_params=["alpha"], # This will be optimized
- metadata={
- "category": "activation",
- "description": "PReLU - Parametric ReLU with learnable slope"
- }
+    "adaptive_relu",
+    "Max(alpha * x, x)",
+    params={"alpha": 0.01},
+    trainable_params=["alpha"],  # This will be optimized
+    metadata={
+        "category": "activation",
+        "description": "PReLU - Parametric ReLU with learnable slope"
+    }
 )
 ```
 
@@ -64,16 +64,16 @@ learnable = Expression(
 
 ```python
 my_activation = Expression(
- "mish",
- "x * tanh(log(1 + exp(x)))",
- metadata={
- "category": "activation",
- "description": "Mish activation function",
- "usage": "Modern deep networks, alternative to Swish",
- "pros": ["Self-regularizing", "Smooth", "Non-monotonic"],
- "cons": ["Computationally expensive"],
- "paper": "Mish: A Self Regularized Non-Monotonic Activation Function"
- }
+    "mish",
+    "x * tanh(log(1 + exp(x)))",
+    metadata={
+        "category": "activation",
+        "description": "Mish activation function",
+        "usage": "Modern deep networks, alternative to Swish",
+        "pros": ["Self-regularizing", "Smooth", "Non-monotonic"],
+        "cons": ["Computationally expensive"],
+        "paper": "Mish: A Self Regularized Non-Monotonic Activation Function"
+    }
 )
 
 print(my_activation.metadata["description"])
@@ -93,9 +93,9 @@ forge = MathForge()
 
 # Create
 mish = Expression(
- "mish",
- "x * tanh(log(1 + exp(x)))",
- metadata={"category": "activation"}
+    "mish",
+    "x * tanh(log(1 + exp(x)))",
+    metadata={"category": "activation"}
 )
 
 # Register
@@ -107,7 +107,7 @@ print(retrieved.eval(x=1.0))
 
 # It appears in searches too
 results = forge.search("mish")
-print(results) # ['mish']
+print(results)  # ['mish']
 ```
 
 ---
@@ -118,13 +118,13 @@ print(results) # ['mish']
 
 ```python
 elu = Expression(
- "elu",
- "Piecewise((x, x > 0), (alpha*(exp(x) - 1), True))",
- params={"alpha": 1.0},
- metadata={
- "category": "activation",
- "description": "ELU - smooth alternative to ReLU for negative values"
- }
+    "elu",
+    "Piecewise((x, x > 0), (alpha*(exp(x) - 1), True))",
+    params={"alpha": 1.0},
+    metadata={
+        "category": "activation",
+        "description": "ELU - smooth alternative to ReLU for negative values"
+    }
 )
 ```
 
@@ -132,13 +132,13 @@ elu = Expression(
 
 ```python
 selu = Expression(
- "selu",
- "scale * Piecewise((x, x > 0), (alpha*(exp(x) - 1), True))",
- params={"scale": 1.0507, "alpha": 1.6733},
- metadata={
- "category": "activation",
- "description": "Self-normalizing activation"
- }
+    "selu",
+    "scale * Piecewise((x, x > 0), (alpha*(exp(x) - 1), True))",
+    params={"scale": 1.0507, "alpha": 1.6733},
+    metadata={
+        "category": "activation",
+        "description": "Self-normalizing activation"
+    }
 )
 ```
 
@@ -146,12 +146,12 @@ selu = Expression(
 
 ```python
 hard_sigmoid = Expression(
- "hard_sigmoid",
- "Max(0, Min(1, 0.2*x + 0.5))",
- metadata={
- "category": "activation",
- "description": "Computationally cheap approximation of sigmoid"
- }
+    "hard_sigmoid",
+    "Max(0, Min(1, 0.2*x + 0.5))",
+    metadata={
+        "category": "activation",
+        "description": "Computationally cheap approximation of sigmoid"
+    }
 )
 ```
 
@@ -163,12 +163,12 @@ hard_sigmoid = Expression(
 
 ```python
 smooth_l1 = Expression(
- "smooth_l1",
- "Piecewise((0.5 * (y_pred - y_true)**2, Abs(y_pred - y_true) < 1), (Abs(y_pred - y_true) - 0.5, True))",
- metadata={
- "category": "loss",
- "description": "Smooth L1 loss - used in object detection"
- }
+    "smooth_l1",
+    "Piecewise((0.5 * (y_pred - y_true)**2, Abs(y_pred - y_true) < 1), (Abs(y_pred - y_true) - 0.5, True))",
+    metadata={
+        "category": "loss",
+        "description": "Smooth L1 loss - used in object detection"
+    }
 )
 ```
 
@@ -176,13 +176,13 @@ smooth_l1 = Expression(
 
 ```python
 weighted_mse = Expression(
- "weighted_mse",
- "weight * (y_pred - y_true)**2",
- params={"weight": 1.0},
- metadata={
- "category": "loss",
- "description": "MSE with sample weight"
- }
+    "weighted_mse",
+    "weight * (y_pred - y_true)**2",
+    params={"weight": 1.0},
+    metadata={
+        "category": "loss",
+        "description": "MSE with sample weight"
+    }
 )
 ```
 
@@ -205,8 +205,8 @@ assert my_func.eval(x=1) == 0.0
 
 # Test gradient
 grad = my_func.gradient("x")
-assert grad.eval(x=0) == -3.0 # f'(0) = -3
-assert grad.eval(x=1) == 0.0 # f'(1) = 0
+assert grad.eval(x=0) == -3.0    # f'(0) = -3
+assert grad.eval(x=1) == 0.0     # f'(1) = 0
 
 # Test array evaluation
 x = np.array([-2, -1, 0, 1, 2])

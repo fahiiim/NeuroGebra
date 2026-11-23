@@ -83,6 +83,7 @@ class EducationalTrainer:
         epochs: int = 10,
         batch_size: int = 32,
         validation_split: float = 0.2,
+        lr_scheduler: Any | None = None,
     ) -> dict[str, list[float]]:
         """
         Train the model with educational features.
@@ -93,6 +94,7 @@ class EducationalTrainer:
             epochs: Number of epochs
             batch_size: Batch size
             validation_split: Fraction of data for validation
+            lr_scheduler: Optional learning rate scheduler instance.
 
         Returns:
             Training history dictionary
@@ -122,6 +124,21 @@ class EducationalTrainer:
             self.history["accuracy"].append(train_acc)
             self.history["val_loss"].append(val_loss)
             self.history["val_accuracy"].append(val_acc)
+
+            # Step learning rate scheduler if attached
+            if lr_scheduler is not None and hasattr(lr_scheduler, "step"):
+                try:
+                    import inspect
+
+                    sig = inspect.signature(lr_scheduler.step)
+                    if len(sig.parameters) > 0 and "metric" in sig.parameters:
+                        new_lr = lr_scheduler.step(metric=train_loss)
+                    else:
+                        new_lr = lr_scheduler.step()
+                    if new_lr is not None and hasattr(self.model, "learning_rate"):
+                        self.model.learning_rate = float(new_lr)
+                except Exception:
+                    pass
 
             epoch_time = time.time() - epoch_start
 
@@ -186,6 +203,7 @@ class EducationalTrainer:
 
         batch_losses = []
         batch_accs = []
+        batch_sizes = []
 
         # Shuffle
         indices = np.random.permutation(n_samples)
@@ -203,23 +221,39 @@ class EducationalTrainer:
                 X_batch = X_shuffled[start_idx:end_idx]
                 y_batch = y_shuffled[start_idx:end_idx]
 
-                self._global_step += 1
+                if hasattr(self.model, "_step_counter"):
+                    self.model._step_counter += 1
+                    t_val = self.model._step_counter
+                else:
+                    self._global_step += 1
+                    t_val = self._global_step
+
                 preds = self.model._real_forward(X_batch, training=True)
                 loss, grad = self.model._compute_loss(preds, y_batch, loss_name)
                 acc = self.model._compute_accuracy(preds, y_batch)
 
                 batch_losses.append(loss)
                 batch_accs.append(acc)
+                batch_sizes.append(len(X_batch))
 
                 self.model._real_backward(grad)
                 if hasattr(self.model, "_update_params"):
-                    self.model._update_params(t=self._global_step)
+                    self.model._update_params(t=t_val)
                 if hasattr(self.model, "layers"):
                     for layer in self.model.layers:
                         layer.zero_grad()
 
-            avg_loss = float(np.mean(batch_losses))
-            avg_acc = float(np.mean(batch_accs)) if batch_accs else 0.0
+            total_samples = sum(batch_sizes) if batch_sizes else 1
+            avg_loss = float(
+                sum(l * s for l, s in zip(batch_losses, batch_sizes)) / total_samples
+            )
+            avg_acc = (
+                float(
+                    sum(a * s for a, s in zip(batch_accs, batch_sizes)) / total_samples
+                )
+                if batch_accs
+                else 0.0
+            )
             return avg_loss, avg_acc
 
         if not self.simulate:

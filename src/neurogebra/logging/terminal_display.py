@@ -67,7 +67,7 @@ _SEVERITY_STYLES = {
 }
 
 _SEVERITY_ICONS = {
-    "info": "ℹ️ ",
+    "info": "ℹ ",
     "success": "[PASS]",
     "warning": "[WARN]",
     "danger": "[FAIL]",

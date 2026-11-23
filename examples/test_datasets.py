@@ -184,7 +184,7 @@ def main():
     if all_passed:
         print("[PASS] ALL TESTS PASSED - 100+ Datasets Working!")
     else:
-        print("️  SOME TESTS FAILED - Check errors above")
+        print("  SOME TESTS FAILED - Check errors above")
     print("="*70 + "\n")
 
 

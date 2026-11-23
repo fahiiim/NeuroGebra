@@ -30,6 +30,61 @@ def check_torch():
         )
 
 
+class PyTorchResidualDense(nn.Module if TORCH_AVAILABLE else object):
+    """PyTorch implementation of NeuroGebra ResidualDense layer."""
+
+    def __init__(
+        self,
+        in_features: int,
+        units: int,
+        activation: str = "relu",
+        weights: np.ndarray | None = None,
+        bias: np.ndarray | None = None,
+        weights2: np.ndarray | None = None,
+        bias2: np.ndarray | None = None,
+        weights_skip: np.ndarray | None = None,
+    ):
+        super().__init__()
+        self.fc1 = nn.Linear(in_features, units)
+        self.fc2 = nn.Linear(units, units)
+        if weights is not None:
+            self.fc1.weight.data = torch.from_numpy(weights.T).float()
+        if bias is not None:
+            self.fc1.bias.data = torch.from_numpy(bias).float()
+        if weights2 is not None:
+            self.fc2.weight.data = torch.from_numpy(weights2.T).float()
+        if bias2 is not None:
+            self.fc2.bias.data = torch.from_numpy(bias2).float()
+
+        act = (activation or "").lower()
+        if act == "relu":
+            self.act = nn.ReLU()
+        elif act == "sigmoid":
+            self.act = nn.Sigmoid()
+        elif act == "tanh":
+            self.act = nn.Tanh()
+        elif act == "gelu":
+            self.act = nn.GELU()
+        elif act == "leaky_relu":
+            self.act = nn.LeakyReLU(0.01)
+        else:
+            self.act = nn.Identity()
+
+        if weights_skip is not None:
+            self.skip = nn.Linear(in_features, units, bias=False)
+            self.skip.weight.data = torch.from_numpy(weights_skip.T).float()
+        elif in_features != units:
+            self.skip = nn.Linear(in_features, units, bias=False)
+        else:
+            self.skip = nn.Identity()
+
+    def forward(self, x: "torch.Tensor") -> "torch.Tensor":
+        res = self.skip(x)
+        h = self.act(self.fc1(x))
+        out = self.fc2(h)
+        return out + res
+
+
 def model_to_pytorch(model) -> "nn.Module":
     """Convert a Neurogebra Model to a PyTorch nn.Sequential module."""
     check_torch()
@@ -96,6 +151,43 @@ def model_to_pytorch(model) -> "nn.Module":
         elif ltype == "maxpool2d":
             p = layer.params.get("pool_size", 2)
             modules.append(nn.MaxPool2d(kernel_size=p))
+        elif ltype == "layernorm":
+            eps = float(layer.params.get("eps", 1e-5))
+            if getattr(layer, "gamma", None) is not None:
+                norm_shape = (layer.gamma.shape[-1],)
+            else:
+                norm_shape = (layer.units or 1,)
+            ln = nn.LayerNorm(norm_shape, eps=eps)
+            if getattr(layer, "gamma", None) is not None:
+                ln.weight.data = torch.from_numpy(layer.gamma).float()
+            if getattr(layer, "beta", None) is not None:
+                ln.bias.data = torch.from_numpy(layer.beta).float()
+            modules.append(ln)
+        elif ltype == "global_avgpool2d":
+            modules.append(nn.AdaptiveAvgPool2d((1, 1)))
+            modules.append(nn.Flatten())
+        elif ltype == "residual_dense":
+            in_dim = (
+                layer.weights.shape[0]
+                if layer.weights is not None
+                else layer.units or 1
+            )
+            out_dim = layer.units or in_dim
+            res_module = PyTorchResidualDense(
+                in_features=in_dim,
+                units=out_dim,
+                activation=layer.activation or "relu",
+                weights=layer.weights,
+                bias=layer.bias,
+                weights2=getattr(layer, "weights2", None),
+                bias2=getattr(layer, "bias2", None),
+                weights_skip=getattr(layer, "weights_skip", None),
+            )
+            modules.append(res_module)
+        else:
+            raise NotImplementedError(
+                f"PyTorch bridge does not support layer type '{layer.layer_type}'"
+            )
 
     seq = nn.Sequential(*modules)
     seq.eval()

@@ -157,9 +157,9 @@ class Value:
 
         build_topo(self)
 
-        # Reset intermediate nodes before backpropagation to prevent stale gradient accumulation on reused graphs
+        # Reset intermediate (non-leaf) nodes before backpropagation
         for node in topo:
-            if node is not self:
+            if node is not self and len(node._prev) > 0:
                 node.grad = 0.0
 
         # Backpropagate
@@ -289,14 +289,26 @@ class Tensor:
         else:
             ax = tuple(axes)
 
-        out_data = np.transpose(self.data, ax)
+        if ax is not None:
+            ndim = self.data.ndim
+            norm_ax = tuple(a if a >= 0 else a + ndim for a in ax)
+            if sorted(norm_ax) != list(range(ndim)):
+                raise ValueError(
+                    f"Invalid permutation axes {axes} for tensor of rank {ndim}"
+                )
+            inv_axes = tuple(np.argsort(norm_ax))
+            out_data = np.transpose(self.data, norm_ax)
+        else:
+            norm_ax = None
+            inv_axes = None
+            out_data = np.transpose(self.data)
+
         out = Tensor(out_data, requires_grad=self.requires_grad)
         out._prev = {self}
 
         def _grad_fn(grad):
             if self.requires_grad:
-                if ax is not None:
-                    inv_axes = tuple(np.argsort(ax))
+                if inv_axes is not None:
                     g = np.transpose(grad, inv_axes)
                 else:
                     g = grad.T
@@ -343,7 +355,7 @@ class Tensor:
 
         # Reset intermediate gradients on non-leaf nodes before backprop
         for node in topo:
-            if node is not self:
+            if node is not self and node._grad_fn is not None:
                 node.grad = None
 
         if gradient is None:

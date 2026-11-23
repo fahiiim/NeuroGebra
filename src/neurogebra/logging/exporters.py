@@ -270,7 +270,7 @@ class MarkdownExporter:
                     "warning": "[WARN]",
                     "critical": "[CRITICAL]",
                     "success": "[PASS]",
-                    "info": "ℹ️",
+                    "info": "ℹ",
                 }.get(e.severity, "")
                 lines.append(f"- {icon} **{e.severity.upper()}**: {e.message}")
                 for rec in e.data.get("recommendations", []):

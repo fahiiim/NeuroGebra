@@ -35,12 +35,12 @@ from neurogebra import Expression
 import numpy as np
 
 model = Expression("quadratic", "a*x**2 + b*x + c",
- params={"a": 1.0, "b": -2.0, "c": 1.0})
+    params={"a": 1.0, "b": -2.0, "c": 1.0})
 
 # [FAIL] SLOW: One at a time
 results = []
 for x_val in range(1000):
- results.append(model.eval(x=x_val))
+    results.append(model.eval(x=x_val))
 
 # [PASS] FAST: All at once
 x = np.arange(1000)
@@ -61,13 +61,13 @@ sigmoid = forge.get("sigmoid")
 
 # [FAIL] SLOW: Compute gradient each time
 for x_val in range(100):
- grad = sigmoid.gradient("x") # Recalculates symbolic gradient each time
- result = grad.eval(x=float(x_val))
+    grad = sigmoid.gradient("x")      # Recalculates symbolic gradient each time
+    result = grad.eval(x=float(x_val))
 
 # [PASS] FAST: Compute gradient once, evaluate many times
-grad = sigmoid.gradient("x") # Compute once
+grad = sigmoid.gradient("x")          # Compute once
 x = np.arange(100, dtype=float)
-results = grad.eval(x=x) # Evaluate all at once
+results = grad.eval(x=x)              # Evaluate all at once
 ```
 
 ---
@@ -115,13 +115,13 @@ forge = MathForge()
 
 # [FAIL] Creates new Expression object each time
 for i in range(100):
- relu = forge.get("relu") # Unnecessary repeated lookup
- result = relu.eval(x=float(i))
+    relu = forge.get("relu")        # Unnecessary repeated lookup
+    result = relu.eval(x=float(i))
 
 # [PASS] Get once, use many times
 relu = forge.get("relu")
 for i in range(100):
- result = relu.eval(x=float(i))
+    result = relu.eval(x=float(i))
 
 # [PASS][PASS] Even better: vectorized
 relu = forge.get("relu")
@@ -141,11 +141,11 @@ from neurogebra.core.autograd import Value
 x = Value(2.0)
 
 for epoch in range(1000):
- y = x**2 + 3*x
- y.backward()
- 
- x.data -= 0.01 * x.grad
- x.grad = 0.0 # ← CRITICAL: prevents gradient accumulation
+    y = x**2 + 3*x
+    y.backward()
+    
+    x.data -= 0.01 * x.grad
+    x.grad = 0.0      # ← CRITICAL: prevents gradient accumulation
 ```
 
 ---
@@ -175,14 +175,14 @@ print(f"Time: {end - start:.4f} seconds")
 
 | Tip | Impact | Effort |
 |-----|--------|--------|
-| Use NumPy arrays | | Low |
-| Batch evaluation | | Low |
-| Pre-compute gradients | | Low |
-| Use Adam optimizer | | Low |
-| Appropriate batch size | | Low |
-| Cache expression lookups | | Low |
-| Zero gradients | (correctness) | Low |
-| Profile bottlenecks | | Medium |
+| Use NumPy arrays |  | Low |
+| Batch evaluation |  | Low |
+| Pre-compute gradients |  | Low |
+| Use Adam optimizer |  | Low |
+| Appropriate batch size |  | Low |
+| Cache expression lookups |  | Low |
+| Zero gradients |  (correctness) | Low |
+| Profile bottlenecks |  | Medium |
 
 ---
 

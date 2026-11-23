@@ -213,32 +213,47 @@ class PINN:
             res = _call_res(X_colloc)
             loss_pde = float(np.mean(res**2))
 
-            # Numerical perturbation gradient for PDE residual loss on weights
-            eps = 1e-4
+            # Numerical perturbation gradient for PDE residual loss on weights and biases
+            eps_fd = 1e-4
             for i in range(len(self.weights)):
-                # Sparse perturbation of sample weights for efficient gradient approximation
                 grad_pde_w = np.zeros_like(self.weights[i])
-                sub_idx = np.random.choice(
-                    self.weights[i].size,
-                    size=min(self.weights[i].size, 8),
-                    replace=False,
-                )
                 flat_w = self.weights[i].ravel()
                 flat_gw = grad_pde_w.ravel()
+                n_w = flat_w.size
+                sub_idx = range(n_w) if n_w <= 256 else self._rng.choice(n_w, size=min(n_w, 32), replace=False)
                 for idx in sub_idx:
                     orig = flat_w[idx]
-                    flat_w[idx] = orig + eps
+                    flat_w[idx] = orig + eps_fd
                     r_p = _call_res(X_colloc)
                     l_p = float(np.mean(r_p**2))
 
-                    flat_w[idx] = orig - eps
+                    flat_w[idx] = orig - eps_fd
                     r_m = _call_res(X_colloc)
                     l_m = float(np.mean(r_m**2))
 
                     flat_w[idx] = orig
-                    flat_gw[idx] = (l_p - l_m) / (2.0 * eps)
+                    flat_gw[idx] = (l_p - l_m) / (2.0 * eps_fd)
 
                 grad_w[i] += lambda_pde * grad_pde_w
+
+            for i in range(len(self.biases)):
+                grad_pde_b = np.zeros_like(self.biases[i])
+                flat_b = self.biases[i].ravel()
+                flat_gb = grad_pde_b.ravel()
+                for idx in range(len(flat_b)):
+                    orig = flat_b[idx]
+                    flat_b[idx] = orig + eps_fd
+                    r_p = _call_res(X_colloc)
+                    l_p = float(np.mean(r_p**2))
+
+                    flat_b[idx] = orig - eps_fd
+                    r_m = _call_res(X_colloc)
+                    l_m = float(np.mean(r_m**2))
+
+                    flat_b[idx] = orig
+                    flat_gb[idx] = (l_p - l_m) / (2.0 * eps_fd)
+
+                grad_b[i] += lambda_pde * grad_pde_b
 
         total_loss = loss_data + lambda_pde * loss_pde
 

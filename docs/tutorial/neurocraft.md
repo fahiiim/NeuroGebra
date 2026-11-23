@@ -26,9 +26,9 @@ from neurogebra import NeuroCraft
 # Educational mode ON (default) — shows tips and explanations
 craft = NeuroCraft(educational_mode=True)
 # Output:
-# Welcome to Neurogebra!
-# Type craft.tutorial() to start learning
-# Type craft.search('activation') to explore
+#  Welcome to Neurogebra!
+#    Type craft.tutorial() to start learning
+#    Type craft.search('activation') to explore
 
 # Quiet mode — for experienced users
 craft = NeuroCraft(educational_mode=False)
@@ -55,12 +55,12 @@ leaky = craft.get("leaky_relu", params={"alpha": 0.2})
 ```python
 # If you mistype:
 try:
- craft.get("rellu") # Typo!
+    craft.get("rellu")  # Typo!
 except KeyError as e:
- print(e)
+    print(e)
 # Expression 'rellu' not found.
-# Did you mean: relu, leaky_relu, gelu?
-# Use craft.search('rellu') to find related expressions.
+#    Did you mean: relu, leaky_relu, gelu?
+#    Use craft.search('rellu') to find related expressions.
 ```
 
 ---
@@ -101,14 +101,14 @@ mse = craft.quick_loss("mse")
 ```python
 # Visual comparison of activations
 craft.compare(
- ["relu", "sigmoid", "tanh", "swish"],
- metric="behavior"
+    ["relu", "sigmoid", "tanh", "swish"],
+    metric="behavior"
 )
 
 # Compare gradients
 craft.compare(
- ["relu", "sigmoid", "tanh"],
- metric="gradient"
+    ["relu", "sigmoid", "tanh"],
+    metric="gradient"
 )
 ```
 
@@ -164,12 +164,12 @@ from neurogebra import Expression
 
 # Create your own
 my_activation = Expression(
- "xtanh",
- "x * tanh(x)",
- metadata={
- "category": "activation",
- "description": "x*tanh(x) — smooth activation"
- }
+    "xtanh",
+    "x * tanh(x)",
+    metadata={
+        "category": "activation",
+        "description": "x*tanh(x) — smooth activation"
+    }
 )
 
 # Register it

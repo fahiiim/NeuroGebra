@@ -67,6 +67,43 @@ class Expression:
 
     def _compile_numerical(self):
         """Compile symbolic expression to numerical function."""
+        if self.name == "softplus":
+            def _eval_softplus(*args):
+                x = args[0]
+                x_arr = np.asarray(x, dtype=np.float64)
+                return np.where(
+                    x_arr > 30.0,
+                    x_arr,
+                    np.log1p(np.exp(np.clip(x_arr, -500.0, 30.0))),
+                )
+
+            self._numerical_func = _eval_softplus
+            return
+
+        if self.name in ("box_cox_approx", "box_cox"):
+            def _eval_box_cox(*args):
+                arg_map = {name: val for name, val in zip(self._var_names, args)}
+                x = arg_map.get("x", args[-1] if len(args) > 1 else args[0])
+                lam = arg_map.get(
+                    "lmbda",
+                    arg_map.get(
+                        "lambda_bc",
+                        arg_map.get("lam", args[0] if len(args) > 1 else 0.5),
+                    ),
+                )
+                x_arr = np.asarray(x, dtype=np.float64)
+                lam_arr = np.asarray(lam, dtype=np.float64)
+                if np.all(np.abs(lam_arr) < 1e-12):
+                    return np.log(x_arr)
+                safe_lam = np.where(np.abs(lam_arr) < 1e-12, 1.0, lam_arr)
+                is_zero = np.abs(lam_arr) < 1e-12
+                log_part = np.log(np.maximum(x_arr, 1e-12))
+                pow_part = (x_arr**safe_lam - 1.0) / safe_lam
+                return np.where(is_zero, log_part, pow_part)
+
+            self._numerical_func = _eval_box_cox
+            return
+
         if self.variables:
             import scipy.special as sc
 
@@ -153,20 +190,25 @@ class Expression:
         # Identify variables not present in params
         runtime_vars = [v for v in self.variables if v.name not in self.params]
 
+        def _to_arr(v):
+            if isinstance(v, (list, tuple)):
+                return np.asarray(v, dtype=np.float64)
+            return v
+
         for var in self.variables:
             name = var.name
             if name in kwargs:
-                ordered_args.append(kwargs[name])
+                ordered_args.append(_to_arr(kwargs[name]))
             elif name in self.params:
-                ordered_args.append(self.params[name])
+                ordered_args.append(_to_arr(self.params[name]))
             elif args:
                 if len(args) == len(self.variables):
-                    ordered_args.append(args[self.variables.index(var)])
+                    ordered_args.append(_to_arr(args[self.variables.index(var)]))
                 elif pos_idx < len(args) and var in runtime_vars:
-                    ordered_args.append(args[pos_idx])
+                    ordered_args.append(_to_arr(args[pos_idx]))
                     pos_idx += 1
                 elif pos_idx < len(args):
-                    ordered_args.append(args[pos_idx])
+                    ordered_args.append(_to_arr(args[pos_idx]))
                     pos_idx += 1
                 else:
                     raise ValueError(
@@ -489,6 +531,18 @@ class Expression:
 
     def __str__(self):
         return str(self.symbolic_expr)
+
+    def _repr_latex_(self) -> str:
+        """Rich LaTeX representation for Jupyter / IPython notebooks."""
+        return f"$${sp.latex(self.symbolic_expr)}$$"
+
+    def latex(self) -> str:
+        """Return LaTeX string of the mathematical formula."""
+        return sp.latex(self.symbolic_expr)
+
+    def to_latex(self) -> str:
+        """Return LaTeX string of the mathematical formula."""
+        return sp.latex(self.symbolic_expr)
 
     @property
     def formula(self) -> str:
