@@ -4,8 +4,10 @@ EducationalTrainer: Training with built-in learning features.
 Makes the training process visible and understandable for beginners.
 """
 
+from __future__ import annotations
+
 import time
-from typing import Any
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 
@@ -83,8 +85,8 @@ class EducationalTrainer:
         epochs: int = 10,
         batch_size: int = 32,
         validation_split: float = 0.2,
-        lr_scheduler: Any | None = None,
-    ) -> dict[str, list[float]]:
+        lr_scheduler: Optional[Any] = None,
+    ) -> Dict[str, List[float]]:
         """
         Train the model with educational features.
 

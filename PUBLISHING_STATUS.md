@@ -5,16 +5,16 @@ This file tracks current publishing readiness without conflicting historical not
 ## Current Snapshot
 
 - Package name: `neurogebra`
-- Repository version target: `2.8.2` (see `pyproject.toml`)
+- Repository version target: `2.8.3` (see `pyproject.toml`)
 - Canonical docs config: `.readthedocs.yaml`
-- Current PyPI release: `2.8.2`.
+- Current PyPI release: `2.8.3`.
 
 ## Platform Status
 
 | Platform | Current State | Notes |
 |---|---|---|
-| GitHub | `v2.8.2` published | Formal release with LaTeX formatting, V01-V20 mathematical hardening, zero emojis. |
-| PyPI | `2.8.2` published | Wheel and source distribution available on PyPI at https://pypi.org/project/neurogebra/2.8.2/ |
+| GitHub | `v2.8.3` published | Formal release with Python 3.9 compatibility hardening, LaTeX formatting, V01-V20 mathematical hardening, zero emojis. |
+| PyPI | `2.8.3` published | Wheel and source distribution available on PyPI at https://pypi.org/project/neurogebra/2.8.3/ |
 | Read the Docs | Configured | Use `.readthedocs.yaml` as the single source of truth. |
 
 ## Pre-Release Gate (Current)

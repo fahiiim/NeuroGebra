@@ -4,6 +4,8 @@ TensorFlow bridge for Neurogebra expressions.
 Converts Neurogebra expressions to TensorFlow-compatible functions.
 """
 
+from __future__ import annotations
+
 from typing import Any, Callable, Optional
 
 import numpy as np
@@ -35,11 +37,11 @@ class KerasResidualDense(tf.keras.layers.Layer if TF_AVAILABLE else object):
         self,
         units: int,
         activation: str = "relu",
-        weights: np.ndarray | None = None,
-        bias: np.ndarray | None = None,
-        weights2: np.ndarray | None = None,
-        bias2: np.ndarray | None = None,
-        weights_skip: np.ndarray | None = None,
+        weights: Optional[np.ndarray] = None,
+        bias: Optional[np.ndarray] = None,
+        weights2: Optional[np.ndarray] = None,
+        bias2: Optional[np.ndarray] = None,
+        weights_skip: Optional[np.ndarray] = None,
         **kwargs,
     ):
         super().__init__(**kwargs)
