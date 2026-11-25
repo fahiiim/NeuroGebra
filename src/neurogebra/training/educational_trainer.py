@@ -231,7 +231,10 @@ class EducationalTrainer:
                     t_val = self._global_step
 
                 preds = self.model._real_forward(X_batch, training=True)
-                loss, grad = self.model._compute_loss(preds, y_batch, loss_name)
+                compute_loss = getattr(
+                    self.model, "_loss_and_gradient", self.model._compute_loss
+                )
+                loss, grad = compute_loss(preds, y_batch, loss_name)
                 acc = self.model._compute_accuracy(preds, y_batch)
 
                 batch_losses.append(loss)
@@ -291,7 +294,10 @@ class EducationalTrainer:
                 return 0.0, 0.0
             loss_name = getattr(self.model, "loss_name", None) or "mse"
             val_preds = self.model._real_forward(X_val, training=False)
-            val_loss, _ = self.model._compute_loss(val_preds, y_val, loss_name)
+            compute_loss = getattr(
+                self.model, "_loss_and_gradient", self.model._compute_loss
+            )
+            val_loss, _ = compute_loss(val_preds, y_val, loss_name)
             val_acc = self.model._compute_accuracy(val_preds, y_val)
             return float(val_loss), float(val_acc)
 
@@ -343,9 +349,7 @@ class EducationalTrainer:
             recent_val = np.mean(self.history["val_loss"][-3:])
 
             if recent_val > recent_train * 1.5:
-                print(
-                    "\n  Warning: Validation loss is much higher than training loss"
-                )
+                print("\n  Warning: Validation loss is much higher than training loss")
                 print("     This might indicate OVERFITTING")
                 print("      Try: Add dropout, reduce model size, or get more data\n")
 

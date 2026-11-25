@@ -133,7 +133,7 @@ class Expression:
         Pre-compile the expression into high-performance native machine code or CUDA.
 
         Args:
-            backend: 'c' (AVX2 SIMD), 'cuda' (NVIDIA GPU), or 'numpy'
+            backend: 'c' (portable native kernel), 'cuda' (NVIDIA GPU), or 'numpy'
 
         Returns:
             Self for chaining

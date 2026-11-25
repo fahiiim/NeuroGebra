@@ -1,6 +1,8 @@
 # Release Notes & Changelog
 
-**Current Release:** **v2.8.3** (2026-11-23)
+**Current source target:** **v3.0.0**, prepared 2026-11-25.
+
+Read the [3.0.0 release notes](3.0.0.md), [migration guide](migration-3.md), and [technical review](../project/review-3.md). Hosted publication is performed separately by the maintainer.
 
 ---
 
@@ -43,5 +45,5 @@
 pip install --upgrade neurogebra
 ```
 
-- **PyPI Project**: [https://pypi.org/project/neurogebra/2.8.3/](https://pypi.org/project/neurogebra/2.8.3/)
+- **PyPI Project**: [neurogebra](https://pypi.org/project/neurogebra/)
 - **Full Changelog**: [CHANGELOG.md on GitHub](https://github.com/fahiiim/NeuroGebra/blob/main/CHANGELOG.md)

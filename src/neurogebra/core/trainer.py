@@ -45,6 +45,8 @@ class Trainer:
         self.expression = expression
         self.learning_rate = learning_rate
         self.optimizer = optimizer
+        # Symbolic differentiation and lambdify are setup costs, not per-step work.
+        self._gradient_cache = {}
         self.history: dict[str, list] = {"loss": [], "params": []}
 
         # Adam optimizer state
@@ -152,7 +154,9 @@ class Trainer:
             if p.size == t.size:
                 p = p.reshape(t.shape)
             else:
-                raise ValueError(f"Shape mismatch: predictions {p.shape} vs targets {t.shape}")
+                raise ValueError(
+                    f"Shape mismatch: predictions {p.shape} vs targets {t.shape}"
+                )
 
         if loss_fn == "mse":
             return float(np.mean((p - t) ** 2))
@@ -198,7 +202,13 @@ class Trainer:
             gradient = None
             # Attempt analytical gradient via symbolic differentiation
             try:
-                grad_expr = self.expression.gradient(param_name)
+                cache_key = (self.expression.symbolic_expr, param_name)
+                if cache_key not in self._gradient_cache:
+                    self._gradient_cache[cache_key] = self.expression.gradient(
+                        param_name
+                    )
+                grad_expr = self._gradient_cache[cache_key]
+                grad_expr.params.update(original_params)
                 df_dp = grad_expr.eval(x=X)
                 df_dp = np.asarray(df_dp, dtype=np.float64)
                 if df_dp.shape == () and n > 0:

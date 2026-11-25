@@ -1,6 +1,6 @@
 # Hardware Acceleration Subsystem
 
-The `neurogebra.acceleration` module enables compilation of SymPy mathematical expressions into native C/C++ libraries with AVX2 SIMD vectorization and NVIDIA CUDA GPU kernels using NVRTC.
+The `neurogebra.acceleration` module compiles supported SymPy expressions into portable native C libraries or NVIDIA CUDA kernels through NVRTC. See the [backend guide](../science/acceleration.md) for precision, toolchain and execution boundaries.
 
 ---
 
@@ -12,7 +12,7 @@ The `neurogebra.acceleration` module enables compilation of SymPy mathematical e
 
 ---
 
-## C-JIT Engine (AVX2 / Clang / GCC)
+## C-JIT Engine (Clang / GCC)
 
 ::: neurogebra.acceleration.c_jit.compile_c
     options:

@@ -589,7 +589,7 @@ class Datasets:
         Shows datasets organized by category with sample counts and use cases.
         """
         print("\n" + "=" * 70)
-        print(" NEUROGEBRA DATASETS - 100+ Educational ML Datasets")
+        print(" NEUROGEBRA DATASETS - Educational Dataset Loaders")
         print("=" * 70 + "\n")
 
         datasets_info = {

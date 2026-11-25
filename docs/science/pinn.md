@@ -16,6 +16,9 @@ $$\mathcal{L}_{\text{data}} = \frac{1}{N_d} \sum_{i=1}^{N_d} \left(u_\theta(\mat
 
 All required spatial and temporal derivatives ($\frac{\partial u}{\partial x_k}, \frac{\partial^2 u}{\partial x_k^2}$) are computed directly via central finite differences, and both weights and biases receive gradient updates through Adam optimization.
 
+!!! note "Educational solver and computational cost"
+    Residual parameter gradients also use central finite differences: two residual evaluations per weight or bias, per step. Version 3.0 differentiates every parameter. Start with small networks and collocation grids; this implementation is not a GPU/autograd PDE solver. Check residual and boundary errors against a known solution before drawing scientific conclusions.
+
 ---
 
 ## Quick Start: 1D Damped Harmonic Oscillator (ODE)
@@ -26,15 +29,15 @@ Solve $m \frac{d^2 u}{dt^2} + c \frac{du}{dt} + k u = 0$ with initial displaceme
 import numpy as np
 from neurogebra.science import PINN
 
-# 1 input coordinate (t) -> two hidden tanh layers of 32 units -> 1 output u(t)
-pinn = PINN(layer_sizes=[1, 32, 32, 1], activation="tanh", seed=42)
+# A small network for an API walkthrough; increase only after validation.
+pinn = PINN(layer_sizes=[1, 8, 1], activation="tanh", seed=42)
 
 # Boundary / initial condition points
 t_data = np.array([[0.0], [0.05]])
 u_data = np.array([[1.0], [0.98]])
 
 # Interior domain collocation grid
-t_colloc = np.linspace(0.0, 4.0, 80).reshape(-1, 1)
+t_colloc = np.linspace(0.0, 4.0, 16).reshape(-1, 1)
 
 # Train using the built-in harmonic oscillator residual
 history = pinn.fit(
@@ -42,13 +45,15 @@ history = pinn.fit(
     y_data=u_data,
     X_colloc=t_colloc,
     residual_fn=pinn.harmonic_oscillator_residual,
-    epochs=200,
+    epochs=20,
     lr=0.01,
     lambda_pde=1.0,
 )
 
 u_pred = pinn.predict(t_colloc)
 ```
+
+This short run demonstrates the API; it is not a convergence guarantee. The two early-time observations approximate initial behavior rather than imposing an exact initial-velocity constraint.
 
 ---
 
@@ -62,7 +67,7 @@ $$\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} - \nu \frac{\p
 import numpy as np
 from neurogebra.science import PINN
 
-pinn = PINN(layer_sizes=[2, 32, 32, 1], activation="tanh", seed=7)
+pinn = PINN(layer_sizes=[2, 8, 1], activation="tanh", seed=7)
 
 # Boundary & initial data (e.g., u(x, 0) = -sin(pi * x), u(+-1, t) = 0)
 x0 = np.linspace(-1, 1, 40)
@@ -78,8 +83,8 @@ y_data = np.vstack([ic_vals, np.zeros((40, 1))])
 # Interior spacetime collocation grid [x, t]
 rng = np.random.default_rng(42)
 X_colloc = np.column_stack([
-    rng.uniform(-1.0, 1.0, 150),
-    rng.uniform(0.0, 1.0, 150),
+    rng.uniform(-1.0, 1.0, 24),
+    rng.uniform(0.0, 1.0, 24),
 ])
 
 history = pinn.fit(
@@ -87,7 +92,7 @@ history = pinn.fit(
     y_data=y_data,
     X_colloc=X_colloc,
     residual_fn=lambda net, pts: net.burgers_residual(pts, nu=0.01 / np.pi),
-    epochs=150,
+    epochs=20,
     lr=0.008,
     lambda_pde=0.5,
 )

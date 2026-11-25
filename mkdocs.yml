@@ -1,5 +1,5 @@
-site_name: NeuroGebra Documentation
-site_description: "The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability."
+site_name: NeuroGebra
+site_description: "Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python."
 site_url: https://neurogebra.readthedocs.io
 repo_url: https://github.com/fahiiim/NeuroGebra
 repo_name: fahiiim/NeuroGebra
@@ -7,7 +7,8 @@ copyright: "Copyright &copy; 2026 Fahim Sarker — MIT License"
 
 theme:
   name: material
-  logo: assets/neurogebra-icon-bright.png
+  custom_dir: overrides
+  logo: assets/neurogebra-icon-teal.png
   favicon: assets/favicon.png
   palette:
     - scheme: default
@@ -38,12 +39,10 @@ theme:
     - toc.follow
   icon:
     repo: fontawesome/brands/github
-  font:
-    text: Inter
-    code: JetBrains Mono
+  font: false
 
 extra_css:
-  - stylesheets/pytorch-style.css
+  - stylesheets/neurogebra.css
 
 plugins:
   - search
@@ -64,7 +63,11 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.arithmatex:
@@ -101,7 +104,7 @@ nav:
           - The ML Workflow: ml-fundamentals/ml-workflow.md
           - Math Behind ML: ml-fundamentals/math-behind-ml.md
 
-  - Tutorials:
+  - Learn:
       - tutorials/index.md
       - Learning Tracks:
           - Beginner Track: tutorials/beginner.md
@@ -127,7 +130,7 @@ nav:
           - Observatory Pro Telemetry: advanced/observatory-pro.md
           - Visualization & Plotting: advanced/visualization.md
 
-  - Acceleration & Science:
+  - Science & Speed:
       - science/index.md
       - Hardware Acceleration (C-JIT & CUDA GPU): science/acceleration.md
       - Physics-Informed Neural Networks (PINN): science/pinn.md
@@ -138,8 +141,8 @@ nav:
       - Framework Bridges (PyTorch / TF / JAX): advanced/framework-bridges.md
       - Custom Expressions: advanced/custom-expressions.md
 
-  - Notebooks & Projects:
-      - 20 Executed GPU Portfolio Notebooks: examples/project_notebooks.md
+  - Examples:
+      - 20 Project Notebooks: examples/project_notebooks.md
       - NeuroGebra vs PyTorch Comparisons:
           - "Project 1: Linear Regression": projects/project1-linear-regression.md
           - "Project 2: Image Classifier": projects/project2-image-classifier.md
@@ -151,6 +154,8 @@ nav:
 
   - API Reference:
       - api/reference.md
+      - Formula Catalog: reference/formulas.md
+      - Dataset Catalog: reference/datasets.md
       - neurogebra.core: api/core.md
       - neurogebra.builders: api/builders.md
       - neurogebra.acceleration: api/acceleration.md
@@ -160,9 +165,16 @@ nav:
       - neurogebra.logging & training: api/logging.md
       - neurogebra.bridges & datasets: api/bridges-datasets.md
       - neurogebra.repository & viz: api/repository.md
+      - Learning Utilities: api/utilities.md
 
-  - Releases:
-      - releases/index.md
+  - Project:
+      - Capabilities & Limits: project/capabilities.md
+      - Troubleshooting: project/troubleshooting.md
+      - Contributing: project/contributing.md
+      - 3.0.0 Release Notes: releases/3.0.0.md
+      - Migration to 3.0: releases/migration-3.md
+      - Release History: releases/index.md
+      - Review & Roadmap: project/review-3.md
 
 extra:
   social:
@@ -172,4 +184,5 @@ extra:
       link: https://pypi.org/project/neurogebra/
 
 extra_javascript:
+  - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

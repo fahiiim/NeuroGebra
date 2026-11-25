@@ -2,7 +2,7 @@
 C-JIT Acceleration Engine for NeuroGebra.
 
 Compiles SymPy mathematical expressions into optimized native C/C++ shared
-libraries using AVX2 SIMD vectorization and OpenMP/Clang loop vectorization.
+libraries using portable compiler optimization and loop vectorization.
 """
 
 from __future__ import annotations
@@ -26,7 +26,12 @@ _C_AVAILABLE_CACHE: bool | None = None
 
 def _get_cache_dir() -> Path:
     """Return cache directory for compiled C extensions."""
-    cache_dir = Path.home() / ".neurogebra" / "cache" / "c_jit"
+    cache_root = os.environ.get("NEUROGEBRA_CACHE_DIR")
+    cache_dir = (
+        Path(cache_root) / "c_jit"
+        if cache_root
+        else Path.home() / ".neurogebra" / "cache" / "c_jit"
+    )
     cache_dir.mkdir(parents=True, exist_ok=True)
     return cache_dir
 
@@ -177,6 +182,8 @@ def compile_c(
         raise RuntimeError(
             "No C/C++ compiler found (clang++, g++, gcc). Please install a compiler."
         )
+    if opt_level not in {"-O0", "-O1", "-O2", "-O3", "-Os"}:
+        raise ValueError("opt_level must be -O0, -O1, -O2, -O3 or -Os")
 
     if isinstance(expr, str):
         sym_expr = sp.sympify(expr)
@@ -185,6 +192,10 @@ def compile_c(
 
     var_symbols = [sp.Symbol(v) if isinstance(v, str) else v for v in variables]
     var_names = [v.name for v in var_symbols]
+    if len(set(var_names)) != len(var_names):
+        raise ValueError("Compilation variables must be unique")
+    if sym_expr.free_symbols - set(var_symbols):
+        raise ValueError("Every free symbol must be included in variables")
 
     # Mangle symbols to prevent collisions with C keywords, loop indices, or names like 'i', 'n'
     sym_map = {v: sp.Symbol(f"__ng_v_{k}") for k, v in enumerate(var_symbols)}
@@ -243,8 +254,15 @@ def compile_c(
     # Compute content hash for disk caching
     cache_dir = _get_cache_dir()
     machine = platform.machine().lower()
+    compiler_path = Path(compiler).resolve()
+    compiler_stat = compiler_path.stat()
+    compiler_key = (
+        f"{compiler_path}:{compiler_stat.st_size}:{compiler_stat.st_mtime_ns}"
+    )
     src_hash = hashlib.sha256(
-        (c_source + opt_level + os.name + machine).encode("utf-8")
+        (
+            c_source + opt_level + os.name + machine + compiler_key + "portable-v3"
+        ).encode("utf-8")
     ).hexdigest()[:16]
 
     if sys.platform == "win32":
@@ -261,19 +279,14 @@ def compile_c(
         src_path.write_text(c_source, encoding="utf-8")
 
         shared_flag = "-dynamiclib" if sys.platform == "darwin" else "-shared"
-        is_x86 = machine in ("x86_64", "amd64", "x64")
 
         base_cmd = [compiler, opt_level, shared_flag]
         if sys.platform != "win32":
             base_cmd.append("-fPIC")
 
-        # Try AVX2 if on x86, but fall back gracefully to baseline CPU if unsupported
-        cmd_candidates = []
-        if is_x86 and sys.platform != "darwin":
-            cmd_candidates.append(
-                base_cmd + ["-mavx2", str(src_path), "-o", str(dll_path)]
-            )
-        cmd_candidates.append(base_cmd + [str(src_path), "-o", str(dll_path)])
+        # A compiler accepting -mavx2 says nothing about the host CPU.
+        # Use its portable target instead of risking an illegal instruction.
+        cmd_candidates = [base_cmd + [str(src_path), "-o", str(dll_path)]]
 
         last_error = ""
         success = False

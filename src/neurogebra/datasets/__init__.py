@@ -1,16 +1,9 @@
 """
 Built-in datasets for learning and experimentation.
 
-Neurogebra now includes 100+ datasets organized by category:
-- Classification (Binary & Multi-class): 25+ datasets
-- Regression: 25+ datasets
-- Clustering: 15+ datasets
-- Time Series: 15+ datasets
-- Image Recognition: 10+ datasets
-- Text/NLP: 5+ datasets
-- Synthetic Patterns: 20+ datasets
-
-Use Datasets.list_all() to see all available datasets.
+48 unique educational loader methods are available through CombinedDatasets.
+Many generate synthetic teaching distributions; consult the dataset catalog
+for provenance and return conventions.
 """
 
 from neurogebra.datasets.expanded_loaders import CombinedDatasets, ExpandedDatasets

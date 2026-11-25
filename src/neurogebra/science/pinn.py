@@ -7,7 +7,9 @@ enforcing physical conservation laws through residual minimization.
 
 from __future__ import annotations
 
+import inspect
 from typing import Callable
+
 import numpy as np
 
 
@@ -32,6 +34,15 @@ class PINN:
         seed: int = 42,
     ):
         self.layer_sizes = list(layer_sizes)
+        if len(self.layer_sizes) < 2 or any(
+            not isinstance(width, (int, np.integer)) or width <= 0
+            for width in self.layer_sizes
+        ):
+            raise ValueError(
+                "layer_sizes must contain at least two positive integer widths"
+            )
+        if activation not in {"tanh", "sin", "gelu", "relu", "linear"}:
+            raise ValueError(f"Unsupported PINN activation: {activation!r}")
         self.activation = activation
         self.rng = np.random.default_rng(seed)
 
@@ -61,7 +72,11 @@ class PINN:
         if self.activation == "relu":
             return np.maximum(0.0, z)
         if self.activation == "gelu":
-            return 0.5 * z * (1.0 + np.tanh(np.sqrt(2.0 / np.pi) * (z + 0.044715 * (z**3))))
+            return (
+                0.5
+                * z
+                * (1.0 + np.tanh(np.sqrt(2.0 / np.pi) * (z + 0.044715 * (z**3))))
+            )
         return z
 
     def _act_prime(self, z: np.ndarray, a: np.ndarray) -> np.ndarray:
@@ -79,7 +94,9 @@ class PINN:
             return 0.5 * (1.0 + tanh_s) + 0.5 * z * sech2_s * ds_dz
         return np.ones_like(z)
 
-    def forward(self, X: np.ndarray) -> tuple[np.ndarray, list[np.ndarray], list[np.ndarray]]:
+    def forward(
+        self, X: np.ndarray
+    ) -> tuple[np.ndarray, list[np.ndarray], list[np.ndarray]]:
         """Forward pass caching intermediate pre-activations and activations."""
         a = np.asarray(X, dtype=np.float64)
         activations = [a]
@@ -102,7 +119,9 @@ class PINN:
         out, _, _ = self.forward(X)
         return out
 
-    def compute_gradient(self, X: np.ndarray, var_idx: int = 0, eps: float = 1e-4) -> np.ndarray:
+    def compute_gradient(
+        self, X: np.ndarray, var_idx: int = 0, eps: float = 1e-4
+    ) -> np.ndarray:
         """
         Compute directional gradient du/dx_i using central finite differences.
         """
@@ -162,9 +181,9 @@ class PINN:
         self, X_data: np.ndarray, y_data: np.ndarray
     ) -> tuple[list[np.ndarray], list[np.ndarray]]:
         """Backpropagation for mean squared error data/boundary loss."""
-        N = len(X_data)
+        X_data, y_data = self._prepare_data(X_data, y_data)
         preds, pre_acts, acts = self.forward(X_data)
-        grad_out = (2.0 / N) * (preds - y_data)
+        grad_out = (2.0 / preds.size) * (preds - y_data)
 
         grad_w = [np.zeros_like(w) for w in self.weights]
         grad_b = [np.zeros_like(b) for b in self.biases]
@@ -184,6 +203,24 @@ class PINN:
 
         return grad_w, grad_b
 
+    def _prepare_data(self, X_data, y_data):
+        X_data = np.asarray(X_data, dtype=np.float64)
+        y_data = np.asarray(y_data, dtype=np.float64)
+        if y_data.ndim == 1 and self.layer_sizes[-1] == 1:
+            y_data = y_data[:, None]
+        if (
+            X_data.ndim != 2
+            or X_data.shape[0] == 0
+            or X_data.shape[1] != self.layer_sizes[0]
+            or y_data.shape != (len(X_data), self.layer_sizes[-1])
+        ):
+            raise ValueError(
+                "Expected nonempty X_data (samples, inputs) and y_data (samples, outputs)"
+            )
+        if not np.isfinite(X_data).all() or not np.isfinite(y_data).all():
+            raise ValueError("PINN data must contain finite values")
+        return X_data, y_data
+
     def train_step(
         self,
         X_data: np.ndarray,
@@ -196,7 +233,16 @@ class PINN:
         """
         Single training step minimizing total loss = L_data + lambda_pde * L_residual.
         """
-        self._step_count += 1
+        X_data, y_data = self._prepare_data(X_data, y_data)
+        if (
+            not np.isfinite(lr)
+            or lr <= 0
+            or not np.isfinite(lambda_pde)
+            or lambda_pde < 0
+        ):
+            raise ValueError("lr must be positive and lambda_pde must be nonnegative")
+        if (X_colloc is None) != (residual_fn is None):
+            raise ValueError("Provide X_colloc and residual_fn together")
         # Data loss
         data_preds = self.predict(X_data)
         loss_data = float(np.mean((data_preds - y_data) ** 2))
@@ -204,60 +250,69 @@ class PINN:
 
         loss_pde = 0.0
         if X_colloc is not None and residual_fn is not None and lambda_pde > 0:
-            def _call_res(coords: np.ndarray) -> np.ndarray:
+            X_colloc = np.asarray(X_colloc, dtype=np.float64)
+            if (
+                X_colloc.ndim != 2
+                or not len(X_colloc)
+                or X_colloc.shape[1] != self.layer_sizes[0]
+                or not np.isfinite(X_colloc).all()
+            ):
+                raise ValueError(
+                    "X_colloc must be a nonempty finite (samples, inputs) array"
+                )
+            # Select the supported signature once, without swallowing errors
+            # raised inside the user's callback.
+            try:
+                signature = inspect.signature(residual_fn)
+            except (TypeError, ValueError):
+                use_model_argument = False
+            else:
                 try:
-                    return residual_fn(coords)
+                    signature.bind(X_colloc)
+                    use_model_argument = False
                 except TypeError:
-                    return residual_fn(self, coords)
+                    signature.bind(self, X_colloc)
+                    use_model_argument = True
+
+            def _call_res(coords: np.ndarray) -> np.ndarray:
+                value = (
+                    residual_fn(self, coords)
+                    if use_model_argument
+                    else residual_fn(coords)
+                )
+                result = np.asarray(value, dtype=np.float64)
+                if not result.size or not np.isfinite(result).all():
+                    raise ValueError(
+                        "Residual callback must return nonempty finite values"
+                    )
+                return result
 
             res = _call_res(X_colloc)
             loss_pde = float(np.mean(res**2))
 
-            # Numerical perturbation gradient for PDE residual loss on weights and biases
+            # Differentiate every parameter. Silent subsampling changes the
+            # objective's gradient and formerly crashed for matrices >256 weights.
             eps_fd = 1e-4
-            for i in range(len(self.weights)):
-                grad_pde_w = np.zeros_like(self.weights[i])
-                flat_w = self.weights[i].ravel()
-                flat_gw = grad_pde_w.ravel()
-                n_w = flat_w.size
-                sub_idx = range(n_w) if n_w <= 256 else self._rng.choice(n_w, size=min(n_w, 32), replace=False)
-                for idx in sub_idx:
-                    orig = flat_w[idx]
-                    flat_w[idx] = orig + eps_fd
-                    r_p = _call_res(X_colloc)
-                    l_p = float(np.mean(r_p**2))
-
-                    flat_w[idx] = orig - eps_fd
-                    r_m = _call_res(X_colloc)
-                    l_m = float(np.mean(r_m**2))
-
-                    flat_w[idx] = orig
-                    flat_gw[idx] = (l_p - l_m) / (2.0 * eps_fd)
-
-                grad_w[i] += lambda_pde * grad_pde_w
-
-            for i in range(len(self.biases)):
-                grad_pde_b = np.zeros_like(self.biases[i])
-                flat_b = self.biases[i].ravel()
-                flat_gb = grad_pde_b.ravel()
-                for idx in range(len(flat_b)):
-                    orig = flat_b[idx]
-                    flat_b[idx] = orig + eps_fd
-                    r_p = _call_res(X_colloc)
-                    l_p = float(np.mean(r_p**2))
-
-                    flat_b[idx] = orig - eps_fd
-                    r_m = _call_res(X_colloc)
-                    l_m = float(np.mean(r_m**2))
-
-                    flat_b[idx] = orig
-                    flat_gb[idx] = (l_p - l_m) / (2.0 * eps_fd)
-
-                grad_b[i] += lambda_pde * grad_pde_b
+            for parameters, gradients in (
+                (self.weights, grad_w),
+                (self.biases, grad_b),
+            ):
+                for parameter, gradient in zip(parameters, gradients):
+                    for idx in np.ndindex(parameter.shape):
+                        original = parameter[idx]
+                        try:
+                            parameter[idx] = original + eps_fd
+                            plus = float(np.mean(_call_res(X_colloc) ** 2))
+                            parameter[idx] = original - eps_fd
+                            minus = float(np.mean(_call_res(X_colloc) ** 2))
+                        finally:
+                            parameter[idx] = original
+                        gradient[idx] += lambda_pde * (plus - minus) / (2.0 * eps_fd)
 
         total_loss = loss_data + lambda_pde * loss_pde
 
         # Adam optimization update
+        self._step_count += 1
         beta1, beta2, eps = 0.9, 0.999, 1e-8
         bc1 = 1.0 - beta1**self._step_count
         bc2 = 1.0 - beta2**self._step_count

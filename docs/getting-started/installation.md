@@ -1,116 +1,66 @@
 # Installation
 
-## Prerequisites
+NeuroGebra requires Python 3.9 or newer. The CI matrix covers Python 3.9–3.12 across its configured Linux, Windows and macOS runners. Optional frameworks have their own Python, hardware and operating-system requirements.
 
-Before installing Neurogebra, make sure you have:
+## Create an environment
 
-- **Python 3.9 or higher** installed on your computer
-- **pip** (Python's package manager — comes with Python)
+=== "Windows PowerShell"
 
-!!! info "Don't have Python?"
-    Download Python from [python.org](https://www.python.org/downloads/). During installation on Windows, check **"Add Python to PATH"**.
+    ```powershell
+    python -m venv .venv
+    .venv\Scripts\Activate.ps1
+    python -m pip install --upgrade pip
+    python -m pip install neurogebra
+    ```
 
----
+=== "Linux / macOS"
 
-## Step 1: Install Neurogebra
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    python -m pip install --upgrade pip
+    python -m pip install neurogebra
+    ```
 
-Open your terminal (Command Prompt on Windows, Terminal on Mac/Linux) and type:
-
-```bash
-pip install neurogebra
-```
-
-That's it! Neurogebra is now installed.
-
----
-
-## Step 2: Verify Installation
-
-Let's make sure it worked. Open a Python shell:
+To install this checkout before its PyPI publication:
 
 ```bash
-python
+python -m pip install -e ".[dev,docs]"
 ```
 
-Then type:
+## Verify the version
 
 ```python
 import neurogebra
-print(neurogebra.__version__)
+print(neurogebra.__version__)  # 3.0.0 from this checkout
 ```
 
-You should see the version number printed (e.g., `2.8.3`).
+After the maintainer publishes 3.0.0, it can be pinned with `python -m pip install "neurogebra==3.0.0"`.
 
----
+## Choose extras deliberately
 
-## Optional Extras
+| Extra | Adds | Install |
+|---|---|---|
+| Core | NumPy, SymPy, SciPy, Matplotlib, Rich and Colorama | `python -m pip install neurogebra` |
+| `viz` | Plotly and Seaborn | `python -m pip install "neurogebra[viz]"` |
+| `frameworks` | PyTorch, TensorFlow, JAX and jaxlib | `python -m pip install "neurogebra[frameworks]"` |
+| `logging` | TensorBoard and Weights & Biases integrations | `python -m pip install "neurogebra[logging]"` |
+| `datasets` | scikit-learn | `python -m pip install "neurogebra[datasets]"` |
+| `cuda` | CUDA Python bindings | `python -m pip install "neurogebra[cuda]"` |
+| `docs` | MkDocs Material and API documentation tools | `python -m pip install "neurogebra[docs]"` |
+| `dev` | Testing, coverage, lint and development tools | `python -m pip install "neurogebra[dev]"` |
+| `fast` | Numba dependency for experimentation | `python -m pip install "neurogebra[fast]"` |
+| `all` | Development, docs, visualization, frameworks, logging, CUDA and dataset extras | `python -m pip install "neurogebra[all]"` |
 
-Neurogebra has optional features you can install:
+The `fast` extra installs Numba but does not select a Numba execution backend. C JIT requires a separately installed GCC/Clang toolchain. CUDA JIT requires native NVIDIA driver/NVRTC libraries in addition to the Python extra. Install only the optional framework you need if the full bundle is unsuitable for your platform.
 
-### Visualization Tools
+## Build the documentation locally
+
 ```bash
-pip install neurogebra[viz]
+python -m pip install -e ".[docs]"
+python -m mkdocs serve
 ```
-Adds plotting and visualization (requires matplotlib and plotly).
 
-### Performance Boost
-```bash
-pip install neurogebra[fast]
-```
-Adds Numba JIT compilation for faster numerical evaluation.
+Open the local address printed by MkDocs. To validate a static build, run `python -m mkdocs build --strict` followed by `python scripts/check_docs.py --site site`.
 
-### Framework Bridges
-```bash
-pip install neurogebra[frameworks]
-```
-Adds PyTorch, TensorFlow, and JAX integration.
-
-### Everything
-```bash
-pip install neurogebra[all]
-```
-Installs all optional dependencies at once.
-
----
-
-## Troubleshooting
-
-!!! warning "Common Issues"
-
-    **`pip` not found?**
-    
-    Try `pip3 install neurogebra` or `python -m pip install neurogebra`.
-
-    **Permission denied?**
-    
-    Try `pip install --user neurogebra` or use a virtual environment.
-
-    **Old Python version?**
-
-    Neurogebra requires Python 3.9+. Check with `python --version`.
-
----
-
-## Using a Virtual Environment (Recommended)
-
-A virtual environment keeps your project dependencies isolated:
-
-=== "Windows"
-
-    ```bash
-    python -m venv myenv
-    myenv\Scripts\activate
-    pip install neurogebra
-    ```
-
-=== "Mac/Linux"
-
-    ```bash
-    python3 -m venv myenv
-    source myenv/bin/activate
-    pip install neurogebra
-    ```
-
----
-
-**Next:** [Your First Program →](first-program.md)
+[Write your first program](first-program.md) or consult [troubleshooting](../project/troubleshooting.md).

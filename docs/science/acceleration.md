@@ -1,113 +1,75 @@
-# Hardware Acceleration Engine (C-JIT & CUDA GPU)
+# Native expression acceleration
 
-NeuroGebra bridges symbolic interpretability and bare-metal execution speed through `neurogebra.acceleration`—a zero-configuration native compiler that transforms SymPy expressions into optimized C++ shared libraries (AVX2 SIMD / OpenMP) or NVIDIA CUDA device kernels via NVRTC.
+Compile supported symbolic expressions to native C shared libraries or NVIDIA CUDA kernels. These backends apply to expression evaluation; neural-model and PINN training remain NumPy based.
 
----
-
-## Performance Summary
-
-Evaluated on 1,000,000 float elements computing composite non-linear activation pipelines (Intel i7 + NVIDIA GeForce RTX 5070 12GB):
-
-| Execution Backend | Compilation Pipeline | Latency (1M elements) | Relative Speedup |
-|---|---|---:|---:|
-| **NumPy (Baseline)** | Compiled Python `lambdify` + ufuncs | 10.55 ms | 1.00x |
-| **NeuroGebra C-JIT (`backend="c"`)** | Clang++ / GCC `-O3` AVX2 SIMD + OpenMP | 5.16 ms | **2.04x faster** |
-| **NeuroGebra CUDA-JIT (`backend="cuda"`)** | Fused PTX kernel via NVRTC + Driver API | 2.22 ms | **4.76x faster** |
-
----
-
-## Inspecting Local Hardware Capabilities
-
-Check whether a native C/C++ compiler (`clang++`, `g++`, `gcc`, `clang`) or NVIDIA CUDA Driver + NVRTC stack is detected on your machine:
+## Inspect the environment
 
 ```python
-from neurogebra import (
-    get_acceleration_info,
-    is_c_available,
-    is_cuda_available,
-)
-
-info = get_acceleration_info()
-print(info)
-# {
-#     'c_jit_available': True,
-#     'c_compiler': '/usr/bin/g++',
-#     'cuda_available': True,
-#     'cuda_device': 'NVIDIA GeForce RTX 5070',
-#     'cuda_compute_capability': (8, 9),
-# }
+from neurogebra import get_acceleration_info
+print(get_acceleration_info())
 ```
 
----
+The result includes `c_jit_available`, `c_compiler`, `cuda_available`, `cuda_device` and `cuda_compute_capability`. Treat availability as a starting check; validate the actual expression on the target machine.
 
-## Accelerating Symbolic `Expression` Objects
-
-Any symbolic `Expression` can compile directly onto C or CUDA using `.compile(backend=...)` or per-call `backend=...`:
+## Compile an expression
 
 ```python
 import numpy as np
-from neurogebra import Expression
+from neurogebra import Expression, is_c_available
 
-# Define symbolic expression (supports multi-variable formulas and math functions)
-swish = Expression("swish", "x / (1.0 + exp(-beta * x))", params={"beta": 1.0})
-data = np.linspace(-5.0, 5.0, 1_000_000)
+expr = Expression("energy", "0.5 * m * v**2", params={"m": 2.0})
+v = np.linspace(0.0, 10.0, 1000)
+baseline = expr.eval(v=v, backend="numpy")
 
-# Option 1: Compile and cache C-JIT shared library
-swish.compile(backend="c")
-cpu_out = swish.eval(x=data)
-
-# Option 2: Compile PTX GPU kernel via NVRTC and launch on CUDA device
-swish.compile(backend="cuda")
-gpu_out = swish.eval(x=data)
-
-# Option 3: Override backend per evaluation call
-np_out = swish.eval(x=data, backend="numpy")
+if is_c_available():
+    expr.compile(backend="c")
+    native = expr.eval(v=v, backend="c")
+    np.testing.assert_allclose(native, baseline)
 ```
 
-### Supported Compilation Backends
+## Backend boundaries
 
-| Backend | Precision | Broadcasting | Caching Behavior |
+| Backend | Precision | Requirements | Current behavior |
 |---|---|---|---|
-| `"numpy"` | `float64` | Full NumPy broadcasting | In-memory `lambdify` callable |
-| `"c"` | `float64` | Full `np.broadcast_arrays` | Disk-cached `.so` / `.dll` / `.dylib` under `~/.neurogebra/cache/c_jit` keyed by SHA-256 of source & ISA flags |
-| `"cuda"` | `float32` | Full `np.broadcast_arrays` | NVRTC PTX compiled to CUDA module with automatic `cuMemAlloc` / `cuMemFree` cleanup |
+| `numpy` | Usually float64 | Core installation | Vectorized SymPy-generated NumPy callable |
+| `c` | float64 | GCC/Clang toolchain, writable cache | Portable native kernel, NumPy broadcasting, disk cache |
+| `cuda` | float32 | NVIDIA device/driver, NVRTC, compatible CUDA Python bindings | NVRTC compilation and device launch; host arrays copied for each call |
 
----
+3.0 uses the compiler's portable CPU target. A compiler accepting `-mavx2` does not establish that a CPU can execute AVX2; the previous forced flag was unsafe on older x86 machines. Compiler identity is now included in the C cache key.
 
-## Direct Low-Level JIT Functions (`compile_c` & `compile_cuda`)
+The `fast` extra installs Numba but does not select a Numba backend. MSVC is not detected by the current compiler search, which looks for `clang++`, `g++`, `gcc` and `clang`.
 
-For raw string expressions or SymPy graphs outside `Expression`, use the direct compiler functions:
-
-### C-JIT Compiler
+## Low-level functions
 
 ```python
 import numpy as np
-from neurogebra.acceleration import compile_c
+from neurogebra.acceleration import compile_c, is_c_available
 
-# Compile a multi-variable formula with symbol mangling safety (variables like 'i' or 'n' are safe)
-energy_fn = compile_c("0.5 * m * v**2", variables=["m", "v"], opt_level="-O3")
-
-masses = np.array([1.0, 2.5, 4.0])
-velocities = np.linspace(0.0, 10.0, 3)
-print(energy_fn(masses, velocities))
+if is_c_available():
+    fn = compile_c("x*x + y", variables=["x", "y"], opt_level="-O3")
+    out = fn(np.array([1.0, 2.0]), 3.0)
+    np.testing.assert_allclose(out, [4.0, 7.0])
 ```
-
-### CUDA NVRTC Kernel Compiler
 
 ```python
 import numpy as np
 from neurogebra.acceleration import compile_cuda, is_cuda_available
 
 if is_cuda_available():
-    kernel_fn = compile_cuda("exp(-x**2 - y**2) * cos(x * y)", variables=["x", "y"])
-    x = np.linspace(-2.0, 2.0, 100_000, dtype=np.float32)
-    y = np.linspace(-2.0, 2.0, 100_000, dtype=np.float32)
-    out = kernel_fn(x, y)
+    fn = compile_cuda("x*x + 1", variables=["x"])
+    x = np.linspace(-1.0, 1.0, 1000, dtype=np.float32)
+    out = fn(x)
+    np.testing.assert_allclose(out, x*x + 1, rtol=1e-5, atol=1e-6)
 ```
 
----
+Supported C optimization arguments are `-O0`, `-O1`, `-O2`, `-O3` and `-Os`. Variables must be unique and cover all free symbols. Unsupported symbolic constructs can fail at code generation or compilation; use the NumPy backend where appropriate.
 
-## Installation & System Prerequisites
+## Cache and deployment
 
-- **C-JIT CPU**: Any standard host toolchain (`gcc`, `g++`, `clang`, or `clang++`) visible on `PATH`. On x86-64 hosts, NeuroGebra compiles with `-O3 -mavx2` and automatically falls back to baseline CPU optimization flags if an instruction set is unavailable.
-- **CUDA-JIT GPU**: Install CUDA Python bindings and NVIDIA driver runtime (`pip install "neurogebra[cuda]"`). Target architecture defaults automatically to your active GPU's compute capability.
+C artifacts are stored under `~/.neurogebra/cache/c_jit` by default. Set `NEUROGEBRA_CACHE_DIR` to use another root; artifacts use its `c_jit` subdirectory. Treat compiled artifacts as local build products rather than portable wheels. Avoid concurrent processes building the same cold cache entry; atomic multi-process cache coordination is a future improvement.
+
+CUDA context/module lifetime and broader driver-version coverage need further validation. Run native tests on the target hardware before deploying an accelerated workload.
+
+## Benchmark responsibly
+
+Historical kernel speedup figures are workload-specific and are not a validated 3.0 end-to-end training comparison. Use the [performance guide](../advanced/performance.md) to reproduce timings with matched precision, input size, compilation, transfer boundaries and output tolerances.

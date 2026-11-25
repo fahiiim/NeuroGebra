@@ -1,50 +1,16 @@
-# Publishing Status
+# Publishing status
 
-This file tracks current publishing readiness without conflicting historical notes.
+Repository target: **3.0.0**, prepared November 25, 2026.
 
-## Current Snapshot
+The source, documentation and release notes are prepared locally. A local version bump does not establish publication on GitHub, PyPI or Read the Docs. The maintainer will push and publish this release.
 
-- Package name: `neurogebra`
-- Repository version target: `2.8.3` (see `pyproject.toml`)
-- Canonical docs config: `.readthedocs.yaml`
-- Current PyPI release: `2.8.3`.
+| Platform | Status |
+|---|---|
+| Local package | Version 3.0.0 in project metadata and runtime |
+| GitHub | Tag/release publication pending maintainer action |
+| PyPI | 3.0.0 upload pending the release workflow |
+| Documentation | Local redesign; hosted deployment pending maintainer push/build |
 
-## Platform Status
+Use [PUBLISHING.md](PUBLISHING.md) for checks and release steps. Paste [RELEASE_NOTES.md](RELEASE_NOTES.md) into the GitHub release body. Do not mark a platform published until its artifact or successful deployment is verified.
 
-| Platform | Current State | Notes |
-|---|---|---|
-| GitHub | `v2.8.3` published | Formal release with Python 3.9 compatibility hardening, LaTeX formatting, V01-V20 mathematical hardening, zero emojis. |
-| PyPI | `2.8.3` published | Wheel and source distribution available on PyPI at https://pypi.org/project/neurogebra/2.8.3/ |
-| Read the Docs | Configured | Use `.readthedocs.yaml` as the single source of truth. |
-
-## Pre-Release Gate (Current)
-
-1. Confirm version consistency across:
-  - `pyproject.toml`
-  - `src/neurogebra/__init__.py`
-  - `CHANGELOG.md`
-2. Confirm documentation consistency across:
-  - `README.md`
-  - `docs/index.md`
-  - `docs/getting-started/installation.md`
-3. Run local quality checks:
-  - tests
-  - docs build
-  - example script smoke checks
-4. Build package artifacts and validate metadata:
-  - `python -m build`
-  - `python -m twine check dist/*`
-5. Publish release:
-  - upload to PyPI
-  - create GitHub tag/release
-  - confirm Read the Docs build for the release tag
-
-## Historical Note
-
-The repository contains legacy publishing notes for `v0.2.0` workflows. Those notes are historical context only and should not be used as the current release process.
-
-## Links
-
-- Repository: https://github.com/fahiiim/NeuroGebra
-- PyPI: https://pypi.org/project/neurogebra/
-- Docs: https://neurogebra.readthedocs.io/
+Local validation: 509 tests passed and 8 optional/native checks were skipped. Strict documentation, 357 Python code blocks, over 38,000 local links, package metadata and source-archive content checks passed. Twenty main example blocks executed successfully. See [the technical review](docs/project/review-3.md) for scope and remaining validation limits.

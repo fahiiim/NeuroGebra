@@ -6,7 +6,29 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install documentation dependencies
+        run: python -m pip install -e ".[docs]"
+      - name: Verify metadata and generated catalogs
+        run: |
+          python scripts/check_release.py
+          python scripts/generate_reference.py
+          git diff --exit-code -- docs/reference
+      - name: Build and validate documentation
+        run: |
+          python -m mkdocs build --strict
+          python scripts/check_docs.py --site site
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:

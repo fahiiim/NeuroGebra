@@ -1198,7 +1198,7 @@ class ExpandedDatasets:
             "Image Recognition": ["mnist", "fashion_mnist", "digits"],
         }
 
-        print("\n  Available Datasets (100+ total)\n")
+        print("\n  Available Dataset Loaders\n")
 
         total = 0
         for category, dataset_list in datasets.items():
@@ -1208,7 +1208,7 @@ class ExpandedDatasets:
             print()
             total += len(dataset_list)
 
-        print(f"Total: {total} datasets\n")
+        print(f"Catalog entries: {total} (some loaders appear in multiple categories)\n")
 
         return datasets
 
@@ -1232,7 +1232,7 @@ class ExpandedDatasets:
 # Create a unified interface that combines base and expanded datasets
 class CombinedDatasets(BaseDatasets, ExpandedDatasets):
     """
-    Unified interface to all 100+ datasets.
+    Unified interface to all 48 dataset loaders.
 
     Access any dataset through a single class.
     """

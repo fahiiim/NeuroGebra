@@ -1,8 +1,8 @@
 """
 NeuroGebra Acceleration Subsystem.
 
-Provides ultra-high performance C-JIT (AVX2 SIMD) and CUDA GPU kernel compilation
-for symbolic and neural operations.
+Provides portable native C and CUDA kernel compilation for supported symbolic
+expression evaluations. Neural model training uses NumPy.
 """
 
 from __future__ import annotations

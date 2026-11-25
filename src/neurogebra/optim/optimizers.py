@@ -6,7 +6,9 @@ Standalone optimizer instances that manage parameter states and updates.
 
 from __future__ import annotations
 
+import copy
 from typing import Any
+
 import numpy as np
 
 
@@ -31,6 +33,16 @@ class Optimizer:
     def step(self, params: list[Any]) -> None:
         """Perform a single optimization step."""
         raise NotImplementedError
+
+    def state_dict(self) -> dict[str, Any]:
+        """Return an independent snapshot of configuration and update buffers."""
+        return {"type": type(self).__name__, "state": copy.deepcopy(self.__dict__)}
+
+    def load_state_dict(self, snapshot: dict[str, Any]) -> None:
+        """Restore a snapshot produced by the same optimizer class."""
+        if snapshot.get("type") != type(self).__name__:
+            raise ValueError("Optimizer state belongs to a different optimizer type")
+        self.__dict__.update(copy.deepcopy(snapshot["state"]))
 
 
 class SGD(Optimizer):

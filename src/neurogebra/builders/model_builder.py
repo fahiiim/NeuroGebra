@@ -123,7 +123,9 @@ class Layer:
         "maxpool2d": ("Reduces image size by taking maximum values in regions"),
         "batchnorm": ("Normalizes activations in a layer to stabilize training"),
         "layernorm": ("Normalizes activations across features for each sample"),
-        "global_avgpool2d": ("Averages spatial dimensions into a single feature vector"),
+        "global_avgpool2d": (
+            "Averages spatial dimensions into a single feature vector"
+        ),
         "residual_dense": (
             "Dense layer with a residual skip connection to avoid gradient vanishing"
         ),
@@ -277,9 +279,7 @@ class Layer:
             self.bias2 = np.zeros(self.units)
             if input_dim != self.units:
                 scale_skip = np.sqrt(2.0 / input_dim)
-                self.weights_skip = (
-                    np.random.randn(input_dim, self.units) * scale_skip
-                )
+                self.weights_skip = np.random.randn(input_dim, self.units) * scale_skip
                 self._m_wskip = np.zeros_like(self.weights_skip)
                 self._v_wskip = np.zeros_like(self.weights_skip)
             self._m_w = np.zeros_like(self.weights)
@@ -469,17 +469,18 @@ class Layer:
     # Backward pass
     # ------------------------------------------------------------------
 
-    def backward(self, grad_output: np.ndarray) -> np.ndarray:
+    def backward(
+        self, grad_output: np.ndarray, preactivation_gradient: bool = False
+    ) -> np.ndarray:
         """Compute gradients and return gradient for previous layer."""
         if self.layer_type == "dense":
             # For softmax activation, use the exact vector-Jacobian product:
             # dz = a * (grad_output - sum(grad_output * a, axis=-1, keepdims=True))
-            if self.activation == "softmax":
+            if preactivation_gradient:
+                dz = grad_output
+            elif self.activation == "softmax":
                 a = self._last_output
                 term1 = a * grad_output
-                underflow_mask = (a < 1e-12) & (grad_output < -1e5)
-                if np.any(underflow_mask):
-                    term1[underflow_mask] = -1.0 / a.shape[0]
                 sum_ga = np.sum(term1, axis=-1, keepdims=True)
                 dz = term1 - a * sum_ga
             else:
@@ -519,7 +520,10 @@ class Layer:
                     )
 
             padding = str(self.params.get("padding", "valid")).lower()
-            if padding == "same" and getattr(self, "_last_padding_meta", None) is not None:
+            if (
+                padding == "same"
+                and getattr(self, "_last_padding_meta", None) is not None
+            ):
                 pad_top, pad_bottom, pad_left, pad_right = self._last_padding_meta
                 end_h = -pad_bottom if pad_bottom > 0 else None
                 end_w = -pad_right if pad_right > 0 else None
@@ -644,19 +648,29 @@ class Layer:
                     if getattr(self, "_sq_gamma", None) is None:
                         self._sq_gamma = np.zeros_like(self.gamma)
                         self._sq_beta = np.zeros_like(self.beta)
-                    self._sq_gamma = alpha * self._sq_gamma + (1 - alpha) * (self.grad_gamma**2)
-                    self._sq_beta = alpha * self._sq_beta + (1 - alpha) * (self.grad_beta**2)
+                    self._sq_gamma = alpha * self._sq_gamma + (1 - alpha) * (
+                        self.grad_gamma**2
+                    )
+                    self._sq_beta = alpha * self._sq_beta + (1 - alpha) * (
+                        self.grad_beta**2
+                    )
                     self.gamma -= lr * self.grad_gamma / (np.sqrt(self._sq_gamma) + eps)
                     self.beta -= lr * self.grad_beta / (np.sqrt(self._sq_beta) + eps)
                 elif optimizer == "adam":
-                    self._m_gamma = beta1 * self._m_gamma + (1 - beta1) * self.grad_gamma
-                    self._v_gamma = beta2 * self._v_gamma + (1 - beta2) * self.grad_gamma**2
+                    self._m_gamma = (
+                        beta1 * self._m_gamma + (1 - beta1) * self.grad_gamma
+                    )
+                    self._v_gamma = (
+                        beta2 * self._v_gamma + (1 - beta2) * self.grad_gamma**2
+                    )
                     m_hat_g = self._m_gamma / (1 - beta1**t)
                     v_hat_g = self._v_gamma / (1 - beta2**t)
                     self.gamma -= lr * m_hat_g / (np.sqrt(v_hat_g) + eps)
 
                     self._m_beta = beta1 * self._m_beta + (1 - beta1) * self.grad_beta
-                    self._v_beta = beta2 * self._v_beta + (1 - beta2) * self.grad_beta**2
+                    self._v_beta = (
+                        beta2 * self._v_beta + (1 - beta2) * self.grad_beta**2
+                    )
                     m_hat_b = self._m_beta / (1 - beta1**t)
                     v_hat_b = self._v_beta / (1 - beta2**t)
                     self.beta -= lr * m_hat_b / (np.sqrt(v_hat_b) + eps)
@@ -683,25 +697,41 @@ class Layer:
                 self._sq_b = alpha * self._sq_b + (1 - alpha) * (self.grad_bias**2)
                 self.weights -= lr * self.grad_weights / (np.sqrt(self._sq_w) + eps)
                 self.bias -= lr * self.grad_bias / (np.sqrt(self._sq_b) + eps)
-            if getattr(self, "weights2", None) is not None and self.grad_weights2 is not None:
+            if (
+                getattr(self, "weights2", None) is not None
+                and self.grad_weights2 is not None
+            ):
                 if getattr(self, "_sq_w2", None) is None:
                     self._sq_w2 = np.zeros_like(self.weights2)
                     self._sq_b2 = np.zeros_like(self.bias2)
-                self._sq_w2 = alpha * self._sq_w2 + (1 - alpha) * (self.grad_weights2**2)
+                self._sq_w2 = alpha * self._sq_w2 + (1 - alpha) * (
+                    self.grad_weights2**2
+                )
                 self._sq_b2 = alpha * self._sq_b2 + (1 - alpha) * (self.grad_bias2**2)
                 self.weights2 -= lr * self.grad_weights2 / (np.sqrt(self._sq_w2) + eps)
                 self.bias2 -= lr * self.grad_bias2 / (np.sqrt(self._sq_b2) + eps)
-            if getattr(self, "weights_skip", None) is not None and self.grad_weights_skip is not None:
+            if (
+                getattr(self, "weights_skip", None) is not None
+                and self.grad_weights_skip is not None
+            ):
                 if getattr(self, "_sq_wskip", None) is None:
                     self._sq_wskip = np.zeros_like(self.weights_skip)
-                self._sq_wskip = alpha * self._sq_wskip + (1 - alpha) * (self.grad_weights_skip**2)
-                self.weights_skip -= lr * self.grad_weights_skip / (np.sqrt(self._sq_wskip) + eps)
+                self._sq_wskip = alpha * self._sq_wskip + (1 - alpha) * (
+                    self.grad_weights_skip**2
+                )
+                self.weights_skip -= (
+                    lr * self.grad_weights_skip / (np.sqrt(self._sq_wskip) + eps)
+                )
             if getattr(self, "gamma", None) is not None and self.grad_gamma is not None:
                 if getattr(self, "_sq_gamma", None) is None:
                     self._sq_gamma = np.zeros_like(self.gamma)
                     self._sq_beta = np.zeros_like(self.beta)
-                self._sq_gamma = alpha * self._sq_gamma + (1 - alpha) * (self.grad_gamma**2)
-                self._sq_beta = alpha * self._sq_beta + (1 - alpha) * (self.grad_beta**2)
+                self._sq_gamma = alpha * self._sq_gamma + (1 - alpha) * (
+                    self.grad_gamma**2
+                )
+                self._sq_beta = alpha * self._sq_beta + (1 - alpha) * (
+                    self.grad_beta**2
+                )
                 self.gamma -= lr * self.grad_gamma / (np.sqrt(self._sq_gamma) + eps)
                 self.beta -= lr * self.grad_beta / (np.sqrt(self._sq_beta) + eps)
         elif optimizer == "adam":
@@ -737,8 +767,8 @@ class Layer:
                 self._m_wskip = (
                     beta1 * self._m_wskip + (1 - beta1) * self.grad_weights_skip
                 )
-                self._v_wskip = (
-                    beta2 * self._v_wskip + (1 - beta2) * (self.grad_weights_skip**2)
+                self._v_wskip = beta2 * self._v_wskip + (1 - beta2) * (
+                    self.grad_weights_skip**2
                 )
                 m_hat_wskip = self._m_wskip / (1 - beta1**t)
                 v_hat_wskip = self._v_wskip / (1 - beta2**t)
@@ -780,19 +810,34 @@ class Layer:
         if self.bias is not None and getattr(self, "_m_b", None) is None:
             self._m_b = np.zeros_like(self.bias)
             self._v_b = np.zeros_like(self.bias)
-        if getattr(self, "weights2", None) is not None and getattr(self, "_m_w2", None) is None:
+        if (
+            getattr(self, "weights2", None) is not None
+            and getattr(self, "_m_w2", None) is None
+        ):
             self._m_w2 = np.zeros_like(self.weights2)
             self._v_w2 = np.zeros_like(self.weights2)
-        if getattr(self, "bias2", None) is not None and getattr(self, "_m_b2", None) is None:
+        if (
+            getattr(self, "bias2", None) is not None
+            and getattr(self, "_m_b2", None) is None
+        ):
             self._m_b2 = np.zeros_like(self.bias2)
             self._v_b2 = np.zeros_like(self.bias2)
-        if getattr(self, "weights_skip", None) is not None and getattr(self, "_m_wskip", None) is None:
+        if (
+            getattr(self, "weights_skip", None) is not None
+            and getattr(self, "_m_wskip", None) is None
+        ):
             self._m_wskip = np.zeros_like(self.weights_skip)
             self._v_wskip = np.zeros_like(self.weights_skip)
-        if getattr(self, "gamma", None) is not None and getattr(self, "_m_gamma", None) is None:
+        if (
+            getattr(self, "gamma", None) is not None
+            and getattr(self, "_m_gamma", None) is None
+        ):
             self._m_gamma = np.zeros_like(self.gamma)
             self._v_gamma = np.zeros_like(self.gamma)
-        if getattr(self, "beta", None) is not None and getattr(self, "_m_beta", None) is None:
+        if (
+            getattr(self, "beta", None) is not None
+            and getattr(self, "_m_beta", None) is None
+        ):
             self._m_beta = np.zeros_like(self.beta)
             self._v_beta = np.zeros_like(self.beta)
 
@@ -1312,6 +1357,7 @@ class Model:
 
     def _real_forward(self, X: np.ndarray, training: bool = True) -> np.ndarray:
         """Chain forward passes through all layers."""
+        self._fused_softmax_gradient = False
         out = X
         for i, layer in enumerate(self.layers):
             t0 = time.time()
@@ -1333,10 +1379,15 @@ class Model:
 
     def _real_backward(self, grad: np.ndarray) -> None:
         """Backpropagate gradient through layers in reverse."""
+        fused = getattr(self, "_fused_softmax_gradient", False)
+        self._fused_softmax_gradient = False
         for i in reversed(range(len(self.layers))):
             layer = self.layers[i]
             t0 = time.time()
-            grad = layer.backward(grad)
+            if fused and i == len(self.layers) - 1:
+                grad = layer.backward(grad, preactivation_gradient=True)
+            else:
+                grad = layer.backward(grad)
             elapsed = time.time() - t0
 
             if self._logger:
@@ -1402,18 +1453,56 @@ class Model:
     # Loss computation
     # ------------------------------------------------------------------
 
+    def _loss_and_gradient(self, predictions, targets, loss_name):
+        """Use logits for a final Dense softmax/cross-entropy pair."""
+        loss, grad = self._compute_loss(predictions, targets, loss_name)
+        self._fused_softmax_gradient = False
+        if (
+            loss_name in ("cross_entropy", "categorical_crossentropy")
+            and self.layers
+            and self.layers[-1].layer_type == "dense"
+            and self.layers[-1].activation == "softmax"
+        ):
+            logits = self.layers[-1]._last_z
+            shifted = logits - np.max(logits, axis=-1, keepdims=True)
+            log_probs = shifted - np.log(
+                np.sum(np.exp(shifted), axis=-1, keepdims=True)
+            )
+            targets = np.asarray(targets)
+            if targets.shape == predictions.shape:
+                one_hot = targets
+            else:
+                one_hot = np.eye(predictions.shape[-1])[targets.ravel().astype(int)]
+            loss = -float(np.mean(np.sum(one_hot * log_probs, axis=-1)))
+            grad = (predictions - one_hot) / len(predictions)
+            self._fused_softmax_gradient = True
+        return loss, grad
+
     @staticmethod
     def _compute_loss(
         predictions: np.ndarray, targets: np.ndarray, loss_name: str
     ) -> tuple:
         """Return (loss_scalar, grad_wrt_predictions)."""
         eps = 1e-12
+        predictions = np.asarray(predictions)
+        targets = np.asarray(targets)
+        if predictions.ndim == 0 or not predictions.size or targets.ndim == 0:
+            raise ValueError("Predictions and targets must be nonempty batches")
         n = predictions.shape[0]
+        if len(targets) != n:
+            raise ValueError("Predictions and targets must have the same sample count")
 
         if loss_name in ("cross_entropy", "categorical_crossentropy"):
+            if predictions.ndim != 2 or predictions.shape[1] < 2:
+                raise ValueError(
+                    "Categorical cross-entropy expects (samples, classes) predictions"
+                )
             # Handle both sparse labels and one-hot targets
             if targets.ndim == 1 or (targets.ndim == 2 and targets.shape[1] == 1):
-                targets_idx = targets.ravel().astype(int)
+                labels = targets.ravel()
+                if not np.isfinite(labels).all() or np.any(labels != np.floor(labels)):
+                    raise ValueError("Target class indices must be finite integers")
+                targets_idx = labels.astype(int)
                 num_classes = predictions.shape[-1]
                 if np.any(targets_idx < 0) or np.any(targets_idx >= num_classes):
                     raise ValueError(
@@ -1423,6 +1512,14 @@ class Model:
                 one_hot[np.arange(n), targets_idx] = 1.0
             elif targets.shape == predictions.shape:
                 one_hot = targets.astype(predictions.dtype)
+                if (
+                    not np.isfinite(one_hot).all()
+                    or np.any(one_hot < 0)
+                    or not np.allclose(one_hot.sum(axis=-1), 1.0)
+                ):
+                    raise ValueError(
+                        "Categorical targets must be probability distributions summing to one"
+                    )
             else:
                 raise ValueError(
                     f"Target shape {targets.shape} incompatible with predictions shape {predictions.shape} for {loss_name}"
@@ -1570,7 +1667,7 @@ class Model:
     def compile(
         self,
         loss: str = "mse",
-        optimizer: str = "adam",
+        optimizer: Any = "adam",
         metrics: list[str] | None = None,
         learning_rate: float = 0.001,
         log_level: str | None = None,
@@ -1581,7 +1678,7 @@ class Model:
 
         Args:
             loss: Loss function name.
-            optimizer: Optimizer name ('adam', 'sgd').
+            optimizer: 'adam', 'sgd', 'rmsprop', or an Optimizer instance.
             metrics: List of metrics to track.
             learning_rate: Learning rate.
             log_level: Observatory log level ('silent','basic','detailed','expert','debug').
@@ -1594,14 +1691,16 @@ class Model:
             self._optimizer_obj = optimizer
             self.optimizer = optimizer.__class__.__name__.lower()
             self.learning_rate = float(
-                getattr(optimizer, "learning_rate", getattr(optimizer, "lr", learning_rate))
+                getattr(
+                    optimizer, "learning_rate", getattr(optimizer, "lr", learning_rate)
+                )
             )
         elif isinstance(optimizer, str):
             opt_lower = optimizer.lower()
             if opt_lower in ("adam", "sgd", "rmsprop"):
                 self.optimizer = opt_lower
                 self.learning_rate = learning_rate
-                from neurogebra.optim.optimizers import Adam, SGD, RMSprop
+                from neurogebra.optim.optimizers import SGD, Adam, RMSprop
 
                 if opt_lower == "adam":
                     self._optimizer_obj = Adam(lr=learning_rate)
@@ -1617,7 +1716,7 @@ class Model:
             raise ValueError(
                 f"Invalid optimizer type: {type(optimizer)}. Expected str or Optimizer instance."
             )
-        self.metrics = metrics or ["accuracy"]
+        self.metrics = ["accuracy"] if metrics is None else list(metrics)
 
         try:
             craft = self._get_craft()
@@ -1673,7 +1772,7 @@ class Model:
                 )
 
         print(f"   Loss: {loss}")
-        print(f"   Optimizer: {optimizer} (lr={learning_rate})")
+        print(f"   Optimizer: {self.optimizer} (lr={self.learning_rate})")
         print(f"   Metrics: {', '.join(self.metrics)}")
         if self._logger:
             print(f"   Observatory: level={self._log_config.level.name}")
@@ -1818,8 +1917,6 @@ class Model:
         ):
             img_logger.render_image(X_train[0], title="Sample Input Image")
 
-        global_step = 0
-
         for epoch in range(epochs):
             self._logger.on_epoch_start(epoch)
             epoch_t0 = time.time()
@@ -1842,7 +1939,7 @@ class Model:
 
                 # Forward
                 preds = self._real_forward(xb, training=True)
-                loss, grad = self._compute_loss(preds, yb, self.loss_name or "mse")
+                loss, grad = self._loss_and_gradient(preds, yb, self.loss_name or "mse")
                 acc = self._compute_accuracy(preds, yb)
 
                 epoch_losses.append(loss)
@@ -1880,7 +1977,9 @@ class Model:
             # Validation
             if len(X_val) > 0:
                 val_preds = self._real_forward(X_val, training=False)
-                val_loss, _ = self._compute_loss(val_preds, y_val, self.loss_name or "mse")
+                val_loss, _ = self._loss_and_gradient(
+                    val_preds, y_val, self.loss_name or "mse"
+                )
                 val_acc = self._compute_accuracy(val_preds, y_val)
             else:
                 val_loss = 0.0
@@ -1890,8 +1989,14 @@ class Model:
             perf_mon.record_epoch_time(epoch_time)
 
             total_train = sum(epoch_sizes) if epoch_sizes else 1
-            avg_loss = float(sum(l * s for l, s in zip(epoch_losses, epoch_sizes)) / total_train)
-            avg_acc = float(sum(a * s for a, s in zip(epoch_accs, epoch_sizes)) / total_train) if epoch_accs else 0.0
+            avg_loss = float(
+                sum(l * s for l, s in zip(epoch_losses, epoch_sizes)) / total_train
+            )
+            avg_acc = (
+                float(sum(a * s for a, s in zip(epoch_accs, epoch_sizes)) / total_train)
+                if epoch_accs
+                else 0.0
+            )
 
             self.history["loss"].append(avg_loss)
             self.history["accuracy"].append(avg_acc)
@@ -1953,9 +2058,9 @@ class Model:
             "loss": self.history["loss"][-1] if self.history["loss"] else 0,
             "accuracy": self.history["accuracy"][-1] if self.history["accuracy"] else 0,
             "val_loss": self.history["val_loss"][-1] if self.history["val_loss"] else 0,
-            "val_accuracy": self.history["val_accuracy"][-1]
-            if self.history["val_accuracy"]
-            else 0,
+            "val_accuracy": (
+                self.history["val_accuracy"][-1] if self.history["val_accuracy"] else 0
+            ),
         }
         self._logger.on_train_end(final_metrics=final_metrics)
 
@@ -1992,7 +2097,7 @@ class Model:
             self._step_counter = 1
 
         preds = self._real_forward(X, training=True)
-        loss, grad = self._compute_loss(preds, y, self.loss_name or "mse")
+        loss, grad = self._loss_and_gradient(preds, y, self.loss_name or "mse")
         self._real_backward(grad)
         self._update_params(t=self._step_counter)
         self._step_counter += 1
@@ -2006,15 +2111,27 @@ class Model:
         X = np.asarray(X, dtype=np.float64)
         y = np.asarray(y, dtype=np.float64)
         predictions = self.predict(X)
-        loss, _ = self._compute_loss(predictions, y, self.loss_name or "mse")
+        loss, _ = self._loss_and_gradient(predictions, y, self.loss_name or "mse")
         acc = self._compute_accuracy(predictions, y)
         print(f"\n Evaluation — loss: {loss:.4f}, accuracy: {acc:.4f}")
         return {"loss": loss, "accuracy": acc}
 
     def save(self, filepath: str):
-        """Save model architecture and trained weights to file."""
+        """Save architecture, parameters and built-in optimizer state.
+
+        Checkpoints use pickle: only load files from trusted sources.
+        """
         import pickle
 
+        optimizer_state = None
+        if self._optimizer_obj is not None:
+            from neurogebra.optim.optimizers import SGD, Adam, RMSprop
+
+            if type(self._optimizer_obj) not in (Adam, SGD, RMSprop):
+                raise ValueError(
+                    "Checkpointing supports the built-in Adam, SGD and RMSprop optimizers"
+                )
+            optimizer_state = self._optimizer_obj.state_dict()
         with open(filepath, "wb") as f:
             pickle.dump(
                 {
@@ -2043,6 +2160,8 @@ class Model:
                     "loss_name": self.loss_name,
                     "optimizer": self.optimizer,
                     "learning_rate": self.learning_rate,
+                    "optimizer_state": optimizer_state,
+                    "metrics": self.metrics,
                 },
                 f,
             )
@@ -2050,7 +2169,11 @@ class Model:
 
     @classmethod
     def load(cls, filepath: str) -> Model:
-        """Load a saved model from file."""
+        """Load a trusted pickle checkpoint, including saved optimizer buffers.
+
+        Loading an untrusted pickle file can execute arbitrary code.
+        Older checkpoints load with fresh optimizer buffers.
+        """
         import pickle
 
         with open(filepath, "rb") as f:
@@ -2088,21 +2211,20 @@ class Model:
         model.loss_name = data.get("loss_name")
         model.optimizer = data.get("optimizer", "adam")
         model.learning_rate = data.get("learning_rate", 0.001)
+        model.metrics = data.get("metrics", ["accuracy"])
         model.history = data.get(
             "history", {"loss": [], "accuracy": [], "val_loss": [], "val_accuracy": []}
         )
         model.is_compiled = True
-        try:
-            from neurogebra.optim.optimizers import Adam, SGD, RMSprop
+        from neurogebra.optim.optimizers import SGD, Adam, RMSprop
 
-            if model.optimizer == "adam":
-                model._optimizer_obj = Adam(lr=model.learning_rate)
-            elif model.optimizer == "sgd":
-                model._optimizer_obj = SGD(lr=model.learning_rate)
-            elif model.optimizer == "rmsprop":
-                model._optimizer_obj = RMSprop(lr=model.learning_rate)
-        except Exception:
-            pass
+        optimizer_types = {"adam": Adam, "sgd": SGD, "rmsprop": RMSprop}
+        if model.optimizer in optimizer_types:
+            model._optimizer_obj = optimizer_types[model.optimizer](
+                lr=model.learning_rate
+            )
+            if data.get("optimizer_state") is not None:
+                model._optimizer_obj.load_state_dict(data["optimizer_state"])
         return model
 
     def plot_history(self):

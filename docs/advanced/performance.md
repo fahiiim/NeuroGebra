@@ -1,189 +1,58 @@
-# Performance Tips
+# Performance engineering
 
-Tips to make your Neurogebra code run faster and use less memory.
+Measure the workload that matters to your users. NeuroGebra 3.0 includes a useful optimization for expression training: analytical derivative expressions and their numerical callables are reused across steps, with current parameter values applied before evaluation.
 
----
+## Establish a fair baseline
 
-## 1. Use NumPy Arrays, Not Python Lists
+Record hardware, OS, Python/library/compiler versions, array shapes, dtype, batch size, logging level and thread settings. Validate results before comparing time. A float32 CUDA kernel and a float64 NumPy calculation need separate precision notes.
+
+Measure cold compilation and warm execution separately. For GPU work, state whether timing includes host/device transfers and synchronize asynchronous operations when the backend requires it. Measure peak memory and the full training loop as well as a kernel microbenchmark.
+
+## Reproducible expression timing
 
 ```python
+from time import perf_counter
+from statistics import median
 import numpy as np
-from neurogebra import MathForge
-
-forge = MathForge()
-relu = forge.get("relu")
-
-# Avoid: Slow Python list iteration
-x_list = [1, 2, 3, 4, 5]
-result = [relu.eval(x=val) for val in x_list]
-
-# Recommended: Fast NumPy array (vectorized)
-x_array = np.array([1, 2, 3, 4, 5])
-result = relu.eval(x=x_array)
-```
-
-NumPy arrays are **100-1000x faster** for mathematical operations.
-
----
-
-## 2. Batch Evaluation
-
-Evaluate many points at once instead of one at a time:
-
-```python
 from neurogebra import Expression
-import numpy as np
 
-model = Expression("quadratic", "a*x**2 + b*x + c",
-    params={"a": 1.0, "b": -2.0, "c": 1.0})
+expr = Expression("pipeline", "sin(x) * exp(-x*x) + x*x")
+x = np.linspace(-3.0, 3.0, 100_000)
+expected = np.sin(x) * np.exp(-x*x) + x*x
 
-# Avoid: Evaluating one sample at a time
-results = []
-for x_val in range(1000):
-    results.append(model.eval(x=x_val))
-
-# Recommended: Evaluating all samples at once (vectorized)
-x = np.arange(1000)
-results = model.eval(x=x)
+expr.compile(backend="numpy")
+np.testing.assert_allclose(expr.eval(x=x), expected)
+times = []
+for _ in range(10):
+    start = perf_counter()
+    result = expr.eval(x=x)
+    times.append(perf_counter() - start)
+print("NumPy median seconds:", median(times))
 ```
 
----
+Repeat with an available native backend, measure its `compile()` separately, use the same input, and check output within an appropriate tolerance. Report the complete setup and raw observations; this documentation does not promise a fixed speedup.
 
-## 3. Pre-compute Gradients
+## Reduce avoidable overhead
 
-If you need the same gradient repeatedly, compute it once:
+| Workload | Useful change | Reason |
+|---|---|---|
+| Formula evaluation | Evaluate a NumPy array in one call | Removes Python iteration and repeated dispatch |
+| Repeated derivatives | Create `expr.gradient("x")` once | Avoids repeated symbolic work and compilation |
+| Expression parameter training | Reuse one `Trainer` | Its derivative cache survives across steps |
+| Model training | Tune batch size on the actual model | Balances matrix utilization, memory and Python overhead |
+| Observatory | Use the least detailed level needed | Full array statistics, events and rendering consume time |
+| Native kernels | Reuse compiled functions | Amortizes setup costs |
+| CUDA expression evaluation | Include transfer cost in decisions | Each call currently moves host inputs/results |
+| PINN experiments | Start with small networks and grids | Every residual parameter gradient uses central differences |
 
-```python
-from neurogebra import MathForge
+## Roadmap toward competitive speed
 
-forge = MathForge()
-sigmoid = forge.get("sigmoid")
+The next large improvement requires an execution design rather than a language rewrite alone:
 
-# Avoid: Recomputing symbolic gradient in each loop iteration
-for x_val in range(100):
-    grad = sigmoid.gradient("x")      # Recalculates symbolic gradient each time
-    result = grad.eval(x=float(x_val))
+1. Profile representative training workloads and publish a versioned benchmark suite with correctness checks.
+2. Introduce a backend-neutral tensor/storage interface with explicit device and dtype ownership.
+3. Use optimized BLAS/convolution kernels for expensive layer operations; avoid Python loops around tiny operations.
+4. Keep tensors and optimizer buffers on the GPU across complete training steps.
+5. Add measured fusion for repeated elementwise graphs, followed by gradient correctness tests and hardware CI.
 
-# Recommended: Compute gradient once, evaluate over vector
-grad = sigmoid.gradient("x")          # Compute once
-x = np.arange(100, dtype=float)
-results = grad.eval(x=x)              # Evaluate all at once
-```
-
----
-
-## 4. Use Appropriate Batch Sizes for Training
-
-```python
-from neurogebra.core.trainer import Trainer
-
-# For small datasets (< 1000 samples)
-# Use full batch — no overhead from splitting
-trainer.fit(X, y, epochs=100, batch_size=len(X))
-
-# For medium datasets (1000 - 100000 samples)
-# Use mini-batches of 32-128
-trainer.fit(X, y, epochs=100, batch_size=32)
-
-# For large datasets (> 100000 samples)
-# Use mini-batches of 64-256
-trainer.fit(X, y, epochs=50, batch_size=128)
-```
-
----
-
-## 5. Use the Right Optimizer
-
-Adam converges faster than SGD in most cases:
-
-```python
-# Avoid: SGD may need 1000+ epochs on complex loss surfaces
-trainer = Trainer(model, loss, optimizer="sgd", lr=0.01)
-
-# Recommended: Adam typically converges in 100-200 epochs
-trainer = Trainer(model, loss, optimizer="adam", lr=0.001)
-```
-
----
-
-## 6. Avoid Unnecessary Expression Copies
-
-```python
-from neurogebra import MathForge
-
-forge = MathForge()
-
-# Avoid: Creating new Expression object each iteration
-for i in range(100):
-    relu = forge.get("relu")        # Unnecessary repeated lookup
-    result = relu.eval(x=float(i))
-
-# Recommended: Retrieve once, evaluate repeatedly
-relu = forge.get("relu")
-for i in range(100):
-    result = relu.eval(x=float(i))
-
-# Optimal: Vectorized batch evaluation
-relu = forge.get("relu")
-x = np.arange(100, dtype=float)
-results = relu.eval(x=x)
-```
-
----
-
-## 7. Memory Management with Autograd
-
-When training manually with `Value`/`Tensor`, always zero gradients:
-
-```python
-from neurogebra.core.autograd import Value
-
-x = Value(2.0)
-
-for epoch in range(1000):
-    y = x**2 + 3*x
-    y.backward()
-    
-    x.data -= 0.01 * x.grad
-    x.grad = 0.0      # ← CRITICAL: prevents gradient accumulation
-```
-
----
-
-## 8. Profile Your Code
-
-Find bottlenecks with Python's built-in profiler:
-
-```python
-import time
-
-start = time.time()
-
-# Your Neurogebra code here
-forge = MathForge()
-sigmoid = forge.get("sigmoid")
-x = np.linspace(-5, 5, 10000)
-result = sigmoid.eval(x=x)
-
-end = time.time()
-print(f"Time: {end - start:.4f} seconds")
-```
-
----
-
-## Performance Cheat Sheet
-
-| Tip | Impact | Effort |
-|-----|--------|--------|
-| Use NumPy arrays | 100-1000x faster | Low |
-| Batch evaluation | 50-100x faster | Low |
-| Pre-compute gradients | 10-50x faster | Low |
-| Use Adam optimizer | 5-10x fewer epochs | Low |
-| Appropriate batch size | 2-5x faster convergence | Low |
-| Cache expression lookups | 5-10x less overhead | Low |
-| Zero gradients | Critical (correctness) | Low |
-| Profile bottlenecks | High (identifies stalls) | Medium |
-
----
-
-**Next:** [Project 1: Linear Regression →](../projects/project1-linear-regression.md)
+A useful goal is to outperform established frameworks on a clearly defined niche, such as small symbolic expression pipelines with transparent diagnostics. Beating every workload requires substantially broader kernel coverage, memory management, compilation and validation infrastructure.

@@ -5,6 +5,28 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-11-25
+
+### Added
+- Complete formula and dataset catalogs, capability matrix, migration guide, troubleshooting, contributor reference and technical review.
+- Optimizer state snapshots and checkpoint continuation for built-in Adam, SGD and RMSprop.
+- Documentation syntax/link checks and release-version validation scripts.
+
+### Changed
+- Redesigned MkDocs with a classic responsive light/dark theme, local fonts and clearer navigation.
+- Reuse analytical derivatives during expression training.
+- Use portable native C targets and compiler-aware cache keys; support `NEUROGEBRA_CACHE_DIR`.
+- Gate package uploads on tests, strict documentation checks, package validation and an installed-wheel smoke test.
+- Include the MkDocs configuration, overrides and validation scripts in source distributions.
+
+### Fixed
+- PINN large-layer residual-gradient crash, silent gradient sampling, multi-output normalization and parameter restoration on callback errors.
+- Stable logits-based Dense softmax/cross-entropy loss and explicit fused gradients; remove the general softmax underflow heuristic.
+- Invalid categorical targets, empty metric selection and lost optimizer history in checkpoints.
+- Broken homepage dataset unpacking, rendered API links, MathJax configuration and misleading acceleration/setup claims.
+
+See `RELEASE_NOTES.md` and `docs/releases/migration-3.md` for compatibility details. Publication is performed separately by the maintainer.
+
 ## [2.8.3] - 2026-11-23
 
 ### Fixed

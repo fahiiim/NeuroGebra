@@ -1,231 +1,51 @@
-# Publishing Neurogebra to PyPI
+# Publish NeuroGebra 3.0.0
 
-## Prerequisites
+Publishing is a maintainer action. Preparing the working tree or pushing a branch/tag alone does not upload to PyPI. The **Publish to PyPI** workflow runs when a GitHub release is published.
 
-1. **Install build tools:**
-```bash
-pip install --upgrade build twine
-```
+## Validate locally
 
-2. **Create PyPI account:**
- - Go to https://pypi.org/account/register/
- - Verify your email
- - (Optional) Set up 2FA for security
-
-3. **Create API Token:**
- - Go to https://pypi.org/manage/account/token/
- - Create token with scope "Entire account"
- - Save the token securely (starts with `pypi-`)
-
-## Step-by-Step Publishing Process
-
-### 1. Update Version Number
-Edit `pyproject.toml` and increment the version:
-```toml
-version = "0.2.0" # or whatever the next version should be
-```
-
-### 2. Clean Previous Builds
-```bash
-# Remove old build artifacts
-rm -rf dist/ build/ *.egg-info
-# On Windows PowerShell:
-Remove-Item -Recurse -Force dist, build, *.egg-info -ErrorAction SilentlyContinue
-```
-
-### 3. Build the Package
-```bash
-python -m build
-```
-
-This creates:
-- `dist/neurogebra-X.X.X.tar.gz` (source distribution)
-- `dist/neurogebra-X.X.X-py3-none-any.whl` (wheel distribution)
-
-### 4. Test on TestPyPI (Optional but Recommended)
-
-First upload to TestPyPI:
-```bash
-python -m twine upload --repository testpypi dist/*
-```
-
-Then test installation:
-```bash
-pip install --index-url https://test.pypi.org/simple/ neurogebra
-```
-
-### 5. Upload to PyPI
+Use Python 3.11+ for the release metadata checker. Create an isolated environment and install the tools:
 
 ```bash
-python -m twine upload dist/*
+python -m pip install -e ".[dev,docs]" build twine
+python scripts/check_release.py --tag v3.0.0
+python -m pytest tests -q
+python -m mkdocs build --strict
+python scripts/check_docs.py --site site
+python -m build --outdir dist/3.0.0
+python -m twine check dist/3.0.0/*
 ```
 
-You'll be prompted for:
-- Username: `__token__`
-- Password: Your API token (paste the entire `pypi-...` string)
+`publish.ps1` runs the local checks and prepares version-specific artifacts; it performs no push or upload. Keep historical artifacts outside the release upload directory.
 
-### 6. Verify Upload
+## Push and create the release
 
-Visit: https://pypi.org/project/neurogebra/
+Review the complete diff and include all intended new files. Then run these commands yourself from your chosen release branch:
 
-Test installation:
 ```bash
-pip install --upgrade neurogebra
+git add src tests docs overrides scripts .github .readthedocs.yaml pyproject.toml mkdocs.yml README.md CHANGELOG.md RELEASE_NOTES.md PUBLISHING.md PUBLISHING_STATUS.md publish.ps1
+git commit -m "Release NeuroGebra 3.0.0"
+git push origin HEAD
+git tag -a v3.0.0 -m "NeuroGebra 3.0.0"
+git push origin v3.0.0
 ```
 
-## Quick Publishing Script
+In GitHub, open **Releases → Draft a new release**. Select `v3.0.0`, use the title **NeuroGebra 3.0.0**, paste `RELEASE_NOTES.md`, and publish it as a stable release. Set it as the latest release so the repository sidebar updates from the older version.
 
-Create `publish.sh` (Linux/Mac) or `publish.ps1` (Windows):
+Before publishing, ensure the repository Actions secret `PYPI_TOKEN` contains a token authorized for the `neurogebra` project. The workflow retains the existing token-based setup; no secret is included in this checkout. A GitHub prerelease uploads to TestPyPI using `TEST_PYPI_TOKEN` instead.
 
-### Windows PowerShell (`publish.ps1`):
-```powershell
-# Clean build artifacts
-Remove-Item -Recurse -Force dist, build, *.egg-info -ErrorAction SilentlyContinue
+## What the workflow checks
 
-# Build
-python -m build
+The workflow checks out the release tag, validates version agreement, runs the core tests, builds strict documentation, checks snippets and local links, builds distributions, validates package metadata and imports the installed wheel outside the checkout. Only the resulting checked artifacts reach the upload job. Duplicate uploads fail visibly.
 
-# Upload
-python -m twine upload dist/*
+The regular cross-platform test matrix remains a separate workflow; wait for it to pass on the release commit too. Optional framework and hardware tests need their own supported environments.
 
-Write-Host "[PASS] Published successfully!" -ForegroundColor Green
-Write-Host "Check: https://pypi.org/project/neurogebra/" -ForegroundColor Cyan
-```
+## Verify publication
 
-Run with:
-```bash
-.\publish.ps1
-```
+1. Confirm the **Publish to PyPI** workflow succeeds for `v3.0.0`.
+2. Confirm the [GitHub release](https://github.com/fahiiim/NeuroGebra/releases) is marked latest and [PyPI](https://pypi.org/project/neurogebra/) lists 3.0.0.
+3. In a fresh environment, run `python -m pip install "neurogebra==3.0.0"` and inspect `neurogebra.__version__`.
+4. Confirm the GitHub Pages documentation workflow and the Read the Docs build succeed. Read the Docs uses `.readthedocs.yaml`; verify its webhook/version activation if no build starts.
+5. Update `PUBLISHING_STATUS.md` with verified results.
 
-### Linux/Mac (`publish.sh`):
-```bash
-#!/bin/bash
-
-# Clean build artifacts
-rm -rf dist/ build/ *.egg-info
-
-# Build
-python -m build
-
-# Upload
-python -m twine upload dist/*
-
-echo "[PASS] Published successfully!"
-echo "Check: https://pypi.org/project/neurogebra/"
-```
-
-Run with:
-```bash
-chmod +x publish.sh
-./publish.sh
-```
-
-## After Publishing
-
-1. **Create Git Tag:**
-```bash
-git tag -a v0.2.0 -m "Release v0.2.0 - Added 100+ datasets"
-git push origin v0.2.0
-```
-
-2. **Create GitHub Release:**
- - Go to: https://github.com/fahiiim/NeuroGebra/releases/new
- - Select the tag you just created
- - Add release notes describing new features
- - Publish release
-
-3. **Update Documentation:**
- - If you have ReadTheDocs, trigger a rebuild
- - Update examples and tutorials as needed
-
-## Troubleshooting
-
-### "File already exists"
-- You're trying to upload a version that's already published
-- Increment the version number in `pyproject.toml`
-
-### "Invalid username/password"
-- Make sure username is exactly `__token__`
-- Password should be your full API token including `pypi-` prefix
-
-### "Package name already taken"
-- The package name is already registered
-- If it's yours, you need the correct credentials
-- If it's someone else's, choose a different name
-
-### Import errors after install
-- Make sure all dependencies are listed in `pyproject.toml`
-- Check that `src/neurogebra/__init__.py` exports are correct
-- Try: `pip install --force-reinstall neurogebra`
-
-## Version Numbering Guide
-
-Follow Semantic Versioning (semver.org):
-- **MAJOR** (1.0.0): Breaking changes
-- **MINOR** (0.2.0): New features, backward compatible
-- **PATCH** (0.1.1): Bug fixes, backward compatible
-
-For this update (100+ datasets):
-- Recommended: `0.2.0` (new feature, backward compatible)
-
-## Checking Package Health
-
-After publishing, verify:
-```bash
-# Install in clean environment
-python -m venv test_env
-source test_env/bin/activate # or test_env\Scripts\activate on Windows
-pip install neurogebra
-
-# Test imports
-python -c "from neurogebra.datasets import Datasets; print(Datasets.list_all())"
-python -c "from neurogebra import MathForge; print(MathForge().get('relu'))"
-
-# Deactivate
-deactivate
-```
-
-## Continuous Integration
-
-Consider setting up GitHub Actions for automated publishing:
-
-Create `.github/workflows/publish.yml`:
-```yaml
-name: Publish to PyPI
-
-on:
- release:
- types: [published]
-
-jobs:
- deploy:
- runs-on: ubuntu-latest
- steps:
- - uses: actions/checkout@v6
- - name: Set up Python
- uses: actions/setup-python@v6
- with:
- python-version: '3.11'
- - name: Install dependencies
- run: |
- python -m pip install --upgrade pip
- pip install build twine
- - name: Build package
- run: python -m build
- - name: Publish to PyPI
- env:
- TWINE_USERNAME: __token__
- TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
- run: twine upload dist/*
-```
-
-Store your PyPI token in GitHub Secrets as `PYPI_TOKEN`.
-
----
-
-## Current Package Info
-
-- **Name:** neurogebra
-- **Current Version:** Check `pyproject.toml`
-- **PyPI URL:** https://pypi.org/project/neurogebra/
-- **GitHub:** https://github.com/fahiiim/NeuroGebra
+If an upload fails, inspect the failed check before retrying. PyPI versions are immutable; a published artifact cannot be replaced under the same version.

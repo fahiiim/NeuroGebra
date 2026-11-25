@@ -1,59 +1,25 @@
-# Tutorials & Guides
+# Learn NeuroGebra
 
-Master every component of NeuroGebra sequentially—from symbolic mathematical primitives to transparent multi-layer deep learning with live telemetry.
+Work from a formula you can explain toward an experiment you can inspect. Choose a learning track, or go directly to the subsystem you need.
 
----
+## Learning tracks
 
-## Tutorial Tracks
+| Track | Focus |
+|---|---|
+| [Beginner](beginner.md) | Retrieve, evaluate, explain and differentiate formulas |
+| [Intermediate](intermediate.md) | Compose expressions, fit parameters and use eager autograd |
+| [Advanced](advanced.md) | Higher-order symbolic calculus, framework adapters and visualization |
 
-<div class="ng-grid" markdown="1">
+## Explore by subsystem
 
-<div class="ng-card" markdown="1">
-<div>
-<span class="ng-card-tag">Track 1</span>
-<div class="ng-card-title">[Beginner Track](beginner.md)</div>
-<p class="ng-card-body">Retrieve curated formulas from <code>MathForge</code>, render LaTeX equations, evaluate NumPy inputs, and inspect analytical gradients.</p>
-</div>
-<span class="ng-card-link">[Start Beginner Track &rarr;](beginner.md)</span>
-</div>
+| Area | Guides |
+|---|---|
+| Symbolic foundations | [MathForge](../tutorial/mathforge.md), [expressions](../tutorial/expressions.md), [composition](../tutorial/composition.md) |
+| Mathematical building blocks | [Activations](../tutorial/activations.md), [losses](../tutorial/losses.md), [gradients](../tutorial/gradients.md), [formula catalog](../reference/formulas.md) |
+| Expression training | [Trainable expressions](../tutorial/training.md), [NeuroCraft](../tutorial/neurocraft.md) |
+| Eager differentiation | [Value autograd](../tutorial/autograd.md), [Tensor operations](../tutorial/tensors.md) |
+| Neural models | [ModelBuilder](../tutorial/model-builder.md), [datasets](../tutorial/datasets.md), [optimization](../advanced/optimization.md) |
+| Training inspection | [Observatory overview](../tutorial/training-observatory.md), [event architecture](../advanced/observatory-deep-dive.md), [Pro telemetry](../advanced/observatory-pro.md) |
+| Presenting results | [Visualization](../advanced/visualization.md), [project notebooks](../examples/project_notebooks.md) |
 
-<div class="ng-card" markdown="1">
-<div>
-<span class="ng-card-tag">Track 2</span>
-<div class="ng-card-title">[Intermediate Track](intermediate.md)</div>
-<p class="ng-card-body">Compose hybrid losses, train parameterized expressions with <code>Trainer</code>, and build scalar/tensor graphs using <code>Value</code> autograd.</p>
-</div>
-<span class="ng-card-link">[Start Intermediate Track &rarr;](intermediate.md)</span>
-</div>
-
-<div class="ng-card" markdown="1">
-<div>
-<span class="ng-card-tag">Track 3</span>
-<div class="ng-card-title">[Advanced Track](advanced.md)</div>
-<p class="ng-card-body">Combine higher-order symbolic calculus, PyTorch/TF/JAX export bridges, interactive Plotly figures, and JIT acceleration.</p>
-</div>
-<span class="ng-card-link">[Start Advanced Track &rarr;](advanced.md)</span>
-</div>
-
-</div>
-
----
-
-## Deep-Dive Module Guides
-
-### Symbolic Engine & MathForge (285 Formulas)
-- [MathForge — The Core Hub](../tutorial/mathforge.md): Search, filter, register, and compose across 10 mathematical domains.
-- [Expressions & LaTeX Rendering](../tutorial/expressions.md): Symbolic properties, Jupyter `_repr_latex_()`, `to_latex()`, `latex()`, and hardware backends.
-- [Activation Functions](../tutorial/activations.md) &bull; [Loss Functions](../tutorial/losses.md) &bull; [Gradients & Calculus](../tutorial/gradients.md)
-- [Expression Composition](../tutorial/composition.md) &bull; [Trainable Expressions](../tutorial/training.md) &bull; [NeuroCraft Interactive Mode](../tutorial/neurocraft.md)
-
-### Autograd, Neural Models & Data
-- [Autograd Engine (`Value`)](../tutorial/autograd.md) &bull; [Differentiable Tensors (`Tensor`)](../tutorial/tensors.md)
-- [ModelBuilder & Modern Layers](../tutorial/model-builder.md): `Dense`, `Conv2D`, `LayerNorm`, `BatchNorm`, `GlobalAveragePooling2D`, `ResidualDense`, `Model.add()`, `save()` / `load()`.
-- [Built-in Datasets (48 Loaders)](../tutorial/datasets.md): Unified offline-ready datasets across classification, regression, vision, time-series, and manifolds.
-
-### Training Observatory & Diagnostics
-- [Training Observatory Overview](../tutorial/training-observatory.md): Real-time layer formulas, gradient flow tracking, and color-coded terminal logs.
-- [Observatory Architecture & Events](../advanced/observatory-deep-dive.md): Custom event backends, callbacks, `GraphTracker`, `FormulaRenderer`.
-- [Observatory Pro Telemetry](../advanced/observatory-pro.md): `AdaptiveLogger`, `AutoHealthWarnings`, `EpochSummarizer`, `TieredStorage`, HTML Dashboards, TensorBoard &amp; W&amp;B bridges, and `TrainingFingerprint`.
-- [Visualization & Plotting](../advanced/visualization.md): Matplotlib &amp; Plotly graphing for functions, derivatives, and training curves.
+Read [capabilities and limits](../project/capabilities.md) alongside advanced guides, especially when using native kernels or exporting to another framework.
