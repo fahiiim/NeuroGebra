@@ -1,0 +1,558 @@
+/* ============================================================================
+ * NeuroGebra ReadTheDocs / MkDocs Material Theme
+ * Design language: PyTorch-inspired structured hierarchy & crisp readability
+ * Color system: NeuroGebra Logo Teal (#008484) + Stark Black (#0A0B0B) + Pure White (#FFFFFF)
+ * ============================================================================ */
+
+:root {
+  --ng-teal: #008484;
+  --ng-teal-dark: #006666;
+  --ng-teal-deeper: #004d4d;
+  --ng-teal-bright: #14b8a6;
+  --ng-teal-glow: #2dd4bf;
+  --ng-teal-soft: rgba(0, 132, 132, 0.08);
+  --ng-teal-tint: rgba(0, 132, 132, 0.14);
+  --ng-black: #0a0b0b;
+  --ng-black-elevated: #121515;
+  --ng-black-card: #161a1a;
+  --ng-white: #ffffff;
+  --ng-surface-light: #f6f8f8;
+  --ng-border-light: #dfe5e5;
+  --ng-border-dark: #262c2c;
+}
+
+/* ---------- Light Scheme: White Canvas + Stark Black Header + Teal Accents ---------- */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #ffffff;
+  --md-default-bg-color--light: #ffffff;
+  --md-default-bg-color--lighter: #f6f8f8;
+  --md-default-fg-color: #141717;
+  --md-default-fg-color--light: #434c4c;
+  --md-default-fg-color--lighter: #6a7575;
+  --md-default-fg-color--lightest: #e5ebeb;
+
+  --md-primary-fg-color: #0a0b0b;
+  --md-primary-fg-color--light: #1c2020;
+  --md-primary-fg-color--dark: #000000;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.78);
+
+  --md-accent-fg-color: #008484;
+  --md-accent-fg-color--transparent: rgba(0, 132, 132, 0.1);
+  --md-accent-bg-color: #ffffff;
+
+  --md-typeset-a-color: #007575;
+  --md-code-bg-color: #f4f7f7;
+  --md-code-fg-color: #111515;
+  --md-code-hl-color: rgba(0, 132, 132, 0.14);
+  --md-footer-bg-color: #0a0b0b;
+  --md-footer-bg-color--dark: #050606;
+  --md-footer-fg-color: #ffffff;
+  --md-footer-fg-color--light: #b8c2c2;
+}
+
+/* ---------- Dark Scheme: Pitch Black Canvas + Crisp White Ink + Luminous Teal ---------- */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0a0b0b;
+  --md-default-bg-color--light: #121515;
+  --md-default-bg-color--lighter: #181c1c;
+  --md-default-fg-color: #f2f5f5;
+  --md-default-fg-color--light: #b8c2c2;
+  --md-default-fg-color--lighter: #859191;
+  --md-default-fg-color--lightest: #222828;
+
+  --md-primary-fg-color: #0a0b0b;
+  --md-primary-fg-color--light: #181c1c;
+  --md-primary-fg-color--dark: #000000;
+  --md-primary-bg-color: #ffffff;
+
+  --md-accent-fg-color: #14b8a6;
+  --md-accent-fg-color--transparent: rgba(20, 184, 166, 0.12);
+
+  --md-typeset-a-color: #2dd4bf;
+  --md-code-bg-color: #121616;
+  --md-code-fg-color: #e8efef;
+  --md-code-hl-color: rgba(20, 184, 166, 0.18);
+  --md-footer-bg-color: #050606;
+  --md-footer-bg-color--dark: #000000;
+}
+
+/* ---------- Top Header & Navigation Tabs (PyTorch-inspired Stark Header) ---------- */
+.md-header {
+  background-color: #0a0b0b;
+  border-bottom: 1px solid #1e2424;
+  box-shadow: none;
+}
+
+.md-header__button.md-logo {
+  padding: 0.25rem 0.4rem;
+}
+
+.md-header__button.md-logo img {
+  height: 1.55rem;
+  width: auto;
+}
+
+.md-header__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.md-tabs {
+  background-color: #111414;
+  border-bottom: 2px solid var(--ng-teal);
+}
+
+.md-tabs__link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #c2cccc;
+  opacity: 0.88;
+  padding-bottom: 0.55rem;
+  border-bottom: 2px solid transparent;
+  margin-top: 0.55rem;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.md-tabs__link:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.md-tabs__link--active,
+.md-tabs__item--active .md-tabs__link {
+  color: #ffffff;
+  opacity: 1;
+  border-bottom-color: var(--ng-teal-bright);
+}
+
+/* Search bar styling in dark header */
+.md-search__form {
+  background-color: #1a1f1f;
+  border: 1px solid #2d3535;
+  border-radius: 6px;
+}
+
+.md-search__form:hover {
+  background-color: #212727;
+  border-color: var(--ng-teal);
+}
+
+/* ---------- Sidebar & TOC Navigation ---------- */
+.md-nav--primary .md-nav__title {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.md-nav__item--section > .md-nav__link {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ng-teal);
+  margin-top: 0.8rem;
+}
+
+[data-md-color-scheme="slate"] .md-nav__item--section > .md-nav__link {
+  color: var(--ng-teal-bright);
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+  color: var(--ng-teal) !important;
+  border-left: 2px solid var(--ng-teal);
+  padding-left: 0.55rem;
+}
+
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: var(--ng-teal-bright) !important;
+  border-left-color: var(--ng-teal-bright);
+}
+
+/* ---------- Typography & PyTorch-Style Structural Headings ---------- */
+.md-typeset h1 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--md-default-fg-color);
+  margin-bottom: 0.9rem;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--ng-border-light);
+  margin-top: 2rem;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  border-bottom-color: var(--ng-border-dark);
+}
+
+.md-typeset h3 {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+/* Light/Dark Logo Swap in Hero & Docs */
+[data-md-color-scheme="default"] .ng-logo-dark {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .ng-logo-light {
+  display: none;
+}
+
+/* ---------- PyTorch-Style Landing Hero ---------- */
+.ng-hero {
+  background: linear-gradient(135deg, #f7fafa 0%, #ffffff 60%, #eff7f7 100%);
+  border: 1px solid var(--ng-border-light);
+  border-top: 4px solid var(--ng-teal);
+  border-radius: 10px;
+  padding: 2.2rem 2rem;
+  margin-bottom: 1.8rem;
+}
+
+[data-md-color-scheme="slate"] .ng-hero {
+  background: linear-gradient(135deg, #101414 0%, #0a0b0b 60%, #0d1919 100%);
+  border-color: var(--ng-border-dark);
+  border-top: 4px solid var(--ng-teal-bright);
+}
+
+.ng-hero-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ng-hero-logo {
+  max-width: 310px;
+  height: auto;
+  display: block;
+}
+
+.ng-version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.72rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background-color: var(--ng-black);
+  color: #ffffff;
+  border: 1px solid var(--ng-teal);
+}
+
+[data-md-color-scheme="slate"] .ng-version-badge {
+  background-color: #111919;
+  color: var(--ng-teal-glow);
+  border-color: var(--ng-teal-bright);
+}
+
+.ng-hero-subtitle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+  margin: 0.35rem 0 0.5rem 0;
+  line-height: 1.45;
+}
+
+.ng-hero-desc {
+  font-size: 0.92rem;
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 1.25rem 0;
+  max-width: 72ch;
+}
+
+.ng-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.ng-btn-primary,
+.ng-btn-secondary {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+}
+
+.ng-btn-primary {
+  background-color: var(--ng-teal) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ng-teal) !important;
+}
+
+.ng-btn-primary:hover {
+  background-color: var(--ng-teal-dark) !important;
+  border-color: var(--ng-teal-dark) !important;
+  transform: translateY(-1px);
+}
+
+.ng-btn-secondary {
+  background-color: #0a0b0b !important;
+  color: #ffffff !important;
+  border: 1px solid #0a0b0b !important;
+}
+
+.ng-btn-secondary:hover {
+  background-color: #222828 !important;
+  border-color: var(--ng-teal) !important;
+  transform: translateY(-1px);
+}
+
+[data-md-color-scheme="slate"] .ng-btn-secondary {
+  background-color: #161c1c !important;
+  color: #ffffff !important;
+  border: 1px solid #2e3838 !important;
+}
+
+[data-md-color-scheme="slate"] .ng-btn-secondary:hover {
+  border-color: var(--ng-teal-bright) !important;
+}
+
+/* ---------- PyTorch-Style Subsystem & Tutorial Card Grid ---------- */
+.ng-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1rem;
+  margin: 1.15rem 0 1.65rem 0;
+}
+
+.ng-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--ng-surface-light);
+  border: 1px solid var(--ng-border-light);
+  border-left: 3px solid var(--ng-teal);
+  border-radius: 8px;
+  padding: 1.05rem 1.15rem;
+  text-decoration: none !important;
+  color: var(--md-default-fg-color) !important;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ng-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--ng-teal);
+  box-shadow: 0 6px 18px rgba(0, 132, 132, 0.12);
+}
+
+[data-md-color-scheme="slate"] .ng-card {
+  background-color: var(--ng-black-elevated);
+  border-color: var(--ng-border-dark);
+  border-left: 3px solid var(--ng-teal-bright);
+}
+
+[data-md-color-scheme="slate"] .ng-card:hover {
+  border-color: var(--ng-teal-bright);
+  box-shadow: 0 6px 18px rgba(20, 184, 166, 0.16);
+}
+
+.ng-card-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ng-teal);
+  margin-bottom: 0.35rem;
+}
+
+[data-md-color-scheme="slate"] .ng-card-tag {
+  color: var(--ng-teal-bright);
+}
+
+.ng-card-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+  margin: 0 0 0.35rem 0;
+}
+
+.ng-card-body {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 0.65rem 0;
+}
+
+.ng-card-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ng-teal);
+}
+
+[data-md-color-scheme="slate"] .ng-card-link {
+  color: var(--ng-teal-bright);
+}
+
+/* ---------- KPI / Benchmark Metrics Bar ---------- */
+.ng-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.ng-stat {
+  background-color: #0a0b0b;
+  color: #ffffff;
+  border: 1px solid #1f2626;
+  border-bottom: 3px solid var(--ng-teal);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+[data-md-color-scheme="slate"] .ng-stat {
+  background-color: #121616;
+  border-bottom-color: var(--ng-teal-bright);
+}
+
+.ng-stat-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ng-teal-bright);
+  line-height: 1.2;
+}
+
+.ng-stat-label {
+  font-size: 0.74rem;
+  color: #c6d1d1;
+  margin-top: 0.2rem;
+}
+
+/* ---------- Tables (Crisp Monochrome Header + Teal Divider) ---------- */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--ng-border-light);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: #0a0b0b;
+  color: #ffffff;
+  font-weight: 650;
+  border-bottom: 2px solid var(--ng-teal);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border-color: var(--ng-border-dark);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background-color: #141919;
+  border-bottom-color: var(--ng-teal-bright);
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid var(--ng-border-light);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td {
+  border-top-color: var(--ng-border-dark);
+}
+
+/* ---------- Admonitions (Strict White/Black/Teal Alignment) ---------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-color: var(--ng-teal);
+  border-left-width: 4px;
+  box-shadow: none;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background-color: var(--ng-teal-soft);
+  color: var(--md-default-fg-color);
+  font-weight: 650;
+}
+
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+  background-color: var(--ng-teal);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  border-color: var(--ng-teal-bright);
+  background-color: var(--ng-black-elevated);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition-title::before,
+[data-md-color-scheme="slate"] .md-typeset summary::before {
+  background-color: var(--ng-teal-bright);
+}
+
+/* ---------- Tabbed Configurator (PyTorch Install Selector Feel) ---------- */
+.md-typeset .tabbed-set {
+  border: 1px solid var(--ng-border-light);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem 0.85rem 0.9rem;
+  background-color: var(--ng-surface-light);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set {
+  border-color: var(--ng-border-dark);
+  background-color: var(--ng-black-elevated);
+}
+
+.md-typeset .tabbed-labels > label {
+  font-weight: 600;
+}
+
+.md-typeset .tabbed-set > input:checked + label {
+  color: var(--ng-teal);
+  border-color: var(--ng-teal);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .tabbed-set > input:checked + label {
+  color: var(--ng-teal-bright);
+  border-color: var(--ng-teal-bright);
+}
+
+/* ---------- mkdocstrings API Docs Styling ---------- */
+.md-typeset .doc-heading {
+  border-left: 3px solid var(--ng-teal);
+  padding-left: 0.65rem;
+  background-color: var(--ng-teal-soft);
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  border-radius: 0 4px 4px 0;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .doc-heading {
+  border-left-color: var(--ng-teal-bright);
+  background-color: rgba(20, 184, 166, 0.08);
+}
+
+.md-typeset .doc-label {
+  background-color: #0a0b0b;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.7rem;
+}
+
+/* ---------- Primary Accent Buttons Override ---------- */
+.md-typeset .md-button--primary {
+  background-color: var(--ng-teal);
+  border-color: var(--ng-teal);
+  color: #ffffff;
+}
+
+.md-typeset .md-button--primary:hover {
+  background-color: var(--ng-teal-dark);
+  border-color: var(--ng-teal-dark);
+}

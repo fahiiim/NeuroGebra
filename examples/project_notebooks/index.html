@@ -6,28 +6,28 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The beginner-friendly ML framework: Learn Machine Learning & Deep Learning step-by-step with Neurogebra">
+        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
       
       
       
         <link rel="canonical" href="https://neurogebra.readthedocs.io/examples/project_notebooks/">
       
       
-        <link rel="prev" href="../training_expressions/">
+        <link rel="prev" href="../../advanced/custom-expressions/">
       
       
-        <link rel="next" href="../../advanced/custom-expressions/">
+        <link rel="next" href="../../projects/project1-linear-regression/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
-        <title>Real Project Notebooks (Colab) - Neurogebra — Learn ML from Scratch</title>
+        <title>20 Executed GPU Portfolio Notebooks - NeuroGebra Documentation</title>
       
     
     
@@ -55,6 +55,8 @@
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -71,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="teal">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -80,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#real-project-notebooks-google-colab" class="md-skip">
+        <a href="#20-executed-gpu-portfolio-notebooks" class="md-skip">
           Skip to content
         </a>
       
@@ -96,10 +98,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Neurogebra — Learn ML from Scratch" class="md-header__button md-logo" aria-label="Neurogebra — Learn ML from Scratch" data-md-component="logo">
+    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -110,13 +111,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Neurogebra — Learn ML from Scratch
+            NeuroGebra Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Real Project Notebooks (Colab)
+              20 Executed GPU Portfolio Notebooks
             
           </span>
         </div>
@@ -129,7 +130,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -139,7 +140,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -172,6 +173,11 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
@@ -241,35 +247,16 @@
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../getting-started/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Quick Start
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
     
     
       <li class="md-tabs__item">
-        <a href="../../getting-started/installation/" class="md-tabs__link">
+        <a href="../../getting-started/" class="md-tabs__link">
           
   
   
     
   
-  Getting Started
+  Get Started
 
         </a>
       </li>
@@ -285,51 +272,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../python-refresher/basics/" class="md-tabs__link">
-          
-  
-  
-    
-  
-  Python for ML (Refresher)
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../ml-fundamentals/what-is-ml/" class="md-tabs__link">
-          
-  
-  
-    
-  
-  ML Fundamentals
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../tutorials/beginner/" class="md-tabs__link">
+        <a href="../../tutorials/" class="md-tabs__link">
           
   
   
@@ -351,13 +294,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tutorial/mathforge/" class="md-tabs__link">
+        <a href="../../science/" class="md-tabs__link">
           
   
   
     
   
-  Neurogebra Tutorial
+  Acceleration & Science
 
         </a>
       </li>
@@ -375,13 +318,13 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../custom_activation/" class="md-tabs__link">
+        <a href="./" class="md-tabs__link">
           
   
   
     
   
-  Examples
+  Notebooks & Projects
 
         </a>
       </li>
@@ -397,58 +340,39 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../advanced/custom-expressions/" class="md-tabs__link">
+        <a href="../../api/reference/" class="md-tabs__link">
           
-  
-  
-    
-  
-  Advanced Topics
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../projects/project1-linear-regression/" class="md-tabs__link">
-          
-  
-  
-    
-  
-  Projects (Neurogebra vs PyTorch)
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../api/reference/" class="md-tabs__link">
-        
   
   
     
   
   API Reference
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../releases/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Releases
+
+        </a>
+      </li>
+    
   
 
       
@@ -480,13 +404,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Neurogebra — Learn ML from Scratch" class="md-nav__button md-logo" aria-label="Neurogebra — Learn ML from Scratch" data-md-component="logo">
+    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
       
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
 
     </a>
-    Neurogebra — Learn ML from Scratch
+    NeuroGebra Documentation
   </label>
   
     <div class="md-nav__source">
@@ -536,35 +459,18 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+    
+    
+      
         
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Quick Start
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
+          
+        
       
+        
       
-  
-  
-  
-  
-    
-    
+        
+      
+        
       
         
       
@@ -585,19 +491,18 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
     
   
-    Getting Started
+    Get Started
   
 
     
@@ -605,19 +510,27 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Getting Started
+    Get Started
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
             
               
                 
@@ -633,7 +546,7 @@
   <span class="md-ellipsis">
     
   
-    Installation
+    Installation & Setup
   
 
     
@@ -661,7 +574,35 @@
   <span class="md-ellipsis">
     
   
-    Your First Program
+    Quick Start (5-Min Tour)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All-in-One Quick Reference
   
 
     
@@ -689,7 +630,7 @@
   <span class="md-ellipsis">
     
   
-    How Neurogebra Works
+    Architecture Overview
   
 
     
@@ -703,15 +644,8 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
+              
+                
   
   
   
@@ -738,19 +672,17 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Python for ML (Refresher)
+    Python & NumPy Refresher
   
 
     
@@ -761,12 +693,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Python for ML (Refresher)
+    Python & NumPy Refresher
   
 
           </label>
@@ -862,9 +794,10 @@
     </li>
   
 
-    
-      
-      
+              
+            
+              
+                
   
   
   
@@ -893,12 +826,10 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
             
   
   
@@ -916,8 +847,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1045,9 +976,92 @@
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorials/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
   
   
   
@@ -1074,19 +1088,17 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learning Tracks
   
 
     
@@ -1097,12 +1109,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learning Tracks
   
 
           </label>
@@ -1122,7 +1134,7 @@
   <span class="md-ellipsis">
     
   
-    Beginner
+    Beginner Track
   
 
     
@@ -1150,7 +1162,7 @@
   <span class="md-ellipsis">
     
   
-    Intermediate
+    Intermediate Track
   
 
     
@@ -1178,7 +1190,7 @@
   <span class="md-ellipsis">
     
   
-    Advanced
+    Advanced Track
   
 
     
@@ -1198,25 +1210,16 @@
     </li>
   
 
-    
-      
-      
+              
+            
+              
+                
   
   
   
   
     
     
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
       
         
       
@@ -1247,19 +1250,17 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
     
   
-    Neurogebra Tutorial
+    Symbolic Engine & MathForge
   
 
     
@@ -1270,12 +1271,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Neurogebra Tutorial
+    Symbolic Engine & MathForge
   
 
           </label>
@@ -1295,7 +1296,7 @@
   <span class="md-ellipsis">
     
   
-    MathForge — The Core
+    MathForge (285 Formulas)
   
 
     
@@ -1323,7 +1324,7 @@
   <span class="md-ellipsis">
     
   
-    Expressions — Building Blocks
+    Expressions & LaTeX Rendering
   
 
     
@@ -1407,7 +1408,7 @@
   <span class="md-ellipsis">
     
   
-    Gradients & Differentiation
+    Gradients & Calculus
   
 
     
@@ -1463,91 +1464,7 @@
   <span class="md-ellipsis">
     
   
-    Training Expressions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorial/autograd/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Autograd Engine
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorial/tensors/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tensors
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorial/model-builder/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ModelBuilder
+    Trainable Expressions
   
 
     
@@ -1575,7 +1492,161 @@
   <span class="md-ellipsis">
     
   
-    NeuroCraft Interface
+    NeuroCraft Interactive Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autograd & Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Autograd & Neural Networks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/autograd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autograd Engine (Value)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/tensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differentiable Tensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/model-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ModelBuilder & Modern Layers
   
 
     
@@ -1603,7 +1674,7 @@
   <span class="md-ellipsis">
     
   
-    Datasets
+    Built-in Datasets (48 Loaders)
   
 
     
@@ -1616,6 +1687,76 @@
   
 
               
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Observatory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Training Observatory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
@@ -1631,7 +1772,91 @@
   <span class="md-ellipsis">
     
   
-    Training Observatory
+    Training Observatory Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/observatory-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observatory Architecture & Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/observatory-pro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observatory Pro Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visualization & Plotting
   
 
     
@@ -1647,264 +1872,6 @@
             
           </ul>
         </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Examples
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Examples
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../custom_activation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Custom Activation Functions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../custom_loss/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Custom Loss Functions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../training_expressions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Training Expressions
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Real Project Notebooks (Colab)
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Real Project Notebooks (Colab)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#real-dataset-policy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Real Dataset Policy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notebook-portfolio" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notebook Portfolio
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dataset-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dataset Sources
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -1926,6 +1893,10 @@
   
     
     
+      
+        
+          
+        
       
         
       
@@ -1956,19 +1927,18 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../science/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
     
   
-    Advanced Topics
+    Acceleration & Science
   
 
     
@@ -1976,19 +1946,223 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Advanced Topics
+    Acceleration & Science
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../science/acceleration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Acceleration (C-JIT & CUDA GPU)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../science/pinn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics-Informed Neural Networks (PINN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizers & LR Schedulers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../science/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/regularization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regularization Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/framework-bridges/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Framework Bridges (PyTorch / TF / JAX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2018,202 +2192,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/framework-bridges/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Framework Bridges
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/visualization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Visualization
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/regularization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Regularization
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/optimization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Optimization Algorithms
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/performance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Performance Tips
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/observatory-deep-dive/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Observatory Deep Dive
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../advanced/observatory-pro/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Observatory Pro (v1.3.0)
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -2225,8 +2203,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -2240,28 +2220,29 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
-        
-          
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Projects (Neurogebra vs PyTorch)
+    Notebooks & Projects
   
 
     
@@ -2272,12 +2253,172 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Projects (Neurogebra vs PyTorch)
+    Notebooks & Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20 Executed GPU Portfolio Notebooks
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20 Executed GPU Portfolio Notebooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#browse-by-track" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Browse by Track
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-notebooks-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Notebooks Locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeuroGebra vs PyTorch Comparisons
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NeuroGebra vs PyTorch Comparisons
   
 
           </label>
@@ -2373,9 +2514,246 @@
     </li>
   
 
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
     
       
       
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cookbook Recipes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cookbook Recipes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom_activation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Activation Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom_loss/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Loss Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
   
   
   
@@ -2397,6 +2775,335 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/builders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.builders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/acceleration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.acceleration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.science
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/optim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.optim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.logging & training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/bridges-datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.bridges & datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/repository/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.repository & viz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../releases/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -2428,10 +3135,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#real-dataset-policy" class="md-nav__link">
+  <a href="#browse-by-track" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Real Dataset Policy
+        Browse by Track
       
     </span>
   </a>
@@ -2439,21 +3146,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notebook-portfolio" class="md-nav__link">
+  <a href="#running-notebooks-locally" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notebook Portfolio
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dataset-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dataset Sources
+        Running Notebooks Locally
       
     </span>
   </a>
@@ -2480,109 +3176,214 @@
   
 
 
-<h1 id="real-project-notebooks-google-colab">Real Project Notebooks (Google Colab)<a class="headerlink" href="#real-project-notebooks-google-colab" title="Permanent link">&para;</a></h1>
-<p>These are intermediate to advanced, real dataset projects designed for copy-paste and run in Google Colab.</p>
-<h2 id="real-dataset-policy">Real Dataset Policy<a class="headerlink" href="#real-dataset-policy" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Every notebook uses a real public dataset.</li>
-<li>Every notebook includes a <code>Dataset Source and Download Instructions</code> block.</li>
-<li>Each block includes: official source URL, auto-download command, and manual fallback instructions.</li>
-</ul>
-<h2 id="notebook-portfolio">Notebook Portfolio<a class="headerlink" href="#notebook-portfolio" title="Permanent link">&para;</a></h2>
+<h1 id="20-executed-gpu-portfolio-notebooks">20 Executed GPU Portfolio Notebooks<a class="headerlink" href="#20-executed-gpu-portfolio-notebooks" title="Permanent link">&para;</a></h1>
+<p>Explore 20 end-to-end, fully executed Jupyter notebooks under <code>examples/projects/</code> showcasing every subsystem of NeuroGebra—from deep vision, GANs, Diffusion, and Language Modeling to bare-metal CUDA JIT, Physics-Informed Neural Networks, and Rich LaTeX Symbolic Autograd.</p>
+<p>Every notebook uses self-contained NeuroGebra data loaders (<code>neurogebra.datasets</code>) or analytical domain generators and preserves stored stdout metrics and embedded Matplotlib visualizations.</p>
+<hr />
+<h2 id="browse-by-track">Browse by Track<a class="headerlink" href="#browse-by-track" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Vision, Generative AI &amp; NLP (01&ndash;10)</label><label for="__tabbed_1_2">Acceleration, SciML, Modern Architectures &amp; Enterprise (11&ndash;20)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Notebook</th>
-<th style="text-align: left;">Focus</th>
-<th style="text-align: left;">Dataset</th>
-<th style="text-align: left;">Open in Colab</th>
-<th style="text-align: left;">GitHub</th>
+<th style="text-align: center;">#</th>
+<th style="text-align: left;">Project Notebook</th>
+<th style="text-align: left;">Domain</th>
+<th style="text-align: left;">Key NeuroGebra APIs</th>
+<th style="text-align: left;">Dataset / Problem</th>
+<th style="text-align: left;">Links</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">01-image-classification-fmnist-cnn.ipynb</td>
-<td style="text-align: left;">Image classification baseline with NeuroGebra ModelBuilder</td>
-<td style="text-align: left;">Fashion-MNIST (Zalando)</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb">View</a></td>
+<td style="text-align: center;"><strong>01</strong></td>
+<td style="text-align: left;">Fashion-MNIST Image Classification</td>
+<td style="text-align: left;">Vision</td>
+<td style="text-align: left;"><code>ModelBuilder</code>, <code>Dense</code>, <code>Dropout</code>, <code>categorical_crossentropy</code></td>
+<td style="text-align: left;">Fashion-MNIST</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/01-image-classification-fmnist-cnn.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">02-image-classification-observatory-pro.ipynb</td>
-<td style="text-align: left;">Image classifier diagnostics with AdaptiveLogger, health warnings, tiered storage, dashboard</td>
-<td style="text-align: left;">Fashion-MNIST (Zalando)</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb">View</a></td>
+<td style="text-align: center;"><strong>02</strong></td>
+<td style="text-align: left;">Fashion-MNIST with Observatory Pro</td>
+<td style="text-align: left;">Telemetry</td>
+<td style="text-align: left;"><code>AdaptiveLogger</code>, <code>AutoHealthWarnings</code>, <code>TieredStorage</code>, <code>DashboardExporter</code></td>
+<td style="text-align: left;">Fashion-MNIST</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/02-image-classification-observatory-pro.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">03-gan-mnist-baseline.ipynb</td>
-<td style="text-align: left;">GAN baseline with NeuroGebra activation bridge into PyTorch</td>
-<td style="text-align: left;">MNIST</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb">View</a></td>
+<td style="text-align: center;"><strong>03</strong></td>
+<td style="text-align: left;">MNIST GAN Baseline</td>
+<td style="text-align: left;">Generative AI</td>
+<td style="text-align: left;">Dual <code>ModelBuilder</code> (<span class="arithmatex">\(G\)</span> &amp; <span class="arithmatex">\(D\)</span>), min-max loop</td>
+<td style="text-align: left;">MNIST Digits</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/03-gan-mnist-baseline.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">04-gan-mode-collapse-diagnostics.ipynb</td>
-<td style="text-align: left;">GAN instability and mode-collapse diagnostics with Observatory Pro</td>
-<td style="text-align: left;">MNIST</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb">View</a></td>
+<td style="text-align: center;"><strong>04</strong></td>
+<td style="text-align: left;">GAN Instability &amp; Mode Collapse Diagnostics</td>
+<td style="text-align: left;">Diagnostics</td>
+<td style="text-align: left;">Feature variance monitoring, diversity index, collapse alerts</td>
+<td style="text-align: left;">MNIST Digits</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/04-gan-mode-collapse-diagnostics.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">05-diffusion-image-denoising-baseline.ipynb</td>
-<td style="text-align: left;">Diffusion-inspired noise prediction baseline</td>
-<td style="text-align: left;">CIFAR-10</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb">View</a></td>
+<td style="text-align: center;"><strong>05</strong></td>
+<td style="text-align: left;">Diffusion Image Denoising Baseline</td>
+<td style="text-align: left;">Diffusion</td>
+<td style="text-align: left;">Forward Gaussian schedule, reverse denoising network</td>
+<td style="text-align: left;">MNIST Digits</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/05-diffusion-image-denoising-baseline.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">06-diffusion-math-scheduler-deep-dive.ipynb</td>
-<td style="text-align: left;">Diffusion schedule math, forward-process visualization, reproducibility fingerprint</td>
-<td style="text-align: left;">CelebA (primary), CIFAR-10 fallback</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb">View</a></td>
+<td style="text-align: center;"><strong>06</strong></td>
+<td style="text-align: left;">Diffusion Math &amp; Scheduler Deep-Dive</td>
+<td style="text-align: left;">Mathematical Physics</td>
+<td style="text-align: left;"><code>MathForge</code>, Linear vs Cosine <span class="arithmatex">\(\bar{\alpha}_t\)</span> SNR schedules</td>
+<td style="text-align: left;">Analytical Diffusion</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/06-diffusion-math-scheduler-deep-dive.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">07-core-nlp-spam-classifier.ipynb</td>
-<td style="text-align: left;">Core NLP spam detection with NeuroGebra ModelBuilder</td>
-<td style="text-align: left;">SMS Spam Collection (UCI)</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb">View</a></td>
+<td style="text-align: center;"><strong>07</strong></td>
+<td style="text-align: left;">Core NLP Spam Classification</td>
+<td style="text-align: left;">Text NLP</td>
+<td style="text-align: left;"><code>Datasets.load_spam</code>, dense classifier, <code>confusion_matrix</code>, <code>f1_score</code></td>
+<td style="text-align: left;">Spambase Benchmark</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/07-core-nlp-spam-classifier.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">08-core-nlp-sentiment-classifier.ipynb</td>
-<td style="text-align: left;">Core NLP sentiment classification with bridge-assisted training and adaptive warnings</td>
-<td style="text-align: left;">IMDb Large Movie Review</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb">View</a></td>
+<td style="text-align: center;"><strong>08</strong></td>
+<td style="text-align: left;">Core NLP Sentiment Classifier</td>
+<td style="text-align: left;">Text Embeddings</td>
+<td style="text-align: left;">Token embedding projection, <code>BatchNorm</code>, multi-class softmax</td>
+<td style="text-align: left;">Sentiment Tokens</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/08-core-nlp-sentiment-classifier.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">09-small-language-model-charlm-from-scratch.ipynb</td>
-<td style="text-align: left;">Small language model from scratch (character-level)</td>
-<td style="text-align: left;">Tiny Shakespeare</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb">View</a></td>
+<td style="text-align: center;"><strong>09</strong></td>
+<td style="text-align: left;">Small Language Model (CharLM) from Scratch</td>
+<td style="text-align: left;">Language Modeling</td>
+<td style="text-align: left;">Character tokenizer, autoregressive sequence model</td>
+<td style="text-align: left;">Shakespeare Corpus</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/09-small-language-model-charlm-from-scratch.ipynb">GitHub</a></td>
 </tr>
 <tr>
-<td style="text-align: left;">10-small-language-model-charlm-tuning.ipynb</td>
-<td style="text-align: left;">Character LM tuning and fingerprint-based comparison</td>
-<td style="text-align: left;">WikiText-2</td>
-<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb">Open</a></td>
-<td style="text-align: left;"><a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb">View</a></td>
+<td style="text-align: center;"><strong>10</strong></td>
+<td style="text-align: left;">Character LM Sampling &amp; Tuning</td>
+<td style="text-align: left;">Generation Algorithms</td>
+<td style="text-align: left;">Temperature scaling (<span class="arithmatex">\(T=0.3, 1.0, 2.5\)</span>), Top-<span class="arithmatex">\(k\)</span>, Top-<span class="arithmatex">\(p\)</span> decoding</td>
+<td style="text-align: left;">Language Vocab</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/10-small-language-model-charlm-tuning.ipynb">GitHub</a></td>
 </tr>
 </tbody>
 </table>
-<h2 id="dataset-sources">Dataset Sources<a class="headerlink" href="#dataset-sources" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Fashion-MNIST: https://github.com/zalandoresearch/fashion-mnist</li>
-<li>MNIST: http://yann.lecun.com/exdb/mnist/</li>
-<li>CIFAR-10: https://www.cs.toronto.edu/~kriz/cifar.html</li>
-<li>CelebA: https://mmlab.ie.cuhk.edu.hk/projects/CelebA.html</li>
-<li>SMS Spam Collection: https://archive.ics.uci.edu/dataset/228/sms+spam+collection</li>
-<li>IMDb Reviews: https://ai.stanford.edu/~amaas/data/sentiment/</li>
-<li>Tiny Shakespeare: https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt</li>
-<li>WikiText-2: https://blog.salesforceairesearch.com/the-wikitext-long-term-dependency-language-modeling-dataset/</li>
-</ul>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th style="text-align: left;">Project Notebook</th>
+<th style="text-align: left;">Domain</th>
+<th style="text-align: left;">Key NeuroGebra APIs</th>
+<th style="text-align: left;">Dataset / Problem</th>
+<th style="text-align: left;">Links</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>11</strong></td>
+<td style="text-align: left;">Hardware Acceleration (C-JIT AVX2 &amp; CUDA)</td>
+<td style="text-align: left;">HPC Acceleration</td>
+<td style="text-align: left;"><code>compile_c</code>, <code>compile_cuda</code>, <code>get_acceleration_info</code></td>
+<td style="text-align: left;">Vectorized Benchmarks</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/11-hardware-acceleration-c-and-cuda-jit.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/11-hardware-acceleration-c-and-cuda-jit.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>12</strong></td>
+<td style="text-align: left;">Physics-Informed Neural Networks (PINN)</td>
+<td style="text-align: left;">Scientific ML &amp; PDEs</td>
+<td style="text-align: left;"><code>PINN</code>, <code>harmonic_oscillator_residual</code>, <code>burgers_residual</code></td>
+<td style="text-align: left;">ODE &amp; 1D Burgers' PDE</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/12-physics-informed-neural-networks-pinn.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/12-physics-informed-neural-networks-pinn.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>13</strong></td>
+<td style="text-align: left;">Symbolic Autograd &amp; Higher-Order Derivatives</td>
+<td style="text-align: left;">Symbolic Math &amp; LaTeX</td>
+<td style="text-align: left;"><code>Expression._repr_latex_</code>, <code>gradient()</code>, Hessian matrix</td>
+<td style="text-align: left;">Himmelblau Surface</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/13-symbolic-autograd-and-higher-order-derivatives.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/13-symbolic-autograd-and-higher-order-derivatives.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>14</strong></td>
+<td style="text-align: left;">Cross-Framework Interoperability &amp; Bridges</td>
+<td style="text-align: left;">Production Export</td>
+<td style="text-align: left;"><code>to_pytorch</code>, <code>model_to_pytorch</code>, <code>to_tensorflow</code>, <code>to_jax</code></td>
+<td style="text-align: left;">Weight Bridge</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/14-framework-interoperability-pytorch-tensorflow-jax.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/14-framework-interoperability-pytorch-tensorflow-jax.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>15</strong></td>
+<td style="text-align: left;">Learning Rate Scheduling &amp; Optimization</td>
+<td style="text-align: left;">Optimization Dynamics</td>
+<td style="text-align: left;"><code>StepLR</code>, <code>CosineAnnealingLR</code>, <code>ExponentialLR</code>, <code>Adam</code>, <code>RMSprop</code></td>
+<td style="text-align: left;">Anisotropic Bowl</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/15-learning-rate-scheduling-and-optimization.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/15-learning-rate-scheduling-and-optimization.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>16</strong></td>
+<td style="text-align: left;">Advanced CNNs with Residual Blocks</td>
+<td style="text-align: left;">Deep Vision</td>
+<td style="text-align: left;"><code>Conv2D</code>, <code>LayerNorm</code>, <code>ResidualDense</code>, <code>GlobalAveragePooling2D</code></td>
+<td style="text-align: left;">Handwritten Digits</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/16-advanced-cnn-architectures-with-residual-blocks.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/16-advanced-cnn-architectures-with-residual-blocks.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>17</strong></td>
+<td style="text-align: left;">Tabular Deep Learning on California Housing</td>
+<td style="text-align: left;">Tabular ML</td>
+<td style="text-align: left;"><code>Datasets.load_california_housing</code>, <code>r2_score</code>, <code>mean_squared_error</code></td>
+<td style="text-align: left;">California Housing</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/17-tabular-deep-learning-california-housing.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/17-tabular-deep-learning-california-housing.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>18</strong></td>
+<td style="text-align: left;">Time-Series Forecasting &amp; Spectral Analysis</td>
+<td style="text-align: left;">Signal Processing</td>
+<td style="text-align: left;">FFT spectral analysis, autoregressive sliding window</td>
+<td style="text-align: left;">Harmonic Time Series</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/18-time-series-forecasting-and-transforms.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/18-time-series-forecasting-and-transforms.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>19</strong></td>
+<td style="text-align: left;">Unsupervised Anomaly Detection Autoencoder</td>
+<td style="text-align: left;">Representation Learning</td>
+<td style="text-align: left;">Bottleneck Autoencoder (<span class="arithmatex">\(784 \to 64 \to 16 \to 64 \to 784\)</span>)</td>
+<td style="text-align: left;">MNIST Normal vs Anomaly</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/19-autoencoder-anomaly-detection.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/19-autoencoder-anomaly-detection.ipynb">GitHub</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>20</strong></td>
+<td style="text-align: left;">Observatory Enterprise Diagnostics</td>
+<td style="text-align: left;">Enterprise Telemetry</td>
+<td style="text-align: left;"><code>TrainingLogger</code>, <code>LogLevel.EXPERT</code>, <code>AutoHealthWarnings</code>, HTML reports</td>
+<td style="text-align: left;">Digits Telemetry</td>
+<td style="text-align: left;"><a href="https://colab.research.google.com/github/fahiiim/NeuroGebra/blob/main/examples/projects/20-training-observatory-enterprise-diagnostics.ipynb">Colab</a> &bull; <a href="https://github.com/fahiiim/NeuroGebra/blob/main/examples/projects/20-training-observatory-enterprise-diagnostics.ipynb">GitHub</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="running-notebooks-locally">Running Notebooks Locally<a class="headerlink" href="#running-notebooks-locally" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/fahiiim/NeuroGebra.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>NeuroGebra
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[all]"</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>jupyter<span class="w"> </span>lab<span class="w"> </span>examples/projects/
+</span></code></pre></div>
 
 
 
@@ -2620,7 +3421,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../training_expressions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Training Expressions">
+          <a href="../../advanced/custom-expressions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom Expressions">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2630,20 +3431,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Training Expressions
+                Custom Expressions
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../advanced/custom-expressions/" class="md-footer__link md-footer__link--next" aria-label="Next: Custom Expressions">
+          <a href="../../projects/project1-linear-regression/" class="md-footer__link md-footer__link--next" aria-label="Next: Project 1: Linear Regression">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Custom Expressions
+                Project 1: Linear Regression
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2658,6 +3459,10 @@
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Fahim Sarker — MIT License
+    </div>
   
   
     Made with
@@ -2707,7 +3512,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "navigation.footer", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
