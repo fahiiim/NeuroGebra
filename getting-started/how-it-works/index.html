@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Architecture Overview - NeuroGebra Documentation</title>
+        <title>Architecture Overview - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -89,6 +83,17 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -280,7 +285,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -302,7 +307,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -324,7 +329,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../releases/" class="md-tabs__link">
+        <a href="../../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -688,10 +693,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-architecture" class="md-nav__link">
+  <a href="#expression-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Architecture
+        Expression execution
       
     </span>
   </a>
@@ -699,93 +704,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-components" class="md-nav__link">
+  <a href="#neural-training" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Components
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-expression-the-building-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Expression — The Building Block
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-mathforge-the-toolbox" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. MathForge — The Toolbox
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-repository-the-expression-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Repository — The Expression Library
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-autograd-engine-the-gradient-machine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Autograd Engine — The Gradient Machine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-trainer-the-learning-engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Trainer — The Learning Engine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-modelbuilder-the-neural-network-constructor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. ModelBuilder — The Neural Network Constructor
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-it-all-connects" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It All Connects
+        Neural training
       
     </span>
   </a>
@@ -793,10 +715,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#symbolic-vs-numerical" class="md-nav__link">
+  <a href="#module-map" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Symbolic vs Numerical
+        Module map
       
     </span>
   </a>
@@ -804,10 +726,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#performance-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Performance boundary
       
     </span>
   </a>
@@ -1215,7 +1137,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1237,7 +1159,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -2123,7 +2045,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -2145,7 +2067,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2422,7 +2344,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2438,7 +2360,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2458,7 +2380,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2812,6 +2734,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2871,7 +2799,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -3137,6 +3121,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3154,7 +3166,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3181,7 +3205,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3191,6 +3215,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3198,12 +3227,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -3240,10 +3437,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-architecture" class="md-nav__link">
+  <a href="#expression-execution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Architecture
+        Expression execution
       
     </span>
   </a>
@@ -3251,93 +3448,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-components" class="md-nav__link">
+  <a href="#neural-training" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Components
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Components">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-expression-the-building-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Expression — The Building Block
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-mathforge-the-toolbox" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. MathForge — The Toolbox
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-repository-the-expression-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Repository — The Expression Library
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-autograd-engine-the-gradient-machine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Autograd Engine — The Gradient Machine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-trainer-the-learning-engine" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Trainer — The Learning Engine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-modelbuilder-the-neural-network-constructor" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. ModelBuilder — The Neural Network Constructor
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-it-all-connects" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It All Connects
+        Neural training
       
     </span>
   </a>
@@ -3345,10 +3459,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#symbolic-vs-numerical" class="md-nav__link">
+  <a href="#module-map" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Symbolic vs Numerical
+        Module map
       
     </span>
   </a>
@@ -3356,10 +3470,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#performance-boundary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Performance boundary
       
     </span>
   </a>
@@ -3386,251 +3500,101 @@
   
 
 
-<h1 id="how-neurogebra-works">How Neurogebra Works<a class="headerlink" href="#how-neurogebra-works" title="Permanent link">&para;</a></h1>
-<p>This page explains the <strong>architecture</strong> of Neurogebra — how all the pieces fit together.</p>
-<hr />
-<h2 id="the-architecture">The Architecture<a class="headerlink" href="#the-architecture" title="Permanent link">&para;</a></h2>
-<p>Neurogebra is built in layers, from low-level math to high-level model building:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────┐
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│          ModelBuilder / NeuroCraft       │  ← High-level: Build models
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│              Trainer                     │  ← Train expressions on data
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├─────────────────────────────────────────┤
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│              MathForge                   │  ← Access expressions
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├─────────────────────────────────────────┤
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│         Expression + Autograd            │  ← Core: Math + Gradients
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├─────────────────────────────────────────┤
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│    Repository (Activations, Losses...)   │  ← Pre-built formulas
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>├─────────────────────────────────────────┤
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│          SymPy + NumPy                   │  ← Foundation: Math engines
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└─────────────────────────────────────────┘
-</span></code></pre></div>
-<hr />
-<h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
-<h3 id="1-expression-the-building-block">1. Expression — The Building Block<a class="headerlink" href="#1-expression-the-building-block" title="Permanent link">&para;</a></h3>
-<p>Everything in Neurogebra is an <strong>Expression</strong>. An Expression is a mathematical formula that can:</p>
-<ul>
-<li><strong>Evaluate</strong> → give you a number</li>
-<li><strong>Differentiate</strong> → compute its gradient</li>
-<li><strong>Explain</strong> → describe itself in plain English</li>
-<li><strong>Compose</strong> → combine with other expressions</li>
-<li><strong>Train</strong> → learn parameter values from data</li>
-</ul>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># A simple expression: y = mx + b</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">line</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">symbolic_expr</span><span class="o">=</span><span class="s2">"m*x + b"</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"m"</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># 2*3 + 1 = 7.0</span>
-</span></code></pre></div>
-<h3 id="2-mathforge-the-toolbox">2. MathForge — The Toolbox<a class="headerlink" href="#2-mathforge-the-toolbox" title="Permanent link">&para;</a></h3>
-<p>MathForge loads all pre-built expressions from the <strong>Repository</strong> and gives you a clean interface:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">MathForge</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">forge</span> <span class="o">=</span> <span class="n">MathForge</span><span class="p">()</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Access 285 expressions across 10 categories by name</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">relu</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relu"</span><span class="p">)</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">mse</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"mse"</span><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="3-repository-the-expression-library">3. Repository — The Expression Library<a class="headerlink" href="#3-repository-the-expression-library" title="Permanent link">&para;</a></h3>
-<p>The repository contains pre-built expressions organized by category:</p>
+<h1 id="how-neurogebra-works">How NeuroGebra works<a class="headerlink" href="#how-neurogebra-works" title="Permanent link">&para;</a></h1>
+<p>NeuroGebra has several computation paths. They serve different purposes and share NumPy/SymPy building blocks rather than one universal backend.</p>
+<h2 id="expression-execution">Expression execution<a class="headerlink" href="#expression-execution" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    F["MathForge catalog"] --&gt; E["Expression / SymPy"]
+    E --&gt; D["Symbolic derivatives"]
+    E --&gt; N["NumPy evaluation"]
+    E --&gt; C["Native C kernel"]
+    E --&gt; G["CUDA expression kernel"]</code></pre>
+<p><code>MathForge.get()</code> returns an expression with its own parameter dictionary. <code>Expression</code> retains the SymPy graph, exposes symbolic differentiation and LaTeX, and builds a numerical callable for evaluation. The native backends compile supported formulas into standalone elementwise kernels.</p>
+<h2 id="neural-training">Neural training<a class="headerlink" href="#neural-training" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    M["Model / layers"] --&gt; P["NumPy forward pass"]
+    P --&gt; L["Loss and backward pass"]
+    L --&gt; O["Optimizer update"]
+    O --&gt; P
+    P --&gt; T["Observatory events"]
+    L --&gt; T
+    O --&gt; T</code></pre>
+<p><code>ModelBuilder</code> creates <code>Model</code>/<code>Layer</code> objects. Layers initialize parameters from input shapes, cache forward values and implement NumPy backward passes. The educational and Observatory training loops use these real computations. The final Dense softmax/cross-entropy pair uses stable logits for its loss and a fused gradient.</p>
+<p>The separate <code>Value</code>/<code>Tensor</code> engine records eager operation graphs for reverse-mode differentiation. <code>Trainer</code> fits scalar-parameter expressions with symbolic derivatives, with finite differences as a fallback. <code>PINN</code> fits data and equation residuals using numerical coordinate/residual derivatives.</p>
+<h2 id="module-map">Module map<a class="headerlink" href="#module-map" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Examples</th>
-<th>Used For</th>
+<th>Module</th>
+<th>Responsibility</th>
+<th>Guide</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Activations</td>
-<td>ReLU, Sigmoid, Tanh, GELU, Swish</td>
-<td>Adding non-linearity to neural networks</td>
+<td><code>core</code></td>
+<td>Expressions, formula access, eager autograd, expression training, NeuroCraft</td>
+<td><a href="../../api/core/">Core API</a></td>
 </tr>
 <tr>
-<td>Losses</td>
-<td>MSE, MAE, Cross-Entropy, Huber</td>
-<td>Measuring how wrong predictions are</td>
+<td><code>repository</code></td>
+<td>Ten domains of symbolic formula definitions and search</td>
+<td><a href="../../reference/formulas/">Formula catalog</a></td>
 </tr>
 <tr>
-<td>Regularizers</td>
-<td>L1, L2, Elastic Net</td>
-<td>Preventing overfitting</td>
+<td><code>builders</code></td>
+<td>Layers, sequential model construction, training and checkpointing</td>
+<td><a href="../../api/builders/">Builders API</a></td>
 </tr>
 <tr>
-<td>Algebra</td>
-<td>Polynomial, Quadratic</td>
-<td>General mathematical operations</td>
+<td><code>training</code></td>
+<td>Educational training display and epoch loop</td>
+<td><a href="../../api/logging/">Logging and training API</a></td>
 </tr>
 <tr>
-<td>Calculus</td>
-<td>Derivatives, Integrals</td>
-<td>Mathematical analysis</td>
+<td><code>optim</code></td>
+<td>Optimizers and learning-rate schedules</td>
+<td><a href="../../advanced/optimization/">Optimization guide</a></td>
 </tr>
 <tr>
-<td>Statistics</td>
-<td>Mean, Variance, Standard Deviation</td>
-<td>Data analysis</td>
+<td><code>metrics</code></td>
+<td>Batch classification and regression evaluation</td>
+<td><a href="../../science/metrics/">Metrics guide</a></td>
 </tr>
 <tr>
-<td>Linear Algebra</td>
-<td>Dot product, Norms</td>
-<td>Vector/matrix operations</td>
+<td><code>acceleration</code></td>
+<td>Native C and CUDA expression compilation</td>
+<td><a href="../../science/acceleration/">Backend guide</a></td>
 </tr>
 <tr>
-<td>Metrics</td>
-<td>Accuracy, Precision, Recall</td>
-<td>Evaluating model performance</td>
+<td><code>science</code></td>
+<td>Educational PINN solver and residual helpers</td>
+<td><a href="../../science/pinn/">PINN guide</a></td>
 </tr>
 <tr>
-<td>Optimization</td>
-<td>Gradient Descent step</td>
-<td>Training algorithms</td>
+<td><code>datasets</code></td>
+<td>Offline generators and optional scikit-learn loaders</td>
+<td><a href="../../reference/datasets/">Dataset catalog</a></td>
 </tr>
 <tr>
-<td>Transforms</td>
-<td>Normalization, Standardization</td>
-<td>Data preprocessing</td>
+<td><code>logging</code></td>
+<td>Events, diagnostics, storage, dashboards and exports</td>
+<td><a href="../../tutorial/training-observatory/">Observatory</a></td>
+</tr>
+<tr>
+<td><code>bridges</code></td>
+<td>Expression adapters and supported model conversions</td>
+<td><a href="../../advanced/framework-bridges/">Bridge guide</a></td>
+</tr>
+<tr>
+<td><code>viz</code>, <code>utils</code>, <code>tutorials</code></td>
+<td>Plotting, explanation helpers and interactive learning</td>
+<td><a href="../../api/reference/">API index</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="4-autograd-engine-the-gradient-machine">4. Autograd Engine — The Gradient Machine<a class="headerlink" href="#4-autograd-engine-the-gradient-machine" title="Permanent link">&para;</a></h3>
-<p>The autograd engine tracks computations and computes gradients automatically:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.core.autograd</span><span class="w"> </span><span class="kn">import</span> <span class="n">Value</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">y</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># Forward: compute result</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># z = 2*3 + 2² = 10</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># Backward: compute gradients</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="n">z</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>  <span class="c1"># dz/dx = y + 2x = 3 + 4 = 7.0</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span>  <span class="c1"># dz/dy = x = 2.0</span>
-</span></code></pre></div>
-<h3 id="5-trainer-the-learning-engine">5. Trainer — The Learning Engine<a class="headerlink" href="#5-trainer-the-learning-engine" title="Permanent link">&para;</a></h3>
-<p>The Trainer fits expression parameters to data:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.core.trainer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Expression with unknown parameters</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">expr</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">"line"</span><span class="p">,</span> <span class="s2">"m*x + b"</span><span class="p">,</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                  <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"m"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>                  <span class="n">trainable_params</span><span class="o">=</span><span class="p">[</span><span class="s2">"m"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">])</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># Data: y = 2x + 1</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># Train to find m and b</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Learned: m=</span><span class="si">{</span><span class="n">expr</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'m'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, b=</span><span class="si">{</span><span class="n">expr</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="c1"># Should be close to m=2.0, b=1.0</span>
-</span></code></pre></div>
-<h3 id="6-modelbuilder-the-neural-network-constructor">6. ModelBuilder — The Neural Network Constructor<a class="headerlink" href="#6-modelbuilder-the-neural-network-constructor" title="Permanent link">&para;</a></h3>
-<p>ModelBuilder lets you build neural networks with an educational interface:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelBuilder</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">builder</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">()</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">),</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">),</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">builder</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"softmax"</span><span class="p">)</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">])</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>            <span class="c1"># See architecture</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">model</span><span class="o">.</span><span class="n">explain_architecture</span><span class="p">()</span>  <span class="c1"># Get explanations</span>
-</span></code></pre></div>
-<hr />
-<h2 id="how-it-all-connects">How It All Connects<a class="headerlink" href="#how-it-all-connects" title="Permanent link">&para;</a></h2>
-<p>Here's the typical workflow:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>1. You create a MathForge           →  forge = MathForge()
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>2. You get expressions               →  relu = forge.get("relu")
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>3. You explore them                   →  relu.explain(), relu.eval(x=5)
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>4. You compose complex expressions    →  loss = forge.compose("mse + 0.1*mae")
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>5. You create trainable expressions   →  expr = Expression("f", "a*x+b", ...)
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>6. You train on data                  →  trainer.fit(X, y, epochs=100)
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>7. You build full models              →  model = builder.Sequential([...])
-</span></code></pre></div>
-<hr />
-<h2 id="symbolic-vs-numerical">Symbolic vs Numerical<a class="headerlink" href="#symbolic-vs-numerical" title="Permanent link">&para;</a></h2>
-<p>Neurogebra uses <strong>SymPy</strong> for symbolic math and <strong>NumPy</strong> for numerical computation:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">relu</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relu"</span><span class="p">)</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># SYMBOLIC — see the formula</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">relu</span><span class="o">.</span><span class="n">symbolic_expr</span><span class="p">)</span>  <span class="c1"># Max(0, x)</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># NUMERICAL — get a number</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">relu</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>     <span class="c1"># 5</span>
-</span></code></pre></div>
-<p><strong>Why both?</strong></p>
-<ul>
-<li><strong>Symbolic</strong>: You can see, manipulate, differentiate, and explain formulas</li>
-<li><strong>Numerical</strong>: You can evaluate efficiently on real data with NumPy arrays</li>
-</ul>
-<hr />
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Class</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Expression</td>
-<td><code>Expression</code></td>
-<td>A math formula you can evaluate, differentiate, train</td>
-</tr>
-<tr>
-<td>MathForge</td>
-<td><code>MathForge</code></td>
-<td>Toolbox to access all pre-built expressions</td>
-</tr>
-<tr>
-<td>Value</td>
-<td><code>Value</code></td>
-<td>Scalar with automatic gradient tracking</td>
-</tr>
-<tr>
-<td>Tensor</td>
-<td><code>Tensor</code></td>
-<td>Array with automatic gradient tracking</td>
-</tr>
-<tr>
-<td>Trainer</td>
-<td><code>Trainer</code></td>
-<td>Fits expression parameters to data</td>
-</tr>
-<tr>
-<td>ModelBuilder</td>
-<td><code>ModelBuilder</code></td>
-<td>Builds neural network architectures</td>
-</tr>
-<tr>
-<td>NeuroCraft</td>
-<td><code>NeuroCraft</code></td>
-<td>Enhanced interface with educational features</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<p><strong>Next:</strong> <a href="../../python-refresher/basics/">Python for ML →</a></p>
+<h2 id="performance-boundary">Performance boundary<a class="headerlink" href="#performance-boundary" title="Permanent link">&para;</a></h2>
+<p>Compiling an expression with <code>backend="cuda"</code> changes how that expression is evaluated. It does not convert <code>Model</code> layers, the autograd engine or PINN training into GPU operations. See <a href="../../project/capabilities/">capabilities and limits</a> before comparing performance with another framework.</p>
 
 
 
@@ -3763,6 +3727,8 @@
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

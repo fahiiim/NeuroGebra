@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Built-in Datasets (48 Loaders) - NeuroGebra Documentation</title>
+        <title>Built-in Datasets (48 Loaders) - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -89,6 +83,17 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -280,7 +285,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -302,7 +307,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -324,7 +329,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../releases/" class="md-tabs__link">
+        <a href="../../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -1035,7 +1040,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1057,7 +1062,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -1743,10 +1748,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#loading-datasets" class="md-nav__link">
+  <a href="#load-a-small-teaching-dataset" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Loading Datasets
+        Load a small teaching dataset
       
     </span>
   </a>
@@ -1754,77 +1759,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#built-in-datasets" class="md-nav__link">
+  <a href="#handle-pair-returning-loaders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Built-in Datasets
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Built-in Datasets">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#synthetic-datasets" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Synthetic Datasets
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-your-own-datasets" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating Your Own Datasets
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Creating Your Own Datasets">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#regression-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Regression Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#classification-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Classification Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-splitting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Splitting
+        Handle pair-returning loaders
       
     </span>
   </a>
@@ -1832,38 +1770,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-datasets-with-neurogebra" class="md-nav__link">
+  <a href="#use-the-expanded-generators" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using Datasets with Neurogebra
+        Use the expanded generators
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Using Datasets with Neurogebra">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#training-on-synthetic-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training on Synthetic Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#dataset-best-practices" class="md-nav__link">
+  <a href="#original-data-and-optional-integrations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataset Best Practices
+        Original data and optional integrations
       
     </span>
   </a>
@@ -2132,7 +2053,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -2154,7 +2075,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2431,7 +2352,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2447,7 +2368,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2467,7 +2388,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2821,6 +2742,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2880,7 +2807,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -3146,6 +3129,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3163,7 +3174,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3190,7 +3213,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3200,6 +3223,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3207,12 +3235,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -3249,10 +3445,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#loading-datasets" class="md-nav__link">
+  <a href="#load-a-small-teaching-dataset" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Loading Datasets
+        Load a small teaching dataset
       
     </span>
   </a>
@@ -3260,77 +3456,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#built-in-datasets" class="md-nav__link">
+  <a href="#handle-pair-returning-loaders" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Built-in Datasets
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Built-in Datasets">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#synthetic-datasets" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Synthetic Datasets
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-your-own-datasets" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Creating Your Own Datasets
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Creating Your Own Datasets">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#regression-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Regression Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#classification-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Classification Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-splitting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Splitting
+        Handle pair-returning loaders
       
     </span>
   </a>
@@ -3338,38 +3467,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-datasets-with-neurogebra" class="md-nav__link">
+  <a href="#use-the-expanded-generators" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using Datasets with Neurogebra
+        Use the expanded generators
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Using Datasets with Neurogebra">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#training-on-synthetic-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training on Synthetic Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#dataset-best-practices" class="md-nav__link">
+  <a href="#original-data-and-optional-integrations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataset Best Practices
+        Original data and optional integrations
       
     </span>
   </a>
@@ -3397,136 +3509,34 @@
 
 
 <h1 id="datasets">Datasets<a class="headerlink" href="#datasets" title="Permanent link">&para;</a></h1>
-<p>Neurogebra includes built-in <strong>dataset loaders</strong> for common ML tasks, so you can start training immediately without hunting for data.</p>
-<hr />
-<h2 id="loading-datasets">Loading Datasets<a class="headerlink" href="#loading-datasets" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">loaders</span>
+<p>NeuroGebra exposes 48 unique loader methods through <code>CombinedDatasets</code>: 21 base loaders and 27 expanded loaders. The <a href="../../reference/datasets/">complete catalog</a> lists every method, options, return convention and provenance.</p>
+<h2 id="load-a-small-teaching-dataset">Load a small teaching dataset<a class="headerlink" href="#load-a-small-teaching-dataset" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Datasets</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># See what's available</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">loaders</span><span class="p">))</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">Datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </span></code></pre></div>
-<hr />
-<h2 id="built-in-datasets">Built-in Datasets<a class="headerlink" href="#built-in-datasets" title="Permanent link">&para;</a></h2>
-<h3 id="synthetic-datasets">Synthetic Datasets<a class="headerlink" href="#synthetic-datasets" title="Permanent link">&para;</a></h3>
-<p>These are generated on-the-fly — perfect for learning and testing:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<p>This loader generates Iris-like synthetic data; it does not return the original Iris dataset. Familiar names are teaching conveniences, so always check provenance before reporting a benchmark result.</p>
+<h2 id="handle-pair-returning-loaders">Handle pair-returning loaders<a class="headerlink" href="#handle-pair-returning-loaders" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">Datasets</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># === LINEAR DATA ===</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># For regression practice</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">y</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="mf">3.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># === CLASSIFICATION DATA ===</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># Two spirals (classic ML challenge)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_spirals</span><span class="p">(</span><span class="n">n_points</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">n_points</span> <span class="o">//</span> <span class="mi">2</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">r</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="n">x1</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span> <span class="o">*</span> <span class="mf">0.1</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    <span class="n">y1</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span> <span class="o">*</span> <span class="mf">0.1</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    <span class="n">x2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span> <span class="o">*</span> <span class="mf">0.1</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    <span class="n">y2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span> <span class="o">*</span> <span class="mf">0.1</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">]),</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>                   <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">])])</span>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="n">X_spiral</span><span class="p">,</span> <span class="n">y_spiral</span> <span class="o">=</span> <span class="n">make_spirals</span><span class="p">()</span>
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Spirals: X=</span><span class="si">{</span><span class="n">X_spiral</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, y=</span><span class="si">{</span><span class="n">y_spiral</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">split</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">split</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">split</span><span class="p">:]</span>
 </span></code></pre></div>
-<hr />
-<h2 id="creating-your-own-datasets">Creating Your Own Datasets<a class="headerlink" href="#creating-your-own-datasets" title="Permanent link">&para;</a></h2>
-<h3 id="regression-data">Regression Data<a class="headerlink" href="#regression-data" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<p>This example illustrates unpacking. For evaluation, shuffle or stratify before splitting; the synthetic digits fallback groups examples by class. Fit preprocessing using only the training partition.</p>
+<h2 id="use-the-expanded-generators">Use the expanded generators<a class="headerlink" href="#use-the-expanded-generators" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">CombinedDatasets</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_regression_data</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="sd">"""Create synthetic regression data."""</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">y</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_regression_data</span><span class="p">()</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"X shape: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># (500, 1)</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"y shape: </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># (500,)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">CombinedDatasets</span><span class="o">.</span><span class="n">load_checkerboard</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </span></code></pre></div>
-<h3 id="classification-data">Classification Data<a class="headerlink" href="#classification-data" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_classification_data</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">"""Create synthetic binary classification data."""</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="c1"># Class 0: centered at (-1, -1)</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">X0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="c1"># Class 1: centered at (1, 1)</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">X1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X0</span><span class="p">,</span> <span class="n">X1</span><span class="p">])</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">))</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="c1"># Shuffle</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="k">return</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification_data</span><span class="p">()</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"X shape: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># (400, 2)</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"y shape: </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># (400,)</span>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Classes: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># [0 1]</span>
-</span></code></pre></div>
-<hr />
-<h2 id="data-splitting">Data Splitting<a class="headerlink" href="#data-splitting" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_ratio</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">split</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">test_ratio</span><span class="p">))</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">[:</span><span class="n">split</span><span class="p">]],</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">split</span><span class="p">:]],</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>            <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">[:</span><span class="n">split</span><span class="p">]],</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="n">split</span><span class="p">:]])</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Train: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="si">}</span><span class="s2">, Test: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="using-datasets-with-neurogebra">Using Datasets with Neurogebra<a class="headerlink" href="#using-datasets-with-neurogebra" title="Permanent link">&para;</a></h2>
-<h3 id="training-on-synthetic-data">Training on Synthetic Data<a class="headerlink" href="#training-on-synthetic-data" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.core.trainer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Generate data: y = 2x + 1</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Create model</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">"linear"</span><span class="p">,</span> <span class="s2">"m*x + b"</span><span class="p">,</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>                   <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"m"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                   <span class="n">trainable_params</span><span class="o">=</span><span class="p">[</span><span class="s2">"m"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">])</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="c1"># Train</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">"adam"</span><span class="p">)</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="n">history</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Learned: y = </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'m'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x + </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="dataset-best-practices">Dataset Best Practices<a class="headerlink" href="#dataset-best-practices" title="Permanent link">&para;</a></h2>
-<div class="admonition tip">
-<p class="admonition-title">Tips for Working with Data</p>
-<ol>
-<li><strong>Always set a random seed</strong> for reproducibility: <code>np.random.seed(42)</code></li>
-<li><strong>Split before processing</strong> — normalize using training data statistics only</li>
-<li><strong>Visualize your data</strong> before training to understand its structure</li>
-<li><strong>Start small</strong> — use small datasets while debugging, scale up later</li>
-<li><strong>Shuffle your data</strong> — ensures model doesn't learn order-dependent patterns</li>
-</ol>
-</div>
-<hr />
-<p><strong>Next:</strong> <a href="../../advanced/custom-expressions/">Custom Expressions →</a></p>
+<p>Expanded generators currently use NumPy's global RNG in several paths. For strict reproducibility, record seeds and isolate generation from training; conversion to local generator instances is tracked in the <a href="../../project/review-3/">review</a>.</p>
+<h2 id="original-data-and-optional-integrations">Original data and optional integrations<a class="headerlink" href="#original-data-and-optional-integrations" title="Permanent link">&para;</a></h2>
+<p>Wine, Breast Cancer, Digits, Diabetes and California Housing can use scikit-learn sources when available, with a synthetic fallback on failure. California Housing can require a download. The other loaders generate distributions locally. The <code>datasets</code> extra installs scikit-learn but does not replace every synthetic generator with original benchmark data.</p>
+<p>For published results, use the original dataset publisher or an official framework loader, record the data license and preprocessing, and preserve an uncontaminated test set.</p>
 
 
 
@@ -3659,6 +3669,8 @@
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

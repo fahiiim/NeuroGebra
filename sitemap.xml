@@ -81,6 +81,10 @@
          <lastmod>2026-11-25</lastmod>
     </url>
     <url>
+         <loc>https://neurogebra.readthedocs.io/api/utilities/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
          <loc>https://neurogebra.readthedocs.io/examples/custom_activation/</loc>
          <lastmod>2026-11-25</lastmod>
     </url>
@@ -129,6 +133,22 @@
          <lastmod>2026-11-25</lastmod>
     </url>
     <url>
+         <loc>https://neurogebra.readthedocs.io/project/capabilities/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/project/contributing/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/project/review-3/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/project/troubleshooting/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
          <loc>https://neurogebra.readthedocs.io/projects/project1-linear-regression/</loc>
          <lastmod>2026-11-25</lastmod>
     </url>
@@ -153,7 +173,23 @@
          <lastmod>2026-11-25</lastmod>
     </url>
     <url>
+         <loc>https://neurogebra.readthedocs.io/reference/datasets/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/reference/formulas/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
          <loc>https://neurogebra.readthedocs.io/releases/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/releases/3.0.0/</loc>
+         <lastmod>2026-11-25</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/releases/migration-3/</loc>
          <lastmod>2026-11-25</lastmod>
     </url>
     <url>

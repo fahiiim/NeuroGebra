@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Tutorials & Guides - NeuroGebra Documentation</title>
+        <title>Learn NeuroGebra - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -82,12 +76,23 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorials-guides" class="md-skip">
+        <a href="#learn-neurogebra" class="md-skip">
           Skip to content
         </a>
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
       
     </div>
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href=".." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,13 +116,13 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorials &amp; Guides
+              Learn NeuroGebra
             
           </span>
         </div>
@@ -280,7 +285,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -302,7 +307,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -324,7 +329,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../releases/" class="md-tabs__link">
+        <a href="../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href=".." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -1035,7 +1040,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1057,7 +1062,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -1955,7 +1960,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -1977,7 +1982,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2254,7 +2259,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2270,7 +2275,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2290,7 +2295,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2644,6 +2649,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2703,7 +2714,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -2969,6 +3036,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2986,7 +3081,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3013,7 +3120,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3023,6 +3130,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3030,12 +3142,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -3072,10 +3352,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#tutorial-tracks" class="md-nav__link">
+  <a href="#learning-tracks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tutorial Tracks
+        Learning tracks
       
     </span>
   </a>
@@ -3083,52 +3363,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deep-dive-module-guides" class="md-nav__link">
+  <a href="#explore-by-subsystem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deep-Dive Module Guides
+        Explore by subsystem
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Deep-Dive Module Guides">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#symbolic-engine-mathforge-285-formulas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Symbolic Engine &amp; MathForge (285 Formulas)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#autograd-neural-models-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Autograd, Neural Models &amp; Data
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#training-observatory-diagnostics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training Observatory &amp; Diagnostics
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3152,58 +3393,71 @@
   
 
 
-<h1 id="tutorials-guides">Tutorials &amp; Guides<a class="headerlink" href="#tutorials-guides" title="Permanent link">&para;</a></h1>
-<p>Master every component of NeuroGebra sequentially—from symbolic mathematical primitives to transparent multi-layer deep learning with live telemetry.</p>
-<hr />
-<h2 id="tutorial-tracks">Tutorial Tracks<a class="headerlink" href="#tutorial-tracks" title="Permanent link">&para;</a></h2>
-<div class="ng-grid">
-<div class="ng-card">
-<div>
-<span class="ng-card-tag">Track 1</span>
-<div class="ng-card-title">[Beginner Track](beginner.md)</div>
-<p class="ng-card-body">Retrieve curated formulas from <code>MathForge</code>, render LaTeX equations, evaluate NumPy inputs, and inspect analytical gradients.</p>
-</div>
-<p><span class="ng-card-link"><a href="beginner/">Start Beginner Track &rarr;</a></span></p>
-</div>
-<div class="ng-card">
-<div>
-<span class="ng-card-tag">Track 2</span>
-<div class="ng-card-title">[Intermediate Track](intermediate.md)</div>
-<p class="ng-card-body">Compose hybrid losses, train parameterized expressions with <code>Trainer</code>, and build scalar/tensor graphs using <code>Value</code> autograd.</p>
-</div>
-<p><span class="ng-card-link"><a href="intermediate/">Start Intermediate Track &rarr;</a></span></p>
-</div>
-<div class="ng-card">
-<div>
-<span class="ng-card-tag">Track 3</span>
-<div class="ng-card-title">[Advanced Track](advanced.md)</div>
-<p class="ng-card-body">Combine higher-order symbolic calculus, PyTorch/TF/JAX export bridges, interactive Plotly figures, and JIT acceleration.</p>
-</div>
-<p><span class="ng-card-link"><a href="advanced/">Start Advanced Track &rarr;</a></span></p>
-</div>
-</div>
-<hr />
-<h2 id="deep-dive-module-guides">Deep-Dive Module Guides<a class="headerlink" href="#deep-dive-module-guides" title="Permanent link">&para;</a></h2>
-<h3 id="symbolic-engine-mathforge-285-formulas">Symbolic Engine &amp; MathForge (285 Formulas)<a class="headerlink" href="#symbolic-engine-mathforge-285-formulas" title="Permanent link">&para;</a></h3>
-<ul>
-<li><a href="../tutorial/mathforge/">MathForge — The Core Hub</a>: Search, filter, register, and compose across 10 mathematical domains.</li>
-<li><a href="../tutorial/expressions/">Expressions &amp; LaTeX Rendering</a>: Symbolic properties, Jupyter <code>_repr_latex_()</code>, <code>to_latex()</code>, <code>latex()</code>, and hardware backends.</li>
-<li><a href="../tutorial/activations/">Activation Functions</a> &bull; <a href="../tutorial/losses/">Loss Functions</a> &bull; <a href="../tutorial/gradients/">Gradients &amp; Calculus</a></li>
-<li><a href="../tutorial/composition/">Expression Composition</a> &bull; <a href="../tutorial/training/">Trainable Expressions</a> &bull; <a href="../tutorial/neurocraft/">NeuroCraft Interactive Mode</a></li>
-</ul>
-<h3 id="autograd-neural-models-data">Autograd, Neural Models &amp; Data<a class="headerlink" href="#autograd-neural-models-data" title="Permanent link">&para;</a></h3>
-<ul>
-<li><a href="../tutorial/autograd/">Autograd Engine (<code>Value</code>)</a> &bull; <a href="../tutorial/tensors/">Differentiable Tensors (<code>Tensor</code>)</a></li>
-<li><a href="../tutorial/model-builder/">ModelBuilder &amp; Modern Layers</a>: <code>Dense</code>, <code>Conv2D</code>, <code>LayerNorm</code>, <code>BatchNorm</code>, <code>GlobalAveragePooling2D</code>, <code>ResidualDense</code>, <code>Model.add()</code>, <code>save()</code> / <code>load()</code>.</li>
-<li><a href="../tutorial/datasets/">Built-in Datasets (48 Loaders)</a>: Unified offline-ready datasets across classification, regression, vision, time-series, and manifolds.</li>
-</ul>
-<h3 id="training-observatory-diagnostics">Training Observatory &amp; Diagnostics<a class="headerlink" href="#training-observatory-diagnostics" title="Permanent link">&para;</a></h3>
-<ul>
-<li><a href="../tutorial/training-observatory/">Training Observatory Overview</a>: Real-time layer formulas, gradient flow tracking, and color-coded terminal logs.</li>
-<li><a href="../advanced/observatory-deep-dive/">Observatory Architecture &amp; Events</a>: Custom event backends, callbacks, <code>GraphTracker</code>, <code>FormulaRenderer</code>.</li>
-<li><a href="../advanced/observatory-pro/">Observatory Pro Telemetry</a>: <code>AdaptiveLogger</code>, <code>AutoHealthWarnings</code>, <code>EpochSummarizer</code>, <code>TieredStorage</code>, HTML Dashboards, TensorBoard &amp; W&amp;B bridges, and <code>TrainingFingerprint</code>.</li>
-<li><a href="../advanced/visualization/">Visualization &amp; Plotting</a>: Matplotlib &amp; Plotly graphing for functions, derivatives, and training curves.</li>
-</ul>
+<h1 id="learn-neurogebra">Learn NeuroGebra<a class="headerlink" href="#learn-neurogebra" title="Permanent link">&para;</a></h1>
+<p>Work from a formula you can explain toward an experiment you can inspect. Choose a learning track, or go directly to the subsystem you need.</p>
+<h2 id="learning-tracks">Learning tracks<a class="headerlink" href="#learning-tracks" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Track</th>
+<th>Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="beginner/">Beginner</a></td>
+<td>Retrieve, evaluate, explain and differentiate formulas</td>
+</tr>
+<tr>
+<td><a href="intermediate/">Intermediate</a></td>
+<td>Compose expressions, fit parameters and use eager autograd</td>
+</tr>
+<tr>
+<td><a href="advanced/">Advanced</a></td>
+<td>Higher-order symbolic calculus, framework adapters and visualization</td>
+</tr>
+</tbody>
+</table>
+<h2 id="explore-by-subsystem">Explore by subsystem<a class="headerlink" href="#explore-by-subsystem" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Guides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symbolic foundations</td>
+<td><a href="../tutorial/mathforge/">MathForge</a>, <a href="../tutorial/expressions/">expressions</a>, <a href="../tutorial/composition/">composition</a></td>
+</tr>
+<tr>
+<td>Mathematical building blocks</td>
+<td><a href="../tutorial/activations/">Activations</a>, <a href="../tutorial/losses/">losses</a>, <a href="../tutorial/gradients/">gradients</a>, <a href="../reference/formulas/">formula catalog</a></td>
+</tr>
+<tr>
+<td>Expression training</td>
+<td><a href="../tutorial/training/">Trainable expressions</a>, <a href="../tutorial/neurocraft/">NeuroCraft</a></td>
+</tr>
+<tr>
+<td>Eager differentiation</td>
+<td><a href="../tutorial/autograd/">Value autograd</a>, <a href="../tutorial/tensors/">Tensor operations</a></td>
+</tr>
+<tr>
+<td>Neural models</td>
+<td><a href="../tutorial/model-builder/">ModelBuilder</a>, <a href="../tutorial/datasets/">datasets</a>, <a href="../advanced/optimization/">optimization</a></td>
+</tr>
+<tr>
+<td>Training inspection</td>
+<td><a href="../tutorial/training-observatory/">Observatory overview</a>, <a href="../advanced/observatory-deep-dive/">event architecture</a>, <a href="../advanced/observatory-pro/">Pro telemetry</a></td>
+</tr>
+<tr>
+<td>Presenting results</td>
+<td><a href="../advanced/visualization/">Visualization</a>, <a href="../examples/project_notebooks/">project notebooks</a></td>
+</tr>
+</tbody>
+</table>
+<p>Read <a href="../project/capabilities/">capabilities and limits</a> alongside advanced guides, especially when using native kernels or exporting to another framework.</p>
 
 
 
@@ -3336,6 +3590,8 @@
     
     
       <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

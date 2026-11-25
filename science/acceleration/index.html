@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Hardware Acceleration (C-JIT & CUDA GPU) - NeuroGebra Documentation</title>
+        <title>Hardware Acceleration (C-JIT & CUDA GPU) - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -82,12 +76,23 @@
     <div data-md-component="skip">
       
         
-        <a href="#hardware-acceleration-engine-c-jit-cuda-gpu" class="md-skip">
+        <a href="#native-expression-acceleration" class="md-skip">
           Skip to content
         </a>
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
       
     </div>
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -278,7 +283,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -302,7 +307,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -324,7 +329,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../releases/" class="md-tabs__link">
+        <a href="../../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -1030,7 +1035,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1052,7 +1057,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -1943,7 +1948,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -1965,7 +1970,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2040,10 +2045,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#performance-summary" class="md-nav__link">
+  <a href="#inspect-the-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Performance Summary
+        Inspect the environment
       
     </span>
   </a>
@@ -2051,10 +2056,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inspecting-local-hardware-capabilities" class="md-nav__link">
+  <a href="#compile-an-expression" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inspecting Local Hardware Capabilities
+        Compile an expression
       
     </span>
   </a>
@@ -2062,77 +2067,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#accelerating-symbolic-expression-objects" class="md-nav__link">
+  <a href="#backend-boundaries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accelerating Symbolic Expression Objects
+        Backend boundaries
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Accelerating Symbolic Expression Objects">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-compilation-backends" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported Compilation Backends
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#direct-low-level-jit-functions-compile_c-compile_cuda" class="md-nav__link">
+  <a href="#low-level-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Direct Low-Level JIT Functions (compile_c &amp; compile_cuda)
+        Low-level functions
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Direct Low-Level JIT Functions (compile_c &amp; compile_cuda)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#c-jit-compiler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C-JIT Compiler
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cuda-nvrtc-kernel-compiler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CUDA NVRTC Kernel Compiler
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation-system-prerequisites" class="md-nav__link">
+  <a href="#cache-and-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation &amp; System Prerequisites
+        Cache and deployment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-responsibly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark responsibly
       
     </span>
   </a>
@@ -2389,7 +2360,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2405,7 +2376,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2425,7 +2396,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2779,6 +2750,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2838,7 +2815,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -3104,6 +3137,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3121,7 +3182,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3148,7 +3221,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3158,6 +3231,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3165,12 +3243,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -3207,10 +3453,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#performance-summary" class="md-nav__link">
+  <a href="#inspect-the-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Performance Summary
+        Inspect the environment
       
     </span>
   </a>
@@ -3218,10 +3464,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#inspecting-local-hardware-capabilities" class="md-nav__link">
+  <a href="#compile-an-expression" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Inspecting Local Hardware Capabilities
+        Compile an expression
       
     </span>
   </a>
@@ -3229,77 +3475,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#accelerating-symbolic-expression-objects" class="md-nav__link">
+  <a href="#backend-boundaries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Accelerating Symbolic Expression Objects
+        Backend boundaries
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Accelerating Symbolic Expression Objects">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-compilation-backends" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported Compilation Backends
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#direct-low-level-jit-functions-compile_c-compile_cuda" class="md-nav__link">
+  <a href="#low-level-functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Direct Low-Level JIT Functions (compile_c &amp; compile_cuda)
+        Low-level functions
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Direct Low-Level JIT Functions (compile_c &amp; compile_cuda)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#c-jit-compiler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        C-JIT Compiler
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cuda-nvrtc-kernel-compiler" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CUDA NVRTC Kernel Compiler
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation-system-prerequisites" class="md-nav__link">
+  <a href="#cache-and-deployment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation &amp; System Prerequisites
+        Cache and deployment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-responsibly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark responsibly
       
     </span>
   </a>
@@ -3326,142 +3538,83 @@
   
 
 
-<h1 id="hardware-acceleration-engine-c-jit-cuda-gpu">Hardware Acceleration Engine (C-JIT &amp; CUDA GPU)<a class="headerlink" href="#hardware-acceleration-engine-c-jit-cuda-gpu" title="Permanent link">&para;</a></h1>
-<p>NeuroGebra bridges symbolic interpretability and bare-metal execution speed through <code>neurogebra.acceleration</code>—a zero-configuration native compiler that transforms SymPy expressions into optimized C++ shared libraries (AVX2 SIMD / OpenMP) or NVIDIA CUDA device kernels via NVRTC.</p>
-<hr />
-<h2 id="performance-summary">Performance Summary<a class="headerlink" href="#performance-summary" title="Permanent link">&para;</a></h2>
-<p>Evaluated on 1,000,000 float elements computing composite non-linear activation pipelines (Intel i7 + NVIDIA GeForce RTX 5070 12GB):</p>
-<table>
-<thead>
-<tr>
-<th>Execution Backend</th>
-<th>Compilation Pipeline</th>
-<th style="text-align: right;">Latency (1M elements)</th>
-<th style="text-align: right;">Relative Speedup</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>NumPy (Baseline)</strong></td>
-<td>Compiled Python <code>lambdify</code> + ufuncs</td>
-<td style="text-align: right;">10.55 ms</td>
-<td style="text-align: right;">1.00x</td>
-</tr>
-<tr>
-<td><strong>NeuroGebra C-JIT (<code>backend="c"</code>)</strong></td>
-<td>Clang++ / GCC <code>-O3</code> AVX2 SIMD + OpenMP</td>
-<td style="text-align: right;">5.16 ms</td>
-<td style="text-align: right;"><strong>2.04x faster</strong></td>
-</tr>
-<tr>
-<td><strong>NeuroGebra CUDA-JIT (<code>backend="cuda"</code>)</strong></td>
-<td>Fused PTX kernel via NVRTC + Driver API</td>
-<td style="text-align: right;">2.22 ms</td>
-<td style="text-align: right;"><strong>4.76x faster</strong></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="inspecting-local-hardware-capabilities">Inspecting Local Hardware Capabilities<a class="headerlink" href="#inspecting-local-hardware-capabilities" title="Permanent link">&para;</a></h2>
-<p>Check whether a native C/C++ compiler (<code>clang++</code>, <code>g++</code>, <code>gcc</code>, <code>clang</code>) or NVIDIA CUDA Driver + NVRTC stack is detected on your machine:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">get_acceleration_info</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">is_c_available</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">is_cuda_available</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">info</span> <span class="o">=</span> <span class="n">get_acceleration_info</span><span class="p">()</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># {</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">#     'c_jit_available': True,</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1">#     'c_compiler': '/usr/bin/g++',</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">#     'cuda_available': True,</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1">#     'cuda_device': 'NVIDIA GeForce RTX 5070',</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">#     'cuda_compute_capability': (8, 9),</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># }</span>
+<h1 id="native-expression-acceleration">Native expression acceleration<a class="headerlink" href="#native-expression-acceleration" title="Permanent link">&para;</a></h1>
+<p>Compile supported symbolic expressions to native C shared libraries or NVIDIA CUDA kernels. These backends apply to expression evaluation; neural-model and PINN training remain NumPy based.</p>
+<h2 id="inspect-the-environment">Inspect the environment<a class="headerlink" href="#inspect-the-environment" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_acceleration_info</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">get_acceleration_info</span><span class="p">())</span>
 </span></code></pre></div>
-<hr />
-<h2 id="accelerating-symbolic-expression-objects">Accelerating Symbolic <code>Expression</code> Objects<a class="headerlink" href="#accelerating-symbolic-expression-objects" title="Permanent link">&para;</a></h2>
-<p>Any symbolic <code>Expression</code> can compile directly onto C or CUDA using <code>.compile(backend=...)</code> or per-call <code>backend=...</code>:</p>
+<p>The result includes <code>c_jit_available</code>, <code>c_compiler</code>, <code>cuda_available</code>, <code>cuda_device</code> and <code>cuda_compute_capability</code>. Treat availability as a starting check; validate the actual expression on the target machine.</p>
+<h2 id="compile-an-expression">Compile an expression<a class="headerlink" href="#compile-an-expression" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">is_c_available</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Define symbolic expression (supports multi-variable formulas and math functions)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">swish</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">"swish"</span><span class="p">,</span> <span class="s2">"x / (1.0 + exp(-beta * x))"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"beta"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">})</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">1_000_000</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">expr</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">"energy"</span><span class="p">,</span> <span class="s2">"0.5 * m * v**2"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"m"</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">})</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">baseline</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"numpy"</span><span class="p">)</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># Option 1: Compile and cache C-JIT shared library</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">swish</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">"c"</span><span class="p">)</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">cpu_out</span> <span class="o">=</span> <span class="n">swish</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># Option 2: Compile PTX GPU kernel via NVRTC and launch on CUDA device</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">swish</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">gpu_out</span> <span class="o">=</span> <span class="n">swish</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Option 3: Override backend per evaluation call</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">np_out</span> <span class="o">=</span> <span class="n">swish</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"numpy"</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">if</span> <span class="n">is_c_available</span><span class="p">():</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">expr</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">"c"</span><span class="p">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">native</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">"c"</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">native</span><span class="p">,</span> <span class="n">baseline</span><span class="p">)</span>
 </span></code></pre></div>
-<h3 id="supported-compilation-backends">Supported Compilation Backends<a class="headerlink" href="#supported-compilation-backends" title="Permanent link">&para;</a></h3>
+<h2 id="backend-boundaries">Backend boundaries<a class="headerlink" href="#backend-boundaries" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Backend</th>
 <th>Precision</th>
-<th>Broadcasting</th>
-<th>Caching Behavior</th>
+<th>Requirements</th>
+<th>Current behavior</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>"numpy"</code></td>
-<td><code>float64</code></td>
-<td>Full NumPy broadcasting</td>
-<td>In-memory <code>lambdify</code> callable</td>
+<td><code>numpy</code></td>
+<td>Usually float64</td>
+<td>Core installation</td>
+<td>Vectorized SymPy-generated NumPy callable</td>
 </tr>
 <tr>
-<td><code>"c"</code></td>
-<td><code>float64</code></td>
-<td>Full <code>np.broadcast_arrays</code></td>
-<td>Disk-cached <code>.so</code> / <code>.dll</code> / <code>.dylib</code> under <code>~/.neurogebra/cache/c_jit</code> keyed by SHA-256 of source &amp; ISA flags</td>
+<td><code>c</code></td>
+<td>float64</td>
+<td>GCC/Clang toolchain, writable cache</td>
+<td>Portable native kernel, NumPy broadcasting, disk cache</td>
 </tr>
 <tr>
-<td><code>"cuda"</code></td>
-<td><code>float32</code></td>
-<td>Full <code>np.broadcast_arrays</code></td>
-<td>NVRTC PTX compiled to CUDA module with automatic <code>cuMemAlloc</code> / <code>cuMemFree</code> cleanup</td>
+<td><code>cuda</code></td>
+<td>float32</td>
+<td>NVIDIA device/driver, NVRTC, compatible CUDA Python bindings</td>
+<td>NVRTC compilation and device launch; host arrays copied for each call</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="direct-low-level-jit-functions-compile_c-compile_cuda">Direct Low-Level JIT Functions (<code>compile_c</code> &amp; <code>compile_cuda</code>)<a class="headerlink" href="#direct-low-level-jit-functions-compile_c-compile_cuda" title="Permanent link">&para;</a></h2>
-<p>For raw string expressions or SymPy graphs outside <code>Expression</code>, use the direct compiler functions:</p>
-<h3 id="c-jit-compiler">C-JIT Compiler<a class="headerlink" href="#c-jit-compiler" title="Permanent link">&para;</a></h3>
+<p>3.0 uses the compiler's portable CPU target. A compiler accepting <code>-mavx2</code> does not establish that a CPU can execute AVX2; the previous forced flag was unsafe on older x86 machines. Compiler identity is now included in the C cache key.</p>
+<p>The <code>fast</code> extra installs Numba but does not select a Numba backend. MSVC is not detected by the current compiler search, which looks for <code>clang++</code>, <code>g++</code>, <code>gcc</code> and <code>clang</code>.</p>
+<h2 id="low-level-functions">Low-level functions<a class="headerlink" href="#low-level-functions" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.acceleration</span><span class="w"> </span><span class="kn">import</span> <span class="n">compile_c</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.acceleration</span><span class="w"> </span><span class="kn">import</span> <span class="n">compile_c</span><span class="p">,</span> <span class="n">is_c_available</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Compile a multi-variable formula with symbol mangling safety (variables like 'i' or 'n' are safe)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">energy_fn</span> <span class="o">=</span> <span class="n">compile_c</span><span class="p">(</span><span class="s2">"0.5 * m * v**2"</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"m"</span><span class="p">,</span> <span class="s2">"v"</span><span class="p">],</span> <span class="n">opt_level</span><span class="o">=</span><span class="s2">"-O3"</span><span class="p">)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">masses</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">velocities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">energy_fn</span><span class="p">(</span><span class="n">masses</span><span class="p">,</span> <span class="n">velocities</span><span class="p">))</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">if</span> <span class="n">is_c_available</span><span class="p">():</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">fn</span> <span class="o">=</span> <span class="n">compile_c</span><span class="p">(</span><span class="s2">"x*x + y"</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">],</span> <span class="n">opt_level</span><span class="o">=</span><span class="s2">"-O3"</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">out</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]),</span> <span class="mf">3.0</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
 </span></code></pre></div>
-<h3 id="cuda-nvrtc-kernel-compiler">CUDA NVRTC Kernel Compiler<a class="headerlink" href="#cuda-nvrtc-kernel-compiler" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.acceleration</span><span class="w"> </span><span class="kn">import</span> <span class="n">compile_cuda</span><span class="p">,</span> <span class="n">is_cuda_available</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">if</span> <span class="n">is_cuda_available</span><span class="p">():</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">compile_cuda</span><span class="p">(</span><span class="s2">"exp(-x**2 - y**2) * cos(x * y)"</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"x"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">])</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">out</span> <span class="o">=</span> <span class="n">kernel_fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">fn</span> <span class="o">=</span> <span class="n">compile_cuda</span><span class="p">(</span><span class="s2">"x*x + 1"</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s2">"x"</span><span class="p">])</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">out</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
 </span></code></pre></div>
-<hr />
-<h2 id="installation-system-prerequisites">Installation &amp; System Prerequisites<a class="headerlink" href="#installation-system-prerequisites" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>C-JIT CPU</strong>: Any standard host toolchain (<code>gcc</code>, <code>g++</code>, <code>clang</code>, or <code>clang++</code>) visible on <code>PATH</code>. On x86-64 hosts, NeuroGebra compiles with <code>-O3 -mavx2</code> and automatically falls back to baseline CPU optimization flags if an instruction set is unavailable.</li>
-<li><strong>CUDA-JIT GPU</strong>: Install CUDA Python bindings and NVIDIA driver runtime (<code>pip install "neurogebra[cuda]"</code>). Target architecture defaults automatically to your active GPU's compute capability.</li>
-</ul>
+<p>Supported C optimization arguments are <code>-O0</code>, <code>-O1</code>, <code>-O2</code>, <code>-O3</code> and <code>-Os</code>. Variables must be unique and cover all free symbols. Unsupported symbolic constructs can fail at code generation or compilation; use the NumPy backend where appropriate.</p>
+<h2 id="cache-and-deployment">Cache and deployment<a class="headerlink" href="#cache-and-deployment" title="Permanent link">&para;</a></h2>
+<p>C artifacts are stored under <code>~/.neurogebra/cache/c_jit</code> by default. Set <code>NEUROGEBRA_CACHE_DIR</code> to use another root; artifacts use its <code>c_jit</code> subdirectory. Treat compiled artifacts as local build products rather than portable wheels. Avoid concurrent processes building the same cold cache entry; atomic multi-process cache coordination is a future improvement.</p>
+<p>CUDA context/module lifetime and broader driver-version coverage need further validation. Run native tests on the target hardware before deploying an accelerated workload.</p>
+<h2 id="benchmark-responsibly">Benchmark responsibly<a class="headerlink" href="#benchmark-responsibly" title="Permanent link">&para;</a></h2>
+<p>Historical kernel speedup figures are workload-specific and are not a validated 3.0 end-to-end training comparison. Use the <a href="../../advanced/performance/">performance guide</a> to reproduce timings with matched precision, input size, compilation, transfer boundaries and output tolerances.</p>
 
 
 
@@ -3499,7 +3652,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Acceleration, Optimization &amp;amp; Scientific ML">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Science and speed">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3509,7 +3662,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Acceleration, Optimization &amp; Scientific ML
+                Science and speed
               </div>
             </div>
           </a>
@@ -3594,6 +3747,8 @@
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

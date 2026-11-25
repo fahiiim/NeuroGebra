@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>neurogebra.logging & training - NeuroGebra Documentation</title>
+        <title>neurogebra.logging & training - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -89,6 +83,17 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -278,7 +283,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -300,7 +305,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -322,7 +327,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../releases/" class="md-tabs__link">
+        <a href="../../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -1030,7 +1035,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1052,7 +1057,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -1938,7 +1943,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -1960,7 +1965,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2237,7 +2242,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2253,7 +2258,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2273,7 +2278,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2629,6 +2634,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2691,7 +2702,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -3834,6 +3901,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3851,7 +3946,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3878,7 +3985,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3888,6 +3995,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3895,12 +4007,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -12461,7 +12741,11 @@ interactive HTML file with Chart.js visualisations.</p>
 <span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-413">413</a></span>
 <span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-414">414</a></span>
 <span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-415">415</a></span>
-<span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-416">416</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-15"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-15" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-15"></a><span class="k">class</span><span class="w"> </span><span class="nc">EducationalTrainer</span><span class="p">:</span>
+<span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-416">416</a></span>
+<span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-417">417</a></span>
+<span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-418">418</a></span>
+<span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-419">419</a></span>
+<span class="normal"><a href="#neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-420">420</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-15"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-15" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-15"></a><span class="k">class</span><span class="w"> </span><span class="nc">EducationalTrainer</span><span class="p">:</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-16"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-16" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-16"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-17"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-17" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-17"></a><span class="sd">    Trainer that explains what's happening during training.</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-18"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-18" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-18"></a>
@@ -12680,189 +12964,193 @@ interactive HTML file with Chart.js visualisations.</p>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-231"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-231" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-231"></a>                    <span class="n">t_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_global_step</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-232"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-232" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-232"></a>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-233"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-233" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-233"></a>                <span class="n">preds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_real_forward</span><span class="p">(</span><span class="n">X_batch</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-234"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-234" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-234"></a>                <span class="n">loss</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_loss</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">loss_name</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-235"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-235" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-235"></a>                <span class="n">acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_accuracy</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-236"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-236" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-236"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-237"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-237" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-237"></a>                <span class="n">batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-238"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-238" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-238"></a>                <span class="n">batch_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-239"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-239" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-239"></a>                <span class="n">batch_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_batch</span><span class="p">))</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-240"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-240" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-240"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-241"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-241" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-241"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_real_backward</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-242"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-242" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-242"></a>                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_update_params"</span><span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-243"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-243" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-243"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_update_params</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t_val</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-244"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-244" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-244"></a>                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"layers"</span><span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-245"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-245" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-245"></a>                    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-246"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-246" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-246"></a>                        <span class="n">layer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-247"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-247" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-247"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-248"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-248" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-248"></a>            <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">batch_sizes</span><span class="p">)</span> <span class="k">if</span> <span class="n">batch_sizes</span> <span class="k">else</span> <span class="mi">1</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-249"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-249" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-249"></a>            <span class="n">avg_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-250"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-250" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-250"></a>                <span class="nb">sum</span><span class="p">(</span><span class="n">l</span> <span class="o">*</span> <span class="n">s</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch_losses</span><span class="p">,</span> <span class="n">batch_sizes</span><span class="p">))</span> <span class="o">/</span> <span class="n">total_samples</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-251"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-251" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-251"></a>            <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-252"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-252" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-252"></a>            <span class="n">avg_acc</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-253"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-253" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-253"></a>                <span class="nb">float</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-254"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-254" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-254"></a>                    <span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">s</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch_accs</span><span class="p">,</span> <span class="n">batch_sizes</span><span class="p">))</span> <span class="o">/</span> <span class="n">total_samples</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-255"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-255" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-255"></a>                <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-256"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-256" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-256"></a>                <span class="k">if</span> <span class="n">batch_accs</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-257"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-257" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-257"></a>                <span class="k">else</span> <span class="mf">0.0</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-258"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-258" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-258"></a>            <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-259"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-259" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-259"></a>            <span class="k">return</span> <span class="n">avg_loss</span><span class="p">,</span> <span class="n">avg_acc</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-260"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-260" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-260"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-261"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-261" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-261"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-262"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-262" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-262"></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-263"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-263" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-263"></a>                <span class="s2">"Model does not implement required '_real_forward' and '_compute_loss' methods. "</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-264"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-264" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-264"></a>                <span class="s2">"For simulated educational demonstrations on mock/stub objects, pass simulate=True."</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-265"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-265" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-265"></a>            <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-266"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-266" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-266"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-267"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-267" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-267"></a>        <span class="c1"># Explicitly marked simulated demonstration fallback</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-268"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-268" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-268"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"is_simulated"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-269"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-269" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-269"></a>        <span class="n">n_batches</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_samples</span> <span class="o">+</span> <span class="n">batch_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">batch_size</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-270"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-270" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-270"></a>        <span class="k">for</span> <span class="n">_batch_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_batches</span><span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-271"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-271" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-271"></a>            <span class="n">base_loss</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">epoch</span> <span class="o">*</span> <span class="mf">0.15</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.05</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-272"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-272" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-272"></a>            <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-273"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-273" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-273"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">base_loss</span> <span class="o">+</span> <span class="n">noise</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-274"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-274" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-274"></a>            <span class="n">batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-275"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-275" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-275"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-276"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-276" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-276"></a>        <span class="n">avg_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">batch_losses</span><span class="p">))</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-277"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-277" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-277"></a>        <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mf">0.98</span><span class="p">,</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">avg_loss</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.55</span><span class="p">))</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-278"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-278" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-278"></a>        <span class="k">return</span> <span class="n">avg_loss</span><span class="p">,</span> <span class="n">accuracy</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-279"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-279" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-279"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-280"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-280" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-280"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_val</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_val</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-281"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-281" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-281"></a><span class="w">        </span><span class="sd">"""</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-282"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-282" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-282"></a><span class="sd">        Run validation.</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-283"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-283" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-283"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-284"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-284" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-284"></a><span class="sd">        Returns:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-285"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-285" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-285"></a><span class="sd">            (val_loss, val_accuracy)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-286"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-286" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-286"></a><span class="sd">        """</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-287"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-287" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-287"></a>        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_real_forward"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-288"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-288" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-288"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_compute_loss"</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-289"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-289" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-289"></a>        <span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-290"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-290" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-290"></a>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-291"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-291" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-291"></a>                <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-292"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-292" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-292"></a>            <span class="n">loss_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"loss_name"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">"mse"</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-293"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-293" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-293"></a>            <span class="n">val_preds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_real_forward</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-294"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-294" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-294"></a>            <span class="n">val_loss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_loss</span><span class="p">(</span><span class="n">val_preds</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">loss_name</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-295"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-295" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-295"></a>            <span class="n">val_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_accuracy</span><span class="p">(</span><span class="n">val_preds</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-296"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-296" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-296"></a>            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">val_loss</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-297"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-297" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-297"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-298"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-298" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-298"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-299"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-299" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-299"></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-300"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-300" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-300"></a>                <span class="s2">"Model does not implement required '_real_forward' and '_compute_loss' methods. "</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-301"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-301" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-301"></a>                <span class="s2">"For simulated educational demonstrations on mock/stub objects, pass simulate=True."</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-302"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-302" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-302"></a>            <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-234"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-234" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-234"></a>                <span class="n">compute_loss</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-235"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-235" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-235"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_loss_and_gradient"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_loss</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-236"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-236" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-236"></a>                <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-237"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-237" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-237"></a>                <span class="n">loss</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="n">compute_loss</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">loss_name</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-238"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-238" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-238"></a>                <span class="n">acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_accuracy</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-239"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-239" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-239"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-240"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-240" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-240"></a>                <span class="n">batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-241"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-241" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-241"></a>                <span class="n">batch_accs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-242"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-242" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-242"></a>                <span class="n">batch_sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_batch</span><span class="p">))</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-243"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-243" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-243"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-244"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-244" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-244"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_real_backward</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-245"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-245" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-245"></a>                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_update_params"</span><span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-246"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-246" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-246"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_update_params</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t_val</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-247"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-247" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-247"></a>                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"layers"</span><span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-248"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-248" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-248"></a>                    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-249"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-249" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-249"></a>                        <span class="n">layer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-250"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-250" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-250"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-251"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-251" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-251"></a>            <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">batch_sizes</span><span class="p">)</span> <span class="k">if</span> <span class="n">batch_sizes</span> <span class="k">else</span> <span class="mi">1</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-252"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-252" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-252"></a>            <span class="n">avg_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-253"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-253" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-253"></a>                <span class="nb">sum</span><span class="p">(</span><span class="n">l</span> <span class="o">*</span> <span class="n">s</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch_losses</span><span class="p">,</span> <span class="n">batch_sizes</span><span class="p">))</span> <span class="o">/</span> <span class="n">total_samples</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-254"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-254" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-254"></a>            <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-255"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-255" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-255"></a>            <span class="n">avg_acc</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-256"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-256" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-256"></a>                <span class="nb">float</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-257"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-257" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-257"></a>                    <span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">s</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch_accs</span><span class="p">,</span> <span class="n">batch_sizes</span><span class="p">))</span> <span class="o">/</span> <span class="n">total_samples</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-258"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-258" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-258"></a>                <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-259"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-259" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-259"></a>                <span class="k">if</span> <span class="n">batch_accs</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-260"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-260" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-260"></a>                <span class="k">else</span> <span class="mf">0.0</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-261"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-261" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-261"></a>            <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-262"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-262" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-262"></a>            <span class="k">return</span> <span class="n">avg_loss</span><span class="p">,</span> <span class="n">avg_acc</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-263"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-263" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-263"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-264"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-264" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-264"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-265"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-265" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-265"></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-266"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-266" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-266"></a>                <span class="s2">"Model does not implement required '_real_forward' and '_compute_loss' methods. "</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-267"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-267" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-267"></a>                <span class="s2">"For simulated educational demonstrations on mock/stub objects, pass simulate=True."</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-268"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-268" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-268"></a>            <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-269"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-269" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-269"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-270"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-270" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-270"></a>        <span class="c1"># Explicitly marked simulated demonstration fallback</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-271"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-271" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-271"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"is_simulated"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-272"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-272" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-272"></a>        <span class="n">n_batches</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n_samples</span> <span class="o">+</span> <span class="n">batch_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">batch_size</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-273"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-273" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-273"></a>        <span class="k">for</span> <span class="n">_batch_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_batches</span><span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-274"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-274" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-274"></a>            <span class="n">base_loss</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">epoch</span> <span class="o">*</span> <span class="mf">0.15</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.05</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-275"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-275" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-275"></a>            <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-276"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-276" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-276"></a>            <span class="n">loss</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">base_loss</span> <span class="o">+</span> <span class="n">noise</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-277"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-277" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-277"></a>            <span class="n">batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-278"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-278" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-278"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-279"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-279" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-279"></a>        <span class="n">avg_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">batch_losses</span><span class="p">))</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-280"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-280" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-280"></a>        <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mf">0.98</span><span class="p">,</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">avg_loss</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.55</span><span class="p">))</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-281"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-281" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-281"></a>        <span class="k">return</span> <span class="n">avg_loss</span><span class="p">,</span> <span class="n">accuracy</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-282"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-282" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-282"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-283"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-283" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-283"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_val</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_val</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-284"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-284" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-284"></a><span class="w">        </span><span class="sd">"""</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-285"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-285" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-285"></a><span class="sd">        Run validation.</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-286"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-286" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-286"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-287"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-287" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-287"></a><span class="sd">        Returns:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-288"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-288" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-288"></a><span class="sd">            (val_loss, val_accuracy)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-289"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-289" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-289"></a><span class="sd">        """</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-290"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-290" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-290"></a>        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_real_forward"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-291"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-291" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-291"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_compute_loss"</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-292"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-292" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-292"></a>        <span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-293"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-293" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-293"></a>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-294"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-294" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-294"></a>                <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-295"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-295" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-295"></a>            <span class="n">loss_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"loss_name"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">"mse"</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-296"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-296" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-296"></a>            <span class="n">val_preds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_real_forward</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-297"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-297" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-297"></a>            <span class="n">compute_loss</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-298"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-298" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-298"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">"_loss_and_gradient"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_loss</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-299"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-299" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-299"></a>            <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-300"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-300" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-300"></a>            <span class="n">val_loss</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">compute_loss</span><span class="p">(</span><span class="n">val_preds</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">loss_name</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-301"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-301" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-301"></a>            <span class="n">val_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_compute_accuracy</span><span class="p">(</span><span class="n">val_preds</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-302"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-302" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-302"></a>            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">val_loss</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-303"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-303" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-303"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-304"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-304" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-304"></a>        <span class="c1"># Fallback for standalone/mocked model objects with simulate=True</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-305"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-305" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-305"></a>        <span class="n">base_loss</span> <span class="o">=</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">epoch</span> <span class="o">*</span> <span class="mf">0.12</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.08</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-306"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-306" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-306"></a>        <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-307"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-307" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-307"></a>        <span class="n">val_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">base_loss</span> <span class="o">+</span> <span class="n">noise</span><span class="p">))</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-308"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-308" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-308"></a>        <span class="n">val_acc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mf">0.96</span><span class="p">,</span> <span class="mf">0.35</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">val_loss</span> <span class="o">/</span> <span class="mf">2.2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.55</span><span class="p">))</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-304"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-304" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-304"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-305"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-305" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-305"></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-306"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-306" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-306"></a>                <span class="s2">"Model does not implement required '_real_forward' and '_compute_loss' methods. "</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-307"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-307" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-307"></a>                <span class="s2">"For simulated educational demonstrations on mock/stub objects, pass simulate=True."</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-308"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-308" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-308"></a>            <span class="p">)</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-309"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-309" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-309"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-310"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-310" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-310"></a>        <span class="k">return</span> <span class="n">val_loss</span><span class="p">,</span> <span class="n">val_acc</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-311"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-311" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-311"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-312"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-312" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-312"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_print_epoch_progress</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-313"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-313" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-313"></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-314"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-314" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-314"></a>        <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-315"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-315" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-315"></a>        <span class="n">total_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-316"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-316" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-316"></a>        <span class="n">train_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-317"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-317" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-317"></a>        <span class="n">train_acc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-318"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-318" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-318"></a>        <span class="n">val_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-319"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-319" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-319"></a>        <span class="n">val_acc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-320"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-320" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-320"></a>        <span class="n">epoch_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-321"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-321" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-321"></a>    <span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-322"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-322" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-322"></a><span class="w">        </span><span class="sd">"""Print formatted epoch progress bar."""</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-323"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-323" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-323"></a>        <span class="n">progress</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_epochs</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-324"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-324" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-324"></a>        <span class="n">bar_length</span> <span class="o">=</span> <span class="mi">30</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-325"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-325" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-325"></a>        <span class="n">filled</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bar_length</span> <span class="o">*</span> <span class="n">progress</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-326"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-326" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-326"></a>        <span class="n">bar</span> <span class="o">=</span> <span class="s2">"█"</span> <span class="o">*</span> <span class="n">filled</span> <span class="o">+</span> <span class="s2">"░"</span> <span class="o">*</span> <span class="p">(</span><span class="n">bar_length</span> <span class="o">-</span> <span class="n">filled</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-327"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-327" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-327"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-328"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-328" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-328"></a>        <span class="nb">print</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-329"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-329" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-329"></a>            <span class="sa">f</span><span class="s2">"  Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">total_epochs</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">bar</span><span class="si">}</span><span class="s2"> "</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-330"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-330" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-330"></a>            <span class="sa">f</span><span class="s2">"loss: </span><span class="si">{</span><span class="n">train_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - acc: </span><span class="si">{</span><span class="n">train_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - "</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-331"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-331" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-331"></a>            <span class="sa">f</span><span class="s2">"val_loss: </span><span class="si">{</span><span class="n">val_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - val_acc: </span><span class="si">{</span><span class="n">val_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - "</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-332"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-332" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-332"></a>            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">epoch_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s"</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-333"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-333" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-333"></a>        <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-334"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-334" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-334"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-335"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-335" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-335"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_check_training_health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-336"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-336" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-336"></a><span class="w">        </span><span class="sd">"""Check for training issues and provide educational tips."""</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-337"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-337" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-337"></a>        <span class="k">if</span> <span class="n">epoch</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-338"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-338" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-338"></a>            <span class="k">return</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-339"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-339" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-339"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-340"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-340" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-340"></a>        <span class="c1"># Check for overfitting</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-341"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-341" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-341"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-342"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-342" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-342"></a>            <span class="n">recent_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-343"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-343" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-343"></a>            <span class="n">recent_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_loss"</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-344"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-344" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-344"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-345"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-345" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-345"></a>            <span class="k">if</span> <span class="n">recent_val</span> <span class="o">&gt;</span> <span class="n">recent_train</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-346"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-346" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-346"></a>                <span class="nb">print</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-347"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-347" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-347"></a>                    <span class="s2">"</span><span class="se">\n</span><span class="s2">  Warning: Validation loss is much higher than training loss"</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-348"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-348" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-348"></a>                <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-349"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-349" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-349"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">"     This might indicate OVERFITTING"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-350"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-350" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-350"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">"      Try: Add dropout, reduce model size, or get more data</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-351"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-351" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-351"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-352"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-352" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-352"></a>        <span class="c1"># Check for high loss</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-353"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-353" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-353"></a>        <span class="k">if</span> <span class="n">train_loss</span> <span class="o">&gt;</span> <span class="mf">2.0</span> <span class="ow">and</span> <span class="n">epoch</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-354"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-354" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-354"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">  [WARNING]  Loss is still high after many epochs"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-355"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-355" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-355"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"      Try: Decrease learning rate or check your data</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-356"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-356" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-356"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-357"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-357" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-357"></a>        <span class="c1"># Congratulate on good progress</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-358"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-358" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-358"></a>        <span class="k">if</span> <span class="n">train_loss</span> <span class="o">&lt;</span> <span class="mf">0.3</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_congratulated</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-359"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-359" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-359"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">   Great! Your model is learning well!"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-360"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-360" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-360"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"     Loss is decreasing nicely</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-361"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-361" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-361"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_congratulated</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-362"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-362" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-362"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-363"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-363" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-363"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_update_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-364"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-364" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-364"></a><span class="w">        </span><span class="sd">"""Update live training plots."""</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-365"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-365" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-365"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualize</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-366"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-366" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-366"></a>            <span class="k">return</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-367"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-367" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-367"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-368"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-368" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-368"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-369"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-369" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-369"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-370"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-370" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-370"></a>        <span class="n">ax_loss</span><span class="p">,</span> <span class="n">ax_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-310"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-310" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-310"></a>        <span class="c1"># Fallback for standalone/mocked model objects with simulate=True</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-311"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-311" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-311"></a>        <span class="n">base_loss</span> <span class="o">=</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">epoch</span> <span class="o">*</span> <span class="mf">0.12</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.08</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-312"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-312" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-312"></a>        <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-313"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-313" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-313"></a>        <span class="n">val_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">base_loss</span> <span class="o">+</span> <span class="n">noise</span><span class="p">))</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-314"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-314" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-314"></a>        <span class="n">val_acc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mf">0.96</span><span class="p">,</span> <span class="mf">0.35</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">val_loss</span> <span class="o">/</span> <span class="mf">2.2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.55</span><span class="p">))</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-315"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-315" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-315"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-316"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-316" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-316"></a>        <span class="k">return</span> <span class="n">val_loss</span><span class="p">,</span> <span class="n">val_acc</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-317"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-317" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-317"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-318"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-318" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-318"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_print_epoch_progress</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-319"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-319" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-319"></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-320"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-320" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-320"></a>        <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-321"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-321" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-321"></a>        <span class="n">total_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-322"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-322" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-322"></a>        <span class="n">train_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-323"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-323" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-323"></a>        <span class="n">train_acc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-324"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-324" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-324"></a>        <span class="n">val_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-325"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-325" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-325"></a>        <span class="n">val_acc</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-326"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-326" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-326"></a>        <span class="n">epoch_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-327"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-327" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-327"></a>    <span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-328"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-328" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-328"></a><span class="w">        </span><span class="sd">"""Print formatted epoch progress bar."""</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-329"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-329" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-329"></a>        <span class="n">progress</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">total_epochs</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-330"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-330" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-330"></a>        <span class="n">bar_length</span> <span class="o">=</span> <span class="mi">30</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-331"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-331" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-331"></a>        <span class="n">filled</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bar_length</span> <span class="o">*</span> <span class="n">progress</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-332"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-332" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-332"></a>        <span class="n">bar</span> <span class="o">=</span> <span class="s2">"█"</span> <span class="o">*</span> <span class="n">filled</span> <span class="o">+</span> <span class="s2">"░"</span> <span class="o">*</span> <span class="p">(</span><span class="n">bar_length</span> <span class="o">-</span> <span class="n">filled</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-333"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-333" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-333"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-334"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-334" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-334"></a>        <span class="nb">print</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-335"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-335" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-335"></a>            <span class="sa">f</span><span class="s2">"  Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">total_epochs</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">bar</span><span class="si">}</span><span class="s2"> "</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-336"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-336" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-336"></a>            <span class="sa">f</span><span class="s2">"loss: </span><span class="si">{</span><span class="n">train_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - acc: </span><span class="si">{</span><span class="n">train_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - "</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-337"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-337" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-337"></a>            <span class="sa">f</span><span class="s2">"val_loss: </span><span class="si">{</span><span class="n">val_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - val_acc: </span><span class="si">{</span><span class="n">val_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> - "</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-338"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-338" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-338"></a>            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">epoch_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s"</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-339"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-339" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-339"></a>        <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-340"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-340" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-340"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-341"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-341" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-341"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_check_training_health</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-342"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-342" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-342"></a><span class="w">        </span><span class="sd">"""Check for training issues and provide educational tips."""</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-343"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-343" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-343"></a>        <span class="k">if</span> <span class="n">epoch</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-344"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-344" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-344"></a>            <span class="k">return</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-345"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-345" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-345"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-346"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-346" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-346"></a>        <span class="c1"># Check for overfitting</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-347"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-347" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-347"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-348"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-348" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-348"></a>            <span class="n">recent_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-349"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-349" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-349"></a>            <span class="n">recent_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_loss"</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-350"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-350" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-350"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-351"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-351" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-351"></a>            <span class="k">if</span> <span class="n">recent_val</span> <span class="o">&gt;</span> <span class="n">recent_train</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-352"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-352" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-352"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">  Warning: Validation loss is much higher than training loss"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-353"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-353" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-353"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">"     This might indicate OVERFITTING"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-354"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-354" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-354"></a>                <span class="nb">print</span><span class="p">(</span><span class="s2">"      Try: Add dropout, reduce model size, or get more data</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-355"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-355" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-355"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-356"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-356" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-356"></a>        <span class="c1"># Check for high loss</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-357"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-357" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-357"></a>        <span class="k">if</span> <span class="n">train_loss</span> <span class="o">&gt;</span> <span class="mf">2.0</span> <span class="ow">and</span> <span class="n">epoch</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-358"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-358" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-358"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">  [WARNING]  Loss is still high after many epochs"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-359"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-359" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-359"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"      Try: Decrease learning rate or check your data</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-360"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-360" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-360"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-361"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-361" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-361"></a>        <span class="c1"># Congratulate on good progress</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-362"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-362" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-362"></a>        <span class="k">if</span> <span class="n">train_loss</span> <span class="o">&lt;</span> <span class="mf">0.3</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_congratulated</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-363"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-363" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-363"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">   Great! Your model is learning well!"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-364"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-364" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-364"></a>            <span class="nb">print</span><span class="p">(</span><span class="s2">"     Loss is decreasing nicely</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-365"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-365" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-365"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_congratulated</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-366"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-366" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-366"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-367"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-367" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-367"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_update_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-368"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-368" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-368"></a><span class="w">        </span><span class="sd">"""Update live training plots."""</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-369"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-369" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-369"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualize</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-370"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-370" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-370"></a>            <span class="k">return</span>
 </span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-371"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-371" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-371"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-372"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-372" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-372"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-373"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-373" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-373"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-374"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-374" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-374"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-375"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-375" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-375"></a>        <span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-376"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-376" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-376"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-377"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-377" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-377"></a>        <span class="c1"># Loss plot</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-378"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-378" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-378"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">],</span> <span class="s2">"b-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Training Loss"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-379"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-379" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-379"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_loss"</span><span class="p">],</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Validation Loss"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-380"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-380" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-380"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Epoch"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-381"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-381" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-381"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Loss"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-382"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-382" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-382"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Training Progress"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-383"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-383" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-383"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-384"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-384" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-384"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-385"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-385" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-385"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-386"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-386" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-386"></a>        <span class="c1"># Accuracy plot</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-387"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-387" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-387"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-388"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-388" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-388"></a>            <span class="n">epochs</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-389"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-389" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-389"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">],</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-390"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-390" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-390"></a>            <span class="s2">"b-"</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-391"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-391" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-391"></a>            <span class="n">label</span><span class="o">=</span><span class="s2">"Training Accuracy"</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-392"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-392" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-392"></a>        <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-393"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-393" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-393"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-394"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-394" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-394"></a>            <span class="n">epochs</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-395"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-395" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-395"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_accuracy"</span><span class="p">],</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-396"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-396" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-396"></a>            <span class="s2">"r-"</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-397"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-397" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-397"></a>            <span class="n">label</span><span class="o">=</span><span class="s2">"Validation Accuracy"</span><span class="p">,</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-398"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-398" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-398"></a>        <span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-399"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-399" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-399"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Epoch"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-400"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-400" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-400"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Accuracy"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-401"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-401" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-401"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Model Accuracy"</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-402"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-402" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-402"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-403"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-403" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-403"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-404"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-404" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-404"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-405"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-405" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-405"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-406"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-406" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-406"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-407"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-407" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-407"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-408"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-408" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-408"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_finalize_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-409"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-409" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-409"></a><span class="w">        </span><span class="sd">"""Finalize and show the training plot."""</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-410"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-410" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-410"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualize</span><span class="p">:</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-411"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-411" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-411"></a>            <span class="k">return</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-412"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-412" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-412"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-413"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-413" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-413"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-414"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-414" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-414"></a>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-415"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-415" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-415"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
-</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-416"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-416" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-416"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-372"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-372" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-372"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-373"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-373" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-373"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-374"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-374" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-374"></a>        <span class="n">ax_loss</span><span class="p">,</span> <span class="n">ax_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-375"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-375" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-375"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-376"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-376" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-376"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-377"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-377" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-377"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-378"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-378" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-378"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-379"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-379" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-379"></a>        <span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-380"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-380" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-380"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-381"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-381" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-381"></a>        <span class="c1"># Loss plot</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-382"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-382" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-382"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">],</span> <span class="s2">"b-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Training Loss"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-383"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-383" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-383"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_loss"</span><span class="p">],</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Validation Loss"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-384"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-384" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-384"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Epoch"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-385"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-385" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-385"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Loss"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-386"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-386" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-386"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Training Progress"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-387"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-387" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-387"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-388"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-388" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-388"></a>        <span class="n">ax_loss</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-389"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-389" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-389"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-390"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-390" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-390"></a>        <span class="c1"># Accuracy plot</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-391"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-391" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-391"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-392"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-392" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-392"></a>            <span class="n">epochs</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-393"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-393" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-393"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">],</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-394"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-394" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-394"></a>            <span class="s2">"b-"</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-395"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-395" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-395"></a>            <span class="n">label</span><span class="o">=</span><span class="s2">"Training Accuracy"</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-396"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-396" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-396"></a>        <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-397"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-397" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-397"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-398"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-398" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-398"></a>            <span class="n">epochs</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-399"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-399" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-399"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_accuracy"</span><span class="p">],</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-400"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-400" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-400"></a>            <span class="s2">"r-"</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-401"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-401" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-401"></a>            <span class="n">label</span><span class="o">=</span><span class="s2">"Validation Accuracy"</span><span class="p">,</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-402"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-402" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-402"></a>        <span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-403"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-403" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-403"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Epoch"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-404"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-404" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-404"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Accuracy"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-405"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-405" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-405"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Model Accuracy"</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-406"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-406" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-406"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-407"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-407" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-407"></a>        <span class="n">ax_acc</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-408"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-408" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-408"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-409"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-409" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-409"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-410"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-410" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-410"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-411"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-411" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-411"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-412"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-412" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-412"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_finalize_visualization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-413"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-413" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-413"></a><span class="w">        </span><span class="sd">"""Finalize and show the training plot."""</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-414"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-414" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-414"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualize</span><span class="p">:</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-415"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-415" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-415"></a>            <span class="k">return</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-416"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-416" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-416"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-417"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-417" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-417"></a>        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-418"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-418" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-418"></a>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-419"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-419" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-419"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+</span><span id="neurogebra.training.educational_trainer.EducationalTrainer--source--__span-0-420"><a id="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-420" name="neurogebra.training.educational_trainer.EducationalTrainer--source--__codelineno-0-420"></a>        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></code></pre></div></td></tr></table></div>
               </details>
 
@@ -13545,6 +13833,8 @@ interactive HTML file with Chart.js visualisations.</p>
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

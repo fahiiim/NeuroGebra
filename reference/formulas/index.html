@@ -1,0 +1,5324 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
+      
+      
+      
+        <link rel="canonical" href="https://neurogebra.readthedocs.io/reference/formulas/">
+      
+      
+        <link rel="prev" href="../../api/reference/">
+      
+      
+        <link rel="next" href="../datasets/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Formula Catalog - NeuroGebra</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#formula-catalog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
+      
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NeuroGebra
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Formula Catalog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fahiiim/NeuroGebra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fahiiim/NeuroGebra
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Get Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Learn
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../science/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Science & Speed
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/project_notebooks/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../api/reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../project/capabilities/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
+      
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
+
+    </a>
+    NeuroGebra
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fahiiim/NeuroGebra" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fahiiim/NeuroGebra
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Get Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Get Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start (5-Min Tour)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    All-in-One Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/how-it-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python & NumPy Refresher
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Python & NumPy Refresher
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-refresher/basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Basics Recap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-refresher/numpy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NumPy Essentials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-refresher/data-handling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Handling with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_7" id="__nav_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ML Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ML Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-fundamentals/what-is-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is Machine Learning?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-fundamentals/types-of-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types of ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-fundamentals/ml-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The ML Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ml-fundamentals/math-behind-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math Behind ML
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorials/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learn
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learn
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Tracks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Learning Tracks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/beginner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beginner Track
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/intermediate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intermediate Track
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Track
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Symbolic Engine & MathForge
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Symbolic Engine & MathForge
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/mathforge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MathForge (285 Formulas)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions & LaTeX Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/activations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Activation Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/losses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Loss Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/gradients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gradients & Calculus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/composition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expression Composition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trainable Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/neurocraft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeuroCraft Interactive Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autograd & Neural Networks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Autograd & Neural Networks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/autograd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autograd Engine (Value)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/tensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Differentiable Tensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/model-builder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ModelBuilder & Modern Layers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Built-in Datasets (48 Loaders)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Observatory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Training Observatory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/training-observatory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Observatory Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/observatory-deep-dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observatory Architecture & Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/observatory-pro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observatory Pro Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/visualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visualization & Plotting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../science/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Science & Speed
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Science & Speed
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../science/acceleration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Acceleration (C-JIT & CUDA GPU)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../science/pinn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics-Informed Neural Networks (PINN)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/optimization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimizers & LR Schedulers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../science/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation Metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/regularization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regularization Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/framework-bridges/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Framework Bridges (PyTorch / TF / JAX)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/custom-expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/project_notebooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    20 Project Notebooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NeuroGebra vs PyTorch Comparisons
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NeuroGebra vs PyTorch Comparisons
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/project1-linear-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 1: Linear Regression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/project2-image-classifier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 2: Image Classifier
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projects/project3-neural-network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project 3: Neural Network from Scratch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cookbook Recipes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cookbook Recipes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom_activation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Activation Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/custom_loss/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom Loss Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/training_expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#activations-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activations (15)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#losses-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Losses (8)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regularizers-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularizers (20)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algebra-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algebra (48)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calculus-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calculus (48)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistics-35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics (35)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-algebra-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear algebra (24)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization (27)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics (27)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transforms-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transforms (33)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/builders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.builders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/acceleration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.acceleration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/science/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.science
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/optim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.optim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.metrics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/logging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.logging & training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/bridges-datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.bridges & datasets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/repository/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    neurogebra.repository & viz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../releases/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#activations-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activations (15)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#losses-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Losses (8)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regularizers-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regularizers (20)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algebra-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algebra (48)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calculus-48" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calculus (48)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#statistics-35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistics (35)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-algebra-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linear algebra (24)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimization-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization (27)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics (27)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transforms-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transforms (33)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="formula-catalog">Formula catalog<a class="headerlink" href="#formula-catalog" title="Permanent link">&para;</a></h1>
+<p>Generated from the repository by <code>python scripts/generate_reference.py</code>.</p>
+<p><strong>285 formulas across 10 domains.</strong></p>
+<p>Every name below is available through <code>MathForge().get(name)</code>. Formulas are symbolic building blocks; check their assumptions and input domains before interpreting a result. A symbolic optimization step is separate from a model optimizer, and symbolic metric expressions are separate from the batch evaluation API.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">MathForge</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">expression</span> <span class="o">=</span> <span class="n">MathForge</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"swish"</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">expression</span><span class="o">.</span><span class="n">symbolic_expr</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">expression</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">expression</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span><span class="o">.</span><span class="n">symbolic_expr</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="activations-15">Activations (15)<a class="headerlink" href="#activations-15" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>elu</code></td>
+<td><code>Piecewise((x, x &gt; 0), (alpha*(exp(x) - 1), True))</code></td>
+<td>alpha=1.0</td>
+</tr>
+<tr>
+<td><code>gelu</code></td>
+<td><code>0.5*x*(tanh(sqrt(2)*(0.044715*x**3 + x)/sqrt(pi)) + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>hard_sigmoid</code></td>
+<td><code>Max(0, Min(1, x/6 + 1/2))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>hard_swish</code></td>
+<td><code>x*Max(0, Min(1, x/6 + 1/2))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>leaky_relu</code></td>
+<td><code>Max(x, alpha*x)</code></td>
+<td>alpha=0.01</td>
+</tr>
+<tr>
+<td><code>linear</code></td>
+<td><code>x</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>mish</code></td>
+<td><code>x*tanh(log(exp(x) + 1))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>relu</code></td>
+<td><code>Max(0, x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>selu</code></td>
+<td><code>1.0507009873554805*Piecewise((x, x &gt; 0), (1.6732632423543772*exp(x) - 1.6732632423543772, True))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sigmoid</code></td>
+<td><code>1/(1 + exp(-x))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>softplus</code></td>
+<td><code>log(exp(x) + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>softsign</code></td>
+<td><code>x/(Abs(x) + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>square</code></td>
+<td><code>x**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>swish</code></td>
+<td><code>x/(1 + exp(-x))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>tanh</code></td>
+<td><code>tanh(x)</code></td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="losses-8">Losses (8)<a class="headerlink" href="#losses-8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>binary_crossentropy</code></td>
+<td><code>-y_true*log(y_pred) - (1 - y_true)*log(1 - y_pred)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>hinge</code></td>
+<td><code>Max(0, -y_pred*y_true + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>huber</code></td>
+<td><code>Piecewise((0.5*(y_pred - y_true)**2, delta &gt;= Abs(y_pred - y_true)), (-0.5*delta**2 + delta*Abs(y_pred - y_true), True))</code></td>
+<td>delta=1.0</td>
+</tr>
+<tr>
+<td><code>log_cosh</code></td>
+<td><code>log(cosh(y_pred - y_true))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>mae</code></td>
+<td><code>Abs(y_pred - y_true)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>mse</code></td>
+<td><code>(y_pred - y_true)**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>quantile</code></td>
+<td><code>Piecewise((q*(-y_pred + y_true), y_pred &lt;= y_true), ((1 - q)*(y_pred - y_true), True))</code></td>
+<td>q=0.5</td>
+</tr>
+<tr>
+<td><code>squared_hinge</code></td>
+<td><code>Max(0, -y_pred*y_true + 1)**2</code></td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="regularizers-20">Regularizers (20)<a class="headerlink" href="#regularizers-20" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cauchy_reg</code></td>
+<td><code>lambda_reg*log(1 + w**2/sigma**2)</code></td>
+<td>lambda_reg=0.01, sigma=1.0</td>
+</tr>
+<tr>
+<td><code>confidence_penalty</code></td>
+<td><code>-lambda_reg*p*log(epsilon + p)</code></td>
+<td>lambda_reg=0.1, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>elastic_net</code></td>
+<td><code>alpha*lambda_reg*Abs(w) + lambda_reg*w**2*(1 - alpha)</code></td>
+<td>lambda_reg=0.01, alpha=0.5</td>
+</tr>
+<tr>
+<td><code>entropy_reg</code></td>
+<td><code>-lambda_reg*(p*log(epsilon + p) + (1 - p)*log(epsilon - p + 1))</code></td>
+<td>lambda_reg=0.01, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>gradient_penalty</code></td>
+<td><code>lambda_reg*(grad_norm - 1)**2</code></td>
+<td>lambda_reg=10.0</td>
+</tr>
+<tr>
+<td><code>group_lasso</code></td>
+<td><code>lambda_reg*sqrt(epsilon + w1**2 + w2**2)</code></td>
+<td>lambda_reg=0.01, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>kl_divergence_reg</code></td>
+<td><code>lambda_reg*(p*log((epsilon + p)/(epsilon + q)) + (1 - p)*log((epsilon - p + 1)/(epsilon - q + 1)))</code></td>
+<td>lambda_reg=0.01, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>l1</code></td>
+<td><code>lambda_reg*Abs(w)</code></td>
+<td>lambda_reg=0.01</td>
+</tr>
+<tr>
+<td><code>l1_l2</code></td>
+<td><code>l1_reg*Abs(w) + l2_reg*w**2</code></td>
+<td>l1_reg=0.01, l2_reg=0.01</td>
+</tr>
+<tr>
+<td><code>l2</code></td>
+<td><code>lambda_reg*w**2</code></td>
+<td>lambda_reg=0.01</td>
+</tr>
+<tr>
+<td><code>label_smoothing</code></td>
+<td><code>y*(1 - epsilon_smooth) + epsilon_smooth/K</code></td>
+<td>epsilon_smooth=0.1, K=10</td>
+</tr>
+<tr>
+<td><code>log_barrier</code></td>
+<td><code>-lambda_reg*log(epsilon - w**2 + 1)</code></td>
+<td>lambda_reg=0.01, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>max_norm</code></td>
+<td><code>Max(0, -max_val**2 + w**2)</code></td>
+<td>max_val=3.0</td>
+</tr>
+<tr>
+<td><code>mcp</code></td>
+<td><code>Piecewise((lambda_reg*Abs(w) - w**2/(2*gamma_mcp), Abs(w) &lt;= gamma_mcp*lambda_reg), (gamma_mcp*lambda_reg**2/2, True))</code></td>
+<td>lambda_reg=0.01, gamma_mcp=3.0</td>
+</tr>
+<tr>
+<td><code>orthogonal_reg</code></td>
+<td><code>lambda_reg*w1**2*w2**2</code></td>
+<td>lambda_reg=0.01</td>
+</tr>
+<tr>
+<td><code>scad</code></td>
+<td><code>Piecewise((lambda_reg*Abs(w), lambda_reg &gt;= Abs(w)), ((2*a*lambda_reg*Abs(w) - lambda_reg**2 - w**2)/(2*a - 2), Abs(w) &lt;= a*lambda_reg), (lambda_reg**2*(a + 1)/2, True))</code></td>
+<td>lambda_reg=0.01, a=3.7</td>
+</tr>
+<tr>
+<td><code>sqrt_reg</code></td>
+<td><code>lambda_reg*sqrt(epsilon + w**2)</code></td>
+<td>lambda_reg=0.01, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>tikhonov</code></td>
+<td><code>lambda_reg*(w - w_prior)**2</code></td>
+<td>lambda_reg=0.01, w_prior=0.0</td>
+</tr>
+<tr>
+<td><code>total_variation</code></td>
+<td><code>lambda_reg*Abs(w_i - w_j)</code></td>
+<td>lambda_reg=0.01</td>
+</tr>
+<tr>
+<td><code>weight_decay</code></td>
+<td><code>0.5*lambda_reg*w**2</code></td>
+<td>lambda_reg=0.01</td>
+</tr>
+</tbody>
+</table>
+<h2 id="algebra-48">Algebra (48)<a class="headerlink" href="#algebra-48" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>absolute_value</code></td>
+<td><code>Abs(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>beta_distribution</code></td>
+<td><code>x**(alpha - 1)*(1 - x)**(beta_param - 1)</code></td>
+<td>alpha=2.0, beta_param=5.0</td>
+</tr>
+<tr>
+<td><code>cauchy_distribution</code></td>
+<td><code>1/(pi*gamma_param*(1 + (x - x0)**2/gamma_param**2))</code></td>
+<td>x0=0.0, gamma_param=1.0</td>
+</tr>
+<tr>
+<td><code>clamp</code></td>
+<td><code>Max(low, Min(high, x))</code></td>
+<td>low=0.0, high=1.0</td>
+</tr>
+<tr>
+<td><code>cubic</code></td>
+<td><code>a*x**3 + b*x**2 + c*x + d</code></td>
+<td>a=1, b=0, c=0, d=0</td>
+</tr>
+<tr>
+<td><code>damped_oscillation</code></td>
+<td><code>A*exp(-gamma_d*x)*cos(omega*x + phi)</code></td>
+<td>A=1.0, gamma_d=0.1, omega=1.0, phi=0.0</td>
+</tr>
+<tr>
+<td><code>double_exponential</code></td>
+<td><code>A*exp(-Abs(mu - x)/b)</code></td>
+<td>A=1.0, mu=0.0, b=1.0</td>
+</tr>
+<tr>
+<td><code>exp_decay</code></td>
+<td><code>A*exp(-k*x)</code></td>
+<td>A=1.0, k=1.0</td>
+</tr>
+<tr>
+<td><code>exp_growth</code></td>
+<td><code>A*exp(k*x)</code></td>
+<td>A=1.0, k=0.1</td>
+</tr>
+<tr>
+<td><code>fourier_term</code></td>
+<td><code>a0 + a1*cos(x) + a2*cos(2*x) + b1*sin(x) + b2*sin(2*x)</code></td>
+<td>a0=0.0, a1=1.0, b1=0.0, a2=0.0, b2=0.0</td>
+</tr>
+<tr>
+<td><code>gaussian</code></td>
+<td><code>A*exp(-(-mu + x)**2/(2*sigma**2))</code></td>
+<td>A=1.0, mu=0.0, sigma=1.0</td>
+</tr>
+<tr>
+<td><code>gompertz</code></td>
+<td><code>a*exp(-b*exp(-c*x))</code></td>
+<td>a=1.0, b=1.0, c=1.0</td>
+</tr>
+<tr>
+<td><code>heaviside</code></td>
+<td><code>Piecewise((0, x &lt; 0), (1, True))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>hill_equation</code></td>
+<td><code>V_max*x**n/(K**n + x**n)</code></td>
+<td>V_max=1.0, K=0.5, n=2.0</td>
+</tr>
+<tr>
+<td><code>inverse_square</code></td>
+<td><code>a/(epsilon + x**2)</code></td>
+<td>a=1.0, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>laplace_distribution</code></td>
+<td><code>exp(-Abs(mu - x)/b)/(2*b)</code></td>
+<td>mu=0.0, b=1.0</td>
+</tr>
+<tr>
+<td><code>laplacian_kernel</code></td>
+<td><code>exp(-gamma_k*Abs(x - y))</code></td>
+<td>gamma_k=1.0</td>
+</tr>
+<tr>
+<td><code>lerp</code></td>
+<td><code>a_val + t*(-a_val + b_val)</code></td>
+<td>a_val=0.0, b_val=1.0</td>
+</tr>
+<tr>
+<td><code>linear_eq</code></td>
+<td><code>b + m*x</code></td>
+<td>m=1, b=0</td>
+</tr>
+<tr>
+<td><code>log_linear</code></td>
+<td><code>a*log(exp(b*x) + 1)</code></td>
+<td>a=1.0, b=1.0</td>
+</tr>
+<tr>
+<td><code>logarithmic</code></td>
+<td><code>a*log(epsilon + x) + b</code></td>
+<td>a=1.0, b=0.0, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>logistic</code></td>
+<td><code>L/(1 + exp(-k*(x - x0)))</code></td>
+<td>L=1.0, k=1.0, x0=0.0</td>
+</tr>
+<tr>
+<td><code>lorentzian</code></td>
+<td><code>A/(1 + (x - x0)**2/gamma_l**2)</code></td>
+<td>A=1.0, x0=0.0, gamma_l=1.0</td>
+</tr>
+<tr>
+<td><code>matern_12_kernel</code></td>
+<td><code>sigma_k**2*exp(-Abs(x - y)/length_scale)</code></td>
+<td>sigma_k=1.0, length_scale=1.0</td>
+</tr>
+<tr>
+<td><code>matern_32_kernel</code></td>
+<td><code>sigma_k**2*(1 + sqrt(3)*Abs(x - y)/length_scale)*exp(-sqrt(3)*Abs(x - y)/length_scale)</code></td>
+<td>sigma_k=1.0, length_scale=1.0</td>
+</tr>
+<tr>
+<td><code>michaelis_menten</code></td>
+<td><code>V_max*x/(K_m + x)</code></td>
+<td>V_max=1.0, K_m=0.5</td>
+</tr>
+<tr>
+<td><code>monomial</code></td>
+<td><code>a*x**n</code></td>
+<td>a=1.0, n=2.0</td>
+</tr>
+<tr>
+<td><code>nth_root</code></td>
+<td><code>(epsilon + Abs(x))**(1/n)</code></td>
+<td>n=3.0, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>periodic_kernel</code></td>
+<td><code>sigma_k**2*exp(-2*sin(pi*Abs(x - y)/period)**2/length_scale**2)</code></td>
+<td>sigma_k=1.0, length_scale=1.0, period=1.0</td>
+</tr>
+<tr>
+<td><code>polynomial_kernel</code></td>
+<td><code>(alpha_k*x*y + c_k)**d_k</code></td>
+<td>alpha_k=1.0, c_k=1.0, d_k=3.0</td>
+</tr>
+<tr>
+<td><code>power_law</code></td>
+<td><code>a*x**n</code></td>
+<td>a=1.0, n=2.0</td>
+</tr>
+<tr>
+<td><code>probit</code></td>
+<td><code>0.5*erf(sqrt(2)*x/2) + 0.5</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>quadratic</code></td>
+<td><code>a*x**2 + b*x + c</code></td>
+<td>a=1, b=0, c=0</td>
+</tr>
+<tr>
+<td><code>quartic</code></td>
+<td><code>a*x**4 + b*x**3 + c*x**2 + d*x + e</code></td>
+<td>a=1, b=0, c=0, d=0, e=0</td>
+</tr>
+<tr>
+<td><code>ramp</code></td>
+<td><code>Max(0, x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>rational</code></td>
+<td><code>(a*x + b)/(c*x + d + epsilon)</code></td>
+<td>a=1.0, b=0.0, c=0.0, d=1.0, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>rational_quadratic_kernel</code></td>
+<td><code>(1 + (x - y)**2/(2*alpha_rq*length_scale**2))**(-alpha_rq)</code></td>
+<td>alpha_rq=1.0, length_scale=1.0</td>
+</tr>
+<tr>
+<td><code>rayleigh</code></td>
+<td><code>x*exp(-x**2/(2*sigma**2))/sigma**2</code></td>
+<td>sigma=1.0</td>
+</tr>
+<tr>
+<td><code>rbf_kernel</code></td>
+<td><code>exp(-gamma_k*(x - y)**2)</code></td>
+<td>gamma_k=1.0</td>
+</tr>
+<tr>
+<td><code>richards_curve</code></td>
+<td><code>K/(1 + exp(-r*(x - x0)))**(1/nu)</code></td>
+<td>K=1.0, r=1.0, x0=0.0, nu=1.0</td>
+</tr>
+<tr>
+<td><code>sawtooth_approx</code></td>
+<td><code>-(sin(x) + sin(2*x)/2 + sin(3*x)/3)/pi + 0.5</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sign_function</code></td>
+<td><code>Piecewise((-1, x &lt; 0), (0, Eq(x, 0)), (1, True))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sinusoidal</code></td>
+<td><code>A*sin(omega*x + phi)</code></td>
+<td>A=1.0, omega=1.0, phi=0.0</td>
+</tr>
+<tr>
+<td><code>smootherstep</code></td>
+<td><code>6*t**5 - 15*t**4 + 10*t**3</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>smoothstep</code></td>
+<td><code>-2*t**3 + 3*t**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>square_root</code></td>
+<td><code>a*sqrt(epsilon + Abs(x))</code></td>
+<td>a=1.0, epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>square_wave_approx</code></td>
+<td><code>4*(sin(x) + sin(3*x)/3 + sin(5*x)/5)/pi</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>student_t</code></td>
+<td><code>(1 + x**2/nu)**(-nu/2 - 1/2)*gamma_func(nu/2 + 1/2)/(sqrt(pi)*sqrt(nu)*gamma_func(nu/2))</code></td>
+<td>nu=5.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="calculus-48">Calculus (48)<a class="headerlink" href="#calculus-48" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>abs_val</code></td>
+<td><code>Abs(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arccos</code></td>
+<td><code>acos(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arccosh</code></td>
+<td><code>acosh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arcsin</code></td>
+<td><code>asin(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arcsinh</code></td>
+<td><code>asinh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arctan</code></td>
+<td><code>atan(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arctan2</code></td>
+<td><code>atan2(y, x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>arctanh</code></td>
+<td><code>atanh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>beta_func</code></td>
+<td><code>gamma(a_param)*gamma(b_param)/gamma(a_param + b_param)</code></td>
+<td>a_param=1.0, b_param=1.0</td>
+</tr>
+<tr>
+<td><code>cbrt</code></td>
+<td><code>x**(1/3)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>chain_rule</code></td>
+<td><code>df_du*du_dx</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>cos</code></td>
+<td><code>cos(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>cosh</code></td>
+<td><code>cosh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>cot</code></td>
+<td><code>cos(x)/sin(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>csc</code></td>
+<td><code>1/sin(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>digamma</code></td>
+<td><code>polygamma(0, x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>erf</code></td>
+<td><code>erf(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>erfc</code></td>
+<td><code>erfc(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>exp</code></td>
+<td><code>exp(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>finite_difference</code></td>
+<td><code>(-f_minus + f_plus)/(2*h)</code></td>
+<td>h=1e-05</td>
+</tr>
+<tr>
+<td><code>fourier_kernel_imag</code></td>
+<td><code>-sin(omega*t)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>fourier_kernel_real</code></td>
+<td><code>cos(omega*t)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>gamma_func</code></td>
+<td><code>gamma(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>gradient_descent_step</code></td>
+<td><code>-gradient*lr + w</code></td>
+<td>lr=0.01</td>
+</tr>
+<tr>
+<td><code>laplace_kernel</code></td>
+<td><code>exp(-s*t)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>ln</code></td>
+<td><code>log(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>log10</code></td>
+<td><code>log(x)/log(10)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>log2</code></td>
+<td><code>log(x)/log(2)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>product_rule</code></td>
+<td><code>df_dx*g_val + dg_dx*f_val</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>quotient_rule</code></td>
+<td><code>(df_dx*g_val - dg_dx*f_val)/(epsilon + g_val**2)</code></td>
+<td>epsilon=1e-08</td>
+</tr>
+<tr>
+<td><code>reciprocal</code></td>
+<td><code>1/x</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sec</code></td>
+<td><code>1/cos(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sech</code></td>
+<td><code>1/cosh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>simpsons_rule</code></td>
+<td><code>h*(f_a + f_b + 4*f_m)/6</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sin</code></td>
+<td><code>sin(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sinc</code></td>
+<td><code>Piecewise((1, Eq(x, 0)), (sin(pi*x)/(pi*x), True))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sinh</code></td>
+<td><code>sinh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sqrt</code></td>
+<td><code>sqrt(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>tan</code></td>
+<td><code>tan(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>tanh_func</code></td>
+<td><code>tanh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>taylor_arctan</code></td>
+<td><code>-x**7/7 + x**5/5 - x**3/3 + x</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>taylor_cos</code></td>
+<td><code>-x**6/720 + x**4/24 - x**2/2 + 1</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>taylor_exp</code></td>
+<td><code>x**5/120 + x**4/24 + x**3/6 + x**2/2 + x + 1</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>taylor_ln1px</code></td>
+<td><code>x**5/5 - x**4/4 + x**3/3 - x**2/2 + x</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>taylor_sin</code></td>
+<td><code>-x**7/5040 + x**5/120 - x**3/6 + x</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>trapezoidal_rule</code></td>
+<td><code>h*(f_a + f_b)/2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>wavelet_mexican_hat</code></td>
+<td><code>2*sqrt(3)*(1 - x**2)*exp(-x**2/2)/(3*pi**(1/4))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>wavelet_morlet</code></td>
+<td><code>exp(-x**2/2)*cos(5*x)</code></td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="statistics-35">Statistics (35)<a class="headerlink" href="#statistics-35" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bayes_posterior_kernel</code></td>
+<td><code>exp(-(-x + y)**2/(2*sigma_lik**2))*exp(-(-mu_prior + x)**2/(2*sigma_prior**2))</code></td>
+<td>mu_prior=0, sigma_prior=1, sigma_lik=1</td>
+</tr>
+<tr>
+<td><code>beta_pdf</code></td>
+<td><code>x**(alpha - 1)*(1 - x)**(beta_param - 1)</code></td>
+<td>alpha=2, beta_param=5</td>
+</tr>
+<tr>
+<td><code>binary_entropy</code></td>
+<td><code>-p*log(p + 1.0e-15) - (1 - p)*log(1.0 - p)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>cauchy_pdf</code></td>
+<td><code>1/(pi*gamma_param*(1 + (x - x0)**2/gamma_param**2))</code></td>
+<td>x0=0, gamma_param=1</td>
+</tr>
+<tr>
+<td><code>characteristic_normal</code></td>
+<td><code>exp(I*mu*t - sigma**2*t**2/2)</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+<tr>
+<td><code>chi_squared_kernel</code></td>
+<td><code>x**(k/2 - 1)*exp(-x/2)</code></td>
+<td>k=2</td>
+</tr>
+<tr>
+<td><code>coefficient_of_variation</code></td>
+<td><code>sigma/mu</code></td>
+<td>mu=1, sigma=0.1</td>
+</tr>
+<tr>
+<td><code>cross_entropy_elem</code></td>
+<td><code>-y*log(p + 1.0e-15) - (1 - y)*log(1.0 - p)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>evidence_lower_bound</code></td>
+<td><code>-kl_term + log_likelihood</code></td>
+<td>log_likelihood=0, kl_term=0</td>
+</tr>
+<tr>
+<td><code>exponential_cdf</code></td>
+<td><code>1 - exp(-lambda_param*x)</code></td>
+<td>lambda_param=1</td>
+</tr>
+<tr>
+<td><code>exponential_pdf</code></td>
+<td><code>lambda_param*exp(-lambda_param*x)</code></td>
+<td>lambda_param=1</td>
+</tr>
+<tr>
+<td><code>gumbel_pdf</code></td>
+<td><code>exp(-z - exp(-z))/beta_param</code></td>
+<td>mu=0, beta_param=1</td>
+</tr>
+<tr>
+<td><code>js_divergence_elem</code></td>
+<td><code>p*log(2*p/(p + q + 1.0e-15))/2 + q*log(2*q/(p + q + 1.0e-15))/2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>kl_divergence_elem</code></td>
+<td><code>p*log((p + 1.0e-15)/(q + 1.0e-15))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>laplace_pdf</code></td>
+<td><code>exp(-Abs(mu - x)/b)/(2*b)</code></td>
+<td>mu=0, b=1</td>
+</tr>
+<tr>
+<td><code>linear_regression_pred</code></td>
+<td><code>beta_0 + beta_1*x</code></td>
+<td>beta_0=0, beta_1=1</td>
+</tr>
+<tr>
+<td><code>log_normal_pdf</code></td>
+<td><code>sqrt(2)*exp(-(-mu + log(x))**2/(2*sigma**2))/(2*sqrt(pi)*sigma*x)</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+<tr>
+<td><code>log_prior_normal</code></td>
+<td><code>-log(sigma) - log(2*pi)/2 - (-mu + x)**2/(2*sigma**2)</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+<tr>
+<td><code>logistic_cdf</code></td>
+<td><code>1/(exp((mu - x)/s) + 1)</code></td>
+<td>mu=0, s=1</td>
+</tr>
+<tr>
+<td><code>logistic_regression_pred</code></td>
+<td><code>1/(exp(-beta_0 - beta_1*x) + 1)</code></td>
+<td>beta_0=0, beta_1=1</td>
+</tr>
+<tr>
+<td><code>mgf_exponential</code></td>
+<td><code>lambda_param/(lambda_param - t)</code></td>
+<td>lambda_param=1</td>
+</tr>
+<tr>
+<td><code>mgf_normal</code></td>
+<td><code>exp(mu*t + sigma**2*t**2/2)</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+<tr>
+<td><code>mutual_info_bound</code></td>
+<td><code>log(exp(x) + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>normal_pdf</code></td>
+<td><code>sqrt(2)*exp(-(-mu + x)**2/(2*sigma**2))/(2*sqrt(pi)*sigma)</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+<tr>
+<td><code>pearson_r_component</code></td>
+<td><code>(-mu_x + x)*(-mu_y + y)/(sigma_x*sigma_y)</code></td>
+<td>mu_x=0, mu_y=0, sigma_x=1, sigma_y=1</td>
+</tr>
+<tr>
+<td><code>pooled_variance</code></td>
+<td><code>(s1**2*(n1 - 1) + s2**2*(n2 - 1))/(n1 + n2 - 2)</code></td>
+<td>n1=30, s1=1, n2=30, s2=1</td>
+</tr>
+<tr>
+<td><code>rayleigh_pdf</code></td>
+<td><code>x*exp(-x**2/(2*sigma**2))/sigma**2</code></td>
+<td>sigma=1</td>
+</tr>
+<tr>
+<td><code>standard_error</code></td>
+<td><code>sigma/sqrt(n)</code></td>
+<td>sigma=1, n=30</td>
+</tr>
+<tr>
+<td><code>standard_normal_pdf</code></td>
+<td><code>sqrt(2)*exp(-x**2/2)/(2*sqrt(pi))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>student_t_kernel</code></td>
+<td><code>(1 + x**2/nu)**(-nu/2 - 1/2)</code></td>
+<td>nu=3</td>
+</tr>
+<tr>
+<td><code>survival_exponential</code></td>
+<td><code>exp(-lambda_param*x)</code></td>
+<td>lambda_param=1</td>
+</tr>
+<tr>
+<td><code>t_statistic</code></td>
+<td><code>sqrt(n)*(-mu + x)/s</code></td>
+<td>mu=0, s=1, n=30</td>
+</tr>
+<tr>
+<td><code>uniform_pdf</code></td>
+<td><code>1/(-a + b)</code></td>
+<td>a=0, b=1</td>
+</tr>
+<tr>
+<td><code>weibull_survival</code></td>
+<td><code>exp(-(x/lambda_param)**k)</code></td>
+<td>lambda_param=1, k=1.5</td>
+</tr>
+<tr>
+<td><code>z_score</code></td>
+<td><code>(-mu + x)/sigma</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="linear-algebra-24">Linear algebra (24)<a class="headerlink" href="#linear-algebra-24" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch_norm_elem</code></td>
+<td><code>beta_bn + gamma_bn*(-mu_batch + x)/sqrt(var_batch + 1.0e-5)</code></td>
+<td>mu_batch=0, var_batch=1, gamma_bn=1, beta_bn=0</td>
+</tr>
+<tr>
+<td><code>canberra_dist_elem</code></td>
+<td><code>Abs(x - y)/(Abs(x) + Abs(y) + 1.0e-8)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>chebyshev_dist</code></td>
+<td><code>Max(Abs(a - b), Abs(x - y))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>cosine_similarity</code></td>
+<td><code>dot_xy/(norm_x*norm_y + 1.0e-8)</code></td>
+<td>dot_xy=1, norm_x=1, norm_y=1</td>
+</tr>
+<tr>
+<td><code>determinant_2x2</code></td>
+<td><code>a*d - b*c</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>dot_product_elem</code></td>
+<td><code>x*y</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>eigenvalue_2x2</code></td>
+<td><code>a/2 + d/2 + sqrt(b*c + (a/2 - d/2)**2)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>euclidean_dist_elem</code></td>
+<td><code>(x - y)**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>frobenius_elem</code></td>
+<td><code>x**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>huber_norm_elem</code></td>
+<td><code>Piecewise((x**2/2, delta &gt;= Abs(x)), (delta*(-delta/2 + Abs(x)), True))</code></td>
+<td>delta=1</td>
+</tr>
+<tr>
+<td><code>l1_norm_elem</code></td>
+<td><code>Abs(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>l2_norm_elem</code></td>
+<td><code>x**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>layer_norm_elem</code></td>
+<td><code>beta_ln + gamma_ln*(-mu + x)/(sigma + 1.0e-5)</code></td>
+<td>mu=0, sigma=1, gamma_ln=1, beta_ln=0</td>
+</tr>
+<tr>
+<td><code>log_softmax_score</code></td>
+<td><code>x - log(exp(x) + exp(y) + 1.0e-8)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>lp_norm_elem</code></td>
+<td><code>Abs(x)**p</code></td>
+<td>p=2</td>
+</tr>
+<tr>
+<td><code>mahalanobis_1d</code></td>
+<td><code>Abs(mu - x)/sigma</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+<tr>
+<td><code>manhattan_dist_elem</code></td>
+<td><code>Abs(x - y)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>minkowski_dist_elem</code></td>
+<td><code>Abs(x - y)**p</code></td>
+<td>p=2</td>
+</tr>
+<tr>
+<td><code>orthogonal_residual_elem</code></td>
+<td><code>a - b*proj_coeff</code></td>
+<td>proj_coeff=0</td>
+</tr>
+<tr>
+<td><code>scaled_dot_product</code></td>
+<td><code>dot_qk/sqrt(d_k)</code></td>
+<td>dot_qk=1, d_k=64</td>
+</tr>
+<tr>
+<td><code>sigmoid_kernel</code></td>
+<td><code>tanh(alpha*x*y + c_coeff)</code></td>
+<td>alpha=1, c_coeff=0</td>
+</tr>
+<tr>
+<td><code>softmax_score</code></td>
+<td><code>exp(x)/(exp(x) + exp(y) + 1.0e-8)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>trace_2x2</code></td>
+<td><code>a + d</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>vector_projection_scalar</code></td>
+<td><code>dot_ab/(norm_b**2 + 1.0e-8)</code></td>
+<td>dot_ab=1, norm_b=1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="optimization-27">Optimization (27)<a class="headerlink" href="#optimization-27" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ackley_2d</code></td>
+<td><code>-exp(0.5*cos(2*pi*x) + 0.5*cos(2*pi*y)) + E + 20 - 20*exp(-0.2*sqrt(0.5*x**2 + 0.5*y**2))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>adagrad_step</code></td>
+<td><code>-grad*lr/sqrt(G + 1.0e-8) + w</code></td>
+<td>lr=0.01, G=0</td>
+</tr>
+<tr>
+<td><code>adam_bias_correction_m</code></td>
+<td><code>m/(1 - beta1**t)</code></td>
+<td>beta1=0.9, m=0, t=1</td>
+</tr>
+<tr>
+<td><code>adam_bias_correction_v</code></td>
+<td><code>v_adam/(1 - beta2**t)</code></td>
+<td>beta2=0.999, v_adam=0, t=1</td>
+</tr>
+<tr>
+<td><code>adam_m_update</code></td>
+<td><code>beta1*m + grad*(1 - beta1)</code></td>
+<td>beta1=0.9, m=0</td>
+</tr>
+<tr>
+<td><code>adam_step</code></td>
+<td><code>-lr*m_hat/(sqrt(v_hat) + 1.0e-8) + w</code></td>
+<td>lr=0.001, m_hat=0, v_hat=0</td>
+</tr>
+<tr>
+<td><code>adam_v_update</code></td>
+<td><code>beta2*v_adam + grad**2*(1 - beta2)</code></td>
+<td>beta2=0.999, v_adam=0</td>
+</tr>
+<tr>
+<td><code>adamw_step</code></td>
+<td><code>-lr*m_hat/(sqrt(v_hat) + 1.0e-8) + w*(-lambda_wd*lr + 1)</code></td>
+<td>lr=0.001, m_hat=0, v_hat=0, lambda_wd=0.01</td>
+</tr>
+<tr>
+<td><code>constant_lr</code></td>
+<td><code>lr_init</code></td>
+<td>lr_init=0.001</td>
+</tr>
+<tr>
+<td><code>cosine_annealing_lr</code></td>
+<td><code>lr_min + (lr_max - lr_min)*(cos(pi*epoch/T_max) + 1)/2</code></td>
+<td>lr_min=1e-06, lr_max=0.01, T_max=100</td>
+</tr>
+<tr>
+<td><code>cyclical_lr</code></td>
+<td><code>lr_min + (lr_max - lr_min)*Abs(epoch/step_size - 2*floor(epoch/(2*step_size) + 1/2))</code></td>
+<td>lr_min=0.0001, lr_max=0.01, step_size=2000</td>
+</tr>
+<tr>
+<td><code>ema_update</code></td>
+<td><code>alpha_ema*param_new + param_ema*(1 - alpha_ema)</code></td>
+<td>alpha_ema=0.001</td>
+</tr>
+<tr>
+<td><code>exponential_decay_lr</code></td>
+<td><code>lr_init*exp(-epoch*k_decay)</code></td>
+<td>lr_init=0.01, k_decay=0.01</td>
+</tr>
+<tr>
+<td><code>gradient_clip_norm</code></td>
+<td><code>grad*Min(1, max_norm/(grad_norm + 1.0e-8))</code></td>
+<td>max_norm=1.0, grad_norm=1.0</td>
+</tr>
+<tr>
+<td><code>gradient_clip_value</code></td>
+<td><code>Max(-clip_val, Min(clip_val, grad))</code></td>
+<td>clip_val=1.0</td>
+</tr>
+<tr>
+<td><code>inverse_sqrt_lr</code></td>
+<td><code>lr_init/sqrt(Max(epoch, warmup_steps))</code></td>
+<td>lr_init=0.01, warmup_steps=4000</td>
+</tr>
+<tr>
+<td><code>momentum_step</code></td>
+<td><code>-grad*lr - mu_momentum*v + w</code></td>
+<td>lr=0.01, mu_momentum=0.9, v=0</td>
+</tr>
+<tr>
+<td><code>nesterov_step</code></td>
+<td><code>-grad_lookahead*lr - mu_momentum*v + w</code></td>
+<td>lr=0.01, mu_momentum=0.9, v=0, grad_lookahead=0</td>
+</tr>
+<tr>
+<td><code>one_cycle_approx_lr</code></td>
+<td><code>lr_max*(cos(pi*epoch/T_max) + 1)/2</code></td>
+<td>lr_max=0.01, T_max=100</td>
+</tr>
+<tr>
+<td><code>polynomial_decay_lr</code></td>
+<td><code>lr_end + (-lr_end + lr_init)*(-epoch/max_epochs + 1)**power_lr</code></td>
+<td>lr_init=0.01, lr_end=1e-06, max_epochs=100, power_lr=1</td>
+</tr>
+<tr>
+<td><code>quadratic_bowl</code></td>
+<td><code>a_qb*(x - x_opt)**2 + b_qb*(y - y_opt)**2</code></td>
+<td>a_qb=1, b_qb=1, x_opt=0, y_opt=0</td>
+</tr>
+<tr>
+<td><code>rastrigin_2d</code></td>
+<td><code>x**2 + y**2 - 10*cos(2*pi*x) - 10*cos(2*pi*y) + 20</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>rmsprop_step</code></td>
+<td><code>-grad*lr/sqrt(v_rms + 1.0e-8) + w</code></td>
+<td>lr=0.001, v_rms=0, rho=0.9</td>
+</tr>
+<tr>
+<td><code>rosenbrock</code></td>
+<td><code>b_rb*(-x**2 + y)**2 + (a_rb - x)**2</code></td>
+<td>a_rb=1, b_rb=100</td>
+</tr>
+<tr>
+<td><code>sgd_step</code></td>
+<td><code>-grad*lr + w</code></td>
+<td>lr=0.01</td>
+</tr>
+<tr>
+<td><code>step_decay_lr</code></td>
+<td><code>gamma_decay**floor(epoch/step_size)*lr_init</code></td>
+<td>lr_init=0.01, gamma_decay=0.1, step_size=30</td>
+</tr>
+<tr>
+<td><code>warmup_linear_lr</code></td>
+<td><code>lr_target*Min(1, epoch/warmup_steps)</code></td>
+<td>lr_target=0.001, warmup_steps=1000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="metrics-27">Metrics (27)<a class="headerlink" href="#metrics-27" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accuracy_elem</code></td>
+<td><code>Piecewise((1, Eq(y_pred, y_true)), (0, True))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>adjusted_r_squared</code></td>
+<td><code>-(1 - r2)*(n_samples - 1)/(-n_features + n_samples - 1) + 1</code></td>
+<td>r2=0.9, n_samples=100, n_features=5</td>
+</tr>
+<tr>
+<td><code>aic</code></td>
+<td><code>2*k - 2*log_likelihood</code></td>
+<td>k=1, log_likelihood=0</td>
+</tr>
+<tr>
+<td><code>balanced_accuracy</code></td>
+<td><code>sensitivity/2 + specificity/2</code></td>
+<td>sensitivity=1, specificity=1</td>
+</tr>
+<tr>
+<td><code>bic</code></td>
+<td><code>k*log(n_obs) - 2*log_likelihood</code></td>
+<td>k=1, n_obs=100, log_likelihood=0</td>
+</tr>
+<tr>
+<td><code>brier_score_elem</code></td>
+<td><code>(p - y)**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>cosine_distance_metric</code></td>
+<td><code>-dot_ab/(norm_a*norm_b + 1.0e-8) + 1</code></td>
+<td>dot_ab=1, norm_a=1, norm_b=1</td>
+</tr>
+<tr>
+<td><code>dcg_elem</code></td>
+<td><code>rel*log(2)/log(pos + 1)</code></td>
+<td>rel=1, pos=1</td>
+</tr>
+<tr>
+<td><code>dice_coefficient</code></td>
+<td><code>2*n_intersect/(size_a + size_b + 1.0e-8)</code></td>
+<td>n_intersect=1, size_a=1, size_b=1</td>
+</tr>
+<tr>
+<td><code>explained_variance_ratio</code></td>
+<td><code>lambda_i/(total_variance + 1.0e-8)</code></td>
+<td>lambda_i=1, total_variance=10</td>
+</tr>
+<tr>
+<td><code>f1_score_formula</code></td>
+<td><code>2*prec*rec/(prec + rec + 1.0e-8)</code></td>
+<td>prec=1, rec=1</td>
+</tr>
+<tr>
+<td><code>fbeta_score_formula</code></td>
+<td><code>prec*rec*(beta_f**2 + 1)/(beta_f**2*prec + rec + 1.0e-8)</code></td>
+<td>prec=1, rec=1, beta_f=1</td>
+</tr>
+<tr>
+<td><code>huber_loss_elem</code></td>
+<td><code>Piecewise(((y_pred - y_true)**2/2, delta &gt;= Abs(y_pred - y_true)), (delta*(-delta/2 + Abs(y_pred - y_true)), True))</code></td>
+<td>delta=1.0</td>
+</tr>
+<tr>
+<td><code>jaccard_index</code></td>
+<td><code>n_intersect/(n_union + 1.0e-8)</code></td>
+<td>n_intersect=1, n_union=1</td>
+</tr>
+<tr>
+<td><code>log_loss_elem</code></td>
+<td><code>-y*log(p + 1.0e-15) - (1 - y)*log(1.0 - p)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>mae_elem</code></td>
+<td><code>Abs(y_pred - y_true)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>mape_elem</code></td>
+<td><code>Abs((y_pred - y_true)/(y_true + 1.0e-8))</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>matthews_corr</code></td>
+<td><code>(-fn*fp + tn*tp)/(sqrt((fn + tn)*(fn + tp)*(fp + tn)*(fp + tp)) + 1.0e-8)</code></td>
+<td>tp=1, tn=1, fp=0, fn=0</td>
+</tr>
+<tr>
+<td><code>mse_elem</code></td>
+<td><code>(y_pred - y_true)**2</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>ndcg_formula</code></td>
+<td><code>dcg/(idcg + 1.0e-8)</code></td>
+<td>dcg=1, idcg=1</td>
+</tr>
+<tr>
+<td><code>precision_formula</code></td>
+<td><code>tp/(fp + tp + 1.0e-8)</code></td>
+<td>tp=1, fp=0</td>
+</tr>
+<tr>
+<td><code>r_squared</code></td>
+<td><code>-ss_res/(ss_tot + 1.0e-8) + 1</code></td>
+<td>ss_res=0, ss_tot=1</td>
+</tr>
+<tr>
+<td><code>recall_formula</code></td>
+<td><code>tp/(fn + tp + 1.0e-8)</code></td>
+<td>tp=1, fn=0</td>
+</tr>
+<tr>
+<td><code>reciprocal_rank</code></td>
+<td><code>1/rank</code></td>
+<td>rank=1</td>
+</tr>
+<tr>
+<td><code>rmse_formula</code></td>
+<td><code>sqrt(mse_val)</code></td>
+<td>mse_val=1</td>
+</tr>
+<tr>
+<td><code>smape_elem</code></td>
+<td><code>Abs(y_pred - y_true)/(Abs(y_pred)/2 + Abs(y_true)/2 + 1.0e-8)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>specificity_formula</code></td>
+<td><code>tn/(fp + tn + 1.0e-8)</code></td>
+<td>tn=1, fp=0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transforms-33">Transforms (33)<a class="headerlink" href="#transforms-33" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Symbolic expression</th>
+<th>Default parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>box_cox_approx</code></td>
+<td><code>(x**lambda_bc - 1)/lambda_bc</code></td>
+<td>lambda_bc=0.5</td>
+</tr>
+<tr>
+<td><code>clip_transform</code></td>
+<td><code>Max(low, Min(high, x))</code></td>
+<td>low=0, high=1</td>
+</tr>
+<tr>
+<td><code>difference_transform</code></td>
+<td><code>x - x_prev</code></td>
+<td>x_prev=0</td>
+</tr>
+<tr>
+<td><code>exponential_smoothing</code></td>
+<td><code>alpha_es*x + s_prev*(1 - alpha_es)</code></td>
+<td>alpha_es=0.3, s_prev=0</td>
+</tr>
+<tr>
+<td><code>fourier_feature_cos</code></td>
+<td><code>cos(2*pi*freq*x)</code></td>
+<td>freq=1</td>
+</tr>
+<tr>
+<td><code>fourier_feature_sin</code></td>
+<td><code>sin(2*pi*freq*x)</code></td>
+<td>freq=1</td>
+</tr>
+<tr>
+<td><code>gaussian_basis</code></td>
+<td><code>exp(-(-center + x)**2/(2*width**2))</code></td>
+<td>center=0, width=1</td>
+</tr>
+<tr>
+<td><code>he_normal_std</code></td>
+<td><code>sqrt(2)*sqrt(1/fan_in)</code></td>
+<td>fan_in=256</td>
+</tr>
+<tr>
+<td><code>he_uniform_bound</code></td>
+<td><code>sqrt(6)*sqrt(1/fan_in)</code></td>
+<td>fan_in=256</td>
+</tr>
+<tr>
+<td><code>l2_normalize</code></td>
+<td><code>x/(norm_l2 + 1.0e-8)</code></td>
+<td>norm_l2=1</td>
+</tr>
+<tr>
+<td><code>lecun_normal_std</code></td>
+<td><code>sqrt(1/fan_in)</code></td>
+<td>fan_in=256</td>
+</tr>
+<tr>
+<td><code>log10_transform</code></td>
+<td><code>log(x + 1)/log(10)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>log_return</code></td>
+<td><code>log(x/(x_prev + 1.0e-8))</code></td>
+<td>x_prev=1</td>
+</tr>
+<tr>
+<td><code>log_transform</code></td>
+<td><code>log(x + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>max_abs_scale</code></td>
+<td><code>x/(max_abs + 1.0e-8)</code></td>
+<td>max_abs=1</td>
+</tr>
+<tr>
+<td><code>min_max_normalize</code></td>
+<td><code>(x - x_min)/(x_max - x_min + 1.0e-8)</code></td>
+<td>x_min=0, x_max=1</td>
+</tr>
+<tr>
+<td><code>min_max_to_range</code></td>
+<td><code>a_range + (-a_range + b_range)*(x - x_min)/(x_max - x_min + 1.0e-8)</code></td>
+<td>x_min=0, x_max=1, a_range=-1, b_range=1</td>
+</tr>
+<tr>
+<td><code>moving_average_weight</code></td>
+<td><code>1/window_size</code></td>
+<td>window_size=5</td>
+</tr>
+<tr>
+<td><code>positional_enc_cos</code></td>
+<td><code>cos(pos/10000**(2*i/d_model))</code></td>
+<td>pos=1, i=0, d_model=512</td>
+</tr>
+<tr>
+<td><code>positional_enc_sin</code></td>
+<td><code>sin(pos/10000**(2*i/d_model))</code></td>
+<td>pos=1, i=0, d_model=512</td>
+</tr>
+<tr>
+<td><code>power_transform</code></td>
+<td><code>x**p_exp</code></td>
+<td>p_exp=2.0</td>
+</tr>
+<tr>
+<td><code>robust_scale</code></td>
+<td><code>(-median_val + x)/(iqr + 1.0e-8)</code></td>
+<td>median_val=0, iqr=1</td>
+</tr>
+<tr>
+<td><code>sigmoid_transform</code></td>
+<td><code>1/(1 + exp(-k_sig*(x - x0_sig)))</code></td>
+<td>k_sig=1, x0_sig=0</td>
+</tr>
+<tr>
+<td><code>softplus_transform</code></td>
+<td><code>log(exp(x) + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>softsign_transform</code></td>
+<td><code>x/(Abs(x) + 1)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sqrt_transform</code></td>
+<td><code>sqrt(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>tanh_transform</code></td>
+<td><code>tanh(x)</code></td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>thermometer_bit</code></td>
+<td><code>Piecewise((1, threshold &lt;= x), (0, True))</code></td>
+<td>threshold=0.5</td>
+</tr>
+<tr>
+<td><code>winsorize</code></td>
+<td><code>Max(lower_pct, Min(upper_pct, x))</code></td>
+<td>lower_pct=-3, upper_pct=3</td>
+</tr>
+<tr>
+<td><code>xavier_normal_std</code></td>
+<td><code>sqrt(2)*sqrt(1/(fan_in + fan_out))</code></td>
+<td>fan_in=256, fan_out=256</td>
+</tr>
+<tr>
+<td><code>xavier_uniform_bound</code></td>
+<td><code>sqrt(6)*sqrt(1/(fan_in + fan_out))</code></td>
+<td>fan_in=256, fan_out=256</td>
+</tr>
+<tr>
+<td><code>yeo_johnson_positive</code></td>
+<td><code>((x + 1)**lambda_yj - 1)/lambda_yj</code></td>
+<td>lambda_yj=0.5</td>
+</tr>
+<tr>
+<td><code>z_score_normalize</code></td>
+<td><code>(-mu + x)/(sigma + 1.0e-8)</code></td>
+<td>mu=0, sigma=1</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../api/reference/" class="md-footer__link md-footer__link--prev" aria-label="Previous: API reference">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                API reference
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../datasets/" class="md-footer__link md-footer__link--next" aria-label="Next: Dataset Catalog">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Dataset Catalog
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Fahim Sarker — MIT License
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/fahiiim/NeuroGebra" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/neurogebra/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.tabs.link", "content.code.annotation", "content.code.copy", "toc.follow"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Performance Engineering - NeuroGebra Documentation</title>
+        <title>Performance Engineering - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -82,12 +76,23 @@
     <div data-md-component="skip">
       
         
-        <a href="#performance-tips" class="md-skip">
+        <a href="#performance-engineering" class="md-skip">
           Skip to content
         </a>
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
       
     </div>
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -278,7 +283,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -302,7 +307,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -324,7 +329,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../releases/" class="md-tabs__link">
+        <a href="../../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -1030,7 +1035,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1052,7 +1057,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -1943,7 +1948,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -1965,7 +1970,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2180,10 +2185,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-use-numpy-arrays-not-python-lists" class="md-nav__link">
+  <a href="#establish-a-fair-baseline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Use NumPy Arrays, Not Python Lists
+        Establish a fair baseline
       
     </span>
   </a>
@@ -2191,10 +2196,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-batch-evaluation" class="md-nav__link">
+  <a href="#reproducible-expression-timing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Batch Evaluation
+        Reproducible expression timing
       
     </span>
   </a>
@@ -2202,10 +2207,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-pre-compute-gradients" class="md-nav__link">
+  <a href="#reduce-avoidable-overhead" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Pre-compute Gradients
+        Reduce avoidable overhead
       
     </span>
   </a>
@@ -2213,65 +2218,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-use-appropriate-batch-sizes-for-training" class="md-nav__link">
+  <a href="#roadmap-toward-competitive-speed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Use Appropriate Batch Sizes for Training
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-use-the-right-optimizer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Use the Right Optimizer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-avoid-unnecessary-expression-copies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Avoid Unnecessary Expression Copies
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-memory-management-with-autograd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Memory Management with Autograd
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-profile-your-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Profile Your Code
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Cheat Sheet
+        Roadmap toward competitive speed
       
     </span>
   </a>
@@ -2388,7 +2338,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2404,7 +2354,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2424,7 +2374,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2778,6 +2728,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2837,7 +2793,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -3103,6 +3115,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3120,7 +3160,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3147,7 +3199,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3157,6 +3209,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3164,12 +3221,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -3206,10 +3431,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-use-numpy-arrays-not-python-lists" class="md-nav__link">
+  <a href="#establish-a-fair-baseline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Use NumPy Arrays, Not Python Lists
+        Establish a fair baseline
       
     </span>
   </a>
@@ -3217,10 +3442,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-batch-evaluation" class="md-nav__link">
+  <a href="#reproducible-expression-timing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Batch Evaluation
+        Reproducible expression timing
       
     </span>
   </a>
@@ -3228,10 +3453,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-pre-compute-gradients" class="md-nav__link">
+  <a href="#reduce-avoidable-overhead" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Pre-compute Gradients
+        Reduce avoidable overhead
       
     </span>
   </a>
@@ -3239,65 +3464,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-use-appropriate-batch-sizes-for-training" class="md-nav__link">
+  <a href="#roadmap-toward-competitive-speed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. Use Appropriate Batch Sizes for Training
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-use-the-right-optimizer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Use the Right Optimizer
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-avoid-unnecessary-expression-copies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Avoid Unnecessary Expression Copies
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-memory-management-with-autograd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Memory Management with Autograd
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-profile-your-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. Profile Your Code
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Cheat Sheet
+        Roadmap toward competitive speed
       
     </span>
   </a>
@@ -3324,192 +3494,93 @@
   
 
 
-<h1 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h1>
-<p>Tips to make your Neurogebra code run faster and use less memory.</p>
-<hr />
-<h2 id="1-use-numpy-arrays-not-python-lists">1. Use NumPy Arrays, Not Python Lists<a class="headerlink" href="#1-use-numpy-arrays-not-python-lists" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">MathForge</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">forge</span> <span class="o">=</span> <span class="n">MathForge</span><span class="p">()</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">relu</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relu"</span><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Avoid: Slow Python list iteration</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">x_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">relu</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">x_list</span><span class="p">]</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Recommended: Fast NumPy array (vectorized)</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">result</span> <span class="o">=</span> <span class="n">relu</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_array</span><span class="p">)</span>
+<h1 id="performance-engineering">Performance engineering<a class="headerlink" href="#performance-engineering" title="Permanent link">&para;</a></h1>
+<p>Measure the workload that matters to your users. NeuroGebra 3.0 includes a useful optimization for expression training: analytical derivative expressions and their numerical callables are reused across steps, with current parameter values applied before evaluation.</p>
+<h2 id="establish-a-fair-baseline">Establish a fair baseline<a class="headerlink" href="#establish-a-fair-baseline" title="Permanent link">&para;</a></h2>
+<p>Record hardware, OS, Python/library/compiler versions, array shapes, dtype, batch size, logging level and thread settings. Validate results before comparing time. A float32 CUDA kernel and a float64 NumPy calculation need separate precision notes.</p>
+<p>Measure cold compilation and warm execution separately. For GPU work, state whether timing includes host/device transfers and synchronize asynchronous operations when the backend requires it. Measure peak memory and the full training loop as well as a kernel microbenchmark.</p>
+<h2 id="reproducible-expression-timing">Reproducible expression timing<a class="headerlink" href="#reproducible-expression-timing" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">perf_counter</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">median</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">expr</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">"pipeline"</span><span class="p">,</span> <span class="s2">"sin(x) * exp(-x*x) + x*x"</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">expected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">expr</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">"numpy"</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">),</span> <span class="n">expected</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"NumPy median seconds:"</span><span class="p">,</span> <span class="n">median</span><span class="p">(</span><span class="n">times</span><span class="p">))</span>
 </span></code></pre></div>
-<p>NumPy arrays are <strong>100-1000x faster</strong> for mathematical operations.</p>
-<hr />
-<h2 id="2-batch-evaluation">2. Batch Evaluation<a class="headerlink" href="#2-batch-evaluation" title="Permanent link">&para;</a></h2>
-<p>Evaluate many points at once instead of one at a time:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">Expression</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">"quadratic"</span><span class="p">,</span> <span class="s2">"a*x**2 + b*x + c"</span><span class="p">,</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">})</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Avoid: Evaluating one sample at a time</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">for</span> <span class="n">x_val</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_val</span><span class="p">))</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># Recommended: Evaluating all samples at once (vectorized)</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="3-pre-compute-gradients">3. Pre-compute Gradients<a class="headerlink" href="#3-pre-compute-gradients" title="Permanent link">&para;</a></h2>
-<p>If you need the same gradient repeatedly, compute it once:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">MathForge</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">forge</span> <span class="o">=</span> <span class="n">MathForge</span><span class="p">()</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sigmoid"</span><span class="p">)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Avoid: Recomputing symbolic gradient in each loop iteration</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">for</span> <span class="n">x_val</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">grad</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>      <span class="c1"># Recalculates symbolic gradient each time</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">grad</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">x_val</span><span class="p">))</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Recommended: Compute gradient once, evaluate over vector</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">grad</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>          <span class="c1"># Compute once</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">results</span> <span class="o">=</span> <span class="n">grad</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># Evaluate all at once</span>
-</span></code></pre></div>
-<hr />
-<h2 id="4-use-appropriate-batch-sizes-for-training">4. Use Appropriate Batch Sizes for Training<a class="headerlink" href="#4-use-appropriate-batch-sizes-for-training" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.core.trainer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># For small datasets (&lt; 1000 samples)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Use full batch — no overhead from splitting</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># For medium datasets (1000 - 100000 samples)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># Use mini-batches of 32-128</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># For large datasets (&gt; 100000 samples)</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># Use mini-batches of 64-256</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="5-use-the-right-optimizer">5. Use the Right Optimizer<a class="headerlink" href="#5-use-the-right-optimizer" title="Permanent link">&para;</a></h2>
-<p>Adam converges faster than SGD in most cases:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Avoid: SGD may need 1000+ epochs on complex loss surfaces</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">"sgd"</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Recommended: Adam typically converges in 100-200 epochs</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">"adam"</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="6-avoid-unnecessary-expression-copies">6. Avoid Unnecessary Expression Copies<a class="headerlink" href="#6-avoid-unnecessary-expression-copies" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra</span><span class="w"> </span><span class="kn">import</span> <span class="n">MathForge</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">forge</span> <span class="o">=</span> <span class="n">MathForge</span><span class="p">()</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Avoid: Creating new Expression object each iteration</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">relu</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relu"</span><span class="p">)</span>        <span class="c1"># Unnecessary repeated lookup</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">relu</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># Recommended: Retrieve once, evaluate repeatedly</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">relu</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relu"</span><span class="p">)</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">relu</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># Optimal: Vectorized batch evaluation</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="n">relu</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"relu"</span><span class="p">)</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="n">results</span> <span class="o">=</span> <span class="n">relu</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="7-memory-management-with-autograd">7. Memory Management with Autograd<a class="headerlink" href="#7-memory-management-with-autograd" title="Permanent link">&para;</a></h2>
-<p>When training manually with <code>Value</code>/<code>Tensor</code>, always zero gradients:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">neurogebra.core.autograd</span><span class="w"> </span><span class="kn">import</span> <span class="n">Value</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">x</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">y</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">x</span><span class="o">.</span><span class="n">data</span> <span class="o">-=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">grad</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">x</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="mf">0.0</span>      <span class="c1"># ← CRITICAL: prevents gradient accumulation</span>
-</span></code></pre></div>
-<hr />
-<h2 id="8-profile-your-code">8. Profile Your Code<a class="headerlink" href="#8-profile-your-code" title="Permanent link">&para;</a></h2>
-<p>Find bottlenecks with Python's built-in profiler:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Your Neurogebra code here</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">forge</span> <span class="o">=</span> <span class="n">MathForge</span><span class="p">()</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">sigmoid</span> <span class="o">=</span> <span class="n">forge</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sigmoid"</span><span class="p">)</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">result</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Time: </span><span class="si">{</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
-</span></code></pre></div>
-<hr />
-<h2 id="performance-cheat-sheet">Performance Cheat Sheet<a class="headerlink" href="#performance-cheat-sheet" title="Permanent link">&para;</a></h2>
+<p>Repeat with an available native backend, measure its <code>compile()</code> separately, use the same input, and check output within an appropriate tolerance. Report the complete setup and raw observations; this documentation does not promise a fixed speedup.</p>
+<h2 id="reduce-avoidable-overhead">Reduce avoidable overhead<a class="headerlink" href="#reduce-avoidable-overhead" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Tip</th>
-<th>Impact</th>
-<th>Effort</th>
+<th>Workload</th>
+<th>Useful change</th>
+<th>Reason</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Use NumPy arrays</td>
-<td>100-1000x faster</td>
-<td>Low</td>
+<td>Formula evaluation</td>
+<td>Evaluate a NumPy array in one call</td>
+<td>Removes Python iteration and repeated dispatch</td>
 </tr>
 <tr>
-<td>Batch evaluation</td>
-<td>50-100x faster</td>
-<td>Low</td>
+<td>Repeated derivatives</td>
+<td>Create <code>expr.gradient("x")</code> once</td>
+<td>Avoids repeated symbolic work and compilation</td>
 </tr>
 <tr>
-<td>Pre-compute gradients</td>
-<td>10-50x faster</td>
-<td>Low</td>
+<td>Expression parameter training</td>
+<td>Reuse one <code>Trainer</code></td>
+<td>Its derivative cache survives across steps</td>
 </tr>
 <tr>
-<td>Use Adam optimizer</td>
-<td>5-10x fewer epochs</td>
-<td>Low</td>
+<td>Model training</td>
+<td>Tune batch size on the actual model</td>
+<td>Balances matrix utilization, memory and Python overhead</td>
 </tr>
 <tr>
-<td>Appropriate batch size</td>
-<td>2-5x faster convergence</td>
-<td>Low</td>
+<td>Observatory</td>
+<td>Use the least detailed level needed</td>
+<td>Full array statistics, events and rendering consume time</td>
 </tr>
 <tr>
-<td>Cache expression lookups</td>
-<td>5-10x less overhead</td>
-<td>Low</td>
+<td>Native kernels</td>
+<td>Reuse compiled functions</td>
+<td>Amortizes setup costs</td>
 </tr>
 <tr>
-<td>Zero gradients</td>
-<td>Critical (correctness)</td>
-<td>Low</td>
+<td>CUDA expression evaluation</td>
+<td>Include transfer cost in decisions</td>
+<td>Each call currently moves host inputs/results</td>
 </tr>
 <tr>
-<td>Profile bottlenecks</td>
-<td>High (identifies stalls)</td>
-<td>Medium</td>
+<td>PINN experiments</td>
+<td>Start with small networks and grids</td>
+<td>Every residual parameter gradient uses central differences</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<p><strong>Next:</strong> <a href="../../projects/project1-linear-regression/">Project 1: Linear Regression →</a></p>
+<h2 id="roadmap-toward-competitive-speed">Roadmap toward competitive speed<a class="headerlink" href="#roadmap-toward-competitive-speed" title="Permanent link">&para;</a></h2>
+<p>The next large improvement requires an execution design rather than a language rewrite alone:</p>
+<ol>
+<li>Profile representative training workloads and publish a versioned benchmark suite with correctness checks.</li>
+<li>Introduce a backend-neutral tensor/storage interface with explicit device and dtype ownership.</li>
+<li>Use optimized BLAS/convolution kernels for expensive layer operations; avoid Python loops around tiny operations.</li>
+<li>Keep tensors and optimizer buffers on the GPU across complete training steps.</li>
+<li>Add measured fusion for repeated elementwise graphs, followed by gradient correctness tests and hardware CI.</li>
+</ol>
+<p>A useful goal is to outperform established frameworks on a clearly defined niche, such as small symbolic expression pipelines with transparent diagnostics. Beating every workload requires substantially broader kernel coverage, memory management, compilation and validation infrastructure.</p>
 
 
 
@@ -3642,6 +3713,8 @@
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       

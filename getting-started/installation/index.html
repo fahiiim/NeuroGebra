@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability.">
+        <meta name="description" content="Make the mathematics visible. Symbolic formulas, automatic differentiation, neural networks, scientific experiments, and training observability in Python.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>Installation & Setup - NeuroGebra Documentation</title>
+        <title>Installation & Setup - NeuroGebra</title>
       
     
     
@@ -45,17 +45,11 @@
     
     
       
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
-      
     
     
       <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/pytorch-style.css">
+      <link rel="stylesheet" href="../../stylesheets/neurogebra.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -89,6 +83,17 @@
     </div>
     <div data-md-component="announce">
       
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
+  <a href="../../releases/3.0.0/">Read the release notes</a>
+
+          </div>
+          
+        </aside>
+      
     </div>
     
     
@@ -98,9 +103,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="NeuroGebra Documentation" class="md-header__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-header__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -111,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            NeuroGebra Documentation
+            NeuroGebra
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -280,7 +285,7 @@
   
     
   
-  Tutorials
+  Learn
 
         </a>
       </li>
@@ -302,7 +307,7 @@
   
     
   
-  Acceleration & Science
+  Science & Speed
 
         </a>
       </li>
@@ -324,7 +329,7 @@
   
     
   
-  Notebooks & Projects
+  Examples
 
         </a>
       </li>
@@ -362,13 +367,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../releases/" class="md-tabs__link">
+        <a href="../../project/capabilities/" class="md-tabs__link">
           
   
   
     
   
-  Releases
+  Project
 
         </a>
       </li>
@@ -404,12 +409,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="NeuroGebra Documentation" class="md-nav__button md-logo" aria-label="NeuroGebra Documentation" data-md-component="logo">
+    <a href="../.." title="NeuroGebra" class="md-nav__button md-logo" aria-label="NeuroGebra" data-md-component="logo">
       
-  <img src="../../assets/neurogebra-icon-bright.png" alt="logo">
+  <img src="../../assets/neurogebra-icon-teal.png" alt="logo">
 
     </a>
-    NeuroGebra Documentation
+    NeuroGebra
   </label>
   
     <div class="md-nav__source">
@@ -604,10 +609,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#create-an-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Create an environment
       
     </span>
   </a>
@@ -615,10 +620,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-install-neurogebra" class="md-nav__link">
+  <a href="#verify-the-version" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Install Neurogebra
+        Verify the version
       
     </span>
   </a>
@@ -626,10 +631,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-verify-installation" class="md-nav__link">
+  <a href="#choose-extras-deliberately" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Verify Installation
+        Choose extras deliberately
       
     </span>
   </a>
@@ -637,82 +642,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#optional-extras" class="md-nav__link">
+  <a href="#build-the-documentation-locally" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Optional Extras
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Optional Extras">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#visualization-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visualization Tools
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-boost" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Boost
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#framework-bridges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Framework Bridges
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#everything" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Everything
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-a-virtual-environment-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using a Virtual Environment (Recommended)
+        Build the documentation locally
       
     </span>
   </a>
@@ -1204,7 +1137,7 @@
   <span class="md-ellipsis">
     
   
-    Tutorials
+    Learn
   
 
     
@@ -1226,7 +1159,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Tutorials
+    Learn
   
 
           </label>
@@ -2112,7 +2045,7 @@
   <span class="md-ellipsis">
     
   
-    Acceleration & Science
+    Science & Speed
   
 
     
@@ -2134,7 +2067,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Acceleration & Science
+    Science & Speed
   
 
           </label>
@@ -2411,7 +2344,7 @@
   <span class="md-ellipsis">
     
   
-    Notebooks & Projects
+    Examples
   
 
     
@@ -2427,7 +2360,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Notebooks & Projects
+    Examples
   
 
           </label>
@@ -2447,7 +2380,7 @@
   <span class="md-ellipsis">
     
   
-    20 Executed GPU Portfolio Notebooks
+    20 Project Notebooks
   
 
     
@@ -2801,6 +2734,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -2860,7 +2799,63 @@
   <span class="md-ellipsis">
     
   
-    API Reference
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formula Catalog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/datasets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dataset Catalog
   
 
     
@@ -3126,6 +3121,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3143,7 +3166,19 @@
     
       
         
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
           
+        
+      
         
       
     
@@ -3170,7 +3205,7 @@
   <span class="md-ellipsis">
     
   
-    Releases
+    Project
   
 
     
@@ -3180,6 +3215,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
@@ -3187,12 +3227,180 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Releases
+    Project
   
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/3.0.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0.0 Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/migration-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration to 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/review-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Review & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -3229,10 +3437,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#create-an-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Create an environment
       
     </span>
   </a>
@@ -3240,10 +3448,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-install-neurogebra" class="md-nav__link">
+  <a href="#verify-the-version" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Install Neurogebra
+        Verify the version
       
     </span>
   </a>
@@ -3251,10 +3459,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-verify-installation" class="md-nav__link">
+  <a href="#choose-extras-deliberately" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Verify Installation
+        Choose extras deliberately
       
     </span>
   </a>
@@ -3262,82 +3470,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#optional-extras" class="md-nav__link">
+  <a href="#build-the-documentation-locally" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Optional Extras
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Optional Extras">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#visualization-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visualization Tools
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-boost" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Boost
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#framework-bridges" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Framework Bridges
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#everything" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Everything
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#using-a-virtual-environment-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using a Virtual Environment (Recommended)
+        Build the documentation locally
       
     </span>
   </a>
@@ -3365,83 +3501,103 @@
 
 
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<p>Before installing Neurogebra, make sure you have:</p>
-<ul>
-<li><strong>Python 3.9 or higher</strong> installed on your computer</li>
-<li><strong>pip</strong> (Python's package manager — comes with Python)</li>
-</ul>
-<div class="admonition info">
-<p class="admonition-title">Don't have Python?</p>
-<p>Download Python from <a href="https://www.python.org/downloads/">python.org</a>. During installation on Windows, check <strong>"Add Python to PATH"</strong>.</p>
-</div>
-<hr />
-<h2 id="step-1-install-neurogebra">Step 1: Install Neurogebra<a class="headerlink" href="#step-1-install-neurogebra" title="Permanent link">&para;</a></h2>
-<p>Open your terminal (Command Prompt on Windows, Terminal on Mac/Linux) and type:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra
-</span></code></pre></div>
-<p>That's it! Neurogebra is now installed.</p>
-<hr />
-<h2 id="step-2-verify-installation">Step 2: Verify Installation<a class="headerlink" href="#step-2-verify-installation" title="Permanent link">&para;</a></h2>
-<p>Let's make sure it worked. Open a Python shell:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python
-</span></code></pre></div>
-<p>Then type:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">neurogebra</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">neurogebra</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-</span></code></pre></div>
-<p>You should see the version number printed (e.g., <code>2.8.3</code>).</p>
-<hr />
-<h2 id="optional-extras">Optional Extras<a class="headerlink" href="#optional-extras" title="Permanent link">&para;</a></h2>
-<p>Neurogebra has optional features you can install:</p>
-<h3 id="visualization-tools">Visualization Tools<a class="headerlink" href="#visualization-tools" title="Permanent link">&para;</a></h3>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra<span class="o">[</span>viz<span class="o">]</span>
-</span></code></pre></div>
-Adds plotting and visualization (requires matplotlib and plotly).</p>
-<h3 id="performance-boost">Performance Boost<a class="headerlink" href="#performance-boost" title="Permanent link">&para;</a></h3>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra<span class="o">[</span>fast<span class="o">]</span>
-</span></code></pre></div>
-Adds Numba JIT compilation for faster numerical evaluation.</p>
-<h3 id="framework-bridges">Framework Bridges<a class="headerlink" href="#framework-bridges" title="Permanent link">&para;</a></h3>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra<span class="o">[</span>frameworks<span class="o">]</span>
-</span></code></pre></div>
-Adds PyTorch, TensorFlow, and JAX integration.</p>
-<h3 id="everything">Everything<a class="headerlink" href="#everything" title="Permanent link">&para;</a></h3>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra<span class="o">[</span>all<span class="o">]</span>
-</span></code></pre></div>
-Installs all optional dependencies at once.</p>
-<hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Common Issues</p>
-<p><strong><code>pip</code> not found?</strong></p>
-<p>Try <code>pip3 install neurogebra</code> or <code>python -m pip install neurogebra</code>.</p>
-<p><strong>Permission denied?</strong></p>
-<p>Try <code>pip install --user neurogebra</code> or use a virtual environment.</p>
-<p><strong>Old Python version?</strong></p>
-<p>Neurogebra requires Python 3.9+. Check with <code>python --version</code>.</p>
-</div>
-<hr />
-<h2 id="using-a-virtual-environment-recommended">Using a Virtual Environment (Recommended)<a class="headerlink" href="#using-a-virtual-environment-recommended" title="Permanent link">&para;</a></h2>
-<p>A virtual environment keeps your project dependencies isolated:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows</label><label for="__tabbed_1_2">Mac/Linux</label></div>
+<p>NeuroGebra requires Python 3.9 or newer. The CI matrix covers Python 3.9–3.12 across its configured Linux, Windows and macOS runners. Optional frameworks have their own Python, hardware and operating-system requirements.</p>
+<h2 id="create-an-environment">Create an environment<a class="headerlink" href="#create-an-environment" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows PowerShell</label><label for="__tabbed_1_2">Linux / macOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myenv
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>myenv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">pip</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">neurogebra</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>myenv
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">source</span><span class="w"> </span>myenv/bin/activate
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>pip<span class="w"> </span>install<span class="w"> </span>neurogebra
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>neurogebra
 </span></code></pre></div>
 </div>
 </div>
 </div>
-<hr />
-<p><strong>Next:</strong> <a href="../first-program/">Your First Program →</a></p>
+<p>To install this checkout before its PyPI publication:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[dev,docs]"</span>
+</span></code></pre></div>
+<h2 id="verify-the-version">Verify the version<a class="headerlink" href="#verify-the-version" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">neurogebra</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">neurogebra</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># 3.0.0 from this checkout</span>
+</span></code></pre></div>
+<p>After the maintainer publishes 3.0.0, it can be pinned with <code>python -m pip install "neurogebra==3.0.0"</code>.</p>
+<h2 id="choose-extras-deliberately">Choose extras deliberately<a class="headerlink" href="#choose-extras-deliberately" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Extra</th>
+<th>Adds</th>
+<th>Install</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core</td>
+<td>NumPy, SymPy, SciPy, Matplotlib, Rich and Colorama</td>
+<td><code>python -m pip install neurogebra</code></td>
+</tr>
+<tr>
+<td><code>viz</code></td>
+<td>Plotly and Seaborn</td>
+<td><code>python -m pip install "neurogebra[viz]"</code></td>
+</tr>
+<tr>
+<td><code>frameworks</code></td>
+<td>PyTorch, TensorFlow, JAX and jaxlib</td>
+<td><code>python -m pip install "neurogebra[frameworks]"</code></td>
+</tr>
+<tr>
+<td><code>logging</code></td>
+<td>TensorBoard and Weights &amp; Biases integrations</td>
+<td><code>python -m pip install "neurogebra[logging]"</code></td>
+</tr>
+<tr>
+<td><code>datasets</code></td>
+<td>scikit-learn</td>
+<td><code>python -m pip install "neurogebra[datasets]"</code></td>
+</tr>
+<tr>
+<td><code>cuda</code></td>
+<td>CUDA Python bindings</td>
+<td><code>python -m pip install "neurogebra[cuda]"</code></td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>MkDocs Material and API documentation tools</td>
+<td><code>python -m pip install "neurogebra[docs]"</code></td>
+</tr>
+<tr>
+<td><code>dev</code></td>
+<td>Testing, coverage, lint and development tools</td>
+<td><code>python -m pip install "neurogebra[dev]"</code></td>
+</tr>
+<tr>
+<td><code>fast</code></td>
+<td>Numba dependency for experimentation</td>
+<td><code>python -m pip install "neurogebra[fast]"</code></td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>Development, docs, visualization, frameworks, logging, CUDA and dataset extras</td>
+<td><code>python -m pip install "neurogebra[all]"</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>fast</code> extra installs Numba but does not select a Numba execution backend. C JIT requires a separately installed GCC/Clang toolchain. CUDA JIT requires native NVIDIA driver/NVRTC libraries in addition to the Python extra. Install only the optional framework you need if the full bundle is unsuitable for your platform.</p>
+<h2 id="build-the-documentation-locally">Build the documentation locally<a class="headerlink" href="#build-the-documentation-locally" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[docs]"</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>serve
+</span></code></pre></div>
+<p>Open the local address printed by MkDocs. To validate a static build, run <code>python -m mkdocs build --strict</code> followed by <code>python scripts/check_docs.py --site site</code>.</p>
+<p><a href="../first-program/">Write your first program</a> or consult <a href="../../project/troubleshooting/">troubleshooting</a>.</p>
 
 
 
@@ -3479,7 +3635,7 @@ Installs all optional dependencies at once.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Get Started with NeuroGebra">
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Start with something you can inspect">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -3489,7 +3645,7 @@ Installs all optional dependencies at once.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Get Started with NeuroGebra
+                Start with something you can inspect
               </div>
             </div>
           </a>
@@ -3574,6 +3730,8 @@ Installs all optional dependencies at once.</p>
     
     
       <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
