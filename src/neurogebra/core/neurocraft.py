@@ -198,7 +198,7 @@ class NeuroCraft:
         """
         self._repository[name] = expression
 
-    def compose(self, expression_str: str, **params) -> Expression:
+    def compose(self, expression_str: str, **params: Any) -> Expression:
         """
         Compose expressions using string notation.
 

@@ -60,7 +60,7 @@ from neurogebra import MathForge
 
 forge = MathForge()
 
-# Access 50+ expressions by name
+# Access 285 expressions across 10 categories by name
 relu = forge.get("relu")
 mse = forge.get("mse")
 ```

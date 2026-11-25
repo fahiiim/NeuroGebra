@@ -8,12 +8,12 @@ The `Expression` class is the **fundamental unit** of Neurogebra. Everything in 
 
 An Expression is a **symbolic mathematical formula** that can:
 
-- [PASS] **Evaluate** — compute a numerical result
-- [PASS] **Differentiate** — compute gradients symbolically
-- [PASS] **Explain** — describe itself in plain English
-- [PASS] **Compose** — combine with other expressions
-- [PASS] **Train** — learn parameters from data
-- [PASS] **Visualize** — plot itself
+- **Evaluate** — compute a numerical result
+- **Differentiate** — compute gradients symbolically
+- **Explain** — describe itself in plain English
+- **Compose** — combine with other expressions
+- **Train** — learn parameters from data
+- **Visualize** — plot itself
 
 ---
 

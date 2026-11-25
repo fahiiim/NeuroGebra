@@ -189,22 +189,30 @@ config = LogConfig.from_env()  # reads NEUROGEBRA_LOG_LEVEL
 
 ## Integration with External Tools
 
-### TensorBoard (optional)
+### TensorBoard
 
 ```bash
 pip install neurogebra[logging]
 ```
 
 ```python
-# TensorBoard backend coming in v1.3.0
+from neurogebra.logging import TensorBoardBridge
+
+tb = TensorBoardBridge(log_dir="./runs/experiment_1")
+# Log scalar metrics and events directly into TensorBoard
+tb.log_scalar("loss", value=0.042, step=10)
 ```
 
-### Weights & Biases (optional)
+### Weights & Biases
 
 ```bash
 pip install neurogebra[logging]
 ```
 
 ```python
-# W&B backend coming in v1.3.0
+from neurogebra.logging import WandBBridge
+
+wandb_bridge = WandBBridge(project="neurogebra-experiments")
+# Forward events and epoch summaries to WandB
+wandb_bridge.log_metrics({"loss": 0.042, "accuracy": 0.985}, step=10)
 ```

@@ -642,24 +642,24 @@ plt.show()
 
 | What You Understand | Neurogebra | PyTorch |
 |---------------------|------------|---------|
-| How neurons compute outputs | [PASS] You wrote it |  Hidden in `nn.Linear` |
-| How gradients flow backward | [PASS] You see `.backward()` flow |  Happens inside autograd |
-| How softmax works | [PASS] You implemented it |  Inside `CrossEntropyLoss` |
-| How weights get updated | [PASS] `p.data -= lr * p.grad` |  Inside `optimizer.step()` |
-| How decision boundaries form | [PASS] You can inspect neurons |  Requires extra tools |
+| How neurons compute outputs | Transparently implemented | Hidden in `nn.Linear` |
+| How gradients flow backward | Explicit `.backward()` graph flow | Hidden inside engine |
+| How softmax works | Explicit formulation | Inside `CrossEntropyLoss` |
+| How weights get updated | Explicit parameter updates | Abstracted in `optimizer.step()` |
+| How decision boundaries form | Inspect individual neurons | Requires hook tools |
 
 ### When to Use Each
 
 | Scenario | Use Neurogebra | Use PyTorch |
-|----------|---------------|-------------|
-| Learning ML concepts | [PASS] | |
-| Understanding backprop | [PASS] | |
-| Course assignments | [PASS] | |
-| Research prototyping | [PASS] | [PASS] |
-| Production ML systems | | [PASS] |
-| Large-scale training | | [PASS] |
-| GPU acceleration | | [PASS] |
-| Pre-trained models | | [PASS] |
+|----------|:--------------:|:-----------:|
+| Learning ML concepts | Primary | Secondary |
+| Understanding backprop | Primary | Secondary |
+| Course assignments & pedagogy | Primary | Secondary |
+| Research prototyping | Supported | Primary |
+| Production ML systems | Framework Bridges | Primary |
+| Large-scale cluster training | Framework Bridges | Primary |
+| GPU acceleration | C-JIT & CUDA | Native |
+| Pre-trained models | Export via Bridges | Primary |
 
 ---
 
@@ -691,11 +691,11 @@ You've completed all three projects! You now understand:
 You are here ──────────────────────────────►
                                              
 Neurogebra (understanding)      PyTorch (production)
-├── [PASS] Expressions              ├── torchvision
-├── [PASS] Autograd                 ├── DataLoader
-├── [PASS] Training                 ├── GPU training
-├── [PASS] Neural Networks          ├── Pre-trained models
-└── [PASS] Loss & Optimization      └── Deployment
+├── Expressions                     ├── torchvision
+├── Autograd                        ├── DataLoader
+├── Training                        ├── GPU training
+├── Neural Networks                 ├── Pre-trained models
+└── Loss & Optimization             └── Deployment
 ```
 
 You have a **solid foundation**. Whether you continue with Neurogebra for deeper understanding 

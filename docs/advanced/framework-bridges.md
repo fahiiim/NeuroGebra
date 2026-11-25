@@ -162,7 +162,7 @@ torch_activation = to_pytorch(chosen)
 | Support level | Partial (single-input) | Interop (single-input) | Interop (single-input) |
 | Returns | `nn.Module` | TF function | JAX function |
 | GPU support | Framework-dependent | Framework-dependent | Framework-dependent |
-| Autograd compatible | [PASS] (input + scalar trainable params) | [FAIL] | [FAIL] |
+| Autograd compatible | Yes (input + scalar trainable params) | Interop | Interop |
 
 ---
 

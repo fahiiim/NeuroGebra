@@ -39,7 +39,7 @@ import neurogebra
 print(neurogebra.__version__)
 ```
 
-You should see the version number printed (e.g., `2.6.0`).
+You should see the version number printed (e.g., `2.8.3`).
 
 ---
 

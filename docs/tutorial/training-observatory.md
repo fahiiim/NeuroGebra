@@ -1,6 +1,6 @@
-#  Training Observatory
+# Training Observatory
 
-**New in v1.2.1** — See every neuron fire. Watch every gradient flow. Understand every weight update — in colour.
+**Mathematical Transparency at Scale** — See every neuron fire. Watch every gradient flow. Understand every weight update — in colour.
 
 The Training Observatory is an advanced training logging and visualization system that brings unprecedented mathematical transparency to neural network training.
 

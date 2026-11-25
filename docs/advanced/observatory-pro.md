@@ -1,6 +1,6 @@
-# Observatory Pro -- v2.6.0
+# Observatory Pro
 
-**Available since v1.3.0, current in v2.6.0** -- Six major upgrades that turn the Training Observatory from a passive log dump into an **active diagnostic engine**.
+**Available since v1.3.0, fully integrated in v2.8.3** -- Six major upgrades that turn the Training Observatory from a passive log dump into an **active diagnostic engine**.
 
 ---
 
@@ -368,7 +368,7 @@ print(fingerprint.format_text())
   Seed:         42
   Dataset Hash: 8f14e45fceea167a
   Dataset:      (10000, 784) (float64)
-  Neurogebra:   1.3.0
+  Neurogebra:   2.8.3
   Python:       3.11.5
   NumPy:        1.26.0
   CPU:          AMD64 Family (8 cores)
@@ -398,7 +398,7 @@ with open("fingerprint.json") as f:
 
 ## Full Integration Example
 
-Using all v1.3.0 features together:
+Using all Observatory Pro features together:
 
 ```python
 from neurogebra.builders.model_builder import ModelBuilder

@@ -80,9 +80,9 @@ print(elastic.eval(w=0.5, lambda1=0.01, lambda2=0.01))
 
 | Type | Effect on Weights | Feature Selection | Best For |
 |------|------------------|-------------------|----------|
-| **L1 (Lasso)** | Some become 0 | [PASS] Yes | Sparse models |
-| **L2 (Ridge)** | All become small | [FAIL] No | Preventing large weights |
-| **Elastic Net** | Mix of both | [PASS] Partial | General use |
+| **L1 (Lasso)** | Some become 0 | Yes | Sparse models |
+| **L2 (Ridge)** | All become small | No | Preventing large weights |
+| **Elastic Net** | Mix of both | Partial | General use |
 
 ---
 

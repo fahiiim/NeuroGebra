@@ -499,7 +499,7 @@ print(f"  Total parameters: {len(mlp.parameters()):,}")
 | **Training loop** | Explicit computation visible | Abstracted behind `.backward()` |
 | **Evaluation** | Manual iteration | Vectorized with `torch.no_grad()` |
 | **Speed** | Slower (educational) | Fast (optimized C++) |
-| **Understanding** | [PASS] See every gradient | [FAIL] Gradients are hidden |
+| **Understanding** | Transparent gradient flow | Abstracted behind C++ kernels |
 | **Best for** | Learning ML concepts | Production ML |
 
 ---

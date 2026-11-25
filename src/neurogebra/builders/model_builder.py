@@ -158,7 +158,7 @@ class Layer:
         layer_type: str,
         units: int | None = None,
         activation: str | None = None,
-        **kwargs,
+        **kwargs: Any,
     ):
         """
         Create a layer.
@@ -1574,7 +1574,7 @@ class Model:
         metrics: list[str] | None = None,
         learning_rate: float = 0.001,
         log_level: str | None = None,
-        log_config=None,
+        log_config: Any = None,
     ):
         """
         Configure the model for training.

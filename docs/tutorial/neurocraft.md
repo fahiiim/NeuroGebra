@@ -7,14 +7,14 @@
 ## NeuroCraft vs MathForge
 
 | Feature | MathForge | NeuroCraft |
-|---------|-----------|------------|
-| Get expressions | [PASS] | [PASS] |
-| Search | [PASS] | [PASS] Smart with suggestions |
-| Educational mode | [FAIL] | [PASS] Built-in explanations |
-| Tutorials | [FAIL] | [PASS] Interactive tutorials |
-| "Did you mean?" | [FAIL] | [PASS] Typo correction |
-| Compare expressions | [FAIL] | [PASS] Side-by-side comparison |
-| Quick access | [FAIL] | [PASS] `quick_activation()`, `quick_loss()` |
+|---------|:---------:|:----------:|
+| Get expressions | Yes | Yes |
+| Search | Basic | Smart with suggestions |
+| Educational mode | No | Built-in explanations |
+| Tutorials | No | Interactive tutorials |
+| "Did you mean?" | No | Typo correction |
+| Compare expressions | No | Side-by-side comparison |
+| Quick access | No | `quick_activation()`, `quick_loss()` |
 
 ---
 

@@ -32,7 +32,7 @@ from neurogebra import MathForge
 forge = MathForge()
 ```
 
-This loads 50+ pre-built mathematical expressions into memory.
+This loads 285 pre-built mathematical expressions into memory across 10 specialized categories.
 
 ---
 

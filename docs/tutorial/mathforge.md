@@ -6,7 +6,7 @@
 
 ## What is MathForge?
 
-MathForge is a **repository manager** that gives you access to 50+ pre-built mathematical expressions used in Machine Learning.
+MathForge is a **repository manager** that gives you access to 285 pre-built mathematical expressions used in Machine Learning and scientific computing.
 
 Think of it as a **library catalog** — you ask for a book (expression) by name, and it gives you a full object you can work with.
 

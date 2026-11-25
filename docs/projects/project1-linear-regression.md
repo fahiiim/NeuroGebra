@@ -372,8 +372,8 @@ for name in ["relu", "sigmoid", "tanh"]:
 | **Data format** | NumPy arrays | torch.Tensor |
 | **Model definition** | Math formula: `"w*x + b"` | `nn.Linear(1, 1)` |
 | **Lines for training** | 1 (`trainer.fit(...)`) | ~10 (manual loop) |
-| **See the formula** | [PASS] `model.symbolic_expr` | [FAIL] Hidden in module |
-| **See gradients** | [PASS] `model.gradient("x")` | [FAIL] Only numerical values |
+| **See the formula** | Directly visible (`model.symbolic_expr`) | Hidden in compiled module |
+| **See gradients** | Directly symbolic (`model.gradient("x")`) | Only numerical backward passes |
 | **Total lines of code** | ~15 | ~35 |
 | **Learning curve** | Gentle | Steep |
 | **Production ready** | Educational | Production |

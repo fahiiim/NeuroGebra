@@ -12,9 +12,9 @@ The model learns the relationship between inputs and outputs.
 
 ```
 Training Data:
-    Input: house_size = 1500 sqft → Output: price = $280,000 [PASS]
-    Input: house_size = 2000 sqft → Output: price = $350,000 [PASS]
-    Input: house_size = 800 sqft  → Output: price = $150,000 [PASS]
+    Input: house_size = 1500 sqft → Output: price = $280,000 (ground truth)
+    Input: house_size = 2000 sqft → Output: price = $350,000 (ground truth)
+    Input: house_size = 800 sqft  → Output: price = $150,000 (ground truth)
 
 After Training:
     Input: house_size = 1800 sqft → Output: price = ???
@@ -124,7 +124,7 @@ and eventually masters the game.
 
 | Type | Has Labels? | Goal | Neurogebra Focus |
 |------|------------|------|-----------------|
-| Supervised | Yes | Predict from labeled data | [PASS] Full support |
+| Supervised | Yes | Predict from labeled data | Full support |
 | Unsupervised | No | Find patterns | Partial |
 | Reinforcement | Rewards | Maximize reward | Future feature |
 

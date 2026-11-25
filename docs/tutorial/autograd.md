@@ -80,8 +80,8 @@ print(f"de/db = {b.grad}")  # 3.0  (from + path: 1, from * path: a=2 → total: 
 Let's verify manually:
 
 - $e = (a + b) + (a \cdot b) = a + b + ab$
-- $\frac{\partial e}{\partial a} = 1 + b = 1 + 3 = 4$ [PASS]
-- $\frac{\partial e}{\partial b} = 1 + a = 1 + 2 = 3$ [PASS]
+- $\frac{\partial e}{\partial a} = 1 + b = 1 + 3 = 4$
+- $\frac{\partial e}{\partial b} = 1 + a = 1 + 2 = 3$
 
 ---
 

@@ -1,21 +1,24 @@
-site_name: Neurogebra — Learn ML from Scratch
-site_description: "The beginner-friendly ML framework: Learn Machine Learning & Deep Learning step-by-step with Neurogebra"
+site_name: NeuroGebra Documentation
+site_description: "The executable mathematical foundation for AI & scientific computing: symbolic rigor, C++/CUDA JIT acceleration, PINNs, and real-time training observability."
 site_url: https://neurogebra.readthedocs.io
 repo_url: https://github.com/fahiiim/NeuroGebra
 repo_name: fahiiim/NeuroGebra
+copyright: "Copyright &copy; 2026 Fahim Sarker — MIT License"
 
 theme:
   name: material
+  logo: assets/neurogebra-icon-bright.png
+  favicon: assets/favicon.png
   palette:
     - scheme: default
-      primary: deep purple
-      accent: amber
+      primary: custom
+      accent: teal
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: deep purple
-      accent: amber
+      primary: custom
+      accent: teal
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -23,12 +26,12 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
-    - navigation.expand
-    - navigation.top
     - navigation.indexes
+    - navigation.top
     - navigation.footer
     - search.suggest
     - search.highlight
+    - search.share
     - content.tabs.link
     - content.code.annotation
     - content.code.copy
@@ -38,6 +41,9 @@ theme:
   font:
     text: Inter
     code: JetBrains Mono
+
+extra_css:
+  - stylesheets/pytorch-style.css
 
 plugins:
   - search
@@ -67,9 +73,6 @@ markdown_extensions:
   - pymdownx.details
   - attr_list
   - md_in_html
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.critic
   - pymdownx.mark
   - pymdownx.keys
@@ -81,66 +84,85 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Quick Start: getting-started.md
 
-  - Getting Started:
-      - Installation: getting-started/installation.md
-      - Your First Program: getting-started/first-program.md
-      - How Neurogebra Works: getting-started/how-it-works.md
-
-  - Python for ML (Refresher):
-      - Python Basics Recap: python-refresher/basics.md
-      - NumPy Essentials: python-refresher/numpy.md
-      - Data Handling with Python: python-refresher/data-handling.md
-
-  - ML Fundamentals:
-      - What is Machine Learning?: ml-fundamentals/what-is-ml.md
-      - Types of ML: ml-fundamentals/types-of-ml.md
-      - The ML Workflow: ml-fundamentals/ml-workflow.md
-      - Math Behind ML: ml-fundamentals/math-behind-ml.md
+  - Get Started:
+      - getting-started/index.md
+      - Installation & Setup: getting-started/installation.md
+      - Quick Start (5-Min Tour): getting-started/first-program.md
+      - All-in-One Quick Reference: getting-started.md
+      - Architecture Overview: getting-started/how-it-works.md
+      - Python & NumPy Refresher:
+          - Python Basics Recap: python-refresher/basics.md
+          - NumPy Essentials: python-refresher/numpy.md
+          - Data Handling with Python: python-refresher/data-handling.md
+      - ML Fundamentals:
+          - What is Machine Learning?: ml-fundamentals/what-is-ml.md
+          - Types of ML: ml-fundamentals/types-of-ml.md
+          - The ML Workflow: ml-fundamentals/ml-workflow.md
+          - Math Behind ML: ml-fundamentals/math-behind-ml.md
 
   - Tutorials:
-      - Beginner: tutorials/beginner.md
-      - Intermediate: tutorials/intermediate.md
-      - Advanced: tutorials/advanced.md
+      - tutorials/index.md
+      - Learning Tracks:
+          - Beginner Track: tutorials/beginner.md
+          - Intermediate Track: tutorials/intermediate.md
+          - Advanced Track: tutorials/advanced.md
+      - Symbolic Engine & MathForge:
+          - MathForge (285 Formulas): tutorial/mathforge.md
+          - Expressions & LaTeX Rendering: tutorial/expressions.md
+          - Activation Functions: tutorial/activations.md
+          - Loss Functions: tutorial/losses.md
+          - Gradients & Calculus: tutorial/gradients.md
+          - Expression Composition: tutorial/composition.md
+          - Trainable Expressions: tutorial/training.md
+          - NeuroCraft Interactive Mode: tutorial/neurocraft.md
+      - Autograd & Neural Networks:
+          - Autograd Engine (Value): tutorial/autograd.md
+          - Differentiable Tensors: tutorial/tensors.md
+          - ModelBuilder & Modern Layers: tutorial/model-builder.md
+          - Built-in Datasets (48 Loaders): tutorial/datasets.md
+      - Training Observatory:
+          - Training Observatory Overview: tutorial/training-observatory.md
+          - Observatory Architecture & Events: advanced/observatory-deep-dive.md
+          - Observatory Pro Telemetry: advanced/observatory-pro.md
+          - Visualization & Plotting: advanced/visualization.md
 
-  - Neurogebra Tutorial:
-      - MathForge — The Core: tutorial/mathforge.md
-      - Expressions — Building Blocks: tutorial/expressions.md
-      - Activation Functions: tutorial/activations.md
-      - Loss Functions: tutorial/losses.md
-      - Gradients & Differentiation: tutorial/gradients.md
-      - Expression Composition: tutorial/composition.md
-      - Training Expressions: tutorial/training.md
-      - Autograd Engine: tutorial/autograd.md
-      - Tensors: tutorial/tensors.md
-      - ModelBuilder: tutorial/model-builder.md
-      - NeuroCraft Interface: tutorial/neurocraft.md
-      - Datasets: tutorial/datasets.md
-      - "Training Observatory": tutorial/training-observatory.md
-
-  - Examples:
-      - Custom Activation Functions: examples/custom_activation.md
-      - Custom Loss Functions: examples/custom_loss.md
-      - Training Expressions: examples/training_expressions.md
-      - Real Project Notebooks (Colab): examples/project_notebooks.md
-
-  - Advanced Topics:
+  - Acceleration & Science:
+      - science/index.md
+      - Hardware Acceleration (C-JIT & CUDA GPU): science/acceleration.md
+      - Physics-Informed Neural Networks (PINN): science/pinn.md
+      - Optimizers & LR Schedulers: advanced/optimization.md
+      - Evaluation Metrics: science/metrics.md
+      - Regularization Techniques: advanced/regularization.md
+      - Performance Engineering: advanced/performance.md
+      - Framework Bridges (PyTorch / TF / JAX): advanced/framework-bridges.md
       - Custom Expressions: advanced/custom-expressions.md
-      - Framework Bridges: advanced/framework-bridges.md
-      - Visualization: advanced/visualization.md
-      - Regularization: advanced/regularization.md
-      - Optimization Algorithms: advanced/optimization.md
-      - Performance Tips: advanced/performance.md
-      - Observatory Deep Dive: advanced/observatory-deep-dive.md
-      - "Observatory Pro (v1.3.0)": advanced/observatory-pro.md
 
-  - Projects (Neurogebra vs PyTorch):
-      - "Project 1: Linear Regression": projects/project1-linear-regression.md
-      - "Project 2: Image Classifier": projects/project2-image-classifier.md
-      - "Project 3: Neural Network from Scratch": projects/project3-neural-network.md
+  - Notebooks & Projects:
+      - 20 Executed GPU Portfolio Notebooks: examples/project_notebooks.md
+      - NeuroGebra vs PyTorch Comparisons:
+          - "Project 1: Linear Regression": projects/project1-linear-regression.md
+          - "Project 2: Image Classifier": projects/project2-image-classifier.md
+          - "Project 3: Neural Network from Scratch": projects/project3-neural-network.md
+      - Cookbook Recipes:
+          - Custom Activation Functions: examples/custom_activation.md
+          - Custom Loss Functions: examples/custom_loss.md
+          - Training Expressions: examples/training_expressions.md
 
-  - API Reference: api/reference.md
+  - API Reference:
+      - api/reference.md
+      - neurogebra.core: api/core.md
+      - neurogebra.builders: api/builders.md
+      - neurogebra.acceleration: api/acceleration.md
+      - neurogebra.science: api/science.md
+      - neurogebra.optim: api/optim.md
+      - neurogebra.metrics: api/metrics.md
+      - neurogebra.logging & training: api/logging.md
+      - neurogebra.bridges & datasets: api/bridges-datasets.md
+      - neurogebra.repository & viz: api/repository.md
+
+  - Releases:
+      - releases/index.md
 
 extra:
   social:

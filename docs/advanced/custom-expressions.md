@@ -6,7 +6,7 @@ Learn how to create your own mathematical expressions and register them for reus
 
 ## Why Custom Expressions?
 
-While Neurogebra ships with 50+ built-in expressions, you'll often want:
+While Neurogebra ships with 285 built-in expressions across 10 categories, you'll often want:
 
 - Custom activation functions for research
 - Specialized loss functions for your task
@@ -214,7 +214,7 @@ result = my_func.eval(x=x)
 expected = x**3 - 3*x + 2
 np.testing.assert_array_almost_equal(result, expected)
 
-print("All tests passed! [PASS]")
+print("All tests passed successfully!")
 ```
 
 ---

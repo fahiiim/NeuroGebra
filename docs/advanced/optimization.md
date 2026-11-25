@@ -47,7 +47,7 @@ history = trainer.fit(X, y, epochs=100)
 
 ### Pros and Cons
 
-| [PASS] Pros | [FAIL] Cons |
+| Pros | Cons |
 |---------|---------|
 | Simple to understand | Can be slow to converge |
 | Low memory usage | Sensitive to learning rate |
@@ -72,12 +72,12 @@ history = trainer.fit(X, y, epochs=100)
 
 ### Pros and Cons
 
-| [PASS] Pros | [FAIL] Cons |
+| Pros | Cons |
 |---------|---------|
 | Fast convergence | Slightly more memory |
 | Works well out-of-the-box | May not generalize as well as SGD |
 | Handles sparse gradients | Can overshoot minimum |
-| Good default for most problems | |
+| Good default for most problems | Sensitive to epsilon on noisy inputs |
 
 ---
 
@@ -192,6 +192,81 @@ history = trainer.fit(X, y, epochs=100, batch_size=1)
 | **Single (1)** | Fast per epoch | Very noisy | Low |
 
 **Recommendation:** Start with batch_size=32.
+
+---
+
+## Standalone Optimizers (`neurogebra.optim`)
+
+NeuroGebra provides standalone optimizer objects with full momentum, weight decay, and Nesterov acceleration that can be passed directly to `model.compile()` or used in custom training loops.
+
+```python
+from neurogebra.optim import SGD, Adam, RMSprop
+
+# SGD with momentum and weight decay
+opt_sgd = SGD(learning_rate=0.01, momentum=0.9, nesterov=True, weight_decay=1e-4)
+
+# Adam with custom beta parameters
+opt_adam = Adam(learning_rate=0.001, betas=(0.9, 0.999), eps=1e-8, weight_decay=1e-4)
+
+# RMSprop
+opt_rmsprop = RMSprop(learning_rate=0.001, alpha=0.99, eps=1e-8)
+
+# Pass directly to ModelBuilder compiled model:
+model.compile(loss="categorical_crossentropy", optimizer=opt_adam)
+```
+
+---
+
+## Learning Rate Schedulers
+
+Dynamic learning rate adjustment during training prevents premature convergence and helps models settle into sharper minima. NeuroGebra includes four production-ready schedulers in `neurogebra.optim`:
+
+### 1. StepLR
+Decays the learning rate by `gamma` every `step_size` epochs:
+
+$$\eta_t = \eta_0 \cdot \gamma^{\lfloor t / \text{step\_size} \rfloor}$$
+
+```python
+from neurogebra.optim import StepLR
+
+scheduler = StepLR(model, step_size=10, gamma=0.5)
+history = model.fit(X, y, epochs=50, batch_size=32, lr_scheduler=scheduler)
+```
+
+### 2. CosineAnnealingLR
+Anneals the learning rate following a cosine curve down to `eta_min`:
+
+$$\eta_t = \eta_{\min} + \frac{1}{2}(\eta_0 - \eta_{\min})\left(1 + \cos\left(\frac{t}{T_{\max}}\pi\right)\right)$$
+
+```python
+from neurogebra.optim import CosineAnnealingLR
+
+scheduler = CosineAnnealingLR(model, T_max=50, eta_min=1e-5)
+history = model.fit(X, y, epochs=50, batch_size=32, lr_scheduler=scheduler)
+```
+
+### 3. ExponentialLR
+Decays the learning rate exponentially at every epoch:
+
+$$\eta_t = \eta_0 \cdot \gamma^t$$
+
+```python
+from neurogebra.optim import ExponentialLR
+
+scheduler = ExponentialLR(model, gamma=0.95)
+history = model.fit(X, y, epochs=50, batch_size=32, lr_scheduler=scheduler)
+```
+
+### 4. ReduceLROnPlateau
+Monitors validation or training loss and reduces the learning rate when progress stalls:
+
+```python
+from neurogebra.optim import ReduceLROnPlateau
+
+scheduler = ReduceLROnPlateau(model, mode="min", factor=0.5, patience=5, min_lr=1e-6)
+# Updated automatically by model.fit when val_loss plateaus
+history = model.fit(X, y, epochs=50, batch_size=32, lr_scheduler=scheduler)
+```
 
 ---
 

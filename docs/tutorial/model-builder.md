@@ -104,11 +104,35 @@ flatten = builder.Flatten()
 
 ### BatchNorm
 
-Normalizes layer outputs to stabilize training.
+Normalizes layer outputs across the batch to stabilize training.
 
 ```python
 bn = builder.BatchNorm()
 bn.explain()
+```
+
+### LayerNorm
+
+Normalizes activations across feature dimensions for each individual sample, crucial for deep transformers and residual architectures.
+
+```python
+ln = builder.LayerNorm(eps=1e-5)
+```
+
+### GlobalAveragePooling2D
+
+Reduces spatial feature maps $(B, H, W, C) \to (B, C)$ by averaging across all spatial pixels, drastically reducing parameter count compared to `Flatten`.
+
+```python
+gap = builder.GlobalAveragePooling2D()
+```
+
+### ResidualDense
+
+Implements an identity shortcut skip-connection $(x + \text{Dense}(x))$ that mitigates vanishing gradients and allows very deep MLP/ResNet networks to train effectively.
+
+```python
+res_block = builder.ResidualDense(units=64, activation="relu")
 ```
 
 ---
@@ -288,6 +312,36 @@ model.explain_architecture()
 | MaxPooling2D | After Conv2D to reduce size |
 | Flatten | Between Conv and Dense |
 | BatchNorm | For deeper networks to stabilize training |
+| LayerNorm | Per-sample feature normalization for deep ResNets/transformers |
+| GlobalAveragePooling2D | Extreme parameter reduction before final classification |
+| ResidualDense | Residual skip-connection for deep MLP architectures |
+
+---
+
+## Model Persistence & Step-by-Step Execution
+
+### Saving and Loading Models
+
+```python
+from neurogebra.builders.model_builder import Model
+
+# Save trained weights and architecture to disk
+model.save("my_model.json")
+
+# Restore model
+loaded_model = Model.load("my_model.json")
+predictions = loaded_model.predict(X_test)
+```
+
+### Step-by-Step Batch Training
+
+For customized training loops or active learning:
+
+```python
+# Train single mini-batch
+batch_metrics = model.train_on_batch(X_batch, y_batch)
+print(f"Batch Loss: {batch_metrics['loss']:.4f}")
+```
 
 ---
 
