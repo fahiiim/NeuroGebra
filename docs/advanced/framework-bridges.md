@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: Optional framework dependencies
+---
+
 # Framework Bridges
 
 Neurogebra can convert expressions to **PyTorch**, **TensorFlow**, and **JAX** so you can prototype symbolically and integrate with common frameworks.

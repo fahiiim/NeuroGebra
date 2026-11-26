@@ -1,0 +1,38 @@
+<section class="ng-explorer" id="activation-explorer" aria-labelledby="ng-explorer-title">
+  <div class="ng-panel-heading"><span class="ng-panel-index">01 / EXPLORE</span><span class="ng-panel-badge">Symbolic &amp; numerical</span></div>
+  <div class="ng-explorer-heading"><h2 id="ng-explorer-title">An equation you can inspect.</h2><p>One input. A value. A gradient.</p></div>
+  <div class="ng-function-controls" data-ng-controls hidden>
+    <div class="ng-function-buttons" role="group" aria-label="Activation function">
+      <button type="button" data-ng-function="sigmoid" aria-pressed="true">Sigmoid</button>
+      <button type="button" data-ng-function="tanh" aria-pressed="false">Tanh</button>
+      <button type="button" data-ng-function="relu" aria-pressed="false">ReLU</button>
+      <button type="button" data-ng-function="swish" aria-pressed="false">Swish</button>
+    </div>
+    <label class="ng-beta" data-ng-beta-field hidden>Beta <select data-ng-beta><option value="0.5">0.5</option><option value="1" selected>1</option><option value="2">2</option></select></label>
+  </div>
+  <div class="ng-formula-display" data-ng-formula>f(x) = 1 / (1 + exp(-x))</div>
+  <div class="ng-chart-wrap">
+    <img data-ng-fallback src="{{ 'assets/images/sigmoid-preview.svg' | url }}" alt="Sigmoid and its derivative for x from -4 to 4. At zero, the value is 0.5 and the derivative is 0.25." width="640" height="240">
+    <svg data-ng-plot hidden viewBox="0 0 640 240" role="img" aria-labelledby="ng-plot-title ng-plot-description">
+      <title id="ng-plot-title">Activation function and symbolic derivative</title>
+      <desc id="ng-plot-description" data-ng-plot-description>Values generated with NeuroGebra on a fixed input grid.</desc>
+      <g class="ng-chart-grid" fill="none"><path d="M42 30H598M42 112H598M42 194H598M42 24V200M181 24V200M320 24V200M459 24V200M598 24V200"/></g>
+      <g class="ng-chart-axis"><text x="33" y="225">-4</text><text x="315" y="225">0</text><text x="590" y="225">4</text><text x="10" y="34" data-ng-ymax>1</text><text x="10" y="198" data-ng-ymin>0</text></g>
+      <path class="ng-curve" data-ng-curve fill="none"/>
+      <path class="ng-derivative" data-ng-derivative fill="none"/>
+      <path class="ng-crosshair" data-ng-crosshair fill="none"/>
+      <circle class="ng-value-dot" data-ng-value-dot r="5"/>
+      <circle class="ng-slope-dot" data-ng-slope-dot r="4"/>
+    </svg>
+  </div>
+  <div class="ng-chart-legend"><span><i class="ng-line-sample" aria-hidden="true"></i>Function f(x)</span><span><i class="ng-line-sample ng-line-sample--derivative" aria-hidden="true"></i>Derivative f&#8242;(x)</span></div>
+  <div class="ng-input-control" data-ng-controls hidden><label for="ng-x">Input <i>x</i></label><input id="ng-x" data-ng-x type="range" min="-4" max="4" step="0.05" value="0"><output for="ng-x" data-ng-x-value>0.00</output></div>
+  <div class="ng-results"><div><span>f(x)</span><output data-ng-value>0.5000</output></div><div><span>f&#8242;(x)</span><output data-ng-slope>0.2500</output></div><div><span>Execution</span><strong>Precomputed</strong></div></div>
+  <p class="ng-demo-note" data-ng-note>Library-generated curves and derivatives. Interactive controls inspect saved samples; Python does not execute in this page.</p>
+  <details class="ng-demo-code"><summary>See the NeuroGebra code</summary><pre><code data-ng-code>from neurogebra import MathForge
+
+f = MathForge().get("sigmoid")
+value = f.eval(x=0.0)
+slope = f.gradient("x").eval(x=0.0)</code></pre></details>
+  <p class="ng-sr-status" data-ng-status role="status" aria-live="polite"></p>
+</section>

@@ -14,6 +14,8 @@ try {
         & python @check
         if ($LASTEXITCODE -ne 0) { throw "Release check failed: python $check" }
     }
+    & node --test tests/web/home-demo.test.cjs
+    if ($LASTEXITCODE -ne 0) { throw 'Website interaction checks failed (Node.js 24 is required)' }
     $artifacts = @(Get-ChildItem -LiteralPath "dist/$releaseVersion" -File | ForEach-Object { $_.FullName })
     & python -m twine check @artifacts
     if ($LASTEXITCODE -ne 0) { throw 'Distribution metadata validation failed' }

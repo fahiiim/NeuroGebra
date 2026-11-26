@@ -31,6 +31,8 @@ python -m mkdocs build --strict
 python scripts/check_docs.py --site site
 ```
 
+For homepage interaction changes, also run `node --test tests/web/home-demo.test.cjs` with Node.js 24. See [documentation maintenance](documentation.md) for generated demonstrations and browser checks.
+
 For a package release, use Python 3.11+ for the metadata checker:
 
 ```bash

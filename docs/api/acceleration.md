@@ -29,7 +29,7 @@ The `neurogebra.acceleration` module compiles supported SymPy expressions into p
 ::: neurogebra.acceleration.c_jit.CJITFunction
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ---
 
@@ -54,4 +54,4 @@ The `neurogebra.acceleration` module compiles supported SymPy expressions into p
 ::: neurogebra.acceleration.cuda_jit.CUDAJITFunction
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false

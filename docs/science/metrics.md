@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Zero-Dependency Evaluation Metrics
 
 `neurogebra.metrics` provides 12 standard classification and regression evaluation functions implemented purely in NumPy—requiring no `scikit-learn` runtime dependency.

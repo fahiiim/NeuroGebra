@@ -49,7 +49,7 @@ The `neurogebra.repository` module hosts 285 pre-built mathematical formulas org
 ::: neurogebra.repository.search.ExpressionSearch
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ---
 

@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # NeuroCraft Interface
 
 `NeuroCraft` is Neurogebra's **enhanced educational interface** — like MathForge but with built-in learning tools, tutorials, and smarter error handling.

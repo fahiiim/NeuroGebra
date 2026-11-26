@@ -1,6 +1,26 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # Autograd Engine
 
-Neurogebra includes a built-in **automatic differentiation engine** that tracks computations and computes gradients automatically — just like PyTorch's autograd, but simpler and more educational.
+Record a scalar computation and follow the derivative backward. Value provides an eager reverse-mode graph for small, inspectable calculations.
+
+## A complete first example
+
+```python
+from neurogebra.core.autograd import Value
+
+x = Value(2.0)
+y = x * x + 3 * x
+y.backward()
+print(y.data)  # 10.0
+print(x.grad)  # 7.0
+```
+
+The derivative is `2*x + 3`, so at `x=2` it is `7`. Reset leaf gradients between independent steps, rebuild the graph after parameter updates, and avoid changing a value between forward and backward. Continue with the [Value reference](../api/value.md) or [tensor guide](tensors.md).
+
 
 ---
 
@@ -160,27 +180,27 @@ learning_rate = 0.01
 
 for epoch in range(100):
     total_loss = Value(0.0)
-    
+
     for x_val, y_val in data:
         # Forward pass
         x = Value(x_val)
         y_pred = w * x + b
-        
+
         # Loss (MSE for one sample)
         loss = (y_pred - Value(y_val)) ** 2
         total_loss = total_loss + loss
-    
+
     # Backward pass
     total_loss.backward()
-    
+
     # Update parameters (gradient descent)
     w.data -= learning_rate * w.grad
     b.data -= learning_rate * b.grad
-    
+
     # Reset gradients for next epoch
     w.grad = 0.0
     b.grad = 0.0
-    
+
     if epoch % 20 == 0:
         print(f"Epoch {epoch:>3}: loss = {total_loss.data:.4f}, w = {w.data:.4f}, b = {b.data:.4f}")
 
@@ -200,12 +220,12 @@ class Neuron:
     def __init__(self, n_inputs):
         self.w = [Value(random.uniform(-1, 1)) for _ in range(n_inputs)]
         self.b = Value(0.0)
-    
+
     def __call__(self, x):
         # w · x + b
         act = sum((wi*xi for wi, xi in zip(self.w, x)), self.b)
         return act.relu()
-    
+
     def parameters(self):
         return self.w + [self.b]
 
@@ -216,12 +236,12 @@ class MLP:
         for i in range(len(layer_sizes)):
             neurons = [Neuron(sizes[i]) for _ in range(sizes[i+1])]
             self.layers.append(neurons)
-    
+
     def __call__(self, x):
         for layer in self.layers:
             x = [neuron(x) for neuron in layer]
         return x[0] if len(x) == 1 else x
-    
+
     def parameters(self):
         return [p for layer in self.layers for neuron in layer for p in neuron.parameters()]
 

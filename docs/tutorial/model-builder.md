@@ -1,6 +1,31 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # ModelBuilder
 
-`ModelBuilder` provides an **educational, intuitive interface** for building neural network architectures — similar to Keras, but with built-in explanations.
+Construct a sequential neural network, train it with NumPy, and inspect its predictions. Dense inputs use (samples, features); image layers use NHWC.
+
+## A complete first example
+
+```python
+import numpy as np
+from neurogebra import ModelBuilder
+
+builder = ModelBuilder()
+model = builder.Sequential([builder.Dense(1)], name="line")
+X = np.linspace(-1.0, 1.0, 32).reshape(-1, 1)
+y = 2.0 * X + 1.0
+model.compile(loss="mse", optimizer="sgd", learning_rate=0.05)
+history = model.fit(X, y, epochs=5, batch_size=32,
+                    validation_split=0, verbose=False)
+print(len(history["loss"]))        # 5
+print(model.predict(X[:2]).shape)  # (2, 1)
+```
+
+Weights initialize on the first forward pass. Exact losses depend on initialization and data order; a short example is not a convergence guarantee. Use a single output with MSE for this regression task. See [optimizers](../advanced/optimization.md), [datasets](datasets.md), and the [builders reference](../api/builders.md).
+
 
 ---
 
@@ -278,10 +303,10 @@ model = builder.Sequential([
     builder.MaxPooling2D(pool_size=2),
     builder.Conv2D(64, kernel_size=3, activation="relu"),
     builder.MaxPooling2D(pool_size=2),
-    
+
     # Bridge
     builder.Flatten(),
-    
+
     # Classification
     builder.Dense(128, activation="relu"),
     builder.Dropout(0.5),

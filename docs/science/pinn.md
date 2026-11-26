@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Physics-Informed Neural Networks (PINN)
 
 `neurogebra.science.PINN` provides a pure-Python/NumPy solver for Ordinary and Partial Differential Equations (ODEs and PDEs). Rather than fitting data points alone, a PINN embeds known differential conservation laws directly into the training loss.

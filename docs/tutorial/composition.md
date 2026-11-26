@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: SymPy + NumPy
+---
+
 # Expression Composition
 
 One of Neurogebra's most powerful features is the ability to **combine simple expressions into complex ones**.

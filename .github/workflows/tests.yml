@@ -17,6 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
       - name: Install documentation dependencies
         run: python -m pip install -e ".[docs]"
       - name: Verify metadata and generated catalogs
@@ -28,6 +31,7 @@ jobs:
         run: |
           python -m mkdocs build --strict
           python scripts/check_docs.py --site site
+          node --test tests/web/home-demo.test.cjs
 
   test:
     runs-on: ${{ matrix.os }}

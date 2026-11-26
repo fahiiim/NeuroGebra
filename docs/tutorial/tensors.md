@@ -1,6 +1,26 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # Tensors
 
-Tensors extend the `Value` concept to **multi-dimensional arrays** — enabling batched operations essential for efficient ML.
+Use multidimensional NumPy-backed arrays with gradient tracking. This guide connects array operations, shapes and reverse-mode derivatives.
+
+## A complete first example
+
+```python
+from neurogebra.core.autograd import Tensor
+
+x = Tensor([[1.0, 2.0]], requires_grad=True)
+loss = (x * x).sum()
+loss.backward()
+print(x.shape)  # (1, 2)
+print(x.grad)   # [[2. 4.]]
+```
+
+The sum produces a scalar objective; its gradient has the same shape as `x`. Leaf gradients accumulate across backward calls. Rebuild the forward graph after updates, and do not mutate input storage before backward. See the [Tensor reference](../api/tensor.md).
+
 
 ---
 

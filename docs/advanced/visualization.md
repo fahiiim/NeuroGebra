@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Visualization
 
 Neurogebra includes built-in tools to **visualize** expressions, gradients, and training progress.
@@ -146,7 +151,7 @@ x = np.linspace(-5, 5, 200)
 for ax, name in zip(axes.flat, ["relu", "sigmoid", "tanh", "swish"]):
     expr = forge.get(name)
     grad = expr.gradient("x")
-    
+
     ax.plot(x, expr.eval(x=x), label=f"{name}(x)", linewidth=2)
     ax.plot(x, grad.eval(x=x), label=f"{name}'(x)", linewidth=2, linestyle="--")
     ax.set_title(name.upper())

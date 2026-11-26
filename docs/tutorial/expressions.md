@@ -1,6 +1,27 @@
+---
+level: Foundations
+runtime: SymPy + NumPy
+---
+
 # Expressions — Building Blocks
 
-The `Expression` class is the **fundamental unit** of Neurogebra. Everything in the library is built on expressions.
+Create a formula, evaluate a batch, and derive its slope. An Expression stores a SymPy formula and parameters; tensor autograd and neural layers use separate execution paths.
+
+## A complete first example
+
+```python
+import numpy as np
+from neurogebra import Expression
+
+square = Expression("square", "x**2")
+x = np.array([-2.0, 0.0, 2.0])
+print(square.eval(x=x))                 # [4. 0. 4.]
+print(square.gradient("x").eval(x=x))   # [-4. 0. 4.]
+print(square.latex())
+```
+
+Use named inputs such as `x=...`. Parameters belong in `params`; array inputs follow NumPy broadcasting. Inspect a formula's domain before evaluating logarithms, roots, or divisions. See the [Expression reference](../api/expression.md).
+
 
 ---
 
@@ -144,7 +165,7 @@ b = Expression("b", "x + 1")
 # Addition
 c = a + b           # x² + x + 1
 
-# Subtraction  
+# Subtraction
 d = a - b           # x² - x - 1
 
 # Multiplication

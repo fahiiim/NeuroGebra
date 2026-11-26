@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Regularization
 
 Regularization prevents **overfitting** — when a model memorizes training data instead of learning general patterns.

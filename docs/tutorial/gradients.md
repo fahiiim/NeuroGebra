@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: SymPy + NumPy
+---
+
 # Gradients & Differentiation
 
 **Gradients are how neural networks learn.** This is the single most important concept in all of ML.
@@ -166,9 +171,9 @@ print("-" * 45)
 for step in range(15):
     fx = f.eval(x=x)
     gx = f_grad.eval(x=x)
-    
+
     print(f"{step:>4} | {x:>8.4f} | {fx:>8.4f} | {gx:>8.4f}")
-    
+
     # Update: move opposite to gradient
     x = x - lr * gx
 

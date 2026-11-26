@@ -5,6 +5,15 @@ All notable changes to Neurogebra will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Documentation
+- Introduced a dedicated mathematical-notebook homepage with an activation/derivative explorer, library-generated samples, a reproducible recorded training trace, accessible controls and no-JavaScript fallbacks.
+- Organized navigation around reader tasks; added an examples landing page and focused core API references while retaining legacy core anchors.
+- Refined shared article typography, light/dark colors, responsive layout and runnable guide introductions.
+- Added instant navigation, lazy equation rendering, correct code annotations and a keyboard shortcut for the existing documentation search.
+- Added demonstration provenance checks and dependency-free JavaScript interaction tests to CI and release validation.
+
 ## [3.0.0] - 2026-11-25
 
 ### Added
@@ -216,7 +225,7 @@ See `RELEASE_NOTES.md` and `docs/releases/migration-3.md` for compatibility deta
 
 ## [1.3.0] - 2026-02-27
 
-### Added — Observatory Pro 
+### Added — Observatory Pro
 
 Six major upgrades that turn the Training Observatory from a passive logger into an **active diagnostic engine**.
 
@@ -271,7 +280,7 @@ Six major upgrades that turn the Training Observatory from a passive logger into
 
 ## [1.2.1] - 2026-02-16
 
-### Added — Training Observatory 
+### Added — Training Observatory
 
 The headline feature of v1.2.1 is the **Training Observatory**: an advanced training logging and visualization system that shows the complete mathematical picture of what happens inside your neural network during training — in real time, in colour, in your terminal.
 

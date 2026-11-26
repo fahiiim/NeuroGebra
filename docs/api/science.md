@@ -9,4 +9,4 @@ The `neurogebra.science` module provides scientific computing primitives, specif
 ::: neurogebra.science.pinn.PINN
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false

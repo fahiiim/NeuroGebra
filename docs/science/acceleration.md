@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: Optional native toolchains
+---
+
 # Native expression acceleration
 
 Compile supported symbolic expressions to native C shared libraries or NVIDIA CUDA kernels. These backends apply to expression evaluation; neural-model and PINN training remain NumPy based.

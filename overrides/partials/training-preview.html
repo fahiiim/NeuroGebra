@@ -1,0 +1,29 @@
+<section class="ng-training-section" aria-labelledby="ng-training-title">
+  <div class="ng-training-copy"><p class="ng-eyebrow">The training observatory</p><h2 id="ng-training-title">See what learning<br>actually changes.</h2><p>Follow the loss, inspect the update, and connect the numbers to the mathematics. Your experiment comes with a trail you can read.</p><a class="ng-text-link" href="{{ 'tutorial/training-observatory/' | url }}">Explore the Observatory <span aria-hidden="true">&rarr;</span></a><p class="ng-training-caption">A recorded NumPy run fitting <code>y = 2x + 1</code> with one Dense layer, 64 samples, SGD, and seed 7. Reproduce it with <code>scripts/generate_site_data.py</code>.</p></div>
+  <div class="ng-training-panel" data-ng-training>
+    <div class="ng-panel-heading"><span class="ng-panel-index">02 / OBSERVE</span><span class="ng-panel-badge">Recorded run &middot; CPU</span></div>
+    <div class="ng-training-tabs" role="tablist" aria-label="Training example" data-ng-tabs hidden>
+      <button role="tab" type="button" id="ng-trace-tab" aria-controls="ng-trace-panel" aria-selected="true" tabindex="0">Training trace</button>
+      <button role="tab" type="button" id="ng-python-tab" aria-controls="ng-python-panel" aria-selected="false" tabindex="-1">Python</button>
+    </div>
+    <div id="ng-trace-panel" role="tabpanel" aria-labelledby="ng-trace-tab" tabindex="0" data-ng-tab-panel>
+      <div class="ng-trace-header"><span>Epoch</span><span>Mean squared error</span></div>
+      <ol class="ng-trace" data-ng-trace>{% for epoch in [0, 9, 19, 39, 79] %}<li><span>{{ '%02d' | format(epoch + 1) }} / 80</span><code>{{ '%.6f' | format(config.extra.site_demo.training.losses[epoch]) }}</code></li>{% endfor %}</ol>
+      <svg class="ng-loss-plot" data-ng-loss-plot viewBox="0 0 520 100" role="img" aria-label="Mean squared error over 80 recorded epochs" hidden><path data-ng-loss-line class="ng-curve" fill="none"/></svg>
+      <p class="ng-trace-summary" data-ng-trace-summary>Learned weight <strong>{{ '%.4f' | format(config.extra.site_demo.training.weight) }}</strong> &middot; bias <strong>{{ '%.4f' | format(config.extra.site_demo.training.bias) }}</strong>. These are recorded results, not a live benchmark.</p>
+    </div>
+    <div id="ng-python-panel" role="tabpanel" aria-labelledby="ng-python-tab" tabindex="0" data-ng-tab-panel>
+      <pre><code>import numpy as np
+from neurogebra import Layer, Model
+
+np.random.seed(7)
+X = np.linspace(-1, 1, 64).reshape(-1, 1)
+y = 2 * X + 1
+model = Model([Layer("dense", units=1)])
+model.compile(loss="mse", optimizer="sgd",
+              learning_rate=0.08, log_level="basic", metrics=[])
+model.fit(X, y, epochs=80, batch_size=64,
+          validation_split=0)</code></pre>
+    </div>
+  </div>
+</section>

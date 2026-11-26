@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: SymPy + NumPy
+---
+
 # Activation Functions
 
 Activation functions are the **secret sauce** that gives neural networks the power to learn complex patterns.
@@ -230,7 +235,7 @@ Understanding **how gradients flow** through activation functions is crucial:
 for name in ["relu", "sigmoid", "tanh", "swish"]:
     expr = forge.get(name)
     grad = expr.gradient("x")
-    
+
     print(f"{name}:")
     print(f"  f(x) = {expr.symbolic_expr}")
     print(f"  f'(x) = {grad.symbolic_expr}")

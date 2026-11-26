@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Optimization
 
 Optimizers control **how** your model updates its weights during training. Choosing the right optimizer can be the difference between a model that converges in 10 epochs vs. one that never learns.
@@ -12,7 +17,7 @@ Training = finding the weights that minimize the loss function.
 Current weights →  Compute loss  →  Compute gradients  →  Update weights
       ↑                                                          |
       └──────────────────────────────────────────────────────────┘
-      
+
 The OPTIMIZER decides how to use the gradients to update weights.
 ```
 
@@ -151,16 +156,16 @@ lr = 0.1
 for epoch in range(50):
     # Forward pass
     loss = x**2 - 4*x + 4
-    
+
     # Backward pass
     loss.backward()
-    
+
     # Update
     x.data -= lr * x.grad
-    
+
     # Zero gradients
     x.grad = 0.0
-    
+
     if epoch % 10 == 0:
         print(f"Epoch {epoch}: x = {x.data:.4f}, loss = {loss.data:.4f}")
 

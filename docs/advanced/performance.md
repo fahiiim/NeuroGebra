@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Performance engineering
 
 Measure the workload that matters to your users. NeuroGebra 3.0 includes a useful optimization for expression training: analytical derivative expressions and their numerical callables are reused across steps, with current parameter values applied before evaluation.

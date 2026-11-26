@@ -1,3 +1,8 @@
+---
+level: Five-minute tour
+runtime: SymPy + NumPy / CPU
+---
+
 # Your first program
 
 Start with a formula, inspect its derivative, then train a small model. These examples use only the core installation and run on the CPU.
