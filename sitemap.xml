@@ -2,278 +2,310 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://neurogebra.readthedocs.io/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/getting-started/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/custom-expressions/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/framework-bridges/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/observatory-deep-dive/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/observatory-pro/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/optimization/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/performance/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/regularization/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/advanced/visualization/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/acceleration/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/bridges-datasets/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/builders/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/core/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/api/expression/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/logging/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/api/mathforge/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/metrics/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/api/neurocraft/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/optim/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/reference/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/repository/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/science/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/api/tensor/</loc>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/api/trainer/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/api/utilities/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/api/value/</loc>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/examples/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/examples/custom_activation/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/examples/custom_loss/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/examples/project_notebooks/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/examples/training_expressions/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/getting-started/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/getting-started/first-program/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/getting-started/how-it-works/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/getting-started/installation/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/ml-fundamentals/math-behind-ml/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/ml-fundamentals/ml-workflow/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/ml-fundamentals/types-of-ml/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/ml-fundamentals/what-is-ml/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/project/capabilities/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/project/contributing/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
+    </url>
+    <url>
+         <loc>https://neurogebra.readthedocs.io/project/documentation/</loc>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/project/review-3/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/project/troubleshooting/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/projects/project1-linear-regression/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/projects/project2-image-classifier/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/projects/project3-neural-network/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/python-refresher/basics/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/python-refresher/data-handling/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/python-refresher/numpy/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/reference/datasets/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/reference/formulas/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/releases/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/releases/3.0.0/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/releases/migration-3/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/science/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/science/acceleration/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/science/metrics/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/science/pinn/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/activations/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/autograd/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/composition/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/datasets/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/expressions/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/gradients/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/losses/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/mathforge/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/model-builder/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/neurocraft/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/tensors/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/training-observatory/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorial/training/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorials/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorials/advanced/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorials/beginner/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
     <url>
          <loc>https://neurogebra.readthedocs.io/tutorials/intermediate/</loc>
-         <lastmod>2026-11-25</lastmod>
+         <lastmod>2026-11-26</lastmod>
     </url>
 </urlset>
