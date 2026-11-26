@@ -1,5 +1,21 @@
 {% extends "base.html" %}
+{% block extrahead %}
+  {{ super() }}
+  <meta property="og:site_name" content="NeuroGebra">
+  <meta property="og:title" content="{{ page.meta.title | default(page.title, true) if page else config.site_name }}">
+  <meta property="og:description" content="{{ page.meta.description | default(config.site_description, true) if page else config.site_description }}">
+  {% if page and page.canonical_url %}<meta property="og:url" content="{{ page.canonical_url }}">{% endif %}
+  <meta property="og:type" content="website">
+{% endblock %}
 {% block announce %}
   NeuroGebra 3.0.0 &nbsp;·&nbsp; A clearer view of the mathematics.
   <a href="{{ 'releases/3.0.0/' | url }}">Read the release notes</a>
+{% endblock %}
+{% block content %}
+<div class="ng-article">
+  {% if page.meta and page.meta.level %}
+  <div class="ng-article-meta"><span>{{ page.meta.level }}</span>{% if page.meta.runtime %}<span>{{ page.meta.runtime }}</span>{% endif %}</div>
+  {% endif %}
+  {{ super() }}
+</div>
 {% endblock %}

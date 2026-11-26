@@ -10,6 +10,8 @@ on:
       - "src/**"
       - "overrides/**"
       - "scripts/check_docs.py"
+      - "scripts/docs_hooks.py"
+      - "scripts/generate_site_data.py"
       - "pyproject.toml"
       - ".github/workflows/docs.yml"
 

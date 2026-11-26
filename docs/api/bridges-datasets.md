@@ -33,11 +33,11 @@ The `neurogebra.bridges` and `neurogebra.datasets` modules provide interoperabil
 ::: neurogebra.datasets.loaders.Datasets
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ### Expanded Loaders (27 Datasets)
 
 ::: neurogebra.datasets.expanded_loaders.ExpandedDatasets
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false

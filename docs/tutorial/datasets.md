@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # Datasets
 
 NeuroGebra exposes 48 unique loader methods through `CombinedDatasets`: 21 base loaders and 27 expanded loaders. The [complete catalog](../reference/datasets.md) lists every method, options, return convention and provenance.

@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: SymPy + NumPy
+---
+
 # Loss Functions
 
 A **loss function** measures how wrong your model's predictions are. The goal of training is to **minimize the loss**.
@@ -155,7 +160,7 @@ hinge = forge.get("hinge")
 # Correct with margin → zero loss
 print(hinge.eval(y_pred=2.0, y_true=1.0))   # 0 (correct & confident)
 
-# Correct but no margin → some loss  
+# Correct but no margin → some loss
 print(hinge.eval(y_pred=0.5, y_true=1.0))  # 0.5
 
 # Wrong → high loss
@@ -220,7 +225,7 @@ for err in errors:
     mae_val = forge.get("mae").eval(y_pred=err, y_true=0)
     # Huber needs delta param
     huber_val = min(0.5 * err**2, abs(err) - 0.5)  # delta=1
-    
+
     print(f"{err:>6.1f} | {mse_val:>8.3f} | {mae_val:>8.3f} | {huber_val:>8.3f}")
 ```
 

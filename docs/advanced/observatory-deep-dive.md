@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Observatory Deep Dive
 
 Advanced usage patterns and internals of the Training Observatory system.

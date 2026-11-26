@@ -1,6 +1,16 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # Training Expressions
 
-This is where the magic happens — **teaching expressions to learn from data**.
+Fit scalar parameters in a mathematical expression to data. Trainer uses analytical derivatives when possible and numerical finite differences as a fallback.
+
+## Before you begin
+
+Inputs and targets should describe the same samples. Declare every parameter you want to fit in `trainable_params`, inspect the loss, and keep a separate evaluation partition when measuring generalization. Expression training differs from Model's neural-layer backward passes. Use the [Trainer reference](../api/trainer.md) for its exact interface.
+
 
 ---
 
@@ -209,18 +219,18 @@ history = trainer.fit(X, y, epochs=200, callback=my_callback)
 !!! tip "Best Practices"
 
     **Start with Adam optimizer** — it handles most situations well.
-    
+
     **Use learning rate 0.01** as a starting point. If loss oscillates, decrease it. If loss decreases too slowly, increase it.
-    
+
     **Watch the loss curve:**
-    
+
     - Smooth decrease → good
     - Oscillating → learning rate too high
     - Flat (no decrease) → learning rate too low or model too simple
     - Sudden explosion → learning rate WAY too high
-    
+
     **Normalize your data** before training.
-    
+
     **Use enough epochs** — but not too many (overfitting risk).
 
 ---

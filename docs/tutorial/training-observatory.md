@@ -1,8 +1,12 @@
+---
+level: Foundations
+runtime: NumPy / CPU
+---
+
 # Training Observatory
 
-**Mathematical Transparency at Scale** — See every neuron fire. Watch every gradient flow. Understand every weight update — in colour.
+Inspect a training run through formulas, events, gradients and summaries. Start with basic epoch reporting; collect richer diagnostics when you need to investigate model behavior. Detailed logging has a runtime and memory cost.
 
-The Training Observatory is an advanced training logging and visualization system that brings unprecedented mathematical transparency to neural network training.
 
 ---
 
@@ -11,24 +15,21 @@ The Training Observatory is an advanced training logging and visualization syste
 Add **one argument** to `model.compile()` and the Observatory is active:
 
 ```python
-from neurogebra.builders.model_builder import ModelBuilder
+import numpy as np
+from neurogebra import Layer, Model
 
-builder = ModelBuilder()
-model = builder.Sequential([
-    builder.Dense(64, activation="relu"),
-    builder.Dense(32, activation="tanh"),
-    builder.Dense(1, activation="sigmoid"),
-], name="my_model")
-
-model.compile(
-    loss="binary_crossentropy",
-    optimizer="adam",
-    learning_rate=0.01,
-    log_level="expert",          # ← enables the Observatory
-)
-
-model.fit(X_train, y_train, epochs=20, batch_size=32)
+X = np.linspace(-1.0, 1.0, 32).reshape(-1, 1)
+y = 2.0 * X + 1.0
+model = Model([Layer("dense", units=1)])
+model.compile(loss="mse", optimizer="sgd", learning_rate=0.05,
+              log_level="basic", metrics=[])
+history = model.fit(X, y, epochs=5, batch_size=32,
+                    validation_split=0, verbose=False)
+print(len(history["loss"]))  # 5 recorded epoch losses
 ```
+
+Basic logging reports epoch-level metrics. Exact loss values depend on initialization. The [homepage training trace](../index.md) is a recorded, seeded run, with a generator you can reproduce. For structured events, see the [logging API](../api/logging.md) and [event architecture](../advanced/observatory-deep-dive.md).
+
 
 ---
 

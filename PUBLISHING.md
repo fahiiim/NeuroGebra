@@ -4,7 +4,7 @@ Publishing is a maintainer action. Preparing the working tree or pushing a branc
 
 ## Validate locally
 
-Use Python 3.11+ for the release metadata checker. Create an isolated environment and install the tools:
+Use Python 3.11+ for the release metadata checker and Node.js 24 for the website interaction checks. Create an isolated environment and install the tools:
 
 ```bash
 python -m pip install -e ".[dev,docs]" build twine
@@ -12,6 +12,7 @@ python scripts/check_release.py --tag v3.0.0
 python -m pytest tests -q
 python -m mkdocs build --strict
 python scripts/check_docs.py --site site
+node --test tests/web/home-demo.test.cjs
 python -m build --outdir dist/3.0.0
 python -m twine check dist/3.0.0/*
 ```

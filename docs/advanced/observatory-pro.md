@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: NumPy / CPU
+---
+
 # Observatory Pro
 
 **Available since v1.3.0, available in v3.0.0** -- Six major upgrades that turn the Training Observatory from a passive log dump into an **active diagnostic engine**.
@@ -113,7 +118,7 @@ warnings_engine = AutoHealthWarnings(config=WarningConfig(
 for epoch in range(epochs):
     for batch_idx, (X_batch, y_batch) in enumerate(batches):
         # ... forward/backward ...
-        
+
         # Check batch-level health
         batch_alerts = warnings_engine.check_batch(
             epoch=epoch,
@@ -124,7 +129,7 @@ for epoch in range(epochs):
         )
         for alert in batch_alerts:
             print(f"   [{alert.severity}] {alert.message}")
-    
+
     # Check epoch-level health
     epoch_alerts = warnings_engine.check_epoch(
         epoch=epoch,
@@ -174,7 +179,7 @@ for epoch in range(epochs):
             metrics={"loss": batch_loss, "accuracy": batch_acc},
             gradient_norms={"dense_0": grad_norm_0, "dense_1": grad_norm_1},
         )
-    
+
     summary = summarizer.finalize_epoch(epoch)
     print(summary.format_text())
 ```
@@ -447,7 +452,7 @@ for epoch in range(20):
         # ... training step ...
         summarizer.record_batch(epoch=epoch, metrics={"loss": loss})
         warnings.check_batch(loss=loss, epoch=epoch, batch=batch)
-    
+
     summary = summarizer.finalize_epoch(epoch)
     print(summary.format_text())
     warnings.check_epoch(epoch=epoch, train_loss=train_loss, val_loss=val_loss)

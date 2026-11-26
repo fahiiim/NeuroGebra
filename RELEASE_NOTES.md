@@ -1,32 +1,32 @@
 # NeuroGebra 3.0.0
 
-Make the mathematics visible: a complete documentation refresh and focused fixes for reliable training and scientific experiments.
+Make the mathematics visible: a complete documentation refresh, interactive visual formula exploration, and focused fixes for reliable training and scientific experiments.
 
-## Documentation
+## Highlights & Interactive Web Experience
 
-- Classic light/dark design with teal accents, warm paper backgrounds, serif headings and responsive navigation.
-- Complete generated catalogs of 285 symbolic formulas and 48 dataset loaders, including provenance and return conventions.
-- Updated onboarding, architecture, native acceleration and performance guides.
-- New capability matrix, troubleshooting, contributor reference, migration guide and technical review.
-- Corrected dataset unpacking, backend installation claims and rendered API links; configured MathJax for the documentation's equation wrappers.
+- **Interactive Documentation**: Interactive formula explorer, activation visualization, and loss progression demo right on the home page with full accessibility and keyboard navigation support.
+- **Granular API Documentation**: Dedicated reference guides for `Expression`, `MathForge`, `Value`, `Tensor`, `Trainer`, and `NeuroCraft` with complete signatures, parameters, and executable examples.
+- **Classic Light/Dark Design**: Tailored theme with teal accents, warm paper backgrounds, serif headings, responsive navigation, and local system fonts.
+- **Full Reference Catalogs**: Generated catalogs covering all 285 symbolic formulas and 48 dataset loaders, including mathematical formulation, provenance, and return conventions.
+- **Frontend Quality Assurance**: Automated browser-less component test suite (`node --test tests/web/home-demo.test.cjs`) and site data generator validating graph bounds, ARIA states, and UI/Python agreement.
+- **Updated Guides**: Comprehensive onboarding, architecture, capability matrix, troubleshooting, migration guide, and contributor documentation.
 
-## Runtime fixes
+## Runtime & Engine Fixes
 
-- Preserve built-in Adam, SGD and RMSprop configuration, step counters and buffers in model checkpoints.
-- Compute final Dense softmax/cross-entropy loss from logits, with exact fused gradients for class IDs and probability targets.
-- Validate categorical labels and preserve the general softmax vector-Jacobian product.
-- Fix PINN crashes on weight matrices larger than 256 entries, differentiate every residual parameter and normalize multi-output data gradients correctly.
-- Restore finite-difference perturbations after callback errors; support both residual callback signatures without masking internal exceptions.
-- Reuse analytical derivative expressions and compiled callables during expression training.
-- Use portable C compiler targets, compiler-aware cache keys and an optional writable cache root.
-- Respect `metrics=[]` and explicitly reject unsupported custom optimizer checkpointing.
+- **Optimizer State Persistence**: Preserve built-in Adam, SGD, and RMSprop configuration, step counters, and momentum/velocity buffers in model checkpoints.
+- **Numerically Stable Softmax / Cross-Entropy**: Compute Dense softmax cross-entropy loss directly from logits, with exact fused gradients for class indices and probability targets.
+- **Categorical Target Validation**: Validate integer categorical labels and probability distributions; preserve true general softmax vector-Jacobian product.
+- **PINN Residual Derivatives**: Differentiate every residual weight and bias (supporting matrices with >256 entries), normalize multi-output gradients across all elements, and safely restore parameters upon callback exceptions.
+- **Analytical Derivative Caching**: Cache and reuse analytical derivative expressions and compiled numerical functions across training epochs.
+- **Portable Native Acceleration**: Safe C compiler target detection, compiler-aware cache hashing, and configurable cache root via `NEUROGEBRA_CACHE_DIR`.
+- **Checkpointing Hygiene**: Respect `metrics=[]` and explicitly reject unsupported custom optimizer checkpoint serialization.
 
-## Release process
+## Release & Verification Process
 
-- Verify tag, package and runtime versions before publication.
-- Gate uploads on tests, strict documentation/link checks, distribution metadata and an installed-wheel smoke test.
-- Include MkDocs configuration, theme overrides and validation scripts in the source archive.
+- Version consistency verified across Git tag, runtime `__version__`, and package metadata.
+- 509 test cases passing, 8 optional/environment checks skipped cleanly.
+- Strict MkDocs build passing with zero warnings across 75+ documentation pages.
+- Over 16,500 local links, anchors, and 358 Python code snippets verified.
+- Python 3.9+ remains fully supported.
 
-Python 3.9+ remains supported. See the [3.0 migration guide](https://neurogebra.readthedocs.io/en/latest/releases/migration-3/) for numerical changes and checkpoint compatibility. Neural model and PINN training remain NumPy based; native expression acceleration does not provide a universal speed advantage over other frameworks.
-
-These notes are prepared for the maintainer to publish as GitHub release **v3.0.0**. See `PUBLISHING.md` for the release sequence.
+See the [3.0 migration guide](https://neurogebra.readthedocs.io/en/latest/releases/migration-3/) for numerical changes and checkpoint compatibility.

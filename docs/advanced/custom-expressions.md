@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: SymPy + NumPy
+---
+
 # Custom Expressions
 
 Learn how to create your own mathematical expressions and register them for reuse.

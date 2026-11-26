@@ -1,3 +1,8 @@
+---
+level: Practical guide
+runtime: Choose a workflow
+---
+
 # Science and speed
 
 Move from an inspectable experiment toward a measured result. These guides cover native expression execution, educational scientific computing, optimization and evaluation.

@@ -9,7 +9,7 @@ The `neurogebra.logging` subsystem provides comprehensive real-time training tel
 ::: neurogebra.logging.logger.TrainingLogger
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ::: neurogebra.logging.logger.LogEvent
     options:
@@ -26,7 +26,7 @@ The `neurogebra.logging` subsystem provides comprehensive real-time training tel
 ::: neurogebra.logging.adaptive.AdaptiveLogger
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ::: neurogebra.logging.adaptive.AnomalyConfig
     options:
@@ -35,17 +35,17 @@ The `neurogebra.logging` subsystem provides comprehensive real-time training tel
 ::: neurogebra.logging.fingerprint.TrainingFingerprint
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ::: neurogebra.logging.epoch_summary.EpochSummarizer
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ::: neurogebra.logging.health_warnings.AutoHealthWarnings
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ---
 
@@ -86,4 +86,4 @@ The `neurogebra.logging` subsystem provides comprehensive real-time training tel
 ::: neurogebra.training.educational_trainer.EducationalTrainer
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false

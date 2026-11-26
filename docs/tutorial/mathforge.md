@@ -1,3 +1,8 @@
+---
+level: Foundations
+runtime: SymPy + NumPy
+---
+
 # MathForge — The Core
 
 `MathForge` is the **central hub** of Neurogebra. It's the first thing you create and the main way you interact with the library.

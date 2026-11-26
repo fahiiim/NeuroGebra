@@ -4,8 +4,8 @@ Choose a subsystem below. Reference pages are generated from the Python implemen
 
 | Subsystem | Main entry points | Reference |
 |---|---|---|
-| Symbolic mathematics | `Expression`, `MathForge`, `NeuroCraft`, `Trainer` | [Core](core.md) |
-| Eager differentiation | `Value`, `Tensor` | [Core](core.md) |
+| Symbolic mathematics | `Expression`, `MathForge`, `NeuroCraft`, `Trainer` | [Expressions](expression.md), [MathForge](mathforge.md), [Trainer](trainer.md) |
+| Eager differentiation | `Value`, `Tensor` | [Value](value.md) and [Tensor](tensor.md) |
 | Neural models | `ModelBuilder`, `Model`, `Layer` | [Builders](builders.md) |
 | Native expression kernels | `compile_c`, `compile_cuda`, `get_acceleration_info` | [Acceleration](acceleration.md) |
 | Scientific experiments | `PINN` | [Science](science.md) |

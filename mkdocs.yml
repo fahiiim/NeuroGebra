@@ -24,6 +24,8 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
+    - navigation.instant
+    - navigation.instant.progress
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
@@ -34,12 +36,15 @@ theme:
     - search.highlight
     - search.share
     - content.tabs.link
-    - content.code.annotation
+    - content.code.annotate
     - content.code.copy
     - toc.follow
   icon:
     repo: fontawesome/brands/github
   font: false
+
+hooks:
+  - scripts/docs_hooks.py
 
 extra_css:
   - stylesheets/neurogebra.css
@@ -51,7 +56,7 @@ plugins:
         python:
           options:
             docstring_style: google
-            show_source: true
+            show_source: false
             show_root_heading: true
             show_category_heading: true
             members_order: source
@@ -87,94 +92,99 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-
-  - Get Started:
+  - Get started:
       - getting-started/index.md
-      - Installation & Setup: getting-started/installation.md
-      - Quick Start (5-Min Tour): getting-started/first-program.md
-      - All-in-One Quick Reference: getting-started.md
-      - Architecture Overview: getting-started/how-it-works.md
-      - Python & NumPy Refresher:
-          - Python Basics Recap: python-refresher/basics.md
-          - NumPy Essentials: python-refresher/numpy.md
-          - Data Handling with Python: python-refresher/data-handling.md
-      - ML Fundamentals:
-          - What is Machine Learning?: ml-fundamentals/what-is-ml.md
-          - Types of ML: ml-fundamentals/types-of-ml.md
-          - The ML Workflow: ml-fundamentals/ml-workflow.md
-          - Math Behind ML: ml-fundamentals/math-behind-ml.md
-
-  - Learn:
+      - Installation: getting-started/installation.md
+      - Your first program: getting-started/first-program.md
+      - Architecture: getting-started/how-it-works.md
+      - Quick reference: getting-started.md
+      - Python and NumPy:
+          - Python basics: python-refresher/basics.md
+          - NumPy essentials: python-refresher/numpy.md
+          - Data handling: python-refresher/data-handling.md
+      - ML foundations:
+          - What is machine learning?: ml-fundamentals/what-is-ml.md
+          - Types of learning: ml-fundamentals/types-of-ml.md
+          - The ML workflow: ml-fundamentals/ml-workflow.md
+          - Mathematics behind ML: ml-fundamentals/math-behind-ml.md
+  - Guides:
       - tutorials/index.md
-      - Learning Tracks:
-          - Beginner Track: tutorials/beginner.md
-          - Intermediate Track: tutorials/intermediate.md
-          - Advanced Track: tutorials/advanced.md
-      - Symbolic Engine & MathForge:
-          - MathForge (285 Formulas): tutorial/mathforge.md
-          - Expressions & LaTeX Rendering: tutorial/expressions.md
-          - Activation Functions: tutorial/activations.md
-          - Loss Functions: tutorial/losses.md
-          - Gradients & Calculus: tutorial/gradients.md
-          - Expression Composition: tutorial/composition.md
-          - Trainable Expressions: tutorial/training.md
-          - NeuroCraft Interactive Mode: tutorial/neurocraft.md
-      - Autograd & Neural Networks:
-          - Autograd Engine (Value): tutorial/autograd.md
-          - Differentiable Tensors: tutorial/tensors.md
-          - ModelBuilder & Modern Layers: tutorial/model-builder.md
-          - Built-in Datasets (48 Loaders): tutorial/datasets.md
-      - Training Observatory:
-          - Training Observatory Overview: tutorial/training-observatory.md
-          - Observatory Architecture & Events: advanced/observatory-deep-dive.md
-          - Observatory Pro Telemetry: advanced/observatory-pro.md
-          - Visualization & Plotting: advanced/visualization.md
-
-  - Science & Speed:
-      - science/index.md
-      - Hardware Acceleration (C-JIT & CUDA GPU): science/acceleration.md
-      - Physics-Informed Neural Networks (PINN): science/pinn.md
-      - Optimizers & LR Schedulers: advanced/optimization.md
-      - Evaluation Metrics: science/metrics.md
-      - Regularization Techniques: advanced/regularization.md
-      - Performance Engineering: advanced/performance.md
-      - Framework Bridges (PyTorch / TF / JAX): advanced/framework-bridges.md
-      - Custom Expressions: advanced/custom-expressions.md
-
+      - Learning paths:
+          - Beginner: tutorials/beginner.md
+          - Intermediate: tutorials/intermediate.md
+          - Advanced: tutorials/advanced.md
+      - Work with formulas:
+          - MathForge: tutorial/mathforge.md
+          - Expressions: tutorial/expressions.md
+          - Activation functions: tutorial/activations.md
+          - Loss functions: tutorial/losses.md
+          - Gradients and calculus: tutorial/gradients.md
+          - Composition: tutorial/composition.md
+          - Trainable expressions: tutorial/training.md
+          - NeuroCraft: tutorial/neurocraft.md
+      - Follow the gradient:
+          - Scalar autograd: tutorial/autograd.md
+          - Tensor operations: tutorial/tensors.md
+      - Build and train:
+          - Models and layers: tutorial/model-builder.md
+          - Datasets: tutorial/datasets.md
+          - Optimizers and schedules: advanced/optimization.md
+          - Evaluation metrics: science/metrics.md
+          - Regularization: advanced/regularization.md
+      - Inspect training:
+          - Training Observatory: tutorial/training-observatory.md
+          - Events and architecture: advanced/observatory-deep-dive.md
+          - Pro diagnostics: advanced/observatory-pro.md
+          - Visualization: advanced/visualization.md
+      - Explore scientific ideas:
+          - science/index.md
+          - Physics-informed networks: science/pinn.md
+          - Custom expressions: advanced/custom-expressions.md
+      - Measure execution:
+          - Native C and CUDA: science/acceleration.md
+          - Performance engineering: advanced/performance.md
+          - Framework bridges: advanced/framework-bridges.md
   - Examples:
-      - 20 Project Notebooks: examples/project_notebooks.md
-      - NeuroGebra vs PyTorch Comparisons:
-          - "Project 1: Linear Regression": projects/project1-linear-regression.md
-          - "Project 2: Image Classifier": projects/project2-image-classifier.md
-          - "Project 3: Neural Network from Scratch": projects/project3-neural-network.md
-      - Cookbook Recipes:
-          - Custom Activation Functions: examples/custom_activation.md
-          - Custom Loss Functions: examples/custom_loss.md
-          - Training Expressions: examples/training_expressions.md
-
-  - API Reference:
+      - examples/index.md
+      - Project notebooks: examples/project_notebooks.md
+      - Worked comparisons:
+          - Linear regression: projects/project1-linear-regression.md
+          - Image classification: projects/project2-image-classifier.md
+          - A neural network: projects/project3-neural-network.md
+      - Recipes:
+          - Custom activations: examples/custom_activation.md
+          - Custom losses: examples/custom_loss.md
+          - Trainable formulas: examples/training_expressions.md
+  - Reference:
       - api/reference.md
-      - Formula Catalog: reference/formulas.md
-      - Dataset Catalog: reference/datasets.md
-      - neurogebra.core: api/core.md
-      - neurogebra.builders: api/builders.md
-      - neurogebra.acceleration: api/acceleration.md
-      - neurogebra.science: api/science.md
-      - neurogebra.optim: api/optim.md
-      - neurogebra.metrics: api/metrics.md
-      - neurogebra.logging & training: api/logging.md
-      - neurogebra.bridges & datasets: api/bridges-datasets.md
-      - neurogebra.repository & viz: api/repository.md
-      - Learning Utilities: api/utilities.md
-
+      - Formula catalog: reference/formulas.md
+      - Dataset catalog: reference/datasets.md
+      - Core mathematics:
+          - api/core.md
+          - Expression: api/expression.md
+          - MathForge: api/mathforge.md
+          - Value: api/value.md
+          - Tensor: api/tensor.md
+          - Trainer: api/trainer.md
+          - NeuroCraft: api/neurocraft.md
+      - Models and layers: api/builders.md
+      - Acceleration: api/acceleration.md
+      - Science: api/science.md
+      - Optimizers: api/optim.md
+      - Metrics: api/metrics.md
+      - Logging and training: api/logging.md
+      - Bridges and datasets: api/bridges-datasets.md
+      - Repository and plots: api/repository.md
+      - Learning utilities: api/utilities.md
   - Project:
-      - Capabilities & Limits: project/capabilities.md
+      - Capabilities and limits: project/capabilities.md
       - Troubleshooting: project/troubleshooting.md
       - Contributing: project/contributing.md
-      - 3.0.0 Release Notes: releases/3.0.0.md
+      - Documentation design: project/documentation.md
+      - Release notes: releases/3.0.0.md
       - Migration to 3.0: releases/migration-3.md
-      - Release History: releases/index.md
-      - Review & Roadmap: project/review-3.md
+      - Release history: releases/index.md
+      - Review and roadmap: project/review-3.md
 
 extra:
   social:
@@ -185,4 +195,5 @@ extra:
 
 extra_javascript:
   - javascripts/mathjax.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/site.js
+  - javascripts/home-demo.js

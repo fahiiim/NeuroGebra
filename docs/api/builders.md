@@ -9,7 +9,7 @@ The `neurogebra.builders` module provides an intuitive, high-level declarative i
 ::: neurogebra.builders.model_builder.ModelBuilder
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ---
 
@@ -18,7 +18,7 @@ The `neurogebra.builders` module provides an intuitive, high-level declarative i
 ::: neurogebra.builders.model_builder.Model
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
 
 ---
 
@@ -27,4 +27,4 @@ The `neurogebra.builders` module provides an intuitive, high-level declarative i
 ::: neurogebra.builders.model_builder.Layer
     options:
       show_root_heading: true
-      show_source: true
+      show_source: false
